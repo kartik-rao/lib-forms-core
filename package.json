@@ -1,5 +1,5 @@
 {
-  "name": "ai-core-forms",
+  "name": "@adinfinity/ai-core-forms",
   "version": "1.0.0",
   "description": "Core interfaces for forms",
   "main": "lib/index.js",
