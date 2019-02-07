@@ -1,0 +1,23 @@
+{
+  "name": "ai-core-forms",
+  "version": "1.0.0",
+  "description": "Core interfaces for forms",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kartik",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "antd": "^3.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "cross-env": "^5.2.0",
+    "typescript": "^3.3.1",
+    "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.3"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "module": "es2015",
+      "target": "es5",
+      "lib": ["es6", "dom"],
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "outDir": "./lib",
+      "declaration": true
+    },
+    "files": [
+      "src/index.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
