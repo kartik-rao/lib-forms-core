@@ -21,7 +21,7 @@ export interface IFieldValidationRule {
     message: string;
     min?: number;
     pattern?: RegExp;
-    required: boolean;
+    required?: boolean;
     transform?: any;
     type?: FieldType;
     validator?: (rule: any, value: any, callback: any) => void;
@@ -34,9 +34,9 @@ export declare class FieldValidationRule implements IFieldValidationRule {
     message: string;
     min?: number;
     pattern?: RegExp;
-    required: boolean;
+    required?: boolean;
     transform?: any;
-    type: FieldType;
+    type?: FieldType;
     validator?: (rule: any, value: any, callback: any) => void;
     whitespace?: boolean;
     constructor(props: any);

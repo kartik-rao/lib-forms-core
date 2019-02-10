@@ -37,14 +37,14 @@ export class Condition {
         }
     }
 
-    value(form: any) : boolean {
+    value(valueAccessor: any) : boolean {
         var state: boolean;
         const {fieldId} = this;
         if (!this.predicates || this.predicates.length == 0){
             return true;
         }
         this.predicates.forEach((p, i) => {
-            let currentValue = form.getFieldValue(p.field);
+            let currentValue = valueAccessor(p.field);
             var result: any = null;
             switch(p.condition) {
                 case "eq":

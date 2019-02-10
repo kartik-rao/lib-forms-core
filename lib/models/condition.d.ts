@@ -13,5 +13,5 @@ export declare class Condition {
     ancestors: string[];
     constructor(fieldId: string, predicates?: Predicate[]);
     reduce(lhs: any, rhs: any, op: PredicateOperator): boolean;
-    value(form: any): boolean;
+    value(valueAccessor: any): boolean;
 }
