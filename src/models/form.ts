@@ -1,6 +1,5 @@
 import {FormComponentProps} from "antd/lib/form";
 import {IPage} from "./page";
-import {IField} from "./field";
 
 export interface FormTenant {
     eid: number;
@@ -43,10 +42,7 @@ export interface FormContent {
     styles?: string[];
     datasets?: any[];
     pages?: IPage[];
-    allFields: IField[];
     paginate?: boolean;
-    validationDisablesPaging?: boolean;
-    dependencyMap?: any;
     css?: {
         inline: string[];
         external: string[];

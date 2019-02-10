@@ -7,7 +7,6 @@ export interface IPage {
     title?: string;
     subtitle?: string;
     wizard?: boolean;
-    fieldNames: string[];
 }
 export declare class Page implements IPage {
     name: string;
