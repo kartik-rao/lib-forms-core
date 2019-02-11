@@ -49,7 +49,6 @@ export interface FormContent {
         rows: any[];
     };
     trackingPixels?: any[];
-    fieldLocation: any;
 }
 export interface FormLayoutOptions {
     showSteps?: boolean;
