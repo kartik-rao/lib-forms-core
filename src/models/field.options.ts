@@ -12,6 +12,8 @@ export interface IFieldOptions {
     validateTrigger?: string | string[];
     valuePropName?: string;
     hidden?: boolean;
+    type: string;
+    format?: string;
 }
 
 export class FieldOptions implements IFieldOptions {
@@ -33,6 +35,8 @@ export class FieldOptions implements IFieldOptions {
         this.getValueFromEvent = props.getValueFromEvent;
         this.initialValue = props.initialValue;
         this.normalize = props.normalize;
+        this.type = props.type;
+        this.format = props.format;
         this.rules = new FieldValidation().addRules(props.rules).rules;
         this.trigger = valueOrDefault(props.trigger, "onChange");
         this.validateFirst = valueOrDefault(props.validateFirst, false);

@@ -10,6 +10,8 @@ export interface IFieldOptions {
     validateTrigger?: string | string[];
     valuePropName?: string;
     hidden?: boolean;
+    type: string;
+    format?: string;
 }
 export declare class FieldOptions implements IFieldOptions {
     id: string;
