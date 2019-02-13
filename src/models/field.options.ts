@@ -20,6 +20,8 @@ export class FieldOptions implements IFieldOptions {
     initialValue?: any = null;
     normalize?: (value: any, prevValue: any, allValues: any) => any = null;
     rules?: FieldValidationRule[];
+    type: string;
+    format?: string;
     trigger?: string;
     validateFirst?: boolean;
     validateTrigger?: string | string[];

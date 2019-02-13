@@ -17,6 +17,8 @@ export declare class FieldOptions implements IFieldOptions {
     initialValue?: any;
     normalize?: (value: any, prevValue: any, allValues: any) => any;
     rules?: FieldValidationRule[];
+    type: string;
+    format?: string;
     trigger?: string;
     validateFirst?: boolean;
     validateTrigger?: string | string[];
