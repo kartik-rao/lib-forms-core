@@ -1,5 +1,3 @@
-import {valueOrDefault} from "./common";
-
 export enum FieldType {
     string = "string", // Must be of type string. This is the default type.
     number = "number", // Must be of type number.
@@ -18,44 +16,20 @@ export enum FieldType {
 }
 
 export interface IFieldValidationRule {
-    enum?: string;
-    len?: number
-    max?: number;
+    name: string;
+    value: any;
     message: string;
-    min? : number;
-    pattern?: RegExp;
-    required?: boolean;
-    transform?: any;
-    type?: FieldType
-    validator?: (rule: any, value: any, callback: any) => void;
-    whitespace?: boolean;
 }
 
 export class FieldValidationRule implements IFieldValidationRule {
-    enum?: string;
-    len?: number
-    max?: number;
+    name: string;
+    value: any;
     message: string;
-    min? : number;
-    pattern?: RegExp;
-    required?: boolean;
-    transform?: any;
-    type?: FieldType
-    validator?: (rule: any, value: any, callback: any) => void;
-    whitespace?: boolean;
 
     constructor(props: any) {
-        this.enum = props.enum;
-        this.len = props.len;
-        this.min = props.min;
-        this.max = props.max;
+        this.name = props.name;
+        this.value = props.value;
         this.message = props.message;
-        this.pattern = props.pattern;
-        this.required = valueOrDefault(props.required, false);
-        this.transform = props.transform;
-        this.type = valueOrDefault(props.type, FieldType.string);
-        this.validator = props.validator;
-        this.whitespace = props.whitespace;
     }
 }
 
