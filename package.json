@@ -9,6 +9,8 @@
   "author": "Kartik",
   "license": "UNLICENSED",
   "dependencies": {
+  },
+  "peerDependencies": {
     "antd": "^3.13.1"
   },
   "devDependencies": {
