@@ -75,7 +75,6 @@ export class Condition {
                     result = false;
             }
             state = (i == 0) ? result : this.reduce(state, result, p.operator);
-            console.log(`Condition ${i} on [${fieldId}] is ${state}, rule [${p.field} ${p.condition} ${p.value}] (value is [${currentValue}])`)
         });
         return state;
     }
