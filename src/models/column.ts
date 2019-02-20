@@ -1,6 +1,6 @@
-import Field from "./field";
-
 import {action, decorate, observable, computed} from "mobx";
+import Field from "./field";
+import FormStore from "../state/FormStore";
 
 export interface IColumn {
     id?: number;
@@ -15,18 +15,20 @@ class Column implements IColumn {
     name: string;
     title: string;
     fields: Field[];
+    store: FormStore;
 
-    @computed isValid() : boolean {
+    @computed get isValid() : boolean {
         let result = true;
         this.fields.forEach((f) => {
-            if (!f.isValid) {
+            result = result && f.isValid;
+            if (!result) {
                 return false;
             }
         });
         return true;
     }
 
-    @computed numFields() : number {
+    @computed get numFields() : number {
         return this.fields.length;
     }
 
@@ -46,11 +48,12 @@ class Column implements IColumn {
         this.fields.splice(toIndex, 0, this.fields.splice(atIndex, 1)[0]);
     }
 
-    constructor(data: IColumn) {
-        this.initialize(data);
+    constructor(data: IColumn, store) {
+        this.initialize(data, store);
     }
 
-    @action initialize(data: IColumn) {
+    @action initialize(data: IColumn, store: FormStore) {
+        this.store = store;
         this.id = data.id;
         this.name = name || `column-${data.id}`;
         this.title = data.title || '';
@@ -61,7 +64,7 @@ class Column implements IColumn {
 decorate(Column, {
     name: observable,
     id: observable,
-    title: observable.shallow,
+    title: observable,
     fields: observable.shallow
 })
 
