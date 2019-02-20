@@ -6,6 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=development jest --verbose",
     "test:watch": "cross-env NODE_ENV=development jest --watch",
+    "test:coverage": "cross-env NODE_ENV=development jest --coverage",
     "build": "tsc",
     "pkg": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --colors"
   },
