@@ -20,7 +20,7 @@ class Section implements ISection {
     columns: Column[];
     store: FormStore;
 
-    @computed isValid() : boolean {
+    @computed get isValid() : boolean {
         return this.columns.every((c) => {
             return c.isValid;
         });
@@ -43,7 +43,7 @@ class Section implements ISection {
 decorate(Section, {
     name: observable,
     id: observable,
-    title: observable.shallow,
+    title: observable,
     gutter: observable,
     columns: observable.shallow
 })

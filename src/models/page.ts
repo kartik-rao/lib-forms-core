@@ -22,7 +22,7 @@ class Page implements IPage {
     subtitle: string;
     store: FormStore;
 
-    @computed fieldNames() : string[] {
+    @computed get fieldNames() : string[] {
         let fieldNames: string[] = [];
         this.sections.forEach((section: Section)=>{
             section.columns.forEach((column: Column) => {
@@ -34,14 +34,11 @@ class Page implements IPage {
         return fieldNames;
     }
 
-    @computed isPageValid() : boolean {
-        let result = true;
-        this.sections.forEach((s) => {
-            if (!s.isValid()) {
-                return false;
-            }
-        })
-        return result;
+    @computed get isPageValid() : boolean {
+        return this.sections.every((s) => {
+            return s.isValid;
+        });
+
     }
 
     @action addSection(section: Section, index?: number) : void {
@@ -77,7 +74,7 @@ class Page implements IPage {
 decorate(Page, {
     name: observable,
     icon: observable,
-    sections: observable.shallow,
+    sections: observable,
     title: observable,
     subtitle: observable
 })
