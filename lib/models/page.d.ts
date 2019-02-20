@@ -1,19 +1,27 @@
-import { ISection } from "./section";
+import Section from "./section";
+import FormStore from "../state/FormStore";
 export interface IPage {
     name?: string;
     icon?: string;
-    sections?: ISection[];
-    type?: string;
+    sections?: Section[];
     title?: string;
     subtitle?: string;
-    wizard?: boolean;
+    store: FormStore;
 }
-export declare class Page implements IPage {
+declare class Page implements IPage {
+    readonly _type: string;
     name: string;
     icon: string;
-    sections: ISection[];
+    sections: Section[];
     title: string;
     subtitle: string;
-    fieldNames: string[];
-    constructor(name: string, icon: string, sections: ISection[], title: string, subtitle: string);
+    store: FormStore;
+    readonly fieldNames: string[];
+    readonly isPageValid: boolean;
+    addSection(section: Section, index?: number): void;
+    removeSection(index: number): void;
+    moveSection(atIndex: number, toIndex: number): void;
+    private initialize;
+    constructor(data: IPage, store: FormStore);
 }
+export default Page;

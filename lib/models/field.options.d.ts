@@ -1,6 +1,5 @@
 import { FieldValidationRule } from "./field.validation";
 export interface IFieldOptions {
-    id: string;
     getValueFromEvent?: (...args: any[]) => any;
     initialValue?: any;
     normalize?: (value: any, prevValue: any, allValues: any) => any;
@@ -14,7 +13,6 @@ export interface IFieldOptions {
     format?: string;
 }
 export declare class FieldOptions implements IFieldOptions {
-    id: string;
     getValueFromEvent?: (...args: any[]) => any;
     initialValue?: any;
     normalize?: (value: any, prevValue: any, allValues: any) => any;

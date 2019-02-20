@@ -1,23 +1,23 @@
-import { FormComponentProps } from "antd/lib/form";
-import { IPage } from "./page";
-export interface FormTenant {
+import Page from "./page";
+import FormStore from "../state/FormStore";
+export interface IFormTenant {
     eid: number;
     mid: number;
     context: string;
     stack: string;
 }
-export interface FormTransition {
+export interface IFormTransition {
     action?: string;
     textContent?: string;
     htmlContent?: string;
     redirectTo?: string;
 }
-export interface FormTransitions {
-    submitted?: FormTransition;
-    inactive?: FormTransition;
-    ended?: FormTransition;
+export interface IFormTransitions {
+    submitted?: IFormTransition;
+    inactive?: IFormTransition;
+    ended?: IFormTransition;
 }
-export interface FormStatus {
+export interface IFormStatus {
     timezone?: string;
     paused?: boolean;
     active?: boolean;
@@ -26,7 +26,7 @@ export interface FormStatus {
     starts?: Date;
     ends?: Date;
 }
-export interface FormContent {
+export interface IFormContent {
     title?: string;
     subtitle?: string;
     labels?: string;
@@ -36,7 +36,7 @@ export interface FormContent {
     scripts?: string[];
     styles?: string[];
     datasets?: any[];
-    pages?: IPage[];
+    pages?: Page[];
     paginate?: boolean;
     css?: {
         inline: string[];
@@ -50,7 +50,7 @@ export interface FormContent {
     };
     trackingPixels?: any[];
 }
-export interface FormLayoutOptions {
+export interface IFormLayoutOptions {
     showSteps?: boolean;
     showPageTitles?: boolean;
     showSectionTitles?: boolean;
@@ -60,15 +60,30 @@ export interface FormLayoutOptions {
     wrapperSpan?: number;
     wrapperOffset?: number;
 }
-export interface IFormProps extends FormComponentProps {
+export interface IFormProps {
     id: string;
     exid?: string;
     desc?: string;
     name?: string;
-    tenant?: FormTenant;
-    status?: FormStatus;
-    content?: FormContent;
+    tenant?: IFormTenant;
+    status?: IFormStatus;
+    content?: IFormContent;
     values?: any;
     layout?: any;
-    formLayoutOptions?: FormLayoutOptions;
+    formLayoutOptions?: IFormLayoutOptions;
 }
+declare class Form implements IFormProps {
+    id: string;
+    exid: string;
+    desc: string;
+    name: string;
+    tenant: IFormTenant;
+    status: IFormStatus;
+    content: IFormContent;
+    values: any;
+    layout: any;
+    formLayoutOptions: IFormLayoutOptions;
+    initialize(data: IFormProps, store: FormStore): void;
+    constructor(data: IFormProps, store: FormStore);
+}
+export default Form;

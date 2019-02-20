@@ -1,17 +1,16 @@
-export declare type PredicateCondition = "eq" | "neq" | "gt" | "lt" | "gteq" | "lteq" | "hasval" | "nothasval";
-export declare type PredicateOperator = "or" | "and";
-export declare class Predicate {
-    field: string;
-    condition: PredicateCondition;
-    value: any;
-    operator: PredicateOperator;
-    constructor(field: string, condition: PredicateCondition, value?: any, operator?: any);
+import Predicate from "./condition.predicate";
+import FormStore from "../state/FormStore";
+export interface ICondition {
+    predicates: any | Predicate[];
+    ancestors?: string[];
 }
-export declare class Condition {
-    fieldId: string;
+declare class Condition {
     predicates: Predicate[];
-    ancestors: string[];
-    constructor(fieldId: string, predicates?: Predicate[]);
-    reduce(lhs: any, rhs: any, op: PredicateOperator): boolean;
-    value(valueAccessor: any): boolean;
+    ancestors?: string[];
+    store: FormStore;
+    initialize(data: ICondition, store: FormStore): void;
+    constructor(data: ICondition, store: FormStore);
+    reduce(lhs: any, rhs: any, op: string): boolean;
+    readonly value: boolean;
 }
+export default Condition;

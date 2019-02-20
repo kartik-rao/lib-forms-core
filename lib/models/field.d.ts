@@ -1,6 +1,6 @@
 import { CheckboxOptionType } from "antd/lib/checkbox/Group";
-import { Condition } from "./condition";
-import { FieldOptions } from "./field.options";
+import Condition, { ICondition } from "./condition";
+import FormStore from "../state/FormStore";
 export interface IFieldStorage {
     unique: boolean;
     name: string;
@@ -25,7 +25,7 @@ export interface IField {
     icon?: string;
     width?: string;
     children?: RadioSelectCheckboxOption[];
-    condition?: Condition;
+    condition?: any;
     storage?: IFieldStorage;
     showLegend?: boolean;
     showLabel?: boolean;
@@ -33,9 +33,52 @@ export interface IField {
     helpText?: string;
     helpPlacement?: string;
     placeholder: string;
-    fieldOptions: FieldOptions;
     queryParam?: string;
     saveable?: boolean;
     value?: string;
     location: any;
+    valueType?: string;
+    valuePropName?: string;
+    format?: string;
+    validationRules?: any;
 }
+declare class Field implements IField {
+    readonly _type: string;
+    id: string;
+    name: string;
+    type: string;
+    inputType: string;
+    icon: string;
+    width: string;
+    children: RadioSelectCheckboxOption[];
+    condition: Condition;
+    storage: IFieldStorage;
+    showLegend: boolean;
+    showLabel: boolean;
+    label: string;
+    helpText: string;
+    helpPlacement: string;
+    placeholder: string;
+    queryParam: string;
+    saveable: boolean;
+    value: string;
+    location: any;
+    store: FormStore;
+    conditionState: boolean;
+    valueType: string;
+    valuePropName: string;
+    format: string;
+    validationRules: any;
+    validationErrors: any[];
+    initialize(data: IField, store: FormStore): void;
+    readonly isValidateable: boolean;
+    readonly isValid: boolean;
+    readonly isHidden: boolean;
+    readonly currentValue: string;
+    readonly isDisabled: boolean;
+    setValue(value: any): void;
+    setCondition(condition: ICondition): void;
+    validate(): void;
+    constructor(data: IField, store: FormStore);
+}
+export default Field;

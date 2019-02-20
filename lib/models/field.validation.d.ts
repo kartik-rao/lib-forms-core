@@ -1,3 +1,4 @@
+import FormStore from "../state/FormStore";
 export declare enum FieldType {
     string = "string",
     number = "number",
@@ -25,8 +26,13 @@ export declare class FieldValidationRule implements IFieldValidationRule {
     message: string;
     constructor(props: any);
 }
-export declare class FieldValidation {
+declare class FieldValidation {
+    store: FormStore;
     rules: FieldValidationRule[];
     addRule(rule: any): void;
     addRules(rules?: any[]): FieldValidation;
+    readonly isValid: boolean;
+    initialize(store: FormStore): void;
+    constructor(store: FormStore);
 }
+export default FieldValidation;
