@@ -4,7 +4,7 @@
   "description": "Core interfaces for forms",
   "main": "lib/index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=development jest",
+    "test": "cross-env NODE_ENV=development jest --verbose",
     "test:watch": "cross-env NODE_ENV=development jest --watch",
     "build": "tsc",
     "pkg": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --colors"

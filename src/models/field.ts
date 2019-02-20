@@ -86,7 +86,6 @@ class Field implements IField {
         this.icon = data.icon;
         this.width = data.width;
         this.children = data.children;
-        this.condition = data.condition;
         this.storage = data.storage;
         this.showLegend = data.showLegend;
         this.showLabel = data.showLabel;
@@ -98,22 +97,17 @@ class Field implements IField {
         this.saveable = data.saveable;
         this.value = data.value;
         this.location = data.location;
+        if (data.condition) {
+            this.setCondition(data.condition)
+        } else {
+            this.conditionState = true;
+        }
+        this.validate();
+        return;
     }
 
     @computed get isValidateable() {
-        return !this.isHidden && this.conditionState && this.validationRules && this.validationRules.length > 0;
-    }
-
-    @action validate() {
-        if (this.isValidateable ) {
-            let constraints = {};
-            constraints[this.store.values]
-            this.validationErrors = validate.single(this.value, this.validationRules);
-        } else {
-            this.validationErrors = [];
-            return true;
-        }
-
+        return !this.isHidden && this.conditionState && !!this.validationRules && Object.keys(this.validationRules).length > 0;
     }
 
     @computed get isValid() : boolean {
@@ -121,7 +115,7 @@ class Field implements IField {
     }
 
     @computed get isHidden() : boolean {
-        return this.type == "hidden";
+        return this.inputType == "hidden";
     }
 
     @computed get currentValue() {
@@ -138,12 +132,29 @@ class Field implements IField {
         this.validate();
     }
 
-    constructor(data: IField, store: FormStore) {
-        this.initialize(data, store);
+    @action setCondition(condition: Condition) {
+        this.condition = condition;
         observe(this.condition, "value", (change) => {
             this.conditionState = change.newValue;
-            console.log("Field condition state changed", toJS(change.newValue));
-        }, true);
+        }, true)
+    }
+
+    @action validate() {
+        if (this.isValidateable == true) {
+            let constraints = {};
+            constraints[this.name] = toJS(this.validationRules);
+            let values = {};
+            values[this.name] = this.value || null;
+
+            this.validationErrors = validate(values, constraints, {format: "flat"}) || [];
+        } else {
+            this.validationErrors = [];
+        }
+        return;
+    }
+
+    constructor(data: IField, store: FormStore) {
+        this.initialize(data, store);
     }
 }
 
@@ -171,7 +182,7 @@ decorate(Field, {
     valueType : observable,
     valuePropName : observable,
     format : observable,
-    validationRules : observable,
+    validationRules : observable.shallow,
     validationErrors: observable
 })
 

@@ -1,5 +1,5 @@
 import Section from "./section";
-import {FormStore} from "../state/FormStore";
+import FormStore from "../state/FormStore";
 import {action, decorate, observable, computed} from "mobx";
 
 export interface IPage {
