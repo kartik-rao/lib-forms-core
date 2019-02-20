@@ -13,6 +13,8 @@
   "author": "Kartik",
   "license": "UNLICENSED",
   "dependencies": {
+    "mobx": "^5.9.0",
+    "mobx-logger": "^0.7.1",
     "validate.js": "^0.12.0"
   },
   "peerDependencies": {

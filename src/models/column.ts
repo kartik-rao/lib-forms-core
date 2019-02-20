@@ -18,14 +18,9 @@ class Column implements IColumn {
     store: FormStore;
 
     @computed get isValid() : boolean {
-        let result = true;
-        this.fields.forEach((f) => {
-            result = result && f.isValid;
-            if (!result) {
-                return false;
-            }
+        return this.fields.every((f, i) => {
+            return f.isValid;
         });
-        return true;
     }
 
     @computed get numFields() : number {
@@ -65,7 +60,7 @@ decorate(Column, {
     name: observable,
     id: observable,
     title: observable,
-    fields: observable.shallow
+    fields: observable
 })
 
 export default Column

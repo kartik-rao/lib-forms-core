@@ -85,7 +85,6 @@ class Condition {
             }
             state = (i == 0) ? result : this.reduce(state, result, p.operator);
         });
-        console.debug(`   recompute condition.value  ${state}`);
         return state;
     }
 }

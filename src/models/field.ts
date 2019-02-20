@@ -3,7 +3,7 @@ import {action, decorate, observable, computed, observe, toJS} from "mobx";
 import Condition, { ICondition } from "./condition";
 import FormStore from "../state/FormStore";
 
-var validate = require("validate.js");
+const validate = require("validate.js");
 
 export interface IFieldStorage {
     unique: boolean;
@@ -98,10 +98,12 @@ class Field implements IField {
         this.value = data.value;
         this.location = data.location;
         if (data.condition) {
-            this.setCondition(data.condition)
+            this.setCondition(data.condition);
         } else {
+            this.condition = null;
             this.conditionState = true;
         }
+        this.validationErrors = [];
         this.validate();
         return;
     }
@@ -134,6 +136,7 @@ class Field implements IField {
 
     @action setCondition(condition: ICondition) {
         this.condition = new Condition(condition, this.store);
+        this.conditionState = this.condition.value;
         observe(this.condition, "value", (change) => {
             this.conditionState = change.newValue;
         }, true)
@@ -145,11 +148,11 @@ class Field implements IField {
             constraints[this.name] = toJS(this.validationRules);
             let values = {};
             values[this.name] = this.value || null;
-
             this.validationErrors = validate(values, constraints, {format: "flat"}) || [];
         } else {
             this.validationErrors = [];
         }
+
         return;
     }
 

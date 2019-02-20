@@ -8,7 +8,6 @@ import { when } from "mobx";
 test("Can initialize a condition", async (done: any) => {
     let store = new FormStore({values: {"f1": ""}});
     let c = new Condition({predicates: [{field: "f1", condition: "eq", value: "qq"}]}, store);
-    console.log(c);
     try {
         when(() => c.value == true, done);
         store.setFieldValue("f1", "qq");

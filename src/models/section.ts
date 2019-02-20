@@ -21,13 +21,9 @@ class Section implements ISection {
     store: FormStore;
 
     @computed isValid() : boolean {
-        let result = true;
-        this.columns.forEach((c) => {
-            if (!c.isValid()) {
-                return false;
-            }
-        })
-        return result;
+        return this.columns.every((c) => {
+            return c.isValid;
+        });
     }
 
     @action initialize(data: ISection, store: FormStore) {
