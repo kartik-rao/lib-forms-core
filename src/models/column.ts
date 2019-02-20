@@ -19,7 +19,7 @@ class Column implements IColumn {
     @computed isValid() : boolean {
         let result = true;
         this.fields.forEach((f) => {
-            if (!f.isValid()) {
+            if (!f.isValid) {
                 return false;
             }
         });

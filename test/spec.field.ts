@@ -1,13 +1,11 @@
-import Condition from "../src/models/condition";
 import FormStore from "../src/state/FormStore";
-import Predicate from "../src/models/condition.predicate";
-import { when, toJS } from "mobx";
+import { when } from "mobx";
 import Field from "../src/models/field";
+
+jest.setTimeout(1000);
 
 test("Can initialize a field and set its value", async (done: any) => {
     let store = new FormStore({values: {"f1": "", f2: ""}});
-    let p = new Predicate({field: "f1", condition: "eq", value: "qq"}, store);
-    let c = new Condition({fieldId: "f1", predicates: [p]}, store);
 
     let f = new Field({
         id: "f2",
@@ -30,8 +28,7 @@ test("Can initialize a field and set its value", async (done: any) => {
 
 test("Can conditionally disable/enable", async (done: any) => {
     let store = new FormStore({values: {"f1": "", f2: ""}});
-    let p = new Predicate({field: "f1", condition: "eq", value: "qq"}, store);
-    let c = new Condition({fieldId: "f1", predicates: [p]}, store);
+    let c = {predicates: [{field: "f1", condition: "eq", value: "qq"}]};
 
     let f = new Field({
         id: "f2",

@@ -1,8 +1,8 @@
 import {CheckboxOptionType} from "antd/lib/checkbox/Group";
-import Condition from "./condition";
-import {FieldOptions} from "./field.options";
 import {action, decorate, observable, computed, observe, toJS} from "mobx";
+import Condition, { ICondition } from "./condition";
 import FormStore from "../state/FormStore";
+
 var validate = require("validate.js");
 
 export interface IFieldStorage {
@@ -26,7 +26,7 @@ export interface IField {
     icon?: string;
     width?: string;
     children?: RadioSelectCheckboxOption[];
-    condition?: Condition
+    condition?: any;
     storage?: IFieldStorage;
     showLegend?: boolean;
     showLabel?: boolean;
@@ -132,8 +132,8 @@ class Field implements IField {
         this.validate();
     }
 
-    @action setCondition(condition: Condition) {
-        this.condition = condition;
+    @action setCondition(condition: ICondition) {
+        this.condition = new Condition(condition, this.store);
         observe(this.condition, "value", (change) => {
             this.conditionState = change.newValue;
         }, true)

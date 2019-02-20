@@ -1,15 +1,15 @@
 import Section from "./section";
 import FormStore from "../state/FormStore";
-import {action, decorate, observable, computed} from "mobx";
+import Column from "./column";
+import Field from "./field";
+import {action, decorate, observable, computed, observe} from "mobx";
 
 export interface IPage {
     name?: string;
     icon?: string;
     sections?: Section[];
-    type?: string;
     title?: string;
     subtitle?: string;
-    wizard?: boolean;
     store: FormStore;
 }
 
@@ -20,8 +20,19 @@ class Page implements IPage {
     sections: Section[];
     title: string;
     subtitle: string;
-    fieldNames: string[];
     store: FormStore;
+
+    @computed fieldNames() : string[] {
+        let fieldNames: string[] = [];
+        this.sections.forEach((section: Section)=>{
+            section.columns.forEach((column: Column) => {
+                column.fields.forEach((field: Field)=> {
+                    fieldNames.push(field.name);
+                })
+            })
+        });
+        return fieldNames;
+    }
 
     @computed isPageValid() : boolean {
         let result = true;
@@ -68,8 +79,7 @@ decorate(Page, {
     icon: observable,
     sections: observable.shallow,
     title: observable,
-    subtitle: observable,
-    fieldNames: observable
+    subtitle: observable
 })
 
 export default Page

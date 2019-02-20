@@ -1,5 +1,5 @@
 import FormStore from "../src/state/FormStore";
-import {autorun, toJS, when} from "mobx";
+import {when} from "mobx";
 
 test("Can initialize store", async (done) => {
     let store = new FormStore({values: {"f1":""}});

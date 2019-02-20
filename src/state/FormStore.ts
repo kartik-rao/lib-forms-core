@@ -1,13 +1,10 @@
-import {action, decorate, observable, computed} from "mobx";
+import {action, decorate, observable, computed, set, autorun, values} from "mobx";
 import Page from "../models/page";
 
 class FormStore {
-    form: Page[];
-
     errors: any;
     values: any;
     touched: any;
-    validationSchema: any;
     currentPage: number;
 
     @computed get isValid() : boolean {
@@ -15,19 +12,24 @@ class FormStore {
     }
 
     @action setFieldValue(id: string, value: any) {
-        this.values[id] = value;
+        console.log("Store.setFieldValue", id, value);
+        set(this.values, id, value);
     }
 
     @action setFieldTouched(id: string) {
-        this.touched[id] = true;
+        set(this.touched, id, true);
     }
 
     @action setFieldError(id: string, error: any) {
-        this.errors[id] = error;
+        set(this.errors, id, error);
     }
 
     @action initialize(data: any) {
         this.values = data.values;
+        this.errors = {};
+        this.touched = {};
+        this.currentPage = 0;
+        return;
     }
 
     constructor(data: any) {
@@ -40,7 +42,6 @@ decorate(FormStore, {
     errors: observable,
     values: observable,
     touched: observable,
-    validationSchema: observable,
     currentPage: observable
 })
 

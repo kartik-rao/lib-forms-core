@@ -1,47 +1,42 @@
-import Predicate from "./condition.predicate";
-import {PredicateOperator} from "./condition.predicate";
-import {action, decorate, observable, computed, observe, toJS} from "mobx";
+import Predicate, {IPredicate} from "./condition.predicate";
+import {action, decorate, observable, computed, reaction, observe, toJS} from "mobx";
 import FormStore from "../state/FormStore";
 
 export interface ICondition {
-    fieldId: string,
-    predicates: Predicate[],
+    predicates: any|Predicate[],
     ancestors?: string[],
 }
 
 class Condition {
-    fieldId: string;
     predicates: Predicate[];
     ancestors?: string[];
     store: FormStore;
 
     @action initialize(data: ICondition, store: FormStore) {
-        this.fieldId = data.fieldId;
-        this.predicates = data.predicates;
+        let predicates : Predicate[] = [];
+        data.predicates.forEach((p: IPredicate)=> {
+            predicates.push(new Predicate(p, store));
+        })
+        this.predicates = predicates;
         this.ancestors = [];
         this.store = store;
         let self = this;
 
-        this.predicates.forEach((p, i) => {
+        this.predicates.forEach((p) => {
             self.ancestors.push(p.field);
         });
 
-        observe(store, "values", (change) => {
-            console.log("condition - store value changed", toJS(change.newValue));
-        }, true);
+        // observe(store, "values", (change) => {
+        //     console.log("condition - store value changed", toJS(change.newValue));
+        // }, true);
     }
 
     constructor(data: ICondition, store: FormStore) {
-        this.initialize(data, store)
-        this.fieldId = data.fieldId;
-        this.predicates = data.predicates || [];
-        let self = this;
-        this.predicates.forEach((p, i) => {
-            self.ancestors.push(p.field);
-        });
+        this.initialize(data, store);
     }
 
-    reduce(lhs:any, rhs:any, op: PredicateOperator) : boolean {
+    reduce(lhs:any, rhs:any, op: string) : boolean {
+        console.log("Reduce", lhs, rhs, op)
         if (op == 'and') {
             return lhs && rhs;
         } else {
@@ -90,12 +85,12 @@ class Condition {
             }
             state = (i == 0) ? result : this.reduce(state, result, p.operator);
         });
+        console.debug(`   recompute condition.value  ${state}`);
         return state;
     }
 }
 
 decorate(Condition, {
-    fieldId: observable,
     predicates: observable.shallow,
     ancestors: observable
 });

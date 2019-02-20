@@ -1,27 +1,34 @@
 import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
 
-export type PredicateCondition = "eq" | "neq" | "gt" | "lt" | "gteq" | "lteq" | "hasval" | "nothasval";
-export type PredicateOperator = "or" | "and";
-
-interface IPredicate {
+export interface IPredicate {
     field: string;
-    condition: PredicateCondition;
+    condition: any;
     value: any;
-    operator?: PredicateOperator;
+    operator?: string;
 }
 
 class Predicate implements IPredicate {
+    static readonly PredicateConditions = ["eq",  "neq",  "gt",  "lt", "gteq", "lteq", "hasval", "nothasval"];
+    static readonly PredicateOperators = ["or", "and"];
     field: string;
-    condition: PredicateCondition;
+    condition: string;
     value: any;
-    operator?: PredicateOperator = "or";
+    operator: string = "or";
+    store: FormStore;
 
     @action initialize(data: IPredicate, store: FormStore) {
+        if (!data.condition || Predicate.PredicateConditions.indexOf(data.condition) == -1) {
+            throw new Error(`InvalidPredicateCondition - ${data.condition}`);
+        }
+        if(data.operator && Predicate.PredicateOperators.indexOf(data.operator) == -1) {
+            throw new Error(`InvalidPredicateOperator - ${data.operator}`);
+        }
+        this.store = store;
         this.field = data.field;
         this.condition = data.condition;
         this.value = data.value;
-        this.operator = data.operator || "or";
+        this.operator = data.operator;
     }
 
     constructor(data:IPredicate, store: FormStore) {
