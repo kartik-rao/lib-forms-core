@@ -2,7 +2,7 @@ import {FieldValidationRule, FieldValidation} from "./field.validation";
 import {valueOrDefault} from "./common";
 
 export interface IFieldOptions {
-    id: string;
+    // id: string;
     getValueFromEvent?: (...args) => any;
     initialValue?: any;
     normalize?: (value: any, prevValue: any, allValues: any) => any;
@@ -17,7 +17,7 @@ export interface IFieldOptions {
 }
 
 export class FieldOptions implements IFieldOptions {
-    id: string = null;
+    // id: string = null;
     getValueFromEvent?: (...args) => any = null;
     initialValue?: any = null;
     normalize?: (value: any, prevValue: any, allValues: any) => any = null;
@@ -31,7 +31,7 @@ export class FieldOptions implements IFieldOptions {
     hidden?: boolean;
 
     constructor(props: IFieldOptions) {
-        this.id = props.id;
+        // this.id = props.id;
         this.getValueFromEvent = props.getValueFromEvent;
         this.initialValue = props.initialValue;
         this.normalize = props.normalize;

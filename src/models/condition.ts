@@ -1,28 +1,40 @@
-export type PredicateCondition = "eq" | "neq" | "gt" | "lt" | "gteq" | "lteq" | "hasval" | "nothasval";
-export type PredicateOperator = "or" | "and";
+import Predicate from "./condition.predicate";
+import {PredicateOperator} from "./condition.predicate";
+import {action, decorate, observable, computed, observe, toJS} from "mobx";
+import FormStore from "../state/FormStore";
 
-export class Predicate {
-    field: string;
-    condition: PredicateCondition;
-    value: any;
-    operator: PredicateOperator = "or";
-
-    constructor(field: string, condition: PredicateCondition, value?: any, operator?: any) {
-        this.field = field;
-        this.condition = condition;
-        this.value = value;
-        this.operator = operator;
-    }
+export interface ICondition {
+    fieldId: string,
+    predicates: Predicate[],
+    ancestors?: string[],
 }
 
-export class Condition {
+class Condition {
     fieldId: string;
-    predicates: Predicate[] = [];
-    ancestors: string[] = [];
+    predicates: Predicate[];
+    ancestors?: string[];
+    store: FormStore;
 
-    constructor(fieldId: string, predicates: Predicate[] = []) {
-        this.fieldId = fieldId;
-        this.predicates = predicates;
+    @action initialize(data: ICondition, store: FormStore) {
+        this.fieldId = data.fieldId;
+        this.predicates = data.predicates;
+        this.ancestors = [];
+        this.store = store;
+        let self = this;
+
+        this.predicates.forEach((p, i) => {
+            self.ancestors.push(p.field);
+        });
+
+        observe(store, "values", (change) => {
+            console.log("condition - store value changed", toJS(change.newValue));
+        }, true);
+    }
+
+    constructor(data: ICondition, store: FormStore) {
+        this.initialize(data, store)
+        this.fieldId = data.fieldId;
+        this.predicates = data.predicates || [];
         let self = this;
         this.predicates.forEach((p, i) => {
             self.ancestors.push(p.field);
@@ -37,14 +49,16 @@ export class Condition {
         }
     }
 
-    value(valueAccessor: any) : boolean {
+    @computed get value() : boolean {
         var state: boolean;
-        const {fieldId} = this;
+        let self = this;
+
         if (!this.predicates || this.predicates.length == 0){
             return true;
         }
+
         this.predicates.forEach((p, i) => {
-            let currentValue = valueAccessor(p.field);
+            let currentValue = self.store.values[p.field];
             var result: any = null;
             switch(p.condition) {
                 case "eq":
@@ -79,3 +93,11 @@ export class Condition {
         return state;
     }
 }
+
+decorate(Condition, {
+    fieldId: observable,
+    predicates: observable.shallow,
+    ancestors: observable
+});
+
+export default Condition;

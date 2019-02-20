@@ -1,3 +1,7 @@
+import {action, decorate, observable, computed, observe, toJS} from "mobx";
+import FormStore from "../state/FormStore";
+var validate = require("validate.js");
+
 export enum FieldType {
     string = "string", // Must be of type string. This is the default type.
     number = "number", // Must be of type number.
@@ -33,7 +37,8 @@ export class FieldValidationRule implements IFieldValidationRule {
     }
 }
 
-export class FieldValidation {
+class FieldValidation {
+    store: FormStore;
     public rules: FieldValidationRule[] = [];
 
     addRule(rule: any) : void {
@@ -47,4 +52,22 @@ export class FieldValidation {
         });
         return this;
     }
+
+    @computed get isValid() : boolean {
+        return false;
+    }
+
+    @action initialize(store: FormStore) {
+        this.store = store;
+    }
+
+    constructor(store: FormStore) {
+        observe
+    }
 }
+
+decorate(FieldValidation, {
+    rules: observable
+});
+
+export default FieldValidation;
