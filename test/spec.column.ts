@@ -3,8 +3,6 @@ import Field from "../src/models/field";
 import FormStore from "../src/state/FormStore";
 import { when, toJS } from "mobx";
 
-jest.setTimeout(1000)
-
 const store = new FormStore({values: {"f1": ""}});
 
 const F1 = {
@@ -39,77 +37,79 @@ const C1 = {
     fields: [new Field(F1, store), new Field(F2, store)]
 }
 
-test("Can initialize a column", () => {
-    let c = new Column(C1, store);
-    expect(c.numFields).toEqual(2);
-});
+describe('Column', () => {
+    it("can be initialized", () => {
+        let c = new Column(C1, store);
+        expect(c.numFields).toEqual(2);
+    });
 
-test("Column reacts to field property updates", async (done: any) => {
-    let c = new Column(C1, store);
-    try {
-        when(() => c.isValid == true, done);
-        // Populate both fields
+    it("reacts to field property updates", async (done: any) => {
+        let c = new Column(C1, store);
+        try {
+            when(() => c.isValid == true, done);
+            // Populate both fields
+            c.fields[0].setValue("qq");
+            c.fields[1].setValue("abcd");
+        } catch (error) {
+            fail(error);
+        }
+    })
+
+    it("reacts to addField", () => {
+        let c = new Column({
+            id: 1,
+            name: "Column 1",
+            title: "The First Column",
+            fields: [new Field(F1, store)]
+        }, store);
+
         c.fields[0].setValue("qq");
-        c.fields[1].setValue("abcd");
-    } catch (error) {
-        fail(error);
-    }
+        expect(c.isValid).toEqual(true);
+
+        // Add required field that fails validation
+        c.addField(new Field(F2, store));
+        expect(c.numFields).toEqual(2);
+        expect(c.fields[1].isValidateable).toBe(true);
+        expect(c.fields[1].isValid).toBe(false);
+
+        // Should be invalid now
+        expect(c.isValid).toEqual(false);
+
+        // Now fix added field
+        c.fields[1].setValue("f2val");
+        // Should be valid now
+        expect(c.isValid).toEqual(true);
+    });
+
+    it("reacts to removeField", () => {
+        let c = new Column({
+            id: 1,
+            name: "Column 1",
+            title: "The First Column",
+            fields: [new Field(F1, store), new Field(F2, store)]
+        }, store);
+
+        c.fields[0].setValue("qq");
+        // F2 is in error state
+        expect(c.isValid).toEqual(false);
+
+        // Remove invalid field
+        c.removeField(1);
+        expect(c.numFields).toEqual(1);
+
+        // Column should become valid now
+        expect(c.isValid).toEqual(true);
+    });
+
+    it("recieves field errors", () => {
+        let c = new Column({
+            id: 1,
+            name: "Column 1",
+            title: "The First Column",
+            fields: [new Field(F1, store), new Field(F2, store)]
+        }, store);
+
+        expect(c.errors).toBeDefined();
+        expect(c.errors.length).toBe(2);
+    });
 })
-
-test("Column reacts to addField", () => {
-    let c = new Column({
-        id: 1,
-        name: "Column 1",
-        title: "The First Column",
-        fields: [new Field(F1, store)]
-    }, store);
-
-    c.fields[0].setValue("qq");
-    expect(c.isValid).toEqual(true);
-
-    // Add required field that fails validation
-    c.addField(new Field(F2, store));
-    expect(c.numFields).toEqual(2);
-    expect(c.fields[1].isValidateable).toBe(true);
-    expect(c.fields[1].isValid).toBe(false);
-
-    // Should be invalid now
-    expect(c.isValid).toEqual(false);
-
-    // Now fix added field
-    c.fields[1].setValue("f2val");
-    // Should be valid now
-    expect(c.isValid).toEqual(true);
-});
-
-test("Column reacts to removeField", () => {
-    let c = new Column({
-        id: 1,
-        name: "Column 1",
-        title: "The First Column",
-        fields: [new Field(F1, store), new Field(F2, store)]
-    }, store);
-
-    c.fields[0].setValue("qq");
-    // F2 is in error state
-    expect(c.isValid).toEqual(false);
-
-    // Remove invalid field
-    c.removeField(1);
-    expect(c.numFields).toEqual(1);
-
-    // Column should become valid now
-    expect(c.isValid).toEqual(true);
-});
-
-test("Column recieves field errors", () => {
-    let c = new Column({
-        id: 1,
-        name: "Column 1",
-        title: "The First Column",
-        fields: [new Field(F1, store), new Field(F2, store)]
-    }, store);
-
-    expect(c.errors).toBeDefined();
-    expect(c.errors.length).toBe(2);
-});

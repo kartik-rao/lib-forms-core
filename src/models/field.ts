@@ -192,7 +192,7 @@ decorate(Field, {
     valueType : observable,
     valuePropName : observable,
     format : observable,
-    validationRules : observable.shallow,
+    validationRules : observable,
     validationErrors: observable
 })
 

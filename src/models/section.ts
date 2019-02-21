@@ -76,7 +76,7 @@ decorate(Section, {
     id: observable,
     title: observable,
     gutter: observable,
-    columns: observable.shallow
+    columns: observable
 })
 
 export default Section

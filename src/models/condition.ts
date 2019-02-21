@@ -1,5 +1,5 @@
 import Predicate, {IPredicate} from "./condition.predicate";
-import {action, decorate, observable, computed, reaction, observe, toJS} from "mobx";
+import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
 
 export interface ICondition {
@@ -90,7 +90,7 @@ class Condition {
 }
 
 decorate(Condition, {
-    predicates: observable.shallow,
+    predicates: observable,
     ancestors: observable
 });
 

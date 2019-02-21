@@ -63,7 +63,7 @@ class Column implements IColumn {
     @action initialize(data: IColumn, store: FormStore) {
         this.store = store;
         this.id = data.id;
-        this.name = name || `column-${data.id}`;
+        this.name = data.name || `column-${data.id}`;
         this.title = data.title || '';
         this.fields = data.fields || <Field[]>[];
     }
