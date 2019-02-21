@@ -3,8 +3,6 @@ import Field from "../src/models/field";
 import FormStore from "../src/state/FormStore";
 import { when, toJS } from "mobx";
 
-const store = new FormStore({values: {"f1": ""}});
-
 const F1 = {
     id: "f1",
     name: "f1",
@@ -33,18 +31,30 @@ const F2 = {id: "f2",
 const C1 = {
     id: "c1",
     name: "Column 1",
-    title: "The First Column",
-    fields: [new Field(F1, store), new Field(F2, store)]
+    title: "The First Column"
 }
 
 describe('Column', () => {
+    let store: FormStore;
+    beforeEach(() => {
+        store = new FormStore({values: {"f1":"", "f2": ""}});
+    });
+
     it("can be initialized", () => {
         let c = new Column(C1, store);
+        let f1 = new Field(F1, store);
+        let f2 = new Field(F2, store);
+        c.addField(f1);
+        c.addField(f2);
         expect(c.numFields).toEqual(2);
     });
 
     it("reacts to field property updates", async (done: any) => {
         let c = new Column(C1, store);
+        let f1 = new Field(F1, store);
+        let f2 = new Field(F2, store);
+        c.addField(f1);
+        c.addField(f2);
         try {
             when(() => c.isValid == true, done);
             // Populate both fields
@@ -56,13 +66,9 @@ describe('Column', () => {
     })
 
     it("reacts to addField", () => {
-        let c = new Column({
-            id: "c1",
-            name: "Column 1",
-            title: "The First Column",
-            fields: [new Field(F1, store)]
-        }, store);
-
+        let c = new Column(C1, store);
+        let f1 = new Field(F1, store);
+        c.addField(f1);
         c.fields[0].setValue("qq");
         expect(c.isValid).toEqual(true);
 
@@ -102,7 +108,7 @@ describe('Column', () => {
         expect(c.isValid).toEqual(true);
     });
 
-    it("recieves field errors", () => {
+    it("receives field errors", () => {
         let c = new Column({
             id: "1",
             name: "Column 1",
@@ -111,6 +117,6 @@ describe('Column', () => {
         c.addField(new Field(F1, store));
         c.addField(new Field(F2, store));
         expect(c.errors).toBeDefined();
-        expect(c.errors.length).toBe(2);
+        expect(c.errors.length).toBe(1);
     });
 })

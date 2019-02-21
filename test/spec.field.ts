@@ -3,9 +3,12 @@ import { when, toJS, keys } from "mobx";
 import Field from "../src/models/field";
 
 describe("Field", () => {
-    it("Can initialize a field and set its value", async (done: any) => {
-        let store = new FormStore({values: {"f1": "", f2: ""}});
+    let store: FormStore;
+    beforeEach(() => {
+        store = new FormStore({values: {"f1":"", "f2": ""}});
+    });
 
+    it("Can initialize a field and set its value", async (done: any) => {
         let f = new Field({
             id: "f2",
             name: "f2",
@@ -24,7 +27,6 @@ describe("Field", () => {
     })
 
     it("Can conditionally disable/enable", async (done: any) => {
-        let store = new FormStore({values: {"f1": "", f2: ""}});
         let c = {predicates: [{field: "f1", condition: "eq", value: "qq"}]};
 
         let f = new Field({
@@ -64,7 +66,6 @@ describe("Field", () => {
 
 
     it("Can validate/revalidate on change", async (done: any) => {
-        let store = new FormStore({values: {"f1": "", f2: ""}});
         let f = new Field({
             id: "f2",
             name: "f2",
