@@ -1,4 +1,6 @@
 import {action, decorate, observable, computed, set} from "mobx";
+import Form from "../models/form";
+import Page from "../models/page";
 
 class FormStore {
     errors: any;
@@ -6,9 +8,20 @@ class FormStore {
     touched: any;
     currentPage: number;
     debug : boolean;
+    form: Form
+
+    @action addField(page: number, section: number, column : number) {
+
+    }
 
     @computed get isValid() : boolean {
-        return false;
+        if (!this.form.content && this.form.content.pages && this.form.content.pages.length > 0) {
+            return true;
+        } else {
+            return this.form.content.pages.every((p: Page) => {
+                return p.isValid
+            })
+        }
     }
 
     @action setFieldValue(id: string, value: any) {
@@ -24,6 +37,7 @@ class FormStore {
     }
 
     @action initialize(data: any) {
+        this.form = data.form;
         this.values = data.values;
         this.errors = {};
         this.touched = {};
@@ -35,13 +49,13 @@ class FormStore {
     constructor(data: any) {
         this.initialize(data);
     }
-
 }
 
 decorate(FormStore, {
     errors: observable,
     values: observable,
     touched: observable,
+    form: observable,
     currentPage: observable
 })
 

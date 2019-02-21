@@ -1,5 +1,5 @@
 import FormStore from "../src/state/FormStore";
-import { when } from "mobx";
+import { when, toJS, keys } from "mobx";
 import Field from "../src/models/field";
 
 jest.setTimeout(1000);
@@ -17,9 +17,7 @@ test("Can initialize a field and set its value", async (done: any) => {
     }, store);
 
     try {
-        when(() => f.value == "new value", () => {
-            done();
-        });
+        when(() => f.value == "new value", done);
         f.setValue("new value");
     } catch (error) {
         fail(error);
@@ -83,6 +81,7 @@ test("Can validate/revalidate on change", async (done: any) => {
 
     try {
         expect(f.isValid).toEqual(false);
+        expect(keys(f.validationErrors).length).toBeGreaterThan(0);
         when(() => f.value == 'qq', () => {
             expect(f.isValid).toEqual(true);
             done();

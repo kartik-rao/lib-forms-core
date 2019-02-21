@@ -34,7 +34,7 @@ class Page implements IPage {
         return fieldNames;
     }
 
-    @computed get isPageValid() : boolean {
+    @computed get isValid() : boolean {
         return this.sections.every((s) => {
             return s.isValid;
         });

@@ -1,9 +1,15 @@
-import {CheckboxOptionType} from "antd/lib/checkbox/Group";
-import {action, decorate, observable, computed, observe, toJS} from "mobx";
-import Condition, { ICondition } from "./condition";
+import { CheckboxOptionType } from "antd/lib/checkbox/Group";
+import { action, computed, decorate, observable, observe, toJS } from "mobx";
 import FormStore from "../state/FormStore";
+import Condition, { ICondition } from "./condition";
 
-const validate = require("validate.js");
+const validate = require('validate.js');
+
+validate.formatters.custom = (errors) => {
+    return errors.map((e: any) => {
+        return {field: e.attribute, message: e.options.message, prefixedMessage: e.error, validator: e.validator};
+    });
+}
 
 export interface IFieldStorage {
     unique: boolean;
@@ -148,7 +154,7 @@ class Field implements IField {
             constraints[this.name] = toJS(this.validationRules);
             let values = {};
             values[this.name] = this.value || null;
-            this.validationErrors = validate(values, constraints, {format: "flat"}) || [];
+            this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
         } else {
             this.validationErrors = [];
         }
