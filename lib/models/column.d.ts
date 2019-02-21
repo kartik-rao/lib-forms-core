@@ -1,18 +1,19 @@
 import Field from "./field";
 import FormStore from "../state/FormStore";
 export interface IColumn {
-    id?: number;
+    id?: string;
     name?: string;
     title?: string;
     fields?: Field[];
 }
 declare class Column implements IColumn {
     readonly _type: string;
-    id: number;
+    id: string;
     name: string;
     title: string;
     fields: Field[];
     store: FormStore;
+    readonly errors: any[];
     readonly isValid: boolean;
     readonly numFields: number;
     addField(field: Field, index?: number): void;

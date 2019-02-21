@@ -1,6 +1,6 @@
 import { CheckboxOptionType } from "antd/lib/checkbox/Group";
-import Condition, { ICondition } from "./condition";
 import FormStore from "../state/FormStore";
+import Condition, { ICondition } from "./condition";
 export interface IFieldStorage {
     unique: boolean;
     name: string;
@@ -25,7 +25,7 @@ export interface IField {
     icon?: string;
     width?: string;
     children?: RadioSelectCheckboxOption[];
-    condition?: any;
+    condition?: ICondition;
     storage?: IFieldStorage;
     showLegend?: boolean;
     showLabel?: boolean;
@@ -71,6 +71,7 @@ declare class Field implements IField {
     validationRules: any;
     validationErrors: any[];
     initialize(data: IField, store: FormStore): void;
+    formatError(errors: any): any;
     readonly isValidateable: boolean;
     readonly isValid: boolean;
     readonly isHidden: boolean;
