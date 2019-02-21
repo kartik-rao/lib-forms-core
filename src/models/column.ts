@@ -65,7 +65,7 @@ class Column implements IColumn {
         this.id = data.id;
         this.name = name || `column-${data.id}`;
         this.title = data.title || '';
-        this.fields = data.fields || [];
+        this.fields = data.fields || <Field[]>[];
     }
 }
 

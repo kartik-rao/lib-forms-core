@@ -3,7 +3,7 @@ import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
 
 export interface ISection {
-    id?: number;
+    id?: string;
     name?: string;
     title?: string;
     gutter?:number;
@@ -13,7 +13,7 @@ export interface ISection {
 
 class Section implements ISection {
     readonly _type : string = "Section";
-    id: number;
+    id: string;
     name: string;
     title: string;
     gutter: number;
@@ -22,13 +22,33 @@ class Section implements ISection {
 
     @computed get errors() : any[] {
         let errors = [];
-        if (!this.columns || this.columns.length == 0) {
+        if (this.columns.length == 0) {
             return errors;
         }
         this.columns.map((c: Column) => {
             errors = c.errors && c.errors.length > 0 ? errors.concat(c.errors) : errors;
         });
         return errors;
+    }
+
+    @action addColumn(column: Column, index?: number) : void {
+        if (index) {
+            this.columns.splice(index, 0, column);
+        } else {
+            this.columns.push(column);
+        }
+    }
+
+    @action removeColumn(index: number) {
+        this.columns.splice(index, 1)
+    }
+
+    @action moveColumn(atIndex: number, toIndex: number) {
+        this.columns.splice(toIndex, 0, this.columns.splice(atIndex, 1)[0]);
+    }
+
+    @computed get numColumns() : number {
+        return this.columns.length;
     }
 
     @computed get isValid() : boolean {
