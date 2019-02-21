@@ -110,7 +110,6 @@ test("Column recieves field errors", () => {
         fields: [new Field(F1, store), new Field(F2, store)]
     }, store);
 
-    console.log(toJS(c.errors[0]));
     expect(c.errors).toBeDefined();
     expect(c.errors.length).toBe(2);
 });
