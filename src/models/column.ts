@@ -17,13 +17,15 @@ class Column implements IColumn {
     fields: Field[];
     store: FormStore;
 
-    @computed get errors() : any {
+    @computed get errors() : any[] {
+        let errors = [];
+
         if (!this.fields || this.fields.length == 0) {
-            return [];
+            return errors;
         }
-        let errors = []
-        this.fields && this.fields.map((f: Field) => {
-            errors = errors.concat(f.validationErrors)
+
+        this.fields.map((f: Field) => {
+            errors = f.validationErrors && f.validationErrors.length > 0 ? errors.concat(f.validationErrors) : errors;
         });
         return errors;
     }

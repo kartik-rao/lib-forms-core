@@ -5,12 +5,6 @@ import Condition, { ICondition } from "./condition";
 
 const validate = require('validate.js');
 
-validate.formatters.custom = (errors) => {
-    return errors.map((e: any) => {
-        return {field: e.attribute, message: e.options.message, prefixedMessage: e.error, validator: e.validator};
-    });
-}
-
 export interface IFieldStorage {
     unique: boolean;
     name: string;
@@ -114,6 +108,12 @@ class Field implements IField {
         return;
     }
 
+    formatError(errors: any): any {
+        return errors.map((e: any) => {
+            return {id: this.id, name: e.attribute, message: e.options.message, prefixedMessage: e.error, validator: e.validator};
+        });
+    }
+
     @computed get isValidateable() {
         return !this.isHidden && this.conditionState && !!this.validationRules && Object.keys(this.validationRules).length > 0;
     }
@@ -154,6 +154,7 @@ class Field implements IField {
             constraints[this.name] = toJS(this.validationRules);
             let values = {};
             values[this.name] = this.value || null;
+            validate.formatters.custom = this.formatError.bind(this);
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
         } else {
             this.validationErrors = [];

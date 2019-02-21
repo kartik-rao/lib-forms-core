@@ -101,3 +101,16 @@ test("Column reacts to removeField", () => {
     // Column should become valid now
     expect(c.isValid).toEqual(true);
 });
+
+test("Column recieves field errors", () => {
+    let c = new Column({
+        id: 1,
+        name: "Column 1",
+        title: "The First Column",
+        fields: [new Field(F1, store), new Field(F2, store)]
+    }, store);
+
+    console.log(toJS(c.errors[0]));
+    expect(c.errors).toBeDefined();
+    expect(c.errors.length).toBe(2);
+});

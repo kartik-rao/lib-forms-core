@@ -20,6 +20,17 @@ class Section implements ISection {
     columns: Column[];
     store: FormStore;
 
+    @computed get errors() : any[] {
+        let errors = [];
+        if (!this.columns || this.columns.length == 0) {
+            return errors;
+        }
+        this.columns.map((c: Column) => {
+            errors = c.errors && c.errors.length > 0 ? errors.concat(c.errors) : errors;
+        });
+        return errors;
+    }
+
     @computed get isValid() : boolean {
         return this.columns.every((c) => {
             return c.isValid;

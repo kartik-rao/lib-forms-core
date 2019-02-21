@@ -5,6 +5,7 @@ import Field from "./field";
 import {action, decorate, observable, computed, observe} from "mobx";
 
 export interface IPage {
+    id: string;
     name?: string;
     icon?: string;
     sections?: Section[];
@@ -15,6 +16,7 @@ export interface IPage {
 
 class Page implements IPage {
     readonly _type : string = "Page";
+    id: string;
     name: string;
     icon: string;
     sections: Section[];
@@ -24,14 +26,32 @@ class Page implements IPage {
 
     @computed get fieldNames() : string[] {
         let fieldNames: string[] = [];
+        if (!this.sections || this.sections.length == 0) {
+            return fieldNames;
+        }
         this.sections.forEach((section: Section)=>{
-            section.columns.forEach((column: Column) => {
-                column.fields.forEach((field: Field)=> {
-                    fieldNames.push(field.name);
+            if (section.columns && section.columns.length > 0) {
+                section.columns.forEach((column: Column) => {
+                    if (column.fields) {
+                        column.fields.forEach((field: Field)=> {
+                            fieldNames.push(field.name);
+                        });
+                    }
                 })
-            })
+            }
         });
         return fieldNames;
+    }
+
+    @computed get errors() : any[] {
+        let errors = [];
+        if (!this.sections || this.sections.length == 0) {
+            return errors;
+        }
+        this.sections.map((s: Section) => {
+            errors = s.errors && s.errors.length > 0 ? errors.concat(s.errors) : errors;
+        });
+        return errors;
     }
 
     @computed get isValid() : boolean {
@@ -58,6 +78,7 @@ class Page implements IPage {
     }
 
     @action private initialize(data: IPage, store: FormStore) {
+        this.id = data.id;
         this.name = data.name || "";
         this.icon = data.icon || "";
         this.sections = data.sections || <Section[]>[];

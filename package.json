@@ -4,7 +4,7 @@
   "description": "Core interfaces for forms",
   "main": "lib/index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=development jest --verbose",
+    "test": "cross-env NODE_ENV=development jest --verbose false",
     "test:watch": "cross-env NODE_ENV=development jest --watch",
     "test:coverage": "cross-env NODE_ENV=development jest --coverage",
     "build": "tsc",
