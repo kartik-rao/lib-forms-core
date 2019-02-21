@@ -31,7 +31,7 @@ const F2 = {id: "f2",
 };
 
 const C1 = {
-    id: 1,
+    id: "c1",
     name: "Column 1",
     title: "The First Column",
     fields: [new Field(F1, store), new Field(F2, store)]
@@ -57,7 +57,7 @@ describe('Column', () => {
 
     it("reacts to addField", () => {
         let c = new Column({
-            id: 1,
+            id: "c1",
             name: "Column 1",
             title: "The First Column",
             fields: [new Field(F1, store)]
@@ -83,12 +83,13 @@ describe('Column', () => {
 
     it("reacts to removeField", () => {
         let c = new Column({
-            id: 1,
+            id: "1",
             name: "Column 1",
             title: "The First Column",
-            fields: [new Field(F1, store), new Field(F2, store)]
+            fields: []
         }, store);
-
+        c.addField(new Field(F1, store));
+        c.addField(new Field(F2, store));
         c.fields[0].setValue("qq");
         // F2 is in error state
         expect(c.isValid).toEqual(false);
@@ -103,12 +104,12 @@ describe('Column', () => {
 
     it("recieves field errors", () => {
         let c = new Column({
-            id: 1,
+            id: "1",
             name: "Column 1",
-            title: "The First Column",
-            fields: [new Field(F1, store), new Field(F2, store)]
+            title: "The First Column"
         }, store);
-
+        c.addField(new Field(F1, store));
+        c.addField(new Field(F2, store));
         expect(c.errors).toBeDefined();
         expect(c.errors.length).toBe(2);
     });

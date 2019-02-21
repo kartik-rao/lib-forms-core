@@ -1,5 +1,5 @@
 import { CheckboxOptionType } from "antd/lib/checkbox/Group";
-import { action, computed, decorate, observable, observe, toJS } from "mobx";
+import { action, computed, decorate, observable, observe, toJS, reaction } from "mobx";
 import FormStore from "../state/FormStore";
 import Condition, { ICondition } from "./condition";
 
@@ -26,7 +26,7 @@ export interface IField {
     icon?: string;
     width?: string;
     children?: RadioSelectCheckboxOption[];
-    condition?: any;
+    condition?: ICondition;
     storage?: IFieldStorage;
     showLegend?: boolean;
     showLabel?: boolean;
@@ -104,7 +104,7 @@ class Field implements IField {
             this.conditionState = true;
         }
         this.validationErrors = [];
-        this.validate();
+        this.validate()
         return;
     }
 
@@ -143,9 +143,13 @@ class Field implements IField {
     @action setCondition(condition: ICondition) {
         this.condition = new Condition(condition, this.store);
         this.conditionState = this.condition.value;
+
         observe(this.condition, "value", (change) => {
             this.conditionState = change.newValue;
-        }, true)
+            if(this.conditionState == true) {
+                this.validate();
+            }
+        }, true);
     }
 
     @action validate() {
@@ -159,7 +163,6 @@ class Field implements IField {
         } else {
             this.validationErrors = [];
         }
-
         return;
     }
 

@@ -8,7 +8,7 @@ export interface ISection {
     title?: string;
     gutter?:number;
     columns?: Column[];
-    store: FormStore;
+    store?: FormStore;
 }
 
 class Section implements ISection {
@@ -29,6 +29,13 @@ class Section implements ISection {
             errors = c.errors && c.errors.length > 0 ? errors.concat(c.errors) : errors;
         });
         return errors;
+    }
+
+    @computed get numFields() : number {
+        return this.columns.reduce((total: number, column: Column) => {
+            total = total + column.numFields;
+            return total;
+        }, 0);
     }
 
     @action addColumn(column: Column, index?: number) : void {

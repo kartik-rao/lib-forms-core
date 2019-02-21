@@ -32,7 +32,7 @@ const F2: IField = {id: "f2",
 };
 
 const C1: IColumn = {
-    id: 1,
+    id: "1",
     name: "Column 1",
     title: "The First Column",
     fields: []

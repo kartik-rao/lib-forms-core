@@ -4,7 +4,8 @@ import Column, {IColumn} from "./column";
 import Section, {ISection} from "./section";
 import Form, {IFormProps} from "./form";
 import FormStore from "../state/FormStore";
-import Condition from "./condition";
+import Condition, {ICondition} from "./condition";
+import Predicate, {IPredicate} from "./condition.predicate";
 
 export class Factory {
     store: FormStore;
@@ -13,49 +14,75 @@ export class Factory {
         this.store = store;
     }
 
-    makeSections(...sections: ISection[]) {
-        let response: ISection[] = [];
+    makeSections(...sections: ISection[]) : Section[] {
+        let response: Section[] = [];
+        if (!sections || sections.length == 0) {
+            return <Section[]>[];
+        }
         sections.forEach((s: ISection) => {
-            s.columns = this.makeColumns(...s.columns);
-            response.push(new Section(s, this.store));
+            let columns = s.columns && s.columns.length > 0 ? this.makeColumns(...s.columns) : <Column[]>[];
+            response.push(new Section({...s, columns: columns}, this.store));
         });
         return response;
     }
 
     makeColumns(...columns: IColumn[]) : Column[] {
         let response : Column[] = [];
-        columns.forEach((c)=> {
-            c.fields = this.makeFields(...c.fields);
+        if (!columns || columns.length == 0) {
+            return response;
+        }
+
+        columns.forEach((c: IColumn)=> {
+            let fields = this.makeFields(...c.fields);
+            let column = new Column({...c, fields: fields}, this.store);
+            response.push(column);
         })
         return response;
+    }
+
+    makePredicates(...predicates: IPredicate[]) : Predicate[] {
+        let response: Predicate[] = [];
+        predicates.forEach((predicate: IPredicate) => {
+            response.push(new Predicate(predicate, this.store));
+        });
+        return response;
+
+    }
+
+    makeCondition(condition: ICondition) {
+        let predicates = this.makePredicates(...condition.predicates);
+        return new Condition({predicates: predicates}, this.store);
     }
 
     makeFields(...fields: IField[]) : Field[] {
-        let response : Field[] = [];
-        let self = this;
-        fields.forEach((f:IField) => {
-            if (f.condition) {
-                f.condition = new Condition(f.condition, self.store)
-            }
-            response.push(new Field(f, this.store))
-        })
-        return response;
+        if (!fields || fields.length == 0) {
+            return <Field[]>[];
+        }
+        return fields.reduce((r: Field[], f:IField) => {
+            let condition = f.condition ? this.makeCondition(f.condition): null;
+            r.push(new Field({...f, condition: condition}, this.store));
+            return r;
+        }, <Field[]>[]);
     }
 
     makePages(...pages: IPage[]) : Page[] {
+        if (!pages || pages.length == 0) {
+            return <Page[]>[];
+        }
         let response: Page[] = [];
-        pages.forEach((page: IPage)=> {
-            response.push(new Page(page, this.store));
+        pages.forEach((page: IPage) => {
+            let sections = this.makeSections(...page.sections);
+            response.push(new Page({...page, sections: sections}, this.store));
         });
         return response;
     }
 
     makeForm(formData: IFormProps) : Form {
-        if (formData)
-        formData.content.pages = this.makePages(...formData.content.pages)
+        if (formData) {
+            formData.content.pages = this.makePages(...formData.content.pages)
+        }
         return new Form(formData, this.store);
     }
 
-    makePredicate() {}
-    makeCondition() {}
+
 }
