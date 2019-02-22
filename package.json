@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "ts-node --project ./tsconfig.test.json node_modules/jasmine/bin/jasmine --config=./jasmine.json",
-    "test:karma": "karma start",
+    "karma": "karma start",
     "build": "tsc",
     "pkg": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --colors"
   },
@@ -14,6 +14,8 @@
   "dependencies": {
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "uuid": "^3.3.2",
     "validate.js": "^0.12.0"
   },
@@ -31,9 +33,11 @@
     "cross-env": "^5.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
+    "ignore-loader": "^0.1.2",
     "jasmine": "^3.3.1",
     "jasmine-core": "^2.5.2",
     "jasmine-spec-reporter": "^4.2.1",
+    "js-beautify": "^1.8.9",
     "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",

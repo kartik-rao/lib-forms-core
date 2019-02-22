@@ -14,9 +14,8 @@ describe("Field", () => {
             name: "f2",
             type: "string",
             inputType : "text",
-            placeholder: "",
-            location: {}
-        }, store);
+            placeholder: ""
+         }, store);
 
         try {
             when(() => f.value == "new value", done);
@@ -35,7 +34,6 @@ describe("Field", () => {
             type: "string",
             inputType : "text",
             placeholder: "",
-            location: {},
             condition: c
         }, store);
 
@@ -72,7 +70,6 @@ describe("Field", () => {
             type: "string",
             inputType : "text",
             placeholder: "",
-            location: {},
             validationRules: {
                 presence: {message: 'Required validation message'},
                 length: {wrongLength: 'MinLength=2 validation message', minimum: 2}

@@ -12,7 +12,7 @@ module.exports = function (config) {
     plugins: ['karma-jasmine', 'karma-webpack',  'karma-mocha-reporter', 'karma-chrome-launcher', 'karma-sourcemap-loader'],
     // list of files / patterns to load in the browser
     files: [
-      'test/spec*.ts'
+      'test/spec*.tsx'
     ],
     // list of files / patterns to exclude
     exclude: [
@@ -20,7 +20,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/spec*.ts': ['webpack', 'sourcemap']
+      'test/spec*.tsx': ['webpack', 'sourcemap']
     },
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -32,9 +32,12 @@ module.exports = function (config) {
     colors: true,
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_LOG,
+    client: {
+      captureConsole: true
+    },
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
@@ -48,18 +51,30 @@ module.exports = function (config) {
     },
     useIframe: false,
     webpack: {
-      entry: path.join(__dirname, '/test/spec.field.ts'),
+      mode: 'development',
+      entry: path.join(__dirname, '/test/spec.fieldview.tsx'),
       resolve: {
+        modules: [
+          'node_modules'
+        ],
         extensions: ['.ts', '.tsx', '.js']
       },
-      devtool: 'inline-source-map',
+      devtool: 'cheap-module-source-map',
       module: {
         rules: [
+            { test: /(\.woff|\.woff2)$/, loader: 'url?name=font/[name].[ext]&limit=10240&mimetype=application/font-woff' },
+            { test: /\.ttf$/, loader: 'ignore-loader' },
+            { test: /\.eot$/, loader: 'ignore-loader' },
+            { test: /\.css$/, loader: 'ignore-loader' },
+            { test: /\.png$/, loader: 'ignore-loader' },
+            { test: /\.ico$/, loader: 'ignore-loader' },
+            { test: /\.jpg$/, loader: 'ignore-loader' },
             {
                 test: /\.tsx?$/,
                 use: { loader: 'awesome-typescript-loader',
                 options : {
                     useCache: true,
+                    transpileOnly: true,
                     declaration: false,
                     reportFiles: [
                         'src/**/*.{ts,tsx}'
@@ -68,7 +83,7 @@ module.exports = function (config) {
                       before: [ tsImportPluginFactory( {
                           libraryName: 'antd',
                           libraryDirectory: 'node_modules',
-                          style: true
+                          style: false
                         }) ]
                   })
                 }
@@ -78,9 +93,12 @@ module.exports = function (config) {
         ]
     },
     },
+    webpackServer: {
+      noInfo: true //please don't spam the console when running in karma!
+    },
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: 1,

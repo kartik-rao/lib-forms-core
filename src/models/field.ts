@@ -39,7 +39,6 @@ export interface IField {
     queryParam?: string;
     saveable?: boolean;
     value? : string;
-    location: any;
     valueType? : string;
     valuePropName? : string;
     format? : string;
@@ -100,7 +99,6 @@ class Field implements IField {
         this.queryParam = data.queryParam;
         this.saveable = data.saveable;
         this.value = data.value;
-        this.location = data.location;
         if (data.condition) {
             this.setCondition(data.condition);
         } else {
@@ -114,7 +112,12 @@ class Field implements IField {
 
     formatError(errors: any): any {
         return errors.map((e: any) => {
-            return {id: this.id, name: e.attribute, message: e.options.message, prefixedMessage: e.error, validator: e.validator};
+            return {id: this.id,
+                name: e.attribute,
+                message: e.options.message,
+                prefixedMessage: e.error,
+                validator: e.validator
+            };
         });
     }
 
@@ -168,6 +171,9 @@ class Field implements IField {
             values[this.name] = this.value || null;
             validate.formatters.custom = this.formatError.bind(this);
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
+            this.validationErrors.forEach((e) => {
+                this.store.setFieldError(this.id, e.message);
+            })
         } else {
             this.validationErrors = [];
         }
@@ -199,7 +205,6 @@ decorate(Field, {
     queryParam: observable,
     saveable: observable,
     value : observable,
-    location: observable,
     conditionState: observable,
     valueType : observable,
     valuePropName : observable,
