@@ -13,6 +13,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "mobx": "^5.9.0",
+    "mobx-react": "^5.4.3",
     "uuid": "^3.3.2",
     "validate.js": "^0.12.0"
   },
@@ -29,6 +30,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "cross-env": "^5.2.0",
     "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1",
     "jasmine": "^3.3.1",
     "jasmine-core": "^2.5.2",
     "jasmine-spec-reporter": "^4.2.1",

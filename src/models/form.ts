@@ -199,6 +199,12 @@ class Form implements IFormProps {
     constructor(data: IFormProps, store: FormStore) {
         this.initialize(data, store);
     }
+
+    @computed get isValid() : boolean {
+        return this.content.pages.every((p: Page) => {
+            return p.isValid;
+        })
+    }
 }
 
 decorate(Form, {

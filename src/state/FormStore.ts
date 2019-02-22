@@ -9,6 +9,7 @@ class FormStore {
     currentPage: number;
     debug : boolean;
     form: Form
+    submitting: boolean;
 
     @action addField(page: number, section: number, column : number) {
 
@@ -28,6 +29,26 @@ class FormStore {
                 return p.isValid
             })
         }
+    }
+
+    @action setSubmitting(value: boolean) {
+        this.submitting = value;
+    }
+
+    @computed get isSubmitting() {
+        return this.submitting;
+    }
+
+    @computed get numPages() : number {
+        return this.form.content.pages.length;
+    }
+
+    @action nextPage() {
+
+    }
+
+    @action prevPage() {
+
     }
 
     @action setFieldValue(id: string, value: any) {
@@ -62,7 +83,8 @@ decorate(FormStore, {
     values: observable,
     touched: observable,
     form: observable,
-    currentPage: observable
+    currentPage: observable,
+    submitting: observable
 })
 
 export default FormStore;

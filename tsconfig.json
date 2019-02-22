@@ -10,12 +10,13 @@
       "declaration": true,
       "experimentalDecorators": true,
       "noImplicitReturns" : true,
-      "removeComments": true
+      "removeComments": true,
+      "jsx": "react"
     },
-    "files": [
-      "src/index.ts"
-    ],
-    "exclude": [
+    "include": [
+      "src/**/*.ts?"
+  ],
+  "exclude": [
       "node_modules"
     ]
   }
