@@ -8,15 +8,12 @@
       "allowSyntheticDefaultImports": true,
       "outDir": "./lib",
       "declaration": true,
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      "noImplicitReturns" : true,
+      "removeComments": true
     },
     "files": [
-      "src/index.ts",
-      "test/spec.condition.ts",
-      "test/spec.store.ts",
-      "test/spec.field.ts",
-      "test/spec.column.ts",
-      "test/spec.section.ts"
+      "src/index.ts"
     ],
     "exclude": [
       "node_modules"
