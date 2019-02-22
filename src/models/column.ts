@@ -18,16 +18,9 @@ class Column implements IColumn {
     store: FormStore;
 
     @computed get errors() : any[] {
-        let errors = [];
-
-        if (!this.fields || this.fields.length == 0) {
-            return errors;
-        }
-
-        this.fields.map((f: Field) => {
-            errors = f.validationErrors && f.validationErrors.length > 0 ? errors.concat(f.validationErrors) : errors;
-        });
-        return errors;
+        return this.fields.reduce((all: any[], f: Field)=>{
+            return all.concat(f.validationErrors);
+        }, <any[]>[]);
     }
 
     @computed get isValid() : boolean {
