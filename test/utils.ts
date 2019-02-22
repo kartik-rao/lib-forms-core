@@ -1,3 +1,5 @@
 class Utils {
-    getField() {}
+    getField(name, id, condition) {
+
+    }
 }
