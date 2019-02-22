@@ -1,9 +1,11 @@
 import Column from "./column";
 import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
+import {valueOrDefault, uuid} from "./common";
 
 export interface ISection {
     id?: string;
+    uuid?:string;
     name?: string;
     title?: string;
     gutter?:number;
@@ -14,6 +16,7 @@ export interface ISection {
 class Section implements ISection {
     readonly _type : string = "Section";
     id: string;
+    uuid:string;
     name: string;
     title: string;
     gutter: number;
@@ -61,10 +64,11 @@ class Section implements ISection {
 
     @action initialize(data: ISection, store: FormStore) {
         this.id = data.id;
-        this.name = data.name || `section-${data.id}`;
-        this.title = data.title || '';
-        this.gutter = data.gutter;
-        this.columns = data.columns || <Column[]>[];
+        this.uuid = valueOrDefault(data.uuid, uuid());
+        this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
+        this.title = valueOrDefault(data.title, '');
+        this.gutter = valueOrDefault(data.gutter, 0);
+        this.columns = valueOrDefault(data.columns, <Column[]>[]);
         this.store = store;
     }
 
@@ -76,6 +80,7 @@ class Section implements ISection {
 decorate(Section, {
     name: observable,
     id: observable,
+    uuid: observable,
     title: observable,
     gutter: observable,
     columns: observable

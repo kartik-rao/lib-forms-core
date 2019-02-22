@@ -3,9 +3,11 @@ import FormStore from "../state/FormStore";
 import Column from "./column";
 import Field from "./field";
 import {action, decorate, observable, computed, observe} from "mobx";
+import {valueOrDefault, uuid} from "./common";
 
 export interface IPage {
     id: string;
+    uuid?:string;
     name?: string;
     icon?: string;
     sections?: Section[];
@@ -17,6 +19,7 @@ export interface IPage {
 class Page implements IPage {
     readonly _type : string = "Page";
     id: string;
+    uuid: string;
     name: string;
     icon: string;
     sections: Section[];
@@ -83,11 +86,12 @@ class Page implements IPage {
 
     @action private initialize(data: IPage, store: FormStore) {
         this.id = data.id;
-        this.name = data.name || "";
-        this.icon = data.icon || "";
-        this.sections = data.sections || <Section[]>[];
-        this.title = data.title;
-        this.subtitle = data.subtitle;
+        this.uuid = valueOrDefault(data.uuid, uuid());
+        this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
+        this.icon = valueOrDefault(data.name, "");
+        this.sections = valueOrDefault(data.sections, <Section[]>[]);
+        this.title = valueOrDefault(data.title, "");
+        this.subtitle = valueOrDefault(data.subtitle, "");
         this.store = store;
     }
 
@@ -97,7 +101,9 @@ class Page implements IPage {
 }
 
 decorate(Page, {
+    id: observable,
     name: observable,
+    uuid: observable,
     icon: observable,
     sections: observable,
     title: observable,

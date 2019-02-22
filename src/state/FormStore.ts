@@ -14,6 +14,12 @@ class FormStore {
 
     }
 
+    @computed get fieldNames() : string[] {
+        return this.form.content.pages.reduce((all: string[], p: Page) => {
+            return all.concat(p.fieldNames);
+        }, <string[]>[])
+    }
+
     @computed get isValid() : boolean {
         if (!this.form.content && this.form.content.pages && this.form.content.pages.length > 0) {
             return true;

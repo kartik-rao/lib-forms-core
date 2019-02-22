@@ -7,6 +7,7 @@ import FormStore from "../state/FormStore";
 import Condition, {ICondition} from "./condition";
 import Predicate, {IPredicate} from "./condition.predicate";
 
+
 export class Factory {
     store: FormStore;
 

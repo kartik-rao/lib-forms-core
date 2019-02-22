@@ -2,6 +2,7 @@ import { CheckboxOptionType } from "antd/lib/checkbox/Group";
 import { action, computed, decorate, observable, observe, toJS, reaction } from "mobx";
 import FormStore from "../state/FormStore";
 import Condition, { ICondition } from "./condition";
+import {valueOrDefault, uuid} from "./common";
 
 const validate = require('validate.js');
 
@@ -20,6 +21,7 @@ export interface IFieldStorage {
 export type RadioSelectCheckboxOption = CheckboxOptionType | { label: string, value: string, disabled?: boolean };
 export interface IField {
     id: string;
+    uuid?: string;
     name: string;
     type: string;
     inputType?: string;
@@ -46,6 +48,7 @@ export interface IField {
 
 class Field implements IField {
     readonly _type : string = "Field";
+    uuid: string;
     id: string;
     name: string;
     type: string;
@@ -76,7 +79,8 @@ class Field implements IField {
     @action initialize(data: IField, store: FormStore) {
         this.store = store;
         this.id = data.id;
-        this.name = data.name;
+        this.uuid = data.uuid || uuid();
+        this.name = data.name || `${this._type}-${data.id}`;
         this.type = data.type;
         this.inputType = data.inputType;
         this.valueType = data.valueType;
@@ -104,7 +108,7 @@ class Field implements IField {
             this.conditionState = true;
         }
         this.validationErrors = [];
-        this.validate()
+        this.validate();
         return;
     }
 
@@ -113,6 +117,10 @@ class Field implements IField {
             return {id: this.id, name: e.attribute, message: e.options.message, prefixedMessage: e.error, validator: e.validator};
         });
     }
+
+    // @computed get isTouched() {
+
+    // }
 
     @computed get isValidateable() {
         return !this.isHidden && this.conditionState && !!this.validationRules && Object.keys(this.validationRules).length > 0;
@@ -173,6 +181,7 @@ class Field implements IField {
 
 decorate(Field, {
     id: observable,
+    uuid: observable,
     name: observable,
     type: observable,
     inputType: observable,

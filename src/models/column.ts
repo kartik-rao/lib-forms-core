@@ -1,16 +1,19 @@
 import {action, decorate, observable, computed} from "mobx";
 import Field from "./field";
 import FormStore from "../state/FormStore";
+import {valueOrDefault, uuid} from "./common";
 
 export interface IColumn {
-    id?: string;
-    name?: string;
-    title?: string;
+    uuid?:string;
+    id?  :string;
+    name?:string;
+    title?:string;
     fields?: Field[]
 }
 
 class Column implements IColumn {
     readonly _type : string = "Column";
+    uuid: string;
     id: string;
     name: string;
     title: string;
@@ -54,16 +57,18 @@ class Column implements IColumn {
     }
 
     @action initialize(data: IColumn, store: FormStore) {
+        this.uuid = valueOrDefault(data.uuid, uuid());
         this.store = store;
         this.id = data.id;
-        this.name = data.name || `column-${data.id}`;
-        this.title = data.title || '';
-        this.fields = data.fields || <Field[]>[];
+        this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
+        this.title = valueOrDefault(data.title, '');
+        this.fields = valueOrDefault(data.fields, <Field[]>[]);
     }
 }
 
 decorate(Column, {
     name: observable,
+    uuid: observable,
     id: observable,
     title: observable,
     fields: observable

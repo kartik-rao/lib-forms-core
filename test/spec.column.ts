@@ -1,9 +1,9 @@
-import Column from "../src/models/column";
-import Field from "../src/models/field";
+import Column, { IColumn } from "../src/models/column";
+import Field, { IField } from "../src/models/field";
 import FormStore from "../src/state/FormStore";
 import { when, toJS } from "mobx";
 
-const F1 = {
+const F1: IField = {
     id: "f1",
     name: "f1",
     type: "string",
@@ -16,7 +16,7 @@ const F1 = {
     }
 };
 
-const F2 = {id: "f2",
+const F2: IField= {id: "f2",
     name: "f2",
     type: "string",
     inputType : "text",
@@ -28,7 +28,7 @@ const F2 = {id: "f2",
     }
 };
 
-const C1 = {
+const C1: IColumn = {
     id: "c1",
     name: "Column 1",
     title: "The First Column"
