@@ -11,7 +11,7 @@ export interface IPage {
     sections?: Section[];
     title?: string;
     subtitle?: string;
-    store: FormStore;
+    store?: FormStore;
 }
 
 class Page implements IPage {
@@ -44,21 +44,25 @@ class Page implements IPage {
     }
 
     @computed get errors() : any[] {
-        let errors = [];
-        if (!this.sections || this.sections.length == 0) {
-            return errors;
-        }
-        this.sections.map((s: Section) => {
-            errors = s.errors && s.errors.length > 0 ? errors.concat(s.errors) : errors;
-        });
-        return errors;
+        return this.sections.reduce((all: any[], s: Section)=>{
+            return all.concat(s.errors);
+        }, <any[]>[]);
     }
 
     @computed get isValid() : boolean {
         return this.sections.every((s) => {
             return s.isValid;
         });
+    }
 
+    @computed get numSections() : number {
+        return this.sections.length;
+    }
+
+    @computed get numFields() : number {
+        return this.sections.reduce((total: number, s : Section) => {
+            return total + s.numFields;
+        }, 0);
     }
 
     @action addSection(section: Section, index?: number) : void {
