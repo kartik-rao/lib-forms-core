@@ -46,6 +46,25 @@ class Page implements IPage {
         return fieldNames;
     }
 
+    @computed get fieldIds() : string[] {
+        let fieldIds: string[] = [];
+        if (!this.sections || this.sections.length == 0) {
+            return fieldIds;
+        }
+        this.sections.forEach((section: Section)=>{
+            if (section.columns && section.columns.length > 0) {
+                section.columns.forEach((column: Column) => {
+                    if (column.fields) {
+                        column.fields.forEach((field: Field)=> {
+                            fieldIds.push(field.id);
+                        });
+                    }
+                })
+            }
+        });
+        return fieldIds;
+    }
+
     @computed get errors() : any[] {
         return this.sections.reduce((all: any[], s: Section)=>{
             return all.concat(s.errors);

@@ -37,14 +37,14 @@
                                     title: 'Section 1 - Column 1',
                                     fields: [
                                         {
-                                            id: "f1", name: "f1", type: "text", inputType: "input", label: "Text Label",
+                                            id: "f1", name: "f1", type: "text", inputType: "input", label: "f1 - Text Label",
                                             placeholder: 'Placeholder Text',
+                                            validationRules: {
+                                                presence: {  message: 'f1 is a required field' },
+                                                length: {wrongLength: 'f1 should be length 2', minimum: 2},
+                                            },
                                             fieldOptions: {
-                                                type: 'string',
-                                                rules: [
-                                                    { name: "required", value: true, message: 'Required validation message' },
-                                                    { name: "minLength", value: 2, message: "MinLength=2 validation message" },
-                                                ]
+                                                type: 'string'
                                             }
                                         }
                                     ]
@@ -53,30 +53,28 @@
                                     name: 's1c2',
                                     title: 'Section 1 - Column 2',
                                     fields: [{
-                                        id: "f2", name: "f2", inputType: "select", label: "Select Label", children: [
+                                        id: "f2", name: "f2", inputType: "select", label: "f2 - select label", children: [
                                                 { label: "option1", value: "option1" },
                                                 { label: "option2", value: "option2" }
                                             ]
                                         },{
-                                            id: "f8", name: "f8", inputType: "datepicker", label: "Datepicker label",
+                                            id: "f8", name: "f8", inputType: "datepicker", label: "f8 - datepicker label",
+                                            validationRules: {
+                                                    presence: { message: "f8 is required"}
+                                            },
                                             fieldOptions: {
-                                                type: 'string',
-                                                rules: [
-                                                    {name: "required", value: true, message: "f8 is required"}
-                                                ]
-
+                                                type: 'string'
                                             }
                                         },
                                     {
-                                        id: "f3", name: "f3", type: "text", inputType: "input", label: "Conditional Text Label",
+                                        id: "f3", name: "f3", type: "text", inputType: "input", label: "f3 - conditional text label",
                                         placeholder: 'Placeholder Text',
+                                        validationRules: {
+                                            presence: { message: 'f3 is required' }
+                                        },
+                                        condition: {predicates:[ { field: "f1", condition: "eq", value: "qq" } ]},
                                         fieldOptions: {
-                                            type : 'string',
-                                            rules: [
-                                                { name: "required", value: true, message: 'f3 is required' }
-                                            ]
-                                        }, condition: {
-                                            predicates:[ { field: "f1", condition: "eq", value: "qq" } ]
+                                            type : 'string'
                                         }
                                     }]
                                 }]
@@ -94,19 +92,20 @@
                                         name: 'p2s1c1',
                                         title: 'Section 2 - Column 1',
                                         fields: [{
-                                            id: "f5", name: "f5", inputType: "textblock", label: "Text Label F5",
+                                            id: "f5", name: "f5", inputType: "textblock", label: "f5 - Text Label",
                                             value: "Lorem ipsum text"
                                         },{
-                                            id: "f4", name: "f4", type: "text", inputType: "input", label: "Text Label F4",
+                                            id: "f4", name: "f4", type: "text", inputType: "input", label: "f4 - text label F4",
                                             placeholder: 'Placeholder Text F4',
+                                            validationRules: {
+                                                presence: { message: 'f4 is required' },
+                                                length: { minimum: 2, wrongLength: "f4 must be of minlength=2" },
+                                            },
                                             fieldOptions: {
-                                                type: 'string',
-                                                rules: [
-                                                    { name: "required", value: true, message: 'f4 is required' },
-                                                    { name: "minLength", value: 2, message: "f4 must be of minlength=2" },
-                                                ]
+                                                type: 'string'
+                                            }
                                         }
-                                    }]}
+                                    ]}
                                 ]
                             }
                         ]
@@ -122,16 +121,17 @@
                                         name: 's1c1',
                                         title: 'Section 1 - Column 1',
                                         fields: [{
-                                            id: "f6", name: "f6", type: "text", inputType: "input", label: "Text Label F6",
+                                            id: "f6", name: "f6", type: "text", inputType: "input", label: "f6 - text label",
                                             placeholder: 'Placeholder Text F6',
+                                            validationRules: {
+                                                presence: { message: 'Required validation message' },
+                                                length: { minimum: 2, wrongLength: "MinLength=2 validation message" },
+                                            },
                                             fieldOptions: {
-                                                type: 'string',
-                                                rules: [
-                                                    { name: "required", value: true, message: 'Required validation message' },
-                                                    { name: "minLength", value: 2, message: "MinLength=2 validation message" },
-                                                ]
-                                        }
-                                    }]}
+                                                type: 'string'
+                                            }
+                                        }]
+                                    }
                                 ]
                             }
                         ]

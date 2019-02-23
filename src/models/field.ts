@@ -148,13 +148,7 @@ class Field implements IField {
     }
 
     @action setValue(value: any) {
-        let formatted = value;
-        if(this.inputType == 'datepicker') {
-            let d = moment(value);
-            formatted = this.format ? d.format(this.format) : moment(d).toISOString();
-        }
-        this.value = formatted;
-        this.store.setFieldValue(this.id, this.value);
+        this.store.setFieldValue(this.id, value);
         this.validate();
     }
 
@@ -184,12 +178,15 @@ class Field implements IField {
             let constraints = {};
             constraints[this.name] = toJS(this.validationRules);
             let values = {};
-            values[this.name] = this.value || null;
+            values[this.name] = this.store.values[this.id] || null;
             validate.formatters.custom = this.formatError.bind(this);
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
-            this.validationErrors.forEach((e) => {
-                this.store.setFieldError(this.id, e.message);
-            })
+            if (this.validationErrors.length > 0) {
+                this.store.setFieldError(this.id, this.validationErrors[0].message);
+            } else {
+                this.store.setFieldError(this.id, undefined);
+            }
+
         } else {
             this.validationErrors = [];
         }

@@ -5,6 +5,17 @@ import { Factory } from "./models/factory";
 import Form from './models/form';
 import FormStore from "./state/FormStore";
 import { FormView } from "./views/FormView";
+import {enableLogging} from 'mobx-logger';
+
+// optional
+const config = {
+    action: true,
+    reaction: false,
+    transaction: false,
+    compute: false
+};
+
+enableLogging(config);
 
 
 export function renderForm(selector:string, initialState: any) {

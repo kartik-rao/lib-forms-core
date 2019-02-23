@@ -1,4 +1,4 @@
-import {action, decorate, observable, computed, set} from "mobx";
+import {action, decorate, observable, computed, set, toJS} from "mobx";
 import Form from "../models/form";
 import Page from "../models/page";
 
@@ -10,10 +10,6 @@ class FormStore {
     debug : boolean;
     form: Form
     submitting: boolean;
-
-    @action addField(page: number, section: number, column : number) {
-
-    }
 
     @computed get fieldNames() : string[] {
         return this.form.content.pages.reduce((all: string[], p: Page) => {
@@ -44,11 +40,20 @@ class FormStore {
     }
 
     @action nextPage() {
-
+        let currentPage = this.form.content.pages[this.currentPage];
+        let errors = currentPage.errors;
+        if (!errors || errors.length == 0) {
+            this.currentPage = this.currentPage + 1;
+        } else {
+            // Highlight all errors
+            currentPage.fieldIds.forEach((id: string) => {
+                this.touched[id] = true;
+            })
+        }
     }
 
     @action prevPage() {
-
+        this.currentPage = this.currentPage - 1;
     }
 
     @action setForm(form: Form) {

@@ -21,15 +21,16 @@ export class FieldView extends React.Component<IFieldProps, any> {
         const {field, store} = this.props;
         const {type, inputType} = field;
 
-        let onChange = (e) =>field.setValue(e.target.value);
+        let onChange = (e) => field.setValue(e.target ? e.target.value: e);
         let onBlur = (e) => field.setTouched();
 
         let {id, name, uuid} = field;
         // TODO Pass form layout to Field
+
         return !field.isDisabled && <Form.Item label={field.label}
-            hasFeedback={store.touched[id] && !!store.errors[id]}
-            validateStatus={store.errors[id] && "error"}
-            help={store.errors[id]}>
+            hasFeedback={store.touched[id] && store.errors[id] ? true : false}
+            validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
+            help={store.touched[id] ? store.errors[id] : null}>
             {
                 (inputType == "input" && (type == "text" || type == "hidden")) && <Input
                     id={field.id}
@@ -49,9 +50,9 @@ export class FieldView extends React.Component<IFieldProps, any> {
                 </Select>
             }
             {inputType == "radiogroup" && <Radio.Group onChange={onChange} options={field.children} value={store.values[id]}>
-                    {/* {field.children.map((child: any, index: number)  => {
-                        return <Radio key={""+index} value={child.value}>{child.label}</Radio>
-                    })} */}
+                {/* {field.children.map((child: any, index: number)  => {
+                    return <Radio key={""+index} value={child.value}>{child.label}</Radio>
+                })} */}
                 </Radio.Group>
             }
             {inputType == "checkboxgroup" && <Checkbox.Group onChange={onChange} options={field.children} value={store.values[id]}/>}
