@@ -6,8 +6,8 @@ import Field from '../src/models/field';
 import FormStore from '../src/state/FormStore';
 import { FieldView } from "../src/views/FieldView";
 
-// Allow mobx store mutation from anywhere
-configure({enforceActions: "never"});
+// Dont allow store mutations outside of actions!!
+configure({enforceActions: "always"});
 
 describe("FieldView", () => {
     let store: FormStore;

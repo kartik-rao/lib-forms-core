@@ -1,4 +1,3 @@
-import { Row } from 'antd';
 import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -7,10 +6,9 @@ import Column from '../src/models/column';
 import Field from '../src/models/field';
 import FormStore from '../src/state/FormStore';
 import { ColumnView } from "../src/views/ColumnView";
-import { printPrettyHtml } from './utils';
 
-// Allow mobx store mutation from anywhere
-configure({enforceActions: "never"});
+// Dont allow store mutations outside of actions!!
+configure({enforceActions: "always"});
 
 describe("ColumnView", () => {
     let store: FormStore;

@@ -3,6 +3,7 @@
 var path = require('path');
 require('jasmine').DEFAULT_TIMEOUT_INTERVAL = 2000;
 const tsImportPluginFactory = require('ts-import-plugin');
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 module.exports = function (config) {
   config.set({    // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -12,7 +13,7 @@ module.exports = function (config) {
     plugins: ['karma-jasmine', 'karma-webpack',  'karma-mocha-reporter', 'karma-chrome-launcher', 'karma-sourcemap-loader', 'karma-coverage-istanbul-reporter'],
     // list of files / patterns to load in the browser
     files: [
-      'test/spec*.tsx'
+      'test/index.ts'
     ],
     // list of files / patterns to exclude
     exclude: [
@@ -20,7 +21,7 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/spec*.tsx': ['webpack', 'sourcemap']
+      'test/index.ts': ['webpack', 'sourcemap']
     },
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -42,7 +43,7 @@ module.exports = function (config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
     browserConsoleLogOptions: {
-      level:  "info"
+      level:  "warn"
     },
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
@@ -70,7 +71,7 @@ module.exports = function (config) {
       output: {
         pathinfo: false
       },
-      entry: path.join(__dirname, '/test/spec.fieldview.tsx'),
+      entry: path.join(__dirname, '/test/index.ts'),
       resolve: {
         modules: [
           'node_modules'
@@ -119,7 +120,8 @@ module.exports = function (config) {
               }
             }
         ]
-    },
+      },
+      plugins: [new HardSourceWebpackPlugin()]
     },
     webpackServer: {
       noInfo: true //please don't spam the console when running in karma!

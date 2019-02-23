@@ -163,13 +163,17 @@ class Field implements IField {
         this.validate();
     }
 
+    @action setConditionState(value: boolean) {
+        this.conditionState = value;
+    }
+
     @action setCondition(condition: ICondition) {
         this.condition = new Condition(condition, this.store);
         this.conditionState = this.condition.value;
 
         observe(this.condition, "value", (change) => {
-            this.conditionState = change.newValue;
-            if(this.conditionState == true) {
+            this.setConditionState(change.newValue)
+            if(change.newValue == true) {
                 this.validate();
             }
         }, true);

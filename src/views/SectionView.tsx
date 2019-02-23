@@ -26,12 +26,14 @@ export class SectionView extends React.Component<SectionProps, any> {
         // let {showSectionTitles, showSectionBorders} = store.formData.formLayoutOptions;
         const numColumns = section.columns.length;
         // Hadnle form layout options
-        return <Card bordered={true} title={section.name}>
-            <Row  gutter={8}>
-                {section.columns.map((column: Column, cn: number) => {
-                    return <ColumnView store={store} key={column.uuid} column={column} span={24/numColumns}/>
-                })}
-            </Row>
-        </Card>
+        return <div id={section.id}>
+            <Card bordered={true} title={section.name}>
+                <Row  gutter={8}>
+                    {section.columns.map((column: Column, cn: number) => {
+                        return <ColumnView store={store} key={column.uuid} column={column} span={24/numColumns}/>
+                    })}
+                </Row>
+            </Card>
+        </div>
     }
 }
