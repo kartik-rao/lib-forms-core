@@ -51,6 +51,10 @@ class FormStore {
 
     }
 
+    @action setForm(form: Form) {
+        this.form = form;
+    }
+
     @action setFieldValue(id: string, value: any) {
         set(this.values, id, value);
     }
@@ -65,7 +69,7 @@ class FormStore {
 
     @action initialize(data: any) {
         this.form = data.form;
-        this.values = data.values;
+        this.values = data.values || {};
         this.errors = {};
         this.touched = {};
         this.currentPage = 0;

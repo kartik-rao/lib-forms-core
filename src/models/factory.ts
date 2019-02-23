@@ -51,6 +51,7 @@ export class Factory {
     }
 
     makeCondition(condition: ICondition) {
+        console.log("makingCondition", condition);
         let predicates = this.makePredicates(...condition.predicates);
         return new Condition({predicates: predicates}, this.store);
     }
