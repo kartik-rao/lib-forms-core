@@ -9,7 +9,7 @@ module.exports = function (config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
-    plugins: ['karma-jasmine', 'karma-webpack',  'karma-mocha-reporter', 'karma-chrome-launcher', 'karma-sourcemap-loader'],
+    plugins: ['karma-jasmine', 'karma-webpack',  'karma-mocha-reporter', 'karma-chrome-launcher', 'karma-sourcemap-loader', 'karma-coverage-istanbul-reporter'],
     // list of files / patterns to load in the browser
     files: [
       'test/spec*.tsx'
@@ -25,7 +25,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage-istanbul'],
     // web server port
     port: 9876,
     // enable / disable colors in the output (reporters and logs)
@@ -42,7 +42,7 @@ module.exports = function (config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
     browserConsoleLogOptions: {
-      level:  "warn"
+      level:  "info"
     },
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
@@ -50,6 +50,21 @@ module.exports = function (config) {
       debug: false
     },
     useIframe: false,
+    coverageIstanbulReporter: {
+      reports: ['html', 'lcovonly', 'text-summary'],
+      // base output directory. If you include %browser% in the path it will be replaced with the karma browser name
+      dir: path.join(__dirname, 'coverage'),
+      // Combines coverage information from multiple browsers into one report rather than outputting a report
+      // for each browser.
+      combineBrowserReports: true,
+      'report-config': {
+        // all options available at: https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/html/index.js#L135-L137
+        html: {
+          // outputs the report in ./coverage/html
+          subdir: 'html'
+        }
+      }
+    },
     webpack: {
       mode: 'development',
       output: {
@@ -63,6 +78,7 @@ module.exports = function (config) {
         extensions: ['.ts', '.tsx', '.js']
       },
       devtool: 'inline-source-map',
+
       module: {
         rules: [
             { test: /(\.woff|\.woff2)$/, loader: 'url?name=font/[name].[ext]&limit=10240&mimetype=application/font-woff' },
@@ -90,8 +106,17 @@ module.exports = function (config) {
                         }) ]
                   })
                 }
+              },
+              exclude: /node_modules/
             },
-            exclude: /node_modules/
+            {
+              test: /\.ts$/,
+              exclude: /(node_modules|\.spec\.ts$)/,
+              loader: 'istanbul-instrumenter-loader',
+              enforce: 'post',
+              options: {
+                esModules: true
+              }
             }
         ]
     },
