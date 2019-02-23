@@ -205,6 +205,38 @@ class Form implements IFormProps {
             return p.isValid;
         })
     }
+
+    @computed get numPages() : number {
+        return this.content.pages.length;
+    }
+
+    @computed get numFields() : number {
+        return this.content.pages.reduce((total: number, p: Page) => {
+            return total + p.numFields;
+        }, 0);
+    }
+
+    @action addPage(p : Page, index?: number) {
+        if (index) {
+            this.content.pages.splice(index, 0, p);
+        } else {
+            this.content.pages.push(p)
+        }
+    }
+
+    @action removePage(index: number) {
+        this.content.pages.splice(index, 1);
+    }
+
+    @action movePage(atIndex: number, toIndex: number) {
+        this.content.pages.splice(toIndex, 0, this.content.pages.splice(atIndex, 1)[0]);
+    }
+
+    @computed get errors() : any[] {
+        return this.content.pages.reduce((all: any[], p: Page)=>{
+            return all.concat(p.errors);
+        }, <any[]>[]);
+    }
 }
 
 decorate(Form, {

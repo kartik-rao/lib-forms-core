@@ -8,6 +8,7 @@ import Section from '../src/models/section';
 import FormStore from '../src/state/FormStore';
 import { PageView } from "../src/views/PageView";
 import Page from '../src/models/page';
+import {genElementId} from "./utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});
@@ -22,17 +23,17 @@ describe("PageView", () => {
     });
 
     beforeEach(()=> {
-        store = new FormStore({values: {"f1": "", "f2": ""}});
+        store = new FormStore({values: {}});
         container = document.createElement('div');
         document.body.appendChild(container);
     });
 
     it("can render a section, column and child fields", (done) => {
-        let p = new Page({ id: 'p1', sections: [], name: "Page 1"}, store);
-        let s: Section = new Section({name: "s1", title: "s1 title"}, store)
-        let c: Column = new Column({id: "c1"}, store);
+        let p = new Page({ id: genElementId("page"), sections: [], name: "Page 1"}, store);
+        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title"}, store)
+        let c: Column = new Column({id: genElementId("column")}, store);
         let f: Field = new Field({
-            id: "f1",
+            id: genElementId("field"),
             name: "First Name",
             type: "text",
             inputType: "input",
@@ -46,9 +47,9 @@ describe("PageView", () => {
             return;
         });
 
-        expect(container.querySelector("#p1")).toBeDefined();
-        expect(container.querySelector("#s1")).toBeDefined();
-        expect(container.querySelector("#c1")).toBeDefined();
+        expect(container.querySelector("#"+p.id)).toBeDefined();
+        expect(container.querySelector("#"+s.id)).toBeDefined();
+        expect(container.querySelector("#"+c.id)).toBeDefined();
         expect(container.querySelectorAll('input').length).toEqual(0);
 
         act(() => {
@@ -61,31 +62,31 @@ describe("PageView", () => {
     });
 
     it("is aware of field errors", (done) => {
-        let s: Section = new Section({name: "s1", title: "s1 title"}, store)
-        let c: Column = new Column({id: "c1"}, store);
+        let s: Section = new Section({id:genElementId("page"), name: "s1", title: "s1 title"}, store)
+        let c: Column = new Column({id: genElementId("column")}, store);
         let f: Field = new Field({
-            id: "f1",
+            id: genElementId("field"),
             name: "First Name",
             type: "text",
             inputType: "input",
             placeholder: "Enter first name",
             validationRules : {
-                presence: {message: "f1 is required"}
+                presence: {message: "First Name is required"}
             }
         }, store);
 
-        let p = new Page({ id: 'p1', sections: [], name: "Page 1"}, store);
+        let p = new Page({ id: genElementId("page"), sections: [], name: "Page 1"}, store);
         act(() => ReactDOM.render(<PageView page={p} store={store} />, container));
-        let p1 = container.querySelector("#p1");
+        let p1 = container.querySelector("#"+p.id);
         expect(p1).toBeDefined();
 
         act(() => {p.addSection(s);return;});
-        let sec1 = container.querySelector("#s1");
+        let sec1 = container.querySelector("#"+s.id);
         expect(sec1).toBeDefined()
         expect(s.isValid).toBe(true);
 
         act(() => {s.addColumn(c);return;})
-        let col1 = container.querySelector("#c1");
+        let col1 = container.querySelector("#"+c.id);
         expect(col1).toBeDefined()
         expect(c.isValid).toBe(true);
 
@@ -93,7 +94,7 @@ describe("PageView", () => {
         expect(container.querySelectorAll('input').length).toBe(1);
 
         expect(p.errors.length).toBe(1);
-        let input1 = container.querySelector("#f1");
+        let input1 = container.querySelector("#"+f.id);
         act(() => {
             ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
             return;
