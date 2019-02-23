@@ -2,7 +2,8 @@ import { CheckboxOptionType } from "antd/lib/checkbox/Group";
 import { action, computed, decorate, observable, observe, toJS, reaction } from "mobx";
 import FormStore from "../state/FormStore";
 import Condition, { ICondition } from "./condition";
-import {valueOrDefault, uuid} from "./common";
+import {uuid} from "./common";
+import moment from "moment";
 
 const validate = require('validate.js');
 
@@ -99,6 +100,7 @@ class Field implements IField {
         this.queryParam = data.queryParam;
         this.saveable = data.saveable;
         this.value = data.value;
+        this.store.setFieldValue(this.id, this.value);
         if (data.condition) {
             this.setCondition(data.condition);
         } else {
@@ -121,9 +123,9 @@ class Field implements IField {
         });
     }
 
-    // @computed get isTouched() {
-
-    // }
+    @computed get isTouched() : boolean {
+        return this.store.touched[this.id];
+    }
 
     @computed get isValidateable() {
         return !this.isHidden && this.conditionState && !!this.validationRules && Object.keys(this.validationRules).length > 0;
@@ -146,8 +148,18 @@ class Field implements IField {
     }
 
     @action setValue(value: any) {
-        this.value = value;
-        this.store.setFieldValue(this.id, value);
+        let formatted = value;
+        if(this.inputType == 'datepicker') {
+            let d = moment(value);
+            formatted = this.format ? d.format(this.format) : moment(d).toISOString();
+        }
+        this.value = formatted;
+        this.store.setFieldValue(this.id, this.value);
+        this.validate();
+    }
+
+    @action setTouched() {
+        this.store.setFieldTouched(this.id);
         this.validate();
     }
 

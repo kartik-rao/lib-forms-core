@@ -52,6 +52,9 @@ module.exports = function (config) {
     useIframe: false,
     webpack: {
       mode: 'development',
+      output: {
+        pathinfo: false
+      },
       entry: path.join(__dirname, '/test/spec.fieldview.tsx'),
       resolve: {
         modules: [
@@ -59,7 +62,7 @@ module.exports = function (config) {
         ],
         extensions: ['.ts', '.tsx', '.js']
       },
-      devtool: 'cheap-module-source-map',
+      devtool: 'inline-source-map',
       module: {
         rules: [
             { test: /(\.woff|\.woff2)$/, loader: 'url?name=font/[name].[ext]&limit=10240&mimetype=application/font-woff' },

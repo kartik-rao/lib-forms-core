@@ -9,7 +9,6 @@ const F1: IField = {
     type: "string",
     inputType : "text",
     placeholder: "",
-    location: {},
     validationRules: {
         presence: {message: 'Required validation message'},
         length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
@@ -21,7 +20,6 @@ const F2: IField= {id: "f2",
     type: "string",
     inputType : "text",
     placeholder: "",
-    location: {},
     condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
     validationRules: {
         presence: {message: 'Required validation message'}

@@ -6,6 +6,7 @@ import Field from '../src/models/field';
 import FormStore from '../src/state/FormStore';
 import { FieldView } from "../src/views/FieldView";
 
+// Allow mobx store mutation from anywhere
 configure({enforceActions: "never"});
 
 describe("FieldView", () => {
@@ -23,7 +24,7 @@ describe("FieldView", () => {
         document.body.appendChild(container);
     });
 
-    it("renders a text input", (done) => {
+    it("can render a text input", (done) => {
         let f: Field = new Field({
             id: "f1",
             name: "First Name",
@@ -41,7 +42,30 @@ describe("FieldView", () => {
         done();
     });
 
-    it("[isValid=false] if validation errors exist", (done)=> {
+    it("notifies store when value changes", (done) => {
+        let f: Field = new Field({
+            id: "f1",
+            name: "First Name",
+            type: "text",
+            inputType: "input",
+            placeholder: "Enter first name"
+        }, store);
+
+        act(() => {
+            ReactDOM.render(<div><FieldView field={f} store={store} /></div>, container);
+        });
+
+        expect(container.querySelectorAll('input').length).toEqual(1);
+        let input1 = container.querySelector("#f1");
+        act(() => {
+            ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
+        });
+
+        expect(store.values["f1"]).toEqual('f1value');
+        done();
+    });
+
+    it("validates input", (done)=> {
         const validationMessage = "field is required";
         let f: Field = new Field({
             id: "f1",
@@ -52,7 +76,6 @@ describe("FieldView", () => {
             validationRules : {
                 presence: { message: validationMessage}
             }
-
         }, store);
 
         act(() => {
@@ -71,14 +94,14 @@ describe("FieldView", () => {
         expect(feedback[0].textContent).toEqual(validationMessage);
 
         act(() => {
-            ReactTestUtils.Simulate.change(input1, {target: {value: 'kartik'} as HTMLInputElement});
+            ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
         });
 
         expect(f.isValid).toBe(true);
         done();
     });
 
-    it("[isDisabled=true] if conditionally disabled", (done) => {
+    it("evaluatues conditions", (done) => {
         let f1: Field = new Field({
             id: "f1",
             name: "First Name",
@@ -91,8 +114,8 @@ describe("FieldView", () => {
             name: "Last Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter last name if first name is 'kartik'",
-            condition : {predicates: [{condition: "eq", field: "f1", value: "kartik"}]}
+            placeholder: "Enter last name if first name is 'f1value'",
+            condition : {predicates: [{condition: "eq", field: "f1", value: "f1value"}]}
         }, store);
 
         act(() => {
@@ -103,12 +126,18 @@ describe("FieldView", () => {
         expect(container.querySelectorAll('input').length).toEqual(1);
         let input1 = container.querySelector("#f1");
 
-        act(() => {
-            ReactTestUtils.Simulate.change(input1, {target: {value: 'kartik'} as HTMLInputElement});
-        });
-
         // Store should be updated
-        expect(store.values["f1"]).toBe("kartik");
+        act(() => {
+            ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
+        });
+        expect(store.values["f1"]).toBe("f1value");
+
+        // Field should be marked as touched
+        act(() => {
+            ReactTestUtils.Simulate.blur(input1);
+        });
+        expect(store.touched["f1"]).toBe(true);
+
         // F2 should have rendered
         expect(container.querySelectorAll('input').length).toEqual(2);
         expect(container.querySelector("#f2")).toBeDefined();

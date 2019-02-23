@@ -21,11 +21,9 @@ export class FieldView extends React.Component<IFieldProps, any> {
         const {field, store} = this.props;
         const {type, inputType} = field;
 
-        let onChange = (e) => {field.setValue(e.target.value)}
-        let onBlur = (e) => {
-            store.touched[field.id] = true;
-            field.validate();
-        }
+        let onChange = (e) =>field.setValue(e.target.value);
+        let onBlur = (e) => field.setTouched();
+
         let {id, name, uuid} = field;
         // TODO Pass form layout to Field
         return !field.isDisabled && <Form.Item label={field.label}
