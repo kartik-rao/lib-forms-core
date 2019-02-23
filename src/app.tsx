@@ -1,15 +1,15 @@
+import { Col, Layout, Row } from "antd";
 import React from 'react';
 import { render } from 'react-dom';
-
-import {Factory} from "./models/factory";
-import FormStore from "./state/FormStore";
-import {FormView} from "./views/FormView";
-import {Row, Col, Layout} from "antd";
+import { Factory } from "./models/factory";
 import Form from './models/form';
-let store = new FormStore({});
-let factory = new Factory(store);
+import FormStore from "./state/FormStore";
+import { FormView } from "./views/FormView";
+
 
 export function renderForm(selector:string, initialState: any) {
+    let store = new FormStore({});
+    let factory = new Factory(store);
     let form: Form = factory.makeForm(initialState);
     store.setForm(form);
 

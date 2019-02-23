@@ -24,8 +24,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
         let {content, formLayoutOptions} = form;
 
         return (<div className="form-wrapper">
-            {content.title &&
-               <Row>
+            {content.title && <Row>
                    <Col span={20}>
                         <Card><h2>{content.title}</h2><br/><h3>{content.subtitle}</h3></Card>
                     </Col>
