@@ -37,7 +37,7 @@
                                     title: 'Section 1 - Column 1',
                                     fields: [
                                         {
-                                            id: "f1", name: "f1", type: "input", inputType: "text", label: "Text Label",
+                                            id: "f1", name: "f1", type: "text", inputType: "input", label: "Text Label",
                                             placeholder: 'Placeholder Text',
                                             fieldOptions: {
                                                 type: 'string',
@@ -53,12 +53,12 @@
                                     name: 's1c2',
                                     title: 'Section 1 - Column 2',
                                     fields: [{
-                                        id: "f2", name: "f2", type: "select", label: "Select Label", children: [
+                                        id: "f2", name: "f2", inputType: "select", label: "Select Label", children: [
                                                 { label: "option1", value: "option1" },
                                                 { label: "option2", value: "option2" }
                                             ]
                                         },{
-                                            id: "f8", name: "f8", type: "datepicker", label: "Datepicker label",
+                                            id: "f8", name: "f8", inputType: "datepicker", label: "Datepicker label",
                                             fieldOptions: {
                                                 type: 'string',
                                                 rules: [
@@ -68,13 +68,15 @@
                                             }
                                         },
                                     {
-                                        id: "f3", name: "f3", type: "input", inputType: "text", label: "Conditional Text Label",
+                                        id: "f3", name: "f3", type: "text", inputType: "input", label: "Conditional Text Label",
                                         placeholder: 'Placeholder Text',
                                         fieldOptions: {
                                             type : 'string',
                                             rules: [
                                                 { name: "required", value: true, message: 'f3 is required' }
                                             ]
+                                        }, condition: {
+                                            predicates:[ { field: "f1", condition: "eq", value: "qq" } ]
                                         }
                                     }]
                                 }]
@@ -92,10 +94,10 @@
                                         name: 'p2s1c1',
                                         title: 'Section 2 - Column 1',
                                         fields: [{
-                                            id: "f5", name: "f5", type: "textblock", inputType: "textblock", label: "Text Label F5",
+                                            id: "f5", name: "f5", inputType: "textblock", label: "Text Label F5",
                                             value: "Lorem ipsum text"
                                         },{
-                                            id: "f4", name: "f4", type: "input", inputType: "text", label: "Text Label F4",
+                                            id: "f4", name: "f4", type: "text", inputType: "input", label: "Text Label F4",
                                             placeholder: 'Placeholder Text F4',
                                             fieldOptions: {
                                                 type: 'string',
@@ -120,7 +122,7 @@
                                         name: 's1c1',
                                         title: 'Section 1 - Column 1',
                                         fields: [{
-                                            id: "f6", name: "f6", type: "input", inputType: "text", label: "Text Label F6",
+                                            id: "f6", name: "f6", type: "text", inputType: "input", label: "Text Label F6",
                                             placeholder: 'Placeholder Text F6',
                                             fieldOptions: {
                                                 type: 'string',
@@ -142,7 +144,8 @@
                 showSectionTitles: false,
                 showSectionBorders : false,
                 showPageBorders: false,
-                validationDisablesPaging: true
+                validationDisablesPaging: true,
+                wrapperOffset: 4
             }
         });
     </script>

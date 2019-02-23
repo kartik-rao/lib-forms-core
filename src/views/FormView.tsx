@@ -48,8 +48,6 @@ export class FormView extends React.Component<FormComponentProps, any> {
                         <div className="page-wrapper">
                             <PageView page={content.pages[store.currentPage]} store={store}></PageView>
                         </div>
-
-                            }
                         <div className="page-actions">
                             <Card>
                                 <Row>

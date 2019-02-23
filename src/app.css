@@ -1,0 +1,6 @@
+@import '~antd/dist/antd.css';
+
+.action-button {
+    float: right;
+    margin: 5px;
+}
