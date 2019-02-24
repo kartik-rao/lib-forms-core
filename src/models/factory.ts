@@ -60,8 +60,7 @@ export class Factory {
             return <Field[]>[];
         }
         return fields.reduce((r: Field[], f:IField) => {
-            let condition = f.condition ? this.makeCondition(f.condition): null;
-            r.push(new Field({...f, condition: condition}, this.store));
+            r.push(new Field({...f, condition: f.condition}, this.store));
             return r;
         }, <Field[]>[]);
     }
