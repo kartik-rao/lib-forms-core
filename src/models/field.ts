@@ -99,8 +99,8 @@ class Field implements IField {
         this.placeholder = data.placeholder;
         this.queryParam = data.queryParam;
         this.saveable = data.saveable;
-        this.value = data.value;
-        this.store.setFieldValue(this.id, this.value);
+
+        this.setValue(data.value)
         if (data.condition) {
             this.setCondition(data.condition);
         } else {
