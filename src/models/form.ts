@@ -81,9 +81,11 @@ export interface IFormProps {
     content?: IFormContent;
     values?: any;
     layout?: any;
+    formLayoutOptions?: IFormLayoutOptions;
     stopSubmit?: boolean;
     submitTarget?: string;
-    formLayoutOptions?: IFormLayoutOptions;
+    successRedirect?: string;
+    errorRedirect?: string;
 }
 
 class Form implements IFormProps {
@@ -102,6 +104,8 @@ class Form implements IFormProps {
     formLayoutOptions: IFormLayoutOptions;
     store: FormStore
     submitError: string;
+    successRedirect: string;
+    errorRedirect: string;
 
     @action initialize(data: IFormProps, store: FormStore) {
         this.store = store;
@@ -238,7 +242,7 @@ class Form implements IFormProps {
     }
 
     @computed get isSubmittable() {
-        let validTarget =  !!this.stopSubmit ?  !this.stopSubmit && !!this.submitTarget : !!this.submitTarget;
+        let validTarget =  !!this.stopSubmit ?  !this.stopSubmit : true
         return this.errors.length == 0 && validTarget;
     }
 
@@ -256,23 +260,34 @@ class Form implements IFormProps {
 
 
     @action handleSubmit() {
-        if(this.isSubmittable) {
-            this.store.setSubmitting(true);
-            let meta = this.fieldMetadata;
-            let payload = {};
-            let values = toJS(this.store.values);
-            Object.keys(this.store.values).forEach((id: string) => {
-                let key = meta[id].valuePropName || meta[id].name;
-                payload[key] = values[id];
-            });
+        this.store.setSubmitting(true);
+        let meta = this.fieldMetadata;
+        let payload = {};
+        let values = toJS(this.store.values);
+        Object.keys(this.store.values).forEach((id: string) => {
+            let key = meta[id].valuePropName || meta[id].name;
+            payload[key] = values[id];
+        });
+
+        if(this.isSubmittable && !!this.submitTarget) {
             axios.post(this.submitTarget, payload).catch((reason:any) => {
                 console.log('Submit Error', reason);
                 this.submitError = "There was an error submitting this form";
+                if (this.successRedirect) {
+                    setTimeout(()=> {
+                        window.location.href = this.successRedirect;
+                    }, 5000);
+                }
             }).then(() => {
-
-            }).finally(() => {
                 this.store.setSubmitting(false);
+                if (this.successRedirect) {
+                    setTimeout(()=> {
+                        window.location.href = this.errorRedirect;
+                    }, 5000);
+                }
             })
+        } else {
+            console.dir(values);
         }
     }
 }
