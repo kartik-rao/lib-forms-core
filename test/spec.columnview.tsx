@@ -15,10 +15,10 @@ describe("ColumnView", () => {
     let store: FormStore;
     let container: HTMLElement;
 
-    // afterAll(() => {
-    //     document.body.removeChild(container);
-    //     container = null;
-    // });
+    afterAll(() => {
+        document.body.removeChild(container);
+        container = null;
+    });
 
     beforeAll(()=> {
         store = new FormStore({values: {}});
