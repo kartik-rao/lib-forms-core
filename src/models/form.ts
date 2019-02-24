@@ -1,5 +1,5 @@
-import {action, decorate, observable, computed} from "mobx";
-// import {FormComponentProps} from "antd/lib/form";
+import {action, decorate, observable, computed, toJS} from "mobx";
+import axios from "axios";
 import {valueOrDefault, uuid} from "./common";
 import Page from "./page";
 import FormStore from "../state/FormStore";
@@ -81,6 +81,8 @@ export interface IFormProps {
     content?: IFormContent;
     values?: any;
     layout?: any;
+    stopSubmit?: boolean;
+    submitTarget?: string;
     formLayoutOptions?: IFormLayoutOptions;
 }
 
@@ -95,8 +97,11 @@ class Form implements IFormProps {
     content: IFormContent;
     values: any;
     layout: any;
+    stopSubmit: boolean;
+    submitTarget: string;
     formLayoutOptions: IFormLayoutOptions;
     store: FormStore
+    submitError: string;
 
     @action initialize(data: IFormProps, store: FormStore) {
         this.store = store;
@@ -232,10 +237,43 @@ class Form implements IFormProps {
         this.content.pages.splice(toIndex, 0, this.content.pages.splice(atIndex, 1)[0]);
     }
 
+    @computed get isSubmittable() {
+        let validTarget =  !!this.stopSubmit ?  !this.stopSubmit && !!this.submitTarget : !!this.submitTarget;
+        return this.errors.length == 0 && validTarget;
+    }
+
+    @computed get fieldMetadata() : any {
+        return this.content.pages.reduce((all: {}, s: Page)=>{
+            return {...all, ...s.fieldMetadata}
+        }, {});
+    }
+
     @computed get errors() : any[] {
         return this.content.pages.reduce((all: any[], p: Page)=>{
             return all.concat(p.errors);
         }, <any[]>[]);
+    }
+
+
+    @action handleSubmit() {
+        if(this.isSubmittable) {
+            this.store.setSubmitting(true);
+            let meta = this.fieldMetadata;
+            let payload = {};
+            let values = toJS(this.store.values);
+            Object.keys(this.store.values).forEach((id: string) => {
+                let key = meta[id].valuePropName || meta[id].name;
+                payload[key] = values[id];
+            });
+            axios.post(this.submitTarget, payload).catch((reason:any) => {
+                console.log('Submit Error', reason);
+                this.submitError = "There was an error submitting this form";
+            }).then(() => {
+
+            }).finally(() => {
+                this.store.setSubmitting(false);
+            })
+        }
     }
 }
 
@@ -249,6 +287,9 @@ decorate(Form, {
     content:observable,
     values: observable,
     layout: observable,
+    stopSubmit: observable,
+    submitTarget: observable,
+    submitError: observable,
     formLayoutOptions: observable
 });
 

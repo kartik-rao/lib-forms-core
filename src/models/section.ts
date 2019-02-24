@@ -62,6 +62,12 @@ class Section implements ISection {
         });
     }
 
+    @computed get fieldMetadata() : any {
+        return this.columns.reduce((all: {}, c: Column)=>{
+            return {...all, ...c.fieldMetadata}
+        }, {});
+    }
+
     @action initialize(data: ISection, store: FormStore) {
         this.id = data.id;
         this.uuid = valueOrDefault(data.uuid, uuid());

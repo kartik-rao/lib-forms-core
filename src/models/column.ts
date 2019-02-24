@@ -32,6 +32,21 @@ class Column implements IColumn {
         });
     }
 
+    @computed get fieldMetadata() : any {
+        return this.fields.reduce((all: {}, f: Field)=>{
+            all[f.id] = {
+                id: f.id,
+                name: f.name,
+                type: f.type,
+                inputType: f.inputType,
+                format: f.format,
+                valuePropName: f.valuePropName,
+                valueType: f.valueType
+            };
+            return all;
+        }, {});
+    }
+
     @computed get numFields() : number {
         return this.fields.length;
     }

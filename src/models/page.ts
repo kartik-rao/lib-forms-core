@@ -65,6 +65,12 @@ class Page implements IPage {
         return fieldIds;
     }
 
+    @computed get fieldMetadata() : any {
+        return this.sections.reduce((all: {}, s: Section)=>{
+            return {...all, ...s.fieldMetadata}
+        }, {});
+    }
+
     @computed get errors() : any[] {
         return this.sections.reduce((all: any[], s: Section)=>{
             return all.concat(s.errors);
