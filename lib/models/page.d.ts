@@ -2,6 +2,7 @@ import Section from "./section";
 import FormStore from "../state/FormStore";
 export interface IPage {
     id: string;
+    uuid?: string;
     name?: string;
     icon?: string;
     sections?: Section[];
@@ -12,6 +13,7 @@ export interface IPage {
 declare class Page implements IPage {
     readonly _type: string;
     id: string;
+    uuid: string;
     name: string;
     icon: string;
     sections: Section[];
@@ -19,6 +21,8 @@ declare class Page implements IPage {
     subtitle: string;
     store: FormStore;
     readonly fieldNames: string[];
+    readonly fieldIds: string[];
+    readonly fieldMetadata: any;
     readonly errors: any[];
     readonly isValid: boolean;
     readonly numSections: number;

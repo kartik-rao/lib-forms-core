@@ -6,8 +6,15 @@ declare class FormStore {
     currentPage: number;
     debug: boolean;
     form: Form;
-    addField(page: number, section: number, column: number): void;
+    submitting: boolean;
+    readonly fieldNames: string[];
     readonly isValid: boolean;
+    setSubmitting(value: boolean): void;
+    readonly isSubmitting: boolean;
+    readonly numPages: number;
+    nextPage(): void;
+    prevPage(): void;
+    setForm(form: Form): void;
     setFieldValue(id: string, value: any): void;
     setFieldTouched(id: string): void;
     setFieldError(id: string, error: any): void;

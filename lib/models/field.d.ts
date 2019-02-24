@@ -19,6 +19,7 @@ export declare type RadioSelectCheckboxOption = CheckboxOptionType | {
 };
 export interface IField {
     id: string;
+    uuid?: string;
     name: string;
     type: string;
     inputType?: string;
@@ -36,7 +37,6 @@ export interface IField {
     queryParam?: string;
     saveable?: boolean;
     value?: string;
-    location: any;
     valueType?: string;
     valuePropName?: string;
     format?: string;
@@ -44,6 +44,7 @@ export interface IField {
 }
 declare class Field implements IField {
     readonly _type: string;
+    uuid: string;
     id: string;
     name: string;
     type: string;
@@ -72,12 +73,15 @@ declare class Field implements IField {
     validationErrors: any[];
     initialize(data: IField, store: FormStore): void;
     formatError(errors: any): any;
+    readonly isTouched: boolean;
     readonly isValidateable: boolean;
     readonly isValid: boolean;
     readonly isHidden: boolean;
     readonly currentValue: string;
     readonly isDisabled: boolean;
     setValue(value: any): void;
+    setTouched(): void;
+    setConditionState(value: boolean): void;
     setCondition(condition: ICondition): void;
     validate(): void;
     constructor(data: IField, store: FormStore);

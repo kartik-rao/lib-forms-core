@@ -2,6 +2,7 @@ import Column from "./column";
 import FormStore from "../state/FormStore";
 export interface ISection {
     id?: string;
+    uuid?: string;
     name?: string;
     title?: string;
     gutter?: number;
@@ -11,6 +12,7 @@ export interface ISection {
 declare class Section implements ISection {
     readonly _type: string;
     id: string;
+    uuid: string;
     name: string;
     title: string;
     gutter: number;
@@ -23,6 +25,7 @@ declare class Section implements ISection {
     moveColumn(atIndex: number, toIndex: number): void;
     readonly numColumns: number;
     readonly isValid: boolean;
+    readonly fieldMetadata: any;
     initialize(data: ISection, store: FormStore): void;
     constructor(data: ISection, store: FormStore);
 }

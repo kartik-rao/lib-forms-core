@@ -62,6 +62,7 @@ export interface IFormLayoutOptions {
 }
 export interface IFormProps {
     id: string;
+    uuid?: string;
     exid?: string;
     desc?: string;
     name?: string;
@@ -70,10 +71,13 @@ export interface IFormProps {
     content?: IFormContent;
     values?: any;
     layout?: any;
+    stopSubmit?: boolean;
+    submitTarget?: string;
     formLayoutOptions?: IFormLayoutOptions;
 }
 declare class Form implements IFormProps {
     id: string;
+    uuid: string;
     exid: string;
     desc: string;
     name: string;
@@ -82,8 +86,22 @@ declare class Form implements IFormProps {
     content: IFormContent;
     values: any;
     layout: any;
+    stopSubmit: boolean;
+    submitTarget: string;
     formLayoutOptions: IFormLayoutOptions;
+    store: FormStore;
+    submitError: string;
     initialize(data: IFormProps, store: FormStore): void;
     constructor(data: IFormProps, store: FormStore);
+    readonly isValid: boolean;
+    readonly numPages: number;
+    readonly numFields: number;
+    addPage(p: Page, index?: number): void;
+    removePage(index: number): void;
+    movePage(atIndex: number, toIndex: number): void;
+    readonly isSubmittable: boolean;
+    readonly fieldMetadata: any;
+    readonly errors: any[];
+    handleSubmit(): void;
 }
 export default Form;
