@@ -12,8 +12,9 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     plugins: ['karma-jasmine', 'karma-webpack',  'karma-mocha-reporter', 'karma-chrome-launcher', 'karma-sourcemap-loader', 'karma-coverage-istanbul-reporter'],
     // list of files / patterns to load in the browser
+    autoWatch: true,
     files: [
-      'test/index.ts'
+        { pattern: "test/index.ts", watched: false, served: true, included: true }
     ],
     // list of files / patterns to exclude
     exclude: [
