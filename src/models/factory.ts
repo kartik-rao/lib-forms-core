@@ -79,10 +79,13 @@ export class Factory {
     }
 
     makeForm(formData: IFormProps) : Form {
-        if (formData) {
+        if (formData && formData.content && formData.content.pages) {
             formData.content.pages = this.makePages(...formData.content.pages)
+            return new Form(formData, this.store);
+        } else {
+            let _formData = formData ? formData : {id: null, content: {pages: []}}
+            return new Form(_formData, this.store);
         }
-        return new Form(formData, this.store);
     }
 
 

@@ -148,6 +148,7 @@ class Field implements IField {
     }
 
     @action setValue(value: any) {
+        this.value = value;
         this.store.setFieldValue(this.id, value);
         this.validate();
     }

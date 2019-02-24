@@ -4,6 +4,7 @@ import { IField } from "../src/models/field";
 import { IColumn } from "../src/models/column";
 import { ISection } from "../src/models/section";
 import { IPage } from "../src/models/page";
+import Form from "../src/models/form";
 
 const P1: IPage = {
     id: 'p1',
@@ -191,6 +192,56 @@ describe('Factory', () => {
             expect(page.errors.length).toEqual(1);
             fields[1].setValue("abcd");
             expect(page.isValid).toBe(true);
+        });
+    });
+
+    describe(".makeForm", () => {
+        beforeEach(() => {
+            store = new FormStore({values: {"f1":"", "f2": ""}});
+            factory = new Factory(store);
+        });
+        it("can create a form", () => {
+            let form : Form = factory.makeForm({id : "form-1"});
+            let page = factory.makePages(P1)[0];
+            let section = factory.makeSections(S1)[0];
+            let column = factory.makeColumns(C1)[0];
+            form.addPage(page);
+            expect(form.numFields).toBe(0);
+
+            page.addSection(section);
+            section.addColumn(column);
+            let fields = factory.makeFields(F1, F2);
+            column.addField(fields[0]);
+            column.addField(fields[1]);
+            expect(form.numFields).toEqual(2);
+        });
+
+        it("created form has observable validation state", () => {
+            let form: Form = factory.makeForm({id: "form-1"});
+            let page = factory.makePages(P1)[0]
+            let section = factory.makeSections(S1)[0];
+            let column = factory.makeColumns(C1)[0];
+
+            expect(form.isValid).toBe(true);
+            expect(form.errors.length).toBe(0);
+
+            form.addPage(page);
+            page.addSection(section);
+            section.addColumn(column);
+            expect(form.isValid).toBe(true);
+            expect(page.errors.length).toBe(0);
+
+            let fields = factory.makeFields(F1, F2);
+            column.addField(fields[0]);
+            column.addField(fields[1]);
+            expect(form.isValid).toEqual(false);
+
+            expect(page.errors.length).toEqual(1);
+            fields[0].setValue("qq");
+            expect(form.isValid).toBe(false);
+            expect(form.errors.length).toEqual(1);
+            fields[1].setValue("abcd");
+            expect(form.isValid).toBe(true);
         });
     });
 });

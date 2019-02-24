@@ -5,7 +5,7 @@ import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import Field from '../src/models/field';
 import FormStore from '../src/state/FormStore';
 import { FieldView } from "../src/views/FieldView";
-import {genElementId} from "./utils";
+import {genElementId, printPrettyHtml} from "./utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});
@@ -14,10 +14,10 @@ describe("FieldView", () => {
     let store: FormStore;
     let container: HTMLElement;
 
-    // afterEach(() => {
-    //     document.body.removeChild(container);
-    //     container = null;
-    // });
+    afterEach(() => {
+        document.body.removeChild(container);
+        container = null;
+    });
 
     beforeEach(()=> {
         store = new FormStore({values: {}});
@@ -67,7 +67,7 @@ describe("FieldView", () => {
     });
 
     it("validates input", (done)=> {
-        const validationMessage = "field is required";
+        const validationMessage = "[validates input] - field is required";
         let f: Field = new Field({
             id: genElementId("field"),
             name: "First Name",
@@ -89,8 +89,11 @@ describe("FieldView", () => {
         expect(input1).toBeDefined();
         expect(f.isValid).toBe(false);
         expect(store.errors[f.id]).toEqual(validationMessage);
+        act(() => {
+            f.setTouched()
+        });
 
-        let feedback = container.querySelectorAll(".show-help-appear")
+        let feedback = container.querySelectorAll(".show-help-enter")
         expect(feedback.length).toBeGreaterThan(0)
         expect(feedback[0].textContent).toEqual(validationMessage);
 
