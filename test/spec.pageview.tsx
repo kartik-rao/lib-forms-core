@@ -44,7 +44,6 @@ describe("PageView", () => {
 
         act(() => {
             ReactDOM.render(<PageView page={p} store={store} />, container);
-            return;
         });
 
         expect(container.querySelector("#"+p.id)).toBeDefined();
@@ -54,7 +53,6 @@ describe("PageView", () => {
 
         act(() => {
             c.addField(f);
-            return;
         });
         expect(container.querySelectorAll('input').length).toEqual(1);
         expect(p.isValid).toBe(true);
@@ -80,24 +78,23 @@ describe("PageView", () => {
         let p1 = container.querySelector("#"+p.id);
         expect(p1).toBeDefined();
 
-        act(() => {p.addSection(s);return;});
+        act(() => {p.addSection(s);});
         let sec1 = container.querySelector("#"+s.id);
         expect(sec1).toBeDefined()
         expect(s.isValid).toBe(true);
 
-        act(() => {s.addColumn(c);return;})
+        act(() => {s.addColumn(c);})
         let col1 = container.querySelector("#"+c.id);
         expect(col1).toBeDefined()
         expect(c.isValid).toBe(true);
 
-        act(()=> {c.addField(f);return;})
+        act(()=> {c.addField(f)})
         expect(container.querySelectorAll('input').length).toBe(1);
 
         expect(p.errors.length).toBe(1);
         let input1 = container.querySelector("#"+f.id);
         act(() => {
             ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
-            return;
         });
         expect(s.errors.length).toBe(0);
         done();
