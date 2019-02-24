@@ -57,7 +57,7 @@ describe("FieldView", () => {
         });
 
         expect(container.querySelectorAll('input').length).toEqual(1);
-        let input1 = container.querySelector("#"+f.id);
+        let input1 = container.querySelector('input');
         act(() => {
             ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
         });
@@ -85,7 +85,7 @@ describe("FieldView", () => {
 
         expect(container.querySelectorAll('input').length).toEqual(1);
 
-        let input1 = container.querySelector("#"+f.id);
+        let input1 = container.querySelector("div.fl-text-field > input");
         expect(input1).toBeDefined();
         expect(f.isValid).toBe(false);
         expect(store.errors[f.id]).toEqual(validationMessage);
@@ -128,7 +128,7 @@ describe("FieldView", () => {
 
         // F2 is disabled as its condition value is false
         expect(container.querySelectorAll('input').length).toEqual(1);
-        let input1 = container.querySelector("#"+f1.id);
+        let input1 = container.querySelector("div.fl-text-field > input");
 
         // Store should be updated
         act(() => {

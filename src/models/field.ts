@@ -39,7 +39,7 @@ export interface IField {
     placeholder: string;
     queryParam?: string;
     saveable?: boolean;
-    value? : string;
+    value? : any;
     valueType? : string;
     valuePropName? : string;
     format? : string;
@@ -66,7 +66,7 @@ class Field implements IField {
     placeholder: string;
     queryParam: string;
     saveable: boolean;
-    value : string;
+    value : any;
     location: any;
     store: FormStore;
     conditionState: boolean;
@@ -85,7 +85,7 @@ class Field implements IField {
         this.inputType = data.inputType;
         this.valueType = data.valueType;
         this.valuePropName = data.valuePropName || this.name;
-        this.format = data.format || 'string';
+        this.format = data.format;
         this.validationRules = data.validationRules;
         this.icon = data.icon;
         this.width = data.width;

@@ -3,6 +3,10 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import Field from "../models/field";
 import FormStore from "../state/FormStore";
+import {TextField} from "./partials/TextField";
+import {CheckboxField} from "./partials/CheckboxField";
+import {DatepickerField} from "./partials/DatepickerField";
+import {DaterangeField} from "./partials//DaterangeField";
 
 export interface IFieldProps {
     field: Field;
@@ -21,28 +25,27 @@ export class FieldView extends React.Component<IFieldProps, any> {
         const {field, store} = this.props;
         const {type, inputType} = field;
 
-        let onChange = (e) => field.setValue(e.target ? e.target.value: e);
+        let onChange = (e) => field.setValue( e.target ? e.target.value: e);
         let onBlur = (e) => field.setTouched();
 
         let {id, name, uuid} = field;
         // TODO Pass form layout to Field
-
+        let idUUID = {id: id, uuid: uuid};
         return !field.isDisabled && <Form.Item label={field.label}
             hasFeedback={store.touched[id] && store.errors[id] ? true : false}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
             help={store.touched[id] ? store.errors[id] : null}>
             {
-                (inputType == "input" && (type == "text" || type == "hidden")) && <Input
-                    id={field.id}
-                    data-uuid={field.uuid}
+                (inputType == "input" && (type == "text" || type == "hidden")) && <TextField
+                    {...idUUID}
                     type={field.type}
                     placeholder={field.placeholder}
-                    value={store.values[id]}
+                    defaultValue={store.values[id]}
                     onChange={onChange}
                     onBlur={onBlur}/>
             }
-            {inputType == "checkbox" && <Checkbox onChange={onChange} checked={store.values[id] == true}/>}
-            {inputType == "number" && <InputNumber onChange={onChange} onBlur={onBlur} value={store.values[id]}/>}
+            {inputType == "checkbox" && <CheckboxField {...idUUID} onChange={onChange} defaultChecked={store.values[id] == true}/>}
+            {inputType == "number" && <InputNumber{...idUUID} onChange={onChange} onBlur={onBlur} value={store.values[id]}/>}
             {inputType == "select" && <Select onChange={onChange} onBlur={onBlur} value={store.values[id]}>
                 {field.children.map((child: any, index: number) => {
                     return <Select.Option key={""+index} value={child.value}>{child.label}</Select.Option>
@@ -57,10 +60,14 @@ export class FieldView extends React.Component<IFieldProps, any> {
             }
             {inputType == "checkboxgroup" && <Checkbox.Group onChange={onChange} options={field.children} value={store.values[id]}/>}
             {inputType == "textarea" && <Input.TextArea onChange={onChange} value={store.values[id]}></Input.TextArea>}
-            {inputType == "datepicker" && <DatePicker onChange={onChange} value={store.values[id]}/>}
-            {inputType == "monthpicker" && <DatePicker.MonthPicker onChange={onChange} value={store.values[id]}/>}
+
+            {inputType == "daterange" && <DaterangeField {...idUUID}  dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
+            {inputType == "datepicker" && <DatepickerField {...idUUID} mode="date" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
+            {inputType == "monthpicker" && <DatepickerField {...idUUID} mode="month" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
+            {inputType == "timepicker" && <DatepickerField {...idUUID} mode="time" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
+            {inputType == "yearpicker" && <DatepickerField {...idUUID} mode="year" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
+
             {inputType == "rangepicker" && <DatePicker.RangePicker onChange={onChange} value={store.values[id]}/>}
-            {inputType == "weekpicker" && <DatePicker.WeekPicker onChange={onChange} value={store.values[id]}/>}
             {inputType == 'rate' && <Rate onChange={onChange} value={store.values[id]}></Rate>}
             {inputType == 'slider' && <Slider onChange={onChange} value={store.values[id]}></Slider>}
             {inputType == "textblock" && <p>{field.value}</p>}

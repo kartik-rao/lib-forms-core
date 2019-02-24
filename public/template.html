@@ -59,11 +59,17 @@
                                             ]
                                         },{
                                             id: "f8", name: "f8", inputType: "datepicker", label: "f8 - datepicker label",
+                                            format : 'YYYY-MM-DD',
                                             validationRules: {
                                                     presence: { message: "f8 is required"}
-                                            },
-                                            fieldOptions: {
-                                                type: 'string'
+                                            }
+                                        },
+                                        {
+                                            id: "f9", name: "f9", inputType: "daterange", label: "f9 - daterange label",
+                                            format : 'YYYY-MM-DD',
+
+                                            validationRules: {
+                                                presence: { message: "f9 is required"}
                                             }
                                         },
                                     {
