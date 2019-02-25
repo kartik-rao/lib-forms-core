@@ -4,9 +4,13 @@ import * as React from "react";
 import Field from "../models/field";
 import FormStore from "../state/FormStore";
 import {TextField} from "./partials/TextField";
+import {NumberField} from "./partials/NumberField";
+import {SelectField} from "./partials/SelectField";
 import {CheckboxField} from "./partials/CheckboxField";
-import {DatepickerField} from "./partials/DatepickerField";
 import {DaterangeField} from "./partials//DaterangeField";
+import {DatepickerField} from "./partials/DatepickerField";
+
+
 
 export interface IFieldProps {
     field: Field;
@@ -25,7 +29,7 @@ export class FieldView extends React.Component<IFieldProps, any> {
         const {field, store} = this.props;
         const {type, inputType} = field;
 
-        let onChange = (e) => field.setValue( e.target ? e.target.value: e);
+        let onChange = (e) => field.setValue( e && typeof(e) == 'object' && e.target ? e.target.value: e);
         let onBlur = (e) => field.setTouched();
 
         let {id, name, uuid} = field;
@@ -45,13 +49,8 @@ export class FieldView extends React.Component<IFieldProps, any> {
                     onBlur={onBlur}/>
             }
             {inputType == "checkbox" && <CheckboxField {...idUUID} onChange={onChange} defaultChecked={store.values[id] == true}/>}
-            {inputType == "number" && <InputNumber{...idUUID} onChange={onChange} onBlur={onBlur} value={store.values[id]}/>}
-            {inputType == "select" && <Select onChange={onChange} onBlur={onBlur} value={store.values[id]}>
-                {field.children.map((child: any, index: number) => {
-                    return <Select.Option key={""+index} value={child.value}>{child.label}</Select.Option>
-                })}
-                </Select>
-            }
+            {inputType == "number" && <NumberField {...idUUID} onChange={onChange} onBlur={onBlur} defaultValue={store.values[id]}/>}
+            {inputType == "select" && <SelectField {...idUUID} onChange={onChange} onBlur={onBlur} defaultValue={store.values[id]} options={field.children}/>}
             {inputType == "radiogroup" && <Radio.Group onChange={onChange} options={field.children} value={store.values[id]}>
                 {/* {field.children.map((child: any, index: number)  => {
                     return <Radio key={""+index} value={child.value}>{child.label}</Radio>

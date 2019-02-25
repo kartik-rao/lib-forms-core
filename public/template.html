@@ -46,6 +46,13 @@
                                             fieldOptions: {
                                                 type: 'string'
                                             }
+                                        },
+                                        {
+                                            id: 'f10', name: "f10", type: 'number', label: "f10 -Number Field ", inputType : "number",
+                                            validationRules: {
+                                                presence: { message: 'f10 is a required field' },
+                                                numericality : true
+                                            }
                                         }
                                     ]
                                 },{

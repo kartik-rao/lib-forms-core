@@ -41,7 +41,7 @@ export interface IField {
     saveable?: boolean;
     value? : any;
     valueType? : string;
-    valuePropName? : string;
+    valuePropName? : any;
     format? : string;
     validationRules? : any;
 }
@@ -71,7 +71,7 @@ class Field implements IField {
     store: FormStore;
     conditionState: boolean;
     valueType : string;
-    valuePropName : string;
+    valuePropName : any;
     format : string;
     validationRules : any;
     validationErrors: any[];

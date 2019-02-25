@@ -48,7 +48,6 @@ export class DatepickerField extends React.Component<ICheckboxFieldProps, any> {
             let v = e.target ? e.target.value : e;
             v ? props.onChange(moment(v).format(dateFormat)) : props.onChange(null);
         };
-        console.log(`Datepicker m=${mode} df=${dateFormat} dv=${props.defaultValue}` );
         return <div id={props.id} data-uuid={props.uuid} className={`fl-field fl-datapicker-field fl-datepicker-${mode}`}>
             <DatePicker {...props} mode={mode}
                 defaultValue={props.defaultValue ? moment(props.defaultValue, dateFormat): null}
