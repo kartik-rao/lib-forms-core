@@ -77,7 +77,7 @@ export class DateRangeView extends React.Component<IViewProps, any> {
         }
 
         let startValue = !!component.startValue ? moment(component.startValue, dateFormat) : null;
-        let endValue = !!component.endValue ? moment(component.startValue, dateFormat) : null;
+        let endValue = !!component.endValue ? moment(component.endValue, dateFormat) : null;
 
         return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-daterange-field`}>
             <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
