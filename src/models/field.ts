@@ -43,7 +43,10 @@ class Field implements IFieldProps {
         this.placeholder = data.placeholder;
         this.componentProps = data.componentProps;
 
-        this.setValue(data.value)
+        if (this.componentProps && this.componentProps.defaultValue) {
+            this.setValue(this.componentProps.defaultValue);
+        }
+
         if (data.condition) {
             this.setCondition(data.condition);
         } else {
