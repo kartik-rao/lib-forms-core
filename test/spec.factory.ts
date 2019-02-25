@@ -1,6 +1,6 @@
 import FormStore from "../src/state/FormStore";
 import { Factory } from "../src/models/factory";
-import { IField } from "../src/models/field";
+import { IFieldProps } from "../src/models/field.properties";
 import { IColumn } from "../src/models/column";
 import { ISection } from "../src/models/section";
 import { IPage } from "../src/models/page";
@@ -24,7 +24,7 @@ const C1 : IColumn = {
     fields: []
 }
 
-const F1: IField = {
+const F1: IFieldProps = {
     id: "f1",
     name: "f1",
     type: "string",
@@ -32,17 +32,24 @@ const F1: IField = {
     placeholder: "",
     validationRules: {
         presence: {message: 'Required validation message'}
+    },
+    valuePropName: ["f1"],
+    componentProps: {
+        placeholder: "Enter f1"
     }
 };
 
-const F2: IField = {id: "f2",
+const F2: IFieldProps = {id: "f2",
     name: "f2",
     type: "string",
     inputType : "text",
-    placeholder: "",
     condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
     validationRules: {
         presence: {message: 'Required validation message'}
+    },
+    valuePropName: ["f2"],
+    componentProps: {
+        placeholder: "Enter f2"
     }
 }
 

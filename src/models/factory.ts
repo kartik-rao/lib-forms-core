@@ -1,5 +1,6 @@
 import Page, {IPage} from "./page";
-import Field, {IField} from "./field";
+import {IFieldProps} from "./field.properties";
+import Field from "./field";
 import Column, {IColumn} from "./column";
 import Section, {ISection} from "./section";
 import Form, {IFormProps} from "./form";
@@ -55,11 +56,11 @@ export class Factory {
         return new Condition({predicates: predicates}, this.store);
     }
 
-    makeFields(...fields: IField[]) : Field[] {
+    makeFields(...fields: IFieldProps[]) : Field[] {
         if (!fields || fields.length == 0) {
             return <Field[]>[];
         }
-        return fields.reduce((r: Field[], f:IField) => {
+        return fields.reduce((r: Field[], f:IFieldProps) => {
             r.push(new Field({...f, condition: f.condition}, this.store));
             return r;
         }, <Field[]>[]);

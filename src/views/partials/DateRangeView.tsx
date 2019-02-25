@@ -1,28 +1,25 @@
 import { DatePicker } from "antd";
-import { RangePickerProps } from "antd/lib/date-picker/interface";
 import { observer } from "mobx-react";
 import moment from "moment";
 import * as React from "react";
-
-export interface IDaterangeFieldProps extends RangePickerProps {
-    id   : string,
-    uuid : string,
-    onChange: any,
-    dateFormat: string;
-}
+import { IViewProps } from "./IViewProps";
+import { IDateRangeProps } from "../../models/field.properties";
 
 @observer
-export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
+export class DateRangeView extends React.Component<IViewProps, any> {
     values: any = {};
     dateFormat: string;
 
     constructor(props: any) {
         super(props);
-        this.state = {start: null, end: null}
+        this.state = {
+            start: null,
+            end: null
+        }
     }
 
     disabledStartDate = (startValue:  moment.Moment) => {
-        const endValue = this.values.end;
+        const endValue = this.state.end;
         if (!startValue || !endValue) {
           return false;
         }
@@ -30,7 +27,7 @@ export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
     }
 
     disabledEndDate = (endValue: moment.Moment) => {
-        const startValue = this.values.start;
+        const startValue = this.state.start;
         if (!endValue || !startValue) {
             return false;
         }
@@ -38,9 +35,9 @@ export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
     }
 
     onChange = (field, value) => {
-        this.values[field] = moment(value).format(this.dateFormat);
-        if (this.values.start && this.values.end) {
-            this.props.onChange(`${this.values.start}|${this.values.end}`);
+        this.setState({[field]: moment(value).format(this.state.dateFormat)});
+        if (this.state.start && this.state.end) {
+            this.props.onChange(`${this.state.start}|${this.values.end}`);
         }
     }
 
@@ -53,9 +50,10 @@ export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
     }
 
     render() {
-        let {props} = this;
-        let mode = props.mode ? props.mode : 'date';
-        let dateFormat = props.dateFormat;
+        let {field} = this.props;
+        let component = field.componentProps as IDateRangeProps;
+        let mode= (component.mode ? component.mode : 'date') as "time"|"date"|"month"|"year";
+        let dateFormat = component.dateFormat;
 
         if (!dateFormat) {
             switch (mode) {
@@ -78,21 +76,22 @@ export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
             }
         }
 
-        this.dateFormat = dateFormat;
-        let startValue = !!props.value && props.value["start"] ? props.value["start"] : null;
-        let endValue = !!props.value && props.value["end"] ? props.value["end"] : null;
+        let startValue = !!component.startValue ? moment(component.startValue, dateFormat) : null;
+        let endValue = !!component.endValue ? moment(component.startValue, dateFormat) : null;
 
-        return <div id={props.id} data-uuid={props.uuid} className={`fl-field fl-daterange-field`}>
-            <span style={{marginRight: '5px'}} id={`${props.id}-start`} className="fl-daterange-field-start">
+        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-daterange-field`}>
+            <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
                 <DatePicker
+                    mode={mode}
                     disabledDate={this.disabledStartDate}
                     format={dateFormat}
                     defaultValue={startValue}
                     placeholder="Start"
                     onChange={this.onStartChange} />
             </span>
-            <span id={`${props.id}-start`} className="fl-daterange-field-end">
+            <span id={`${field.id}-start`} className="fl-daterange-field-end">
                 <DatePicker
+                    mode={mode}
                     disabledDate={this.disabledEndDate}
                     format={dateFormat}
                     defaultValue={endValue}

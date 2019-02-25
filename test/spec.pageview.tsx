@@ -37,7 +37,10 @@ describe("PageView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name"
+            valuePropName: ["f1"],
+            componentProps: {
+                placeholder: "Enter first name",
+            }
         }, store);
         p.addSection(s);
         s.addColumn(c);
@@ -70,6 +73,10 @@ describe("PageView", () => {
             placeholder: "Enter first name",
             validationRules : {
                 presence: {message: "First Name is required"}
+            },
+            valuePropName: ["f1"],
+            componentProps: {
+                placeholder: "Enter first name",
             }
         }, store);
 

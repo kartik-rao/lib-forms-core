@@ -39,9 +39,7 @@ class Column implements IColumn {
                 name: f.name,
                 type: f.type,
                 inputType: f.inputType,
-                format: f.format,
-                valuePropName: f.valuePropName,
-                valueType: f.valueType
+                valuePropName: f.valuePropName
             };
             return all;
         }, {});

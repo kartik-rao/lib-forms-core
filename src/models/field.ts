@@ -1,104 +1,47 @@
-import { CheckboxOptionType } from "antd/lib/checkbox/Group";
 import { action, computed, decorate, observable, observe, toJS, reaction } from "mobx";
 import FormStore from "../state/FormStore";
 import Condition, { ICondition } from "./condition";
 import {uuid} from "./common";
-import moment from "moment";
-
 const validate = require('validate.js');
 
-export interface IFieldStorage {
-    unique: boolean;
-    name: string;
-    type: string;
-    customerKey: string;
-    description: string;
-    isNullable: boolean;
-    isPrimaryKey: boolean;
-    isRequired: boolean;
-    isSendable: boolean;
-}
+import {IFieldProps, IComponentProps, IFieldStorage, ChoiceOption} from "./field.properties";
 
-export type RadioSelectCheckboxOption = CheckboxOptionType | { label: string, value: string, disabled?: boolean };
-export interface IField {
-    id: string;
-    uuid?: string;
-    name: string;
-    type: string;
-    inputType?: string;
-    icon?: string;
-    width?: string;
-    children?: RadioSelectCheckboxOption[];
-    condition?: ICondition;
-    storage?: IFieldStorage;
-    showLegend?: boolean;
-    showLabel?: boolean;
-    label?: string;
-    helpText?: string;
-    helpPlacement?: string;
-    placeholder: string;
-    queryParam?: string;
-    saveable?: boolean;
-    value? : any;
-    valueType? : string;
-    valuePropName? : any;
-    format? : string;
-    validationRules? : any;
-}
-
-class Field implements IField {
+class Field implements IFieldProps {
     readonly _type : string = "Field";
-    uuid: string;
     id: string;
     name: string;
+    uuid: string;
     type: string;
-    inputType: string;
-    icon: string;
-    width: string;
-    children: RadioSelectCheckboxOption[];
-    condition: Condition
-    storage: IFieldStorage;
-    showLegend: boolean;
-    showLabel: boolean;
     label: string;
-    helpText: string;
-    helpPlacement: string;
-    placeholder: string;
-    queryParam: string;
-    saveable: boolean;
     value : any;
-    location: any;
+    inputType: string;
+    helpText: string;
+    placeholder: string;
+    options: ChoiceOption[];
+    valuePropName: string[];
+    condition: Condition;
+    storage: IFieldStorage;
     store: FormStore;
     conditionState: boolean;
-    valueType : string;
-    valuePropName : any;
-    format : string;
     validationRules : any;
     validationErrors: any[];
+    componentProps: IComponentProps;
 
-    @action initialize(data: IField, store: FormStore) {
+    @action initialize(data: IFieldProps, store: FormStore) {
         this.store = store;
         this.id = data.id;
         this.uuid = data.uuid || uuid();
         this.name = data.name || `${this._type}-${data.id}`;
         this.type = data.type;
+        this.label = data.label;
         this.inputType = data.inputType;
-        this.valueType = data.valueType;
-        this.valuePropName = data.valuePropName || this.name;
-        this.format = data.format;
+        this.valuePropName = data.valuePropName
         this.validationRules = data.validationRules;
-        this.icon = data.icon;
-        this.width = data.width;
-        this.children = data.children;
         this.storage = data.storage;
-        this.showLegend = data.showLegend;
-        this.showLabel = data.showLabel;
         this.label = data.label;
         this.helpText = data.helpText;
-        this.helpPlacement = data.helpPlacement;
         this.placeholder = data.placeholder;
-        this.queryParam = data.queryParam;
-        this.saveable = data.saveable;
+        this.componentProps = data.componentProps;
 
         this.setValue(data.value)
         if (data.condition) {
@@ -194,37 +137,29 @@ class Field implements IField {
         return;
     }
 
-    constructor(data: IField, store: FormStore) {
+    constructor(data: IFieldProps, store: FormStore) {
         this.initialize(data, store);
     }
 }
 
 decorate(Field, {
     id: observable,
-    uuid: observable,
     name: observable,
+    uuid: observable,
     type: observable,
+    label: observable,
+    value : observable,
     inputType: observable,
-    icon: observable,
-    width: observable,
-    children: observable,
+    helpText: observable,
+    placeholder: observable,
+    options: observable,
+    valuePropName : observable,
     condition: observable,
     storage: observable,
-    showLegend: observable,
-    showLabel: observable,
-    label: observable,
-    helpText: observable,
-    helpPlacement: observable,
-    placeholder: observable,
-    queryParam: observable,
-    saveable: observable,
-    value : observable,
     conditionState: observable,
-    valueType : observable,
-    valuePropName : observable,
-    format : observable,
     validationRules : observable,
-    validationErrors: observable
-})
+    validationErrors: observable,
+    componentProps: observable
+});
 
 export default Field;

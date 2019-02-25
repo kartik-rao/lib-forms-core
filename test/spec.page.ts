@@ -1,30 +1,37 @@
 import Column, { IColumn } from "../src/models/column";
-import Field, { IField } from "../src/models/field";
+import {IFieldProps} from "../src/models/field.properties";
+import Field from "../src/models/field";
 import Section, { ISection } from "../src/models/section";
 import Page, {IPage} from "../src/models/page";
 import FormStore from "../src/state/FormStore";
 import {when} from "mobx";
 
-const F1: IField= {
+const F1: IFieldProps= {
     id: "f1",
     name: "f1",
     type: "string",
     inputType : "text",
-    placeholder: "",
     validationRules: {
         presence: {message: 'Required validation message'},
         length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
+    },
+    valuePropName: ["f1"],
+    componentProps: {
+        placeholder: "Enter f1",
     }
 };
 
-const F2: IField = {id: "f2",
+const F2: IFieldProps = {id: "f2",
     name: "f2",
     type: "string",
     inputType : "text",
-    placeholder: "",
     condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
     validationRules: {
         presence: {message: 'Required validation message'}
+    },
+    valuePropName: ["f2"],
+    componentProps: {
+        placeholder: "Enter f2",
     }
 };
 

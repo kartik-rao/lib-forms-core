@@ -32,7 +32,10 @@ describe("ColumnView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name"
+            valuePropName: ["f1"],
+            componentProps: {
+                placeholder: "Enter f1",
+            }
         }, store);
 
         let c: Column = new Column({id: genElementId("column")}, store);
@@ -56,7 +59,10 @@ describe("ColumnView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name",
+            valuePropName: ["f1"],
+            componentProps: {
+                placeholder: "Enter f1",
+            },
             validationRules : {
                 presence: {message: "f1 is required"}
             }

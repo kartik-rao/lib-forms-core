@@ -1,4 +1,4 @@
-import { configure } from 'mobx';
+import { configure, toJS } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
@@ -31,7 +31,10 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name"
+            valuePropName: ["firstName"],
+            componentProps: {
+                placeholder: "Enter first Name"
+            }
         }, store);
 
         act(() => {
@@ -49,7 +52,10 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name"
+            valuePropName: ["firstName"],
+            componentProps: {
+                placeholder: "Enter first Name"
+            }
         }, store);
 
         act(() => {
@@ -73,7 +79,10 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name",
+            valuePropName: ["firstName"],
+            componentProps: {
+                placeholder: "Enter first Name"
+            },
             validationRules : {
                 presence: { message: validationMessage}
             }
@@ -92,7 +101,6 @@ describe("FieldView", () => {
         act(() => {
             f.setTouched()
         });
-
         let feedback = container.querySelectorAll(".show-help-enter")
         expect(feedback.length).toBeGreaterThan(0)
         expect(feedback[0].textContent).toEqual(validationMessage);
@@ -111,15 +119,21 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter first name"
+            valuePropName: ["firstName"],
+            componentProps: {
+                placeholder: "Enter first Name"
+            }
         }, store);
         let f2: Field = new Field({
             id: genElementId("field"),
             name: "Last Name",
             type: "text",
             inputType: "input",
-            placeholder: "Enter last name if first name is 'f1value'",
-            condition : {predicates: [{condition: "eq", field: f1.id, value: "f1value"}]}
+            condition : {predicates: [{condition: "eq", field: f1.id, value: "f1value"}]},
+            valuePropName: ["lastName"],
+            componentProps: {
+                placeholder: "Enter last name if first name is 'f1value'"
+            }
         }, store);
 
         act(() => {
