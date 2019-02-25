@@ -38,13 +38,13 @@
                                     fields: [
                                         {
                                             id: "f1", name: "f1", type: "text", inputType: "input", label: "f1 - Text Label",
-                                            placeholder: 'Placeholder Text',
                                             validationRules: {
                                                 presence: { message: 'f1 is a required field' },
                                                 length: { message: 'f1 should be length 2', minimum: 2},
                                             },
-                                            fieldOptions: {
-                                                type: 'string'
+                                            componentProps: {
+                                                size: "small",
+                                                placeholder: 'Placeholder Text',
                                             }
                                         },
                                         {
@@ -52,6 +52,9 @@
                                             validationRules: {
                                                 presence: { message: 'f10 is a required field' },
                                                 numericality : true
+                                            },
+                                            componentProps: {
+                                                defaultValue: 10,
                                             }
                                         },
                                         {
@@ -59,14 +62,18 @@
                                             validationRules: {
                                                 presence: { message: 'f11 is a required field' }
                                             },
-                                            children : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
+                                            componentProps: {
+                                                options: [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
+                                            }
                                         },
                                         {
                                             id: 'f12', name: "f12", type: 'checkboxgroup', label: "f12 - Checkboxgroup ", inputType : "checkboxgroup",
                                             validationRules: {
                                                 presence: { message: 'f12 is a required field' }
                                             },
-                                            children : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
+                                            componentProps: {
+                                                options : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
+                                            }
                                         }
                                     ]
                                 },{
@@ -74,34 +81,39 @@
                                     name: 's1c2',
                                     title: 'Section 1 - Column 2',
                                     fields: [{
-                                        id: "f2", name: "f2", inputType: "select", label: "f2 - select label", children: [
+                                        id: "f2", name: "f2", inputType: "select", label: "f2 - select label",
+                                            componentProps: {options: [
                                                 { label: "option1", value: "option1" },
                                                 { label: "option2", value: "option2" }
-                                            ]
+                                            ]}
                                         },{
                                             id: "f8", name: "f8", inputType: "datepicker", label: "f8 - datepicker label",
-                                            format : 'YYYY-MM-DD',
                                             validationRules: {
                                                     presence: { message: "f8 is required"}
+                                            },
+                                            componentProps: {
+                                                dateFormat: 'YYYY-MM-DD'
                                             }
                                         },
                                         {
                                             id: "f9", name: "f9", inputType: "daterange", label: "f9 - daterange label",
-                                            format : 'YYYY-MM-DD',
-
                                             validationRules: {
                                                 presence: { message: "f9 is required"}
+                                            },
+                                            componentProps: {
+                                                dateFormat: 'YYYY-MM-DD',
+                                                startValue: '1978-12-01',
+                                                endValue  : '1978-12-31'
                                             }
                                         },
                                     {
                                         id: "f3", name: "f3", type: "text", inputType: "input", label: "f3 - conditional text label",
-                                        placeholder: 'Placeholder Text',
                                         validationRules: {
                                             presence: { message: 'f3 is required' }
                                         },
                                         condition: {predicates:[ { field: "f1", condition: "eq", value: "qq" } ]},
-                                        fieldOptions: {
-                                            type : 'string'
+                                        componentProps: {
+                                            placeholder: 'Placeholder Text'
                                         }
                                     }]
                                 }]
@@ -123,13 +135,12 @@
                                             value: "Lorem ipsum text"
                                         },{
                                             id: "f4", name: "f4", type: "text", inputType: "input", label: "f4 - text label F4",
-                                            placeholder: 'Placeholder Text F4',
                                             validationRules: {
                                                 presence: { message: 'f4 s required' },
                                                 length: { minimum: 2,  message: "f4 must be of minlength=2" },
                                             },
-                                            fieldOptions: {
-                                                type: 'string'
+                                            componentProps: {
+                                                placeholder: 'Placeholder Text F4'
                                             }
                                         }
                                     ]}
@@ -149,13 +160,12 @@
                                         title: 'Section 1 - Column 1',
                                         fields: [{
                                             id: "f6", name: "f6", type: "text", inputType: "input", label: "f6 - text label",
-                                            placeholder: 'Placeholder Text F6',
                                             validationRules: {
                                                 presence: { message: 'Reqired validation message' },
                                                 length: { minimum: 2,  message: "MinLength=2 validation message" },
                                             },
-                                            fieldOptions: {
-                                                type: 'string'
+                                            componentProps: {
+                                                placeholder: 'Placeholder Text F6',
                                             }
                                         }]
                                     }
@@ -177,5 +187,4 @@
         });
     </script>
 </body>
-
 </html>
