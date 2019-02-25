@@ -1,10 +1,10 @@
+import { DatePicker } from "antd";
+import { RangePickerProps } from "antd/lib/date-picker/interface";
+import { observer } from "mobx-react";
 import moment from "moment";
-import {DatePicker} from "antd";
-import {observer} from "mobx-react";
 import * as React from "react";
-import {RangePickerProps} from "antd/lib/date-picker/interface";
 
-interface IDaterangeFieldProps extends RangePickerProps {
+export interface IDaterangeFieldProps extends RangePickerProps {
     id   : string,
     uuid : string,
     onChange: any,

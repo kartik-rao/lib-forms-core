@@ -1,10 +1,10 @@
+import { DatePicker } from "antd";
+import { DatePickerProps } from "antd/lib/date-picker/interface";
+import { observer } from "mobx-react";
 import moment from "moment";
-import {DatePicker} from "antd";
-import {observer} from "mobx-react";
 import * as React from "react";
-import {DatePickerProps} from "antd/lib/date-picker/interface";
 
-interface ICheckboxFieldProps extends DatePickerProps {
+export interface ICheckboxFieldProps extends DatePickerProps {
     id   : string,
     uuid : string,
     onChange: any,

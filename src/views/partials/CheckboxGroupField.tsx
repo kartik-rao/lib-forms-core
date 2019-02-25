@@ -1,8 +1,8 @@
 import { Checkbox } from "antd";
-import {observer} from "mobx-react";
-import * as React from "react";
-import {CheckboxGroupProps} from "antd/lib/checkbox/index";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
+import { CheckboxGroupProps } from "antd/lib/checkbox/index";
+import { observer } from "mobx-react";
+import * as React from "react";
 
 export interface ICheckboxGroupFieldProps extends CheckboxGroupProps {
     id   : string,

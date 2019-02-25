@@ -1,9 +1,9 @@
 import { Checkbox } from "antd";
-import {observer} from "mobx-react";
+import { CheckboxProps } from "antd/lib/checkbox/Checkbox";
+import { observer } from "mobx-react";
 import * as React from "react";
-import {CheckboxProps} from "antd/lib/checkbox/Checkbox";
 
-interface ICheckboxFieldProps extends CheckboxProps {
+export interface ICheckboxFieldProps extends CheckboxProps {
     id   : string,
     uuid : string,
     onChange: any
