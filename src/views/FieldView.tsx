@@ -9,8 +9,8 @@ import {SelectField} from "./partials/SelectField";
 import {CheckboxField} from "./partials/CheckboxField";
 import {DaterangeField} from "./partials//DaterangeField";
 import {DatepickerField} from "./partials/DatepickerField";
-
-
+import {RadioGroupField} from "./partials/RadiogroupField";
+import {CheckboxGroupField} from "./partials/CheckboxGroupField";
 
 export interface IFieldProps {
     field: Field;
@@ -48,24 +48,17 @@ export class FieldView extends React.Component<IFieldProps, any> {
                     onChange={onChange}
                     onBlur={onBlur}/>
             }
-            {inputType == "checkbox" && <CheckboxField {...idUUID} onChange={onChange} defaultChecked={store.values[id] == true}/>}
-            {inputType == "number" && <NumberField {...idUUID} onChange={onChange} onBlur={onBlur} defaultValue={store.values[id]}/>}
-            {inputType == "select" && <SelectField {...idUUID} onChange={onChange} onBlur={onBlur} defaultValue={store.values[id]} options={field.children}/>}
-            {inputType == "radiogroup" && <Radio.Group onChange={onChange} options={field.children} value={store.values[id]}>
-                {/* {field.children.map((child: any, index: number)  => {
-                    return <Radio key={""+index} value={child.value}>{child.label}</Radio>
-                })} */}
-                </Radio.Group>
-            }
-            {inputType == "checkboxgroup" && <Checkbox.Group onChange={onChange} options={field.children} value={store.values[id]}/>}
+            {inputType == "checkbox" && <CheckboxField {...idUUID} onChange={onChange} defaultChecked={store.values[id] == true} />}
+            {inputType == "number" && <NumberField {...idUUID} onChange={onChange} onBlur={onBlur} defaultValue={store.values[id]} />}
+            {inputType == "select" && <SelectField {...idUUID} onChange={onChange} onBlur={onBlur} defaultValue={store.values[id]} options={field.children} />}
+            {inputType == "radiogroup" && <RadioGroupField {...idUUID} onChange={onChange} options={field.children} defaultValue={store.values[id]} />}
+            {inputType == "checkboxgroup" && <CheckboxGroupField {...idUUID} onChange={onChange} options={field.children} defaultValue={store.values[id]} />}
             {inputType == "textarea" && <Input.TextArea onChange={onChange} value={store.values[id]}></Input.TextArea>}
-
             {inputType == "daterange" && <DaterangeField {...idUUID}  dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
             {inputType == "datepicker" && <DatepickerField {...idUUID} mode="date" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
             {inputType == "monthpicker" && <DatepickerField {...idUUID} mode="month" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
             {inputType == "timepicker" && <DatepickerField {...idUUID} mode="time" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
             {inputType == "yearpicker" && <DatepickerField {...idUUID} mode="year" dateFormat={field.format} onChange={onChange} defaultValue={store.values[id]}/>}
-
             {inputType == "rangepicker" && <DatePicker.RangePicker onChange={onChange} value={store.values[id]}/>}
             {inputType == 'rate' && <Rate onChange={onChange} value={store.values[id]}></Rate>}
             {inputType == 'slider' && <Slider onChange={onChange} value={store.values[id]}></Slider>}

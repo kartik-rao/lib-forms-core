@@ -53,6 +53,20 @@
                                                 presence: { message: 'f10 is a required field' },
                                                 numericality : true
                                             }
+                                        },
+                                        {
+                                            id: 'f11', name: "f11", type: 'radiogroup', label: "f11 -Radiogroup ", inputType : "radiogroup",
+                                            validationRules: {
+                                                presence: { message: 'f11 is a required field' }
+                                            },
+                                            children : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
+                                        },
+                                        {
+                                            id: 'f12', name: "f12", type: 'checkboxgroup', label: "f12 - Checkboxgroup ", inputType : "checkboxgroup",
+                                            validationRules: {
+                                                presence: { message: 'f12 is a required field' }
+                                            },
+                                            children : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
                                         }
                                     ]
                                 },{
