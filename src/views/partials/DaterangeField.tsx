@@ -21,12 +21,20 @@ export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
         this.state = {start: null, end: null}
     }
 
-    disabledStartDate = (startValue) => {
-        const endValue = this.state.endValue;
+    disabledStartDate = (startValue:  moment.Moment) => {
+        const endValue = this.values.end;
         if (!startValue || !endValue) {
           return false;
         }
-        return startValue.valueOf() > endValue.valueOf();
+        return startValue.isAfter(endValue);
+    }
+
+    disabledEndDate = (endValue: moment.Moment) => {
+        const startValue = this.values.start;
+        if (!endValue || !startValue) {
+            return false;
+        }
+        return endValue.isSameOrBefore(startValue);
     }
 
     onChange = (field, value) => {
@@ -42,14 +50,6 @@ export class DaterangeField extends React.Component<IDaterangeFieldProps, any> {
 
     onEndChange = (value) => {
         this.onChange('end', value);
-    }
-
-    disabledEndDate = (endValue) => {
-        const startValue = this.state.startValue;
-        if (!endValue || !startValue) {
-            return false;
-        }
-        return endValue.valueOf() <= startValue.valueOf();
     }
 
     render() {
