@@ -1,5 +1,6 @@
 import Page, { IPage } from "./page";
-import Field, { IField } from "./field";
+import { IFieldProps } from "./field.properties";
+import Field from "./field";
 import Column, { IColumn } from "./column";
 import Section, { ISection } from "./section";
 import Form, { IFormProps } from "./form";
@@ -13,7 +14,7 @@ export declare class Factory {
     makeColumns(...columns: IColumn[]): Column[];
     makePredicates(...predicates: IPredicate[]): Predicate[];
     makeCondition(condition: ICondition): Condition;
-    makeFields(...fields: IField[]): Field[];
+    makeFields(...fields: IFieldProps[]): Field[];
     makePages(...pages: IPage[]): Page[];
     makeForm(formData: IFormProps): Form;
 }

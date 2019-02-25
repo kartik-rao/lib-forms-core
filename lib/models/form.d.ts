@@ -71,9 +71,11 @@ export interface IFormProps {
     content?: IFormContent;
     values?: any;
     layout?: any;
+    formLayoutOptions?: IFormLayoutOptions;
     stopSubmit?: boolean;
     submitTarget?: string;
-    formLayoutOptions?: IFormLayoutOptions;
+    successRedirect?: string;
+    errorRedirect?: string;
 }
 declare class Form implements IFormProps {
     id: string;
@@ -91,6 +93,8 @@ declare class Form implements IFormProps {
     formLayoutOptions: IFormLayoutOptions;
     store: FormStore;
     submitError: string;
+    successRedirect: string;
+    errorRedirect: string;
     initialize(data: IFormProps, store: FormStore): void;
     constructor(data: IFormProps, store: FormStore);
     readonly isValid: boolean;
