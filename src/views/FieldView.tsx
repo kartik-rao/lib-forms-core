@@ -31,7 +31,6 @@ export class FieldView extends React.Component<IFieldProps, any> {
 
         let onChange = (e) => {
             let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
-            console.warn(`field.onChange triggered ${field.id} ${value}`);
             field.setValue(value);
         };
         let onBlur = () => field.setTouched();

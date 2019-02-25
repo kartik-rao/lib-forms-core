@@ -43,7 +43,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
             </Row>}
             <Row>
                 <Col span={20}>
-                    <Form onSubmit={form.handleSubmit}>
+                    <Form onSubmit={(e) => form.handleSubmit(e)}>
                         <div className="page-wrapper">
                             <PageView page={content.pages[store.currentPage]} store={store}></PageView>
                         </div>

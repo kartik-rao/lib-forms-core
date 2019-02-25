@@ -3,6 +3,7 @@ import axios from "axios";
 import {valueOrDefault, uuid} from "./common";
 import Page from "./page";
 import FormStore from "../state/FormStore";
+import { FormEvent } from "react";
 
 export interface IFormTenant {
     eid: number;
@@ -259,7 +260,9 @@ class Form implements IFormProps {
     }
 
 
-    @action handleSubmit() {
+    @action.bound handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        e.stopPropagation();
         this.store.setSubmitting(true);
         let meta = this.fieldMetadata;
         let payload = {};
