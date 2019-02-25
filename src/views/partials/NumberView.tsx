@@ -12,10 +12,10 @@ export class NumberView extends React.Component<IViewProps, any> {
     }
 
     render() {
-        let {field} = this.props;
+        let {field, onChange, onBlur} = this.props;
         let component = field.componentProps as INumberProps;
         return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-number-field">
-            <InputNumber {...component}/>
+            <InputNumber {...component} onChange={onChange} onBlur={onBlur}/>
         </div>
     }
 }
