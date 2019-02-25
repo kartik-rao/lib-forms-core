@@ -7,7 +7,6 @@ import { IDateRangeProps } from "../../models/field.properties";
 
 @observer
 export class DateRangeView extends React.Component<IViewProps, any> {
-    values: any = {};
     dateFormat: string;
 
     constructor(props: any) {
@@ -35,10 +34,11 @@ export class DateRangeView extends React.Component<IViewProps, any> {
     }
 
     onChange = (field, value) => {
-        this.setState({[field]: moment(value).format(this.state.dateFormat)});
-        if (this.state.start && this.state.end) {
-            this.props.onChange(`${this.state.start}|${this.values.end}`);
+        let state = Object.assign(this.state, {[field]: moment(value).format(this.state.dateFormat)})
+        if (state.start && state.end) {
+            this.props.onChange(`${state.start}|${state.end}`);
         }
+        this.setState(state);
     }
 
     onStartChange = (value) => {
