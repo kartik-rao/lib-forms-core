@@ -7,6 +7,7 @@ import Field from '../../../src/models/field';
 import FormStore from '../../../src/state/FormStore';
 import {genElementId} from "../../utils";
 import sinon from "sinon";
+import {FieldTypes, IInputProps} from "../../../src/models/field.properties";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});
@@ -31,11 +32,11 @@ describe("FieldView.InputView", () => {
             id: genElementId("field"),
             name: "First Name",
             type: "text",
-            inputType: "input",
+            inputType: FieldTypes.input,
             valuePropName: ["f1"],
             componentProps: {
                 placeholder: "Enter f1",
-            }
+            } as IInputProps
         }, store);
 
         let onChange = sinon.spy();

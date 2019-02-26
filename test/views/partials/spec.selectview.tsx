@@ -4,13 +4,13 @@ import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import {SelectView} from '../../../src/views/partials/SelectView';
 import Field from '../../../src/models/field';
-import {FieldTypes} from "../../../src/models/field.properties";
+import {FieldTypes, ISelectProps} from "../../../src/models/field.properties";
 import FormStore from '../../../src/state/FormStore';
 import {genElementId, printPrettyHtml} from "../../utils";
 import sinon from "sinon";
-
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import {Select} from "antd";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -47,7 +47,7 @@ describe("FieldView.SelectView", () => {
                     label: "New Zealand",
                     value: "NZ"
                 }]
-            }
+            } as ISelectProps
         }, store);
 
         act(() => {
@@ -80,12 +80,15 @@ describe("FieldView.SelectView", () => {
                     label: "New Zealand",
                     value: "NZ"
                 }]
-            }
+            } as ISelectProps
         }, store);
 
         let onChange = sinon.spy();
         let wrapper = Enzyme.mount(<SelectView field={f} onChange={onChange} />);
-        wrapper.find('Select').first().prop('onChange')(null);
-        expect(onChange.callCount).toBe(1);
+        wrapper.find(Select).first().prop('onChange')("AU", null);
+        expect(onChange.callCount).toBeGreaterThan(0);
+        expect(onChange.getCalls()[0].args).toBeDefined();
+        expect(onChange.getCalls()[0].args.length).toBeGreaterThan(0);
+        expect(onChange.getCalls()[0].args[0]).toEqual("AU");
     })
 });

@@ -6,10 +6,10 @@ import ReactDOM from "react-dom";
 import { act } from 'react-dom/test-utils'; // ES6
 import sinon from "sinon";
 import Field from '../../../src/models/field';
+import { FieldTypes, ICheckboxGroupProps } from "../../../src/models/field.properties";
 import FormStore from '../../../src/state/FormStore';
 import { CheckboxGroupView } from '../../../src/views/partials/CheckboxGroupView';
 import { genElementId } from "../../utils";
-
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -38,7 +38,7 @@ describe("FieldView.CheckboxGroupView", () => {
             inputType: "select",
             valuePropName: ["f1"],
             componentProps: {
-                defaultValue: "NZ",
+                defaultValue: ["NZ"],
                 options : [{
                     label: "Australia",
                     value: "AU"
@@ -46,7 +46,7 @@ describe("FieldView.CheckboxGroupView", () => {
                     label: "New Zealand",
                     value: "NZ"
                 }]
-            }
+            } as ICheckboxGroupProps
         }, store);
 
         act(() => {
@@ -66,10 +66,10 @@ describe("FieldView.CheckboxGroupView", () => {
         let f: Field = new Field({
             id: genElementId("field"),
             name: "Country",
-            inputType: "select",
+            inputType: FieldTypes.datepicker,
             valuePropName: ["f1"],
             componentProps: {
-                defaultValue: "NZ",
+                defaultValue: ["NZ"],
                 options : [{
                     label: "Australia",
                     value: "AU"
@@ -77,7 +77,7 @@ describe("FieldView.CheckboxGroupView", () => {
                     label: "New Zealand",
                     value: "NZ"
                 }]
-            }
+            } as ICheckboxGroupProps
         }, store);
 
         let onChange = sinon.spy();

@@ -47,7 +47,7 @@ export class DatePickerView extends React.Component<IViewProps, any> {
             v ? onChange(moment(v).format(dateFormat)) : onChange(null);
         };
 
-        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-datapicker-field fl-datepicker-${mode}`}>
+        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-datepicker-field fl-datepicker-${mode}`}>
             <DatePicker mode={component.mode}
                 defaultValue={component.defaultValue ? moment(component.defaultValue, dateFormat): null}
                 format={component.dateFormat} onChange={_onChange}/>
