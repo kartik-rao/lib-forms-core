@@ -99,7 +99,7 @@ describe("PageView", () => {
         expect(container.querySelectorAll('input').length).toBe(1);
 
         expect(p.errors.length).toBe(1);
-        let input1 = container.querySelector("div.fl-text-field > input");
+        let input1 = container.querySelectorAll('input')[0];
         act(() => {
             ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});
         });

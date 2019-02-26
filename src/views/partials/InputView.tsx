@@ -14,7 +14,7 @@ export class InputView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange, onBlur} = this.props;
         let component = field.componentProps as IInputProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-text-field">
+        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-${field.inputType}-${field.type}-field`}>
             <Input {...component} onChange={onChange} onBlur={onBlur}/>
         </div>
     }

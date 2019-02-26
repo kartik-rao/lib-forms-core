@@ -94,7 +94,7 @@ describe("FieldView", () => {
 
         expect(container.querySelectorAll('input').length).toEqual(1);
 
-        let input1 = container.querySelector("div.fl-text-field > input");
+        let input1 = container.querySelectorAll('input')[0];
         expect(input1).toBeDefined();
         expect(f.isValid).toBe(false);
         expect(store.errors[f.id]).toEqual(validationMessage);
@@ -142,7 +142,7 @@ describe("FieldView", () => {
 
         // F2 is disabled as its condition value is false
         expect(container.querySelectorAll('input').length).toEqual(1);
-        let input1 = container.querySelector("div.fl-text-field > input");
+        let input1 = container.querySelectorAll('input')[0];
 
         // Store should be updated
         act(() => {

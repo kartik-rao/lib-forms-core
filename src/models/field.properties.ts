@@ -144,7 +144,7 @@ export interface IFieldProps {
     id: string;
     name: string;
     uuid?: string;
-    type: string;
+    type?: string;
     label?: string;
     value? : any;
     inputType : string;
