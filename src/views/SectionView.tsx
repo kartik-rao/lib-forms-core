@@ -25,10 +25,10 @@ export class SectionView extends React.Component<SectionProps, any> {
         // let section = store.formData.content.pages[pageIndex].sections[sectionIndex];
         // let {showSectionTitles, showSectionBorders} = store.formData.formLayoutOptions;
         const numColumns = section.columns.length;
-        // Hadnle form layout options
+        // Handle form layout options
         return <div id={section.id}>
             <Card bordered={true} title={section.name}>
-                <Row  gutter={8}>
+                <Row gutter={24}>
                     {section.columns.map((column: Column, cn: number) => {
                         return <ColumnView store={store} key={column.uuid} column={column} span={24/numColumns}/>
                     })}
