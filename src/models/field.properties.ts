@@ -124,9 +124,14 @@ export interface ITextAreaProps extends TextAreaProps {
 
 }
 
+export interface ITextBlockProps {
+
+}
+
 export type IComponentProps = ICheckboxProps|ICheckboxGroupProps|IDatePickerProps|IDateRangeProps|
                             INumberProps|IRadioGroupProps|ISelectProps|IInputProps|ICascaderProps|
-                            IStarRatingProps|ISwitchProps|ITransferProps|ISliderProps|ITextAreaProps;
+                            IStarRatingProps|ISwitchProps|ITransferProps|ISliderProps|ITextAreaProps|
+                            ITextBlockProps;
 
 export interface IFieldStorage {
     unique: boolean;

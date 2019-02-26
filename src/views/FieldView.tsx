@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input, Rate, Slider } from "antd";
+import { Form } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Field from "../models/field";
@@ -17,6 +17,8 @@ import { SwitchView } from "./partials/SwitchView";
 import { TransferView } from "./partials/TransferView";
 import { SliderView } from "./partials/SliderView";
 import { TextAreaView } from "./partials/TextAreaView";
+import { TextBlockView } from "./partials/TextBlockView";
+
 export interface IFieldProps {
     field: Field;
     store: FormStore;
@@ -64,7 +66,7 @@ export class FieldView extends React.Component<IFieldProps, any> {
                 {inputType == 'switch' && <SwitchView field={field} onChange={onChange} />}
                 {inputType == 'transfer' && <TransferView field={field} onChange={onChange} />}
                 {inputType == 'slider' && <SliderView field={field} onChange={onChange}/>}
-                {inputType == "textblock" && <p>{field.value}</p>}
+                {inputType == "textblock" && <TextBlockView field={field} onChange={onChange}></TextBlockView>}
             </Form.Item>
     }
 }
