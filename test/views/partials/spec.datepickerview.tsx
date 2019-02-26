@@ -2,7 +2,7 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {DatePickerView} from '../../../src/views/partials/DatePickerView';
+import {DatePickerView} from '../../../src/views/controls/DatePickerView';
 import Field from '../../../src/models/field';
 import FormStore from '../../../src/state/FormStore';
 import {genElementId} from "../../utils";

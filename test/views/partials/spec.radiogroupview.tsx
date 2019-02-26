@@ -2,7 +2,7 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {RadioGroupView} from '../../../src/views/partials/RadioGroupView';
+import {RadioGroupView} from '../../../src/views/controls/RadioGroupView';
 import Field from '../../../src/models/field';
 import FormStore from '../../../src/state/FormStore';
 import {FieldTypes, IRadioGroupProps} from "../../../src/models/field.properties";

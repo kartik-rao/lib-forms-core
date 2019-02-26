@@ -142,6 +142,13 @@ class Field implements IFieldProps {
         return;
     }
 
+    @computed get serialize(): string  {
+        let clone = toJS(this);
+        delete clone.store;
+        delete clone.validationErrors
+        return JSON.stringify(clone);
+    }
+
     constructor(data: IFieldProps, store: FormStore) {
         this.initialize(data, store);
     }

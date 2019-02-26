@@ -2,7 +2,7 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {SelectView} from '../../../src/views/partials/SelectView';
+import {SelectView} from '../../../src/views/controls/SelectView';
 import Field from '../../../src/models/field';
 import {FieldTypes, ISelectProps} from "../../../src/models/field.properties";
 import FormStore from '../../../src/state/FormStore';

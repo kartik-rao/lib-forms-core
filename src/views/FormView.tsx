@@ -4,6 +4,7 @@ import * as React from "react";
 import Page from "../models/page";
 import FormStore from "../state/FormStore";
 import { PageView } from "./PageView";
+import { InputViewProperties } from "./controls/properties/InputProperties";
 
 interface FormComponentProps {
     store: FormStore;
@@ -42,7 +43,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
                 </Col>
             </Row>}
             <Row>
-                <Col span={20}>
+                <Col span={16}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
                         <div className="page-wrapper">
                             <PageView page={content.pages[store.currentPage]} store={store}></PageView>
@@ -62,6 +63,9 @@ export class FormView extends React.Component<FormComponentProps, any> {
                         <div>Touched<br/>{JSON.stringify(store.touched)}</div>
                         <div>Values<br/>{JSON.stringify(store.values)}</div>
                     </Form>
+                </Col>
+                <Col span={4}>
+                    <InputViewProperties store={store} field={form.content.pages[0].sections[0].columns[0].fields[0]}/>
                 </Col>
             </Row>
         </div>

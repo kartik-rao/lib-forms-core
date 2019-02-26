@@ -2,7 +2,7 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {NumberView} from '../../../src/views/partials/NumberView';
+import {NumberView} from '../../../src/views/controls/NumberView';
 import Field from '../../../src/models/field';
 import FormStore from '../../../src/state/FormStore';
 import {genElementId} from "../../utils";

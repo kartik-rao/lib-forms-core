@@ -2,7 +2,7 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {InputView} from '../../../src/views/partials/InputView';
+import {InputView} from '../../../src/views/controls/InputView';
 import Field from '../../../src/models/field';
 import FormStore from '../../../src/state/FormStore';
 import {genElementId} from "../../utils";

@@ -8,7 +8,7 @@ import sinon from "sinon";
 import Field from '../../../src/models/field';
 import { FieldTypes, ICheckboxGroupProps } from "../../../src/models/field.properties";
 import FormStore from '../../../src/state/FormStore';
-import { CheckboxGroupView } from '../../../src/views/partials/CheckboxGroupView';
+import { CheckboxGroupView } from '../../../src/views/controls/CheckboxGroupView';
 import { genElementId } from "../../utils";
 
 Enzyme.configure({ adapter: new Adapter() });
