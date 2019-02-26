@@ -14,8 +14,9 @@ export class SelectView extends React.Component<IViewProps, any> {
     render() {
         let {field, onBlur, onChange} = this.props;
         let component = field.componentProps as ISelectProps;
+
         return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-select-field">
-            <Select onChange={onChange} onBlur={onBlur} defaultValue={component.defaultValue}>
+            <Select {...component} onChange={onChange} onBlur={onBlur}>
                 {component.options.map((option: any, index: number) => {
                     return <Select.Option key={field.id + "-option-"  + index} value={option.value}>{option.label}</Select.Option>
                 })}
