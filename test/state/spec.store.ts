@@ -1,4 +1,4 @@
-import FormStore from "../src/state/FormStore";
+import FormStore from "../../src/state/FormStore";
 import {when} from "mobx";
 
 describe('Store', () => {

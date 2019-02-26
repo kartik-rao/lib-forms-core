@@ -2,10 +2,10 @@ import { configure, toJS } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import Field from '../src/models/field';
-import FormStore from '../src/state/FormStore';
-import { FieldView } from "../src/views/FieldView";
-import {genElementId, printPrettyHtml} from "./utils";
+import Field from '../../src/models/field';
+import FormStore from '../../src/state/FormStore';
+import { FieldView } from "../../src/views/FieldView";
+import {genElementId, printPrettyHtml} from "../utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});

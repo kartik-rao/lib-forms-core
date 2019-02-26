@@ -1,12 +1,12 @@
-import Column, { IColumn } from "../src/models/column";
-import {IFieldProps} from "../src/models/field.properties";
-import Field from "../src/models/field";
-import Section, { ISection } from "../src/models/section";
-import Page, {IPage} from "../src/models/page";
-import Form from "../src/models/form";
-import FormStore from "../src/state/FormStore";
+import Column, { IColumn } from "../../src/models/column";
+import {IFieldProps} from "../../src/models/field.properties";
+import Field from "../../src/models/field";
+import Section, { ISection } from "../../src/models/section";
+import Page, {IPage} from "../../src/models/page";
+import Form from "../../src/models/form";
+import FormStore from "../../src/state/FormStore";
 import {when} from "mobx";
-import {genElementId} from "./utils";
+import {genElementId} from "../utils";
 
 const F1: IFieldProps= {
     id: "f1",

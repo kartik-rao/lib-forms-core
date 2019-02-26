@@ -1,7 +1,7 @@
-import Column, { IColumn } from "../src/models/column";
-import {IFieldProps} from "../src/models/field.properties";
-import Field  from "../src/models/field";
-import FormStore from "../src/state/FormStore";
+import Column, { IColumn } from "../../src/models/column";
+import {IFieldProps} from "../../src/models/field.properties";
+import Field  from "../../src/models/field";
+import FormStore from "../../src/state/FormStore";
 import { when, toJS } from "mobx";
 
 const F1: IFieldProps = {

@@ -1,6 +1,6 @@
-import FormStore from "../src/state/FormStore";
+import FormStore from "../../src/state/FormStore";
 import { when, toJS, keys } from "mobx";
-import Field from "../src/models/field";
+import Field from "../../src/models/field";
 
 describe("Field", () => {
     let store: FormStore;
