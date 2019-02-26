@@ -6,14 +6,50 @@ import { RangePickerProps } from "antd/lib/date-picker/interface";
 import { InputNumberProps} from "antd/lib/input-number/index";
 import { RadioGroupProps } from "antd/lib/radio/index";
 import { SelectProps } from "antd/lib/select/index";
+import { CascaderProps } from "antd/lib/cascader/index";
+import { TransferProps } from "antd/lib/transfer/index";
+
 import { ICondition } from "./condition";
 import FormStore from "../state/FormStore";
+import { RateProps } from "antd/lib/rate/index";
+import { SwitchProps } from "antd/lib/switch/index";
+import { SliderProps } from "antd/lib/slider";
+import { TextAreaProps } from "antd/lib/input";
+
+/* CheckboxGroupProps|CheckboxProps|InputProps  */
+export class FieldTypes {
+    static text : string = "text";
+    static input: string = "input";
+    static checkbox: string = "checkbox";
+    static number: string = "number";
+    static select: string = "select";
+    static radiogroup: string = "radiogroup";
+    static checkboxgroup: string = "checkboxgroup";
+    static textarea: string = "textarea";
+    static daterange: string = "daterange";
+    static datepicker: string = "datepicker";
+    static monthpicker: string = "monthpicker";
+    static timepicker: string = "timepicker";
+    static yearpicker: string = "yearpicker";
+    static rangepicker: string = "rangepicker";
+    static rate: string = "rate";
+    static slider: string = "slider";
+    static textblock : string = "textblock";
+}
 
 export interface ChoiceOption {
     label : string;
     value: any;
     onChange?: any;
     disabled?: boolean;
+    children?: ChoiceOption[]
+}
+
+export interface TransferItem {
+    key : string;
+    title: string;
+    description: string;
+    disabled: boolean;
 }
 
 export interface IInternalProps {
@@ -57,26 +93,8 @@ export interface ISelectProps extends SelectProps {
     options: ChoiceOption[]
 }
 
-
-/* CheckboxGroupProps|CheckboxProps|InputProps  */
-export class FieldTypes {
-    static text : string = "text";
-    static input: string = "input";
-    static checkbox: string = "checkbox";
-    static number: string = "number";
-    static select: string = "select";
-    static radiogroup: string = "radiogroup";
-    static checkboxgroup: string = "checkboxgroup";
-    static textarea: string = "textarea";
-    static daterange: string = "daterange";
-    static datepicker: string = "datepicker";
-    static monthpicker: string = "monthpicker";
-    static timepicker: string = "timepicker";
-    static yearpicker: string = "yearpicker";
-    static rangepicker: string = "rangepicker";
-    static rate: string = "rate";
-    static slider: string = "slider";
-    static textblock : string = "textblock";
+export interface ITransferProps extends TransferProps {
+    maxItems?: number;
 }
 
 export interface ChoiceOption {
@@ -85,6 +103,30 @@ export interface ChoiceOption {
     onChange?: any;
     disabled?: boolean;
 }
+
+export interface ICascaderProps extends CascaderProps {
+    defaultValue?: string[]
+}
+
+export interface IStarRatingProps extends RateProps {
+    defaultValue?: number;
+}
+
+export interface ISwitchProps extends SwitchProps {
+    defaultChecked?: boolean
+}
+
+export interface ISliderProps extends SliderProps {
+
+}
+
+export interface ITextAreaProps extends TextAreaProps {
+
+}
+
+export type IComponentProps = ICheckboxProps|ICheckboxGroupProps|IDatePickerProps|IDateRangeProps|
+                            INumberProps|IRadioGroupProps|ISelectProps|IInputProps|ICascaderProps|
+                            IStarRatingProps|ISwitchProps|ITransferProps|ISliderProps|ITextAreaProps;
 
 export interface IFieldStorage {
     unique: boolean;
@@ -97,8 +139,6 @@ export interface IFieldStorage {
     isRequired: boolean;
     isSendable: boolean;
 }
-
-export type IComponentProps = ICheckboxProps|ICheckboxGroupProps|IDatePickerProps|IDateRangeProps|INumberProps|IRadioGroupProps|ISelectProps|IInputProps;
 
 export interface IFieldProps {
     id: string;

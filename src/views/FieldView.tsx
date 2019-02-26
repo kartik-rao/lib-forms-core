@@ -11,7 +11,12 @@ import { InputView } from "./partials/InputView";
 import { NumberView } from "./partials/NumberView";
 import { RadioGroupView } from "./partials/RadioGroupView";
 import { SelectView } from "./partials/SelectView";
-
+import { CascaderView } from "./partials/CascaderView";
+import { StarRatingView } from "./partials/StarRatingView";
+import { SwitchView } from "./partials/SwitchView";
+import { TransferView } from "./partials/TransferView";
+import { SliderView } from "./partials/SliderView";
+import { TextAreaView } from "./partials/TextAreaView";
 export interface IFieldProps {
     field: Field;
     store: FormStore;
@@ -46,17 +51,19 @@ export class FieldView extends React.Component<IFieldProps, any> {
                 {inputType == "checkbox" && <CheckboxView field={field} onChange={onChange}  />}
                 {inputType == "number" && <NumberView field={field} onChange={onChange} onBlur={onBlur}  />}
                 {inputType == "select" && <SelectView field={field} onChange={onChange} onBlur={onBlur}  />}
+                {inputType == "cascader" && <CascaderView field={field}  onChange={onChange} />}
                 {inputType == "radiogroup" && <RadioGroupView field={field} onChange={onChange}  />}
                 {inputType == "checkboxgroup" && <CheckboxGroupView field={field} onChange={onChange}   />}
-                {inputType == "textarea" && <Input.TextArea onChange={onChange}/>}
+                {inputType == "textarea" && <TextAreaView field={field} onChange={onChange}/>}
                 {inputType == "daterange" && <DateRangeView field={field}  onChange={onChange} />}
                 {inputType == "datepicker" && <DatePickerView field={field}  onChange={onChange} />}
                 {inputType == "monthpicker" && <DatePickerView field={field} onChange={onChange} />}
                 {inputType == "timepicker" && <DatePickerView field={field}  onChange={onChange} />}
                 {inputType == "yearpicker" && <DatePickerView field={field}  onChange={onChange} />}
-                {inputType == "rangepicker" && <DatePicker.RangePicker onChange={onChange} />}
-                {inputType == 'rate' && <Rate onChange={onChange} />}
-                {inputType == 'slider' && <Slider onChange={onChange}/>}
+                {inputType == 'starrating' && <StarRatingView field={field} onChange={onChange} />}
+                {inputType == 'switch' && <SwitchView field={field} onChange={onChange} />}
+                {inputType == 'transfer' && <TransferView field={field} onChange={onChange} />}
+                {inputType == 'slider' && <SliderView field={field} onChange={onChange}/>}
                 {inputType == "textblock" && <p>{field.value}</p>}
             </Form.Item>
     }
