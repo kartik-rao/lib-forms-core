@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Row, Steps } from "antd";
+import { Button, Card, Col, Form, Row, Steps, Icon } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Page from "../models/page";
@@ -43,7 +43,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
             </Row>}
             <Row>
                 <Col span={20}>
-                    <Form onSubmit={(e) => form.handleSubmit(e)}>
+                    <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
                         <div className="page-wrapper">
                             <PageView page={content.pages[store.currentPage]} store={store}></PageView>
                         </div>
@@ -52,8 +52,8 @@ export class FormView extends React.Component<FormComponentProps, any> {
                                 <Row>
                                     <Col span={24} style={{ textAlign: 'right' }}>
                                         { store.currentPage == content.pages.length -1 && <Button disabled={Object.keys(store.touched).length == 0 || !form.isValid || store.isSubmitting } type="primary" style={{ marginLeft: 8 }} htmlType="submit" className="action-button">Submit</Button>}
-                                        { store.currentPage < content.pages.length -1 && <Button type="primary" style={{ marginLeft: 8 }} className="action-button" onClick={() => store.nextPage()}>Next</Button> }
-                                        { store.currentPage > 0 && content.pages.length > 1 && <Button type="primary" className="action-button" onClick={() => store.prevPage()}>Prev</Button> }
+                                        { store.currentPage < content.pages.length -1 && <Button type="primary" style={{ marginLeft: 8 }} className="action-button" onClick={() => store.nextPage()}><Icon type="right" />Next</Button> }
+                                        { store.currentPage > 0 && content.pages.length > 1 && <Button type="primary" className="action-button" onClick={() => store.prevPage()}><Icon type="left" />Prev</Button> }
                                     </Col>
                                 </Row>
                             </Card>
