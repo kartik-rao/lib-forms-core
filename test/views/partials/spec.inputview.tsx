@@ -33,7 +33,7 @@ describe("FieldView.InputView", () => {
             name: "First Name",
             type: "text",
             inputType: FieldTypes.input,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 placeholder: "Enter f1",
             } as IInputProps
@@ -71,7 +71,7 @@ describe("FieldView.InputView", () => {
             name: "First Name",
             type: "hidden",
             inputType: "input",
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 placeholder: "Enter f1",
             }

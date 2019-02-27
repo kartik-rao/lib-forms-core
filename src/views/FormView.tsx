@@ -65,7 +65,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
                     </Form>
                 </Col>
                 <Col span={4}>
-                    <InputViewProperties store={store} field={form.content.pages[0].sections[0].columns[0].fields[0]}/>
+                    <InputViewProperties store={store} field={form.content.pages[0].sections[0].columns[1].fields[2]}/>
                 </Col>
             </Row>
         </div>

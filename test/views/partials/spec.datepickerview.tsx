@@ -38,7 +38,7 @@ describe("FieldView.DatePickerView", () => {
             id: genElementId("field"),
             name: "Date of Birth",
             inputType: FieldTypes.datepicker,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 placeholder: "Enter DOB",
             } as IDatePickerProps
@@ -66,7 +66,7 @@ describe("FieldView.DatePickerView", () => {
             id: genElementId("field"),
             name: "Date of Birth",
             inputType: FieldTypes.datepicker,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 placeholder: "Enter DOB",
             } as IDatePickerProps

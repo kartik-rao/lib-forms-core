@@ -18,7 +18,7 @@ class Field implements IFieldProps {
     helpText: string;
     placeholder: string;
     options: ChoiceOption[];
-    valuePropName: string[];
+    valuePropName: string;
     condition: Condition;
     storage: IFieldStorage;
     store: FormStore;
@@ -27,15 +27,26 @@ class Field implements IFieldProps {
     validationErrors: any[];
     componentProps: IComponentProps;
 
+    @action mergeUpdate(data: IFieldProps) {
+        this.id = data.id;
+        this.name = data.name;
+        this.label = data.label;
+        this.helpText = data.helpText;
+        this.placeholder = data.placeholder;
+        this.valuePropName = data.valuePropName;
+        this.componentProps = {...this.componentProps, ...data.componentProps};
+        return;
+    }
+
     @action initialize(data: IFieldProps, store: FormStore) {
         this.store = store;
         this.id = data.id;
         this.uuid = data.uuid || uuid();
-        this.name = data.name || `${this._type}-${data.id}`;
+        this.name = data.name || `${this._type}_${data.id}`;
         this.type = data.type;
         this.label = data.label;
         this.inputType = data.inputType;
-        this.valuePropName = data.valuePropName
+        this.valuePropName = data.valuePropName || this.name
         this.validationRules = data.validationRules;
         this.storage = data.storage;
         this.label = data.label;
@@ -47,6 +58,13 @@ class Field implements IFieldProps {
             this.setValue(this.componentProps['defaultValue']);
         } else if (this.componentProps && this.componentProps['defaultChecked']) {
             this.setValue(this.componentProps['defaultChecked']);
+        }
+
+        this.valuePropName = this.valuePropName ? this.valuePropName : `${this.id}_value`;
+
+        if(this.inputType == 'daterange') {
+            this.componentProps["startValuePropsName"] = !!this.componentProps["startValuePropsName"] ? this.componentProps["startValuePropsName"] : `${this.id}_start_date`;
+            this.componentProps["endValuePropsName"] = !!this.componentProps["endValuePropsName"] ? this.componentProps["endValuePropsName"] : `${this.id}_end_date`;
         }
 
         if (data.condition) {

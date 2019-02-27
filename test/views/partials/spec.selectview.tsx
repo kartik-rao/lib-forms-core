@@ -37,7 +37,7 @@ describe("FieldView.SelectView", () => {
             id: genElementId("field"),
             name: "First Name",
             inputType: FieldTypes.select,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue: "NZ",
                 options : [{
@@ -70,7 +70,7 @@ describe("FieldView.SelectView", () => {
             id: genElementId("field"),
             name: "First Name",
             inputType: FieldTypes.select,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue: "NZ",
                 options : [{

@@ -1,6 +1,7 @@
 import { DatePicker } from "antd";
 import { observer } from "mobx-react";
-import moment from "moment";
+import * as moment from 'moment'
+import {Moment} from 'moment';
 import * as React from "react";
 import { IViewProps } from "./IViewProps";
 import { IDateRangeProps } from "../../models/field.properties";
@@ -9,52 +10,36 @@ import { IDateRangeProps } from "../../models/field.properties";
 export class DateRangeView extends React.Component<IViewProps, any> {
     dateFormat: string;
 
+    checkMaxEnd(start: Moment, end: Moment) {
+        let {maxEndDate} = this.props.field.componentProps as IDateRangeProps;
+        if (end && maxEndDate) {
+            let maxEnd: Moment;
+            if (maxEndDate.from == 'now') {
+                maxEnd = moment().add(maxEndDate.relative);
+            } else if (maxEndDate.from == 'start' && start) {
+                maxEnd = moment(start).add(maxEndDate.relative);
+            }
+            return end.isBefore(maxEnd)
+        }
+        return true;
+    }
+
+    checkMinStart(start: Moment, end: Moment) {
+        let {minStartDate} = this.props.field.componentProps as IDateRangeProps;
+        console.log("Check min start", minStartDate, this.state.start);
+        if (start && minStartDate) {
+            let minStart: Moment = moment().add(minStartDate.relative);
+            return start.isAfter(minStart)
+        }
+
+        return true;
+    }
     constructor(props: any) {
         super(props);
-        this.state = {
-            start: null,
-            end: null
-        }
-    }
 
-    disabledStartDate = (startValue:  moment.Moment) => {
-        const endValue = this.state.end;
-        if (!startValue || !endValue) {
-          return false;
-        }
-        return startValue.isAfter(endValue);
-    }
+        let {dateFormat, mode, defaultStartValue, defaultEndValue} = (this.props.field.componentProps as IDateRangeProps);
 
-    disabledEndDate = (endValue: moment.Moment) => {
-        const startValue = this.state.start;
-        if (!endValue || !startValue) {
-            return false;
-        }
-        return endValue.isSameOrBefore(startValue);
-    }
-
-    onChange = (field, value) => {
-        let state = Object.assign(this.state, {[field]: moment(value).format(this.state.dateFormat)})
-        if (state.start && state.end) {
-            this.props.onChange(`${state.start}|${state.end}`);
-        }
-        this.setState(state);
-    }
-
-    onStartChange = (value) => {
-        this.onChange('start', value);
-    }
-
-    onEndChange = (value) => {
-        this.onChange('end', value);
-    }
-
-    render() {
-        let {field} = this.props;
-        let component = field.componentProps as IDateRangeProps;
-        let mode= (component.mode ? component.mode : 'date') as "time"|"date"|"month"|"year";
-        let dateFormat = component.dateFormat;
-
+        let dateMode= (mode ? mode : 'date') as "time"|"date"|"month"|"year";
         if (!dateFormat) {
             switch (mode) {
                 case 'date' : {
@@ -76,25 +61,71 @@ export class DateRangeView extends React.Component<IViewProps, any> {
             }
         }
 
-        let startValue = !!component.startValue ? moment(component.startValue, dateFormat) : null;
-        let endValue = !!component.endValue ? moment(component.endValue, dateFormat) : null;
+        let defaultStart = !!defaultStartValue ? moment(defaultStartValue, dateFormat) : null;
+        let defaultEnd  = !!defaultEndValue ? moment(defaultEndValue, dateFormat) : null;
+
+        this.state = {
+            start: defaultStart,
+            end: defaultEnd,
+            mode: dateMode,
+            dateFormat: dateFormat
+        }
+    }
+
+    disabledStartDate = (startValue:  moment.Moment) => {
+        console.log("Checking disabled start date", startValue, this.state.end);
+        const endValue = this.state.end;
+        if (!startValue || !endValue) {
+          return false;
+        }
+        return this.checkMinStart(startValue, endValue) && !startValue.isAfter(endValue);
+    }
+
+    disabledEndDate = (endValue: moment.Moment) => {
+        const startValue = this.state.start;
+        if (!endValue || !startValue) {
+            return false;
+        }
+        let result = this.checkMaxEnd(startValue, endValue) && endValue.isBefore(startValue);
+        return result;
+    }
+
+    onChange = (field, value) => {
+        let state = Object.assign(this.state, {[field]: value})
+        if (state.start && state.end) {
+            let {startValuePropsName, endValuePropsName} = this.props.field.componentProps as IDateRangeProps;
+            this.props.onChange({[startValuePropsName] : state.start.format(this.state.dateFormat), [endValuePropsName]: state.end.format(this.state.dateFormat)});
+        }
+        this.setState(state);
+    }
+
+    onStartChange = (value) => {
+        this.onChange('start', value);
+    }
+
+    onEndChange = (value) => {
+        this.onChange('end', value);
+    }
+
+    render() {
+        let {field} = this.props;
 
         return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-daterange-field`}>
             <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
                 <DatePicker
-                    mode={mode}
+                    mode={this.state.mode}
                     disabledDate={this.disabledStartDate}
-                    format={dateFormat}
-                    defaultValue={startValue}
+                    format={this.state.dateFormat}
+                    defaultValue={this.state.defaultEnd}
                     placeholder="Start"
                     onChange={this.onStartChange} />
             </span>
             <span id={`${field.id}-start`} className="fl-daterange-field-end">
                 <DatePicker
-                    mode={mode}
+                    mode={this.state.mode}
                     disabledDate={this.disabledEndDate}
-                    format={dateFormat}
-                    defaultValue={endValue}
+                    format={this.state.dateFormat}
+                    defaultValue={this.state.defaultEnd}
                     placeholder="End"
                     onChange={this.onEndChange} />
             </span>

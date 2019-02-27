@@ -36,7 +36,7 @@ describe("FieldView.CheckboxGroupView", () => {
             id: genElementId("field"),
             name: "Country",
             inputType: "select",
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue: ["NZ"],
                 options : [{
@@ -67,7 +67,7 @@ describe("FieldView.CheckboxGroupView", () => {
             id: genElementId("field"),
             name: "Country",
             inputType: FieldTypes.datepicker,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue: ["NZ"],
                 options : [{

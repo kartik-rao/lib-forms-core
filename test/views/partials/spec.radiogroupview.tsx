@@ -37,7 +37,7 @@ describe("FieldView.RadioGroupView", () => {
             id: genElementId("field"),
             name: "Country",
             inputType: FieldTypes.radiogroup,
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue: "NZ",
                 options : [{
@@ -68,7 +68,7 @@ describe("FieldView.RadioGroupView", () => {
             id: genElementId("field"),
             name: "Country",
             inputType: "select",
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue: "NZ",
                 options : [{

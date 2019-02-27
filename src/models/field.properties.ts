@@ -37,6 +37,16 @@ export class FieldTypes {
     static textblock : string = "textblock";
 }
 
+export interface DateConstraintDuration {
+    years? : number;
+    quarters? : number;
+    months?: number;
+    days?: number;
+}
+export interface DateConstraint {
+    from?: "now"|"start"|"end";
+    relative: DateConstraintDuration;
+}
 export interface ChoiceOption {
     label : string;
     value: any;
@@ -77,8 +87,13 @@ export interface IDatePickerProps extends DatePickerProps {
 
 export interface IDateRangeProps extends RangePickerProps {
     dateFormat : string;
-    startValue?: string;
-    endValue?  : string;
+    startValuePropsName?: string;
+    endValuePropsName?: string;
+    defaultStartValue?: string;
+    defaultEndValue?  : string;
+    minStartDate?: DateConstraint;
+    maxEndDate?: DateConstraint;
+    maxRange?: DateConstraint;
 }
 
 export interface IInputProps extends InputProps {
@@ -155,7 +170,7 @@ export interface IFieldProps {
     inputType : string;
     helpText? : string;
     placeholder?: string;
-    valuePropName: string[];
+    valuePropName: string;
     condition?: ICondition;
     storage?: IFieldStorage;
     validationRules?: any;
