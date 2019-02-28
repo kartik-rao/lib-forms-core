@@ -25,14 +25,17 @@ class Condition {
         this.predicates.forEach((p) => {
             self.ancestors.push(p.field);
         });
-
-        // observe(store, "values", (change) => {
-        //     console.log("condition - store value changed", toJS(change.newValue));
-        // }, true);
     }
 
     constructor(data: ICondition, store: FormStore) {
         this.initialize(data, store);
+    }
+
+    @action addPredicates(...p : IPredicate[]) {
+        p.forEach((p) => {
+            this.predicates.push(new Predicate(p, this.store));
+            this.ancestors.push(p.field);
+        });
     }
 
     reduce(lhs:any, rhs:any, op: string) : boolean {

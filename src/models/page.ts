@@ -46,6 +46,7 @@ class Page implements IPage {
         return fieldNames;
     }
 
+
     @computed get fieldIds() : string[] {
         let fieldIds: string[] = [];
         if (!this.sections || this.sections.length == 0) {

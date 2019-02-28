@@ -11,6 +11,12 @@ class FormStore {
     form: Form
     submitting: boolean;
 
+    @computed get fieldMeta() : any {
+        return this.form.content.pages.reduce((all: {}, p: Page) => {
+            return {...all, ...p.fieldMetadata};
+        }, {});
+    }
+
     @computed get fieldNames() : string[] {
         return this.form.content.pages.reduce((all: string[], p: Page) => {
             return all.concat(p.fieldNames);

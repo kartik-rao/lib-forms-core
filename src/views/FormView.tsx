@@ -4,7 +4,8 @@ import * as React from "react";
 import Page from "../models/page";
 import FormStore from "../state/FormStore";
 import { PageView } from "./PageView";
-import { InputViewProperties } from "./controls/properties/InputProperties";
+import { EditorView } from "./controls/properties/EditorView";
+import EditorStore from "./controls/properties/EditorStore";
 
 interface FormComponentProps {
     store: FormStore;
@@ -20,8 +21,10 @@ export class FormView extends React.Component<FormComponentProps, any> {
     }
 
     render() {
-        const {store} = this.props;
-        let {form} = store;
+
+        const {store: formStore} = this.props;
+        let editorStore = new EditorStore({formStore: formStore, field: formStore.form.content.pages[0].sections[0].columns[0].fields[0]});
+        let {form} = formStore;
         let {content, formLayoutOptions} = form;
 
         return (<div className="form-wrapper">
@@ -34,7 +37,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
             {formLayoutOptions.showSteps && <Row>
                 <Col span={20}>
                     <Card>
-                        <Steps size="small" current={store.currentPage}>
+                        <Steps size="small" current={formStore.currentPage}>
                             {content.pages.map((page: Page, pn: number) => {
                                 return <Steps.Step title={page.title} key={pn}/>
                             })}
@@ -46,26 +49,26 @@ export class FormView extends React.Component<FormComponentProps, any> {
                 <Col span={16}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
                         <div className="page-wrapper">
-                            <PageView page={content.pages[store.currentPage]} store={store}></PageView>
+                            <PageView page={content.pages[formStore.currentPage]} store={formStore}></PageView>
                         </div>
                         <div className="page-actions">
                             <Card>
                                 <Row>
                                     <Col span={24} style={{ textAlign: 'right' }}>
-                                        { store.currentPage == content.pages.length -1 && <Button disabled={Object.keys(store.touched).length == 0 || !form.isValid || store.isSubmitting } type="primary" style={{ marginLeft: 8 }} htmlType="submit" className="action-button">Submit</Button>}
-                                        { store.currentPage < content.pages.length -1 && <Button type="primary" style={{ marginLeft: 8 }} className="action-button" onClick={() => store.nextPage()}><Icon type="right" />Next</Button> }
-                                        { store.currentPage > 0 && content.pages.length > 1 && <Button type="primary" className="action-button" onClick={() => store.prevPage()}><Icon type="left" />Prev</Button> }
+                                        { formStore.currentPage == content.pages.length -1 && <Button disabled={Object.keys(formStore.touched).length == 0 || !form.isValid || formStore.isSubmitting } type="primary" style={{ marginLeft: 8 }} htmlType="submit" className="action-button">Submit</Button>}
+                                        { formStore.currentPage < content.pages.length -1 && <Button type="primary" style={{ marginLeft: 8 }} className="action-button" onClick={() => formStore.nextPage()}><Icon type="right" />Next</Button> }
+                                        { formStore.currentPage > 0 && content.pages.length > 1 && <Button type="primary" className="action-button" onClick={() => formStore.prevPage()}><Icon type="left" />Prev</Button> }
                                     </Col>
                                 </Row>
                             </Card>
                         </div>
-                        <div>Errors<br/>{JSON.stringify(store.errors)}</div>
-                        <div>Touched<br/>{JSON.stringify(store.touched)}</div>
-                        <div>Values<br/>{JSON.stringify(store.values)}</div>
+                        <div>Errors<br/>{JSON.stringify(formStore.errors)}</div>
+                        <div>Touched<br/>{JSON.stringify(formStore.touched)}</div>
+                        <div>Values<br/>{JSON.stringify(formStore.values)}</div>
                     </Form>
                 </Col>
                 <Col span={4}>
-                    <InputViewProperties store={store} field={form.content.pages[0].sections[0].columns[1].fields[2]}/>
+                    <EditorView editorStore={editorStore}/>
                 </Col>
             </Row>
         </div>
