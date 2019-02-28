@@ -31,7 +31,7 @@ describe("FieldView.NumberView", () => {
             id: genElementId("field"),
             name: "First Name",
             inputType: "number",
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 defaultValue:1
             }
