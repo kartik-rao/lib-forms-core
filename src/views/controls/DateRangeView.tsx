@@ -47,97 +47,52 @@ export class DateRangeView extends React.Component<IViewProps, any> {
             minStart = moment().add(toJS(minStartDate.relative))
         }
 
-        let disposer = observe(props.field.componentProps, "minStartDate", (change) => {
-            if(change.newValue) {
-                this.setState({'minStart' : moment().add(toJS(change.newValue.relative))})
+        let disposer = observe(props.field, "componentProps", (change) => {
+            let props = change.newValue;
+            let newState = {};
+            if (props.dateFormat) {
+                newState['dateFormat'] = props.dateFormat;
+            }
+            if(props.defaultStart) {
+                newState['dates'] = this.state.defaultValue.splice()
+            }
+            if(props) {
+                this.setState({
+                    'minStart' : moment().add(toJS(change.newValue.relative)),
+                })
             } else {
                 this.setState({'minStart' : null})
             }
         });
 
         this.state = {
-            start: defaultStart,
-            end: defaultEnd,
+            defaultValue: [defaultStart, defaultEnd],
+            dates: [defaultStart, defaultEnd],
             mode: dateMode,
             dateFormat: dateFormat,
             minStart: minStart,
             disposer: disposer
         }
-
-
     }
 
     componentWillUnmount() {
         this.state.disposer();
     }
 
-    disabledStartDate = (startValue:  moment.Moment) => {
-        const endValue = this.state.end;
-        const minStart = this.state.minStart;
-        let response = false;
-
-        if(startValue) {
-            if(minStart && startValue.isBefore(minStart)) {
-                return true;
-            }
-            if (endValue && startValue.isAfter(endValue)) {
-                return true;
-            }
-        }
-        return response;
-    }
-
-    disabledEndDate = (endValue: moment.Moment) => {
-        let response = false;
-        const startValue = this.state.start;
-        if(!endValue || !startValue) {
-            return false;
-        } else {
-            response = endValue.isBefore(startValue)
-        }
-        return response;
-    }
-
-    onChange = (field: string, value: moment.Moment) => {
-        let {state} = this;
-        if (state.start && state.end) {
-            let {startValuePropsName, endValuePropsName} = this.props.field.componentProps as IDateRangeProps;
-            this.props.onChange({[startValuePropsName] : state.start.format(this.state.dateFormat), [endValuePropsName]: state.end.format(this.state.dateFormat)});
-        }
-    }
-
-    onStartChange = (value) => {
-        this.setState({'start': value});
-        this.onChange('start', value);
-    }
-
-    onEndChange = (value) => {
-        this.setState({'end': value});
-        this.onChange('end', value);
+    onChange = (dates: moment.Moment[], dateStrings: string[]) => {
+        this.setState({"dates": dates})
+        let {startValuePropsName, endValuePropsName} = this.props.field.componentProps as IDateRangeProps;
+        this.props.onChange({[startValuePropsName] : dateStrings[0], [endValuePropsName]: dateStrings[1]});
     }
 
     render() {
         let {field} = this.props;
         return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-daterange-field`}>
             <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
-                <DatePicker
-                    mode={this.state.mode}
-                    disabledDate={this.disabledStartDate}
-                    format={this.state.dateFormat}
-                    defaultValue={this.state.defaultEnd}
-                    placeholder="Start"
-                    onChange={this.onStartChange}
-                    value={this.state.start}/>
-            </span>
-            <span id={`${field.id}-start`} className="fl-daterange-field-end">
-                <DatePicker
-                    mode={this.state.mode}
-                    disabledDate={this.disabledEndDate}
-                    format={this.state.dateFormat}
-                    defaultValue={this.state.defaultEnd}
-                    placeholder="End"
-                    onChange={this.onEndChange}
-                    value={this.state.end}/>
+            <DatePicker.RangePicker
+                onChange={this.onChange}
+                format={this.state.dateFormat}
+                />
             </span>
          </div>
     }

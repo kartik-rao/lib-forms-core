@@ -63,8 +63,8 @@ class Field implements IFieldProps {
         this.valuePropName = this.valuePropName ? this.valuePropName : `${this.id}_value`;
 
         if(this.inputType == 'daterange') {
-            this.componentProps["startValuePropsName"] = !!this.componentProps["startValuePropsName"] ? this.componentProps["startValuePropsName"] : `${this.id}_start_date`;
-            this.componentProps["endValuePropsName"] = !!this.componentProps["endValuePropsName"] ? this.componentProps["endValuePropsName"] : `${this.id}_end_date`;
+            this.componentProps["startValuePropsName"] = !!this.componentProps["startValuePropsName"] ? this.componentProps["startValuePropsName"] : `start_date`;
+            this.componentProps["endValuePropsName"] = !!this.componentProps["endValuePropsName"] ? this.componentProps["endValuePropsName"] : `end_date`;
         }
 
         if (data.condition) {
