@@ -1,39 +1,16 @@
 import { DatePicker } from "antd";
+import {toJS, observe} from 'mobx';
 import { observer } from "mobx-react";
 import * as moment from 'moment'
 import {Moment} from 'moment';
 import * as React from "react";
 import { IViewProps } from "./IViewProps";
 import { IDateRangeProps } from "../../models/field.properties";
+import { any } from "prop-types";
 
 @observer
 export class DateRangeView extends React.Component<IViewProps, any> {
-    dateFormat: string;
 
-    checkMaxEnd(start: Moment, end: Moment) {
-        let {maxEndDate} = this.props.field.componentProps as IDateRangeProps;
-        if (end && maxEndDate) {
-            let maxEnd: Moment;
-            if (maxEndDate.from == 'now') {
-                maxEnd = moment().add(maxEndDate.relative);
-            } else if (maxEndDate.from == 'start' && start) {
-                maxEnd = moment(start).add(maxEndDate.relative);
-            }
-            return end.isBefore(maxEnd)
-        }
-        return true;
-    }
-
-    checkMinStart(start: Moment, end: Moment) {
-        let {minStartDate} = this.props.field.componentProps as IDateRangeProps;
-        console.log("Check min start", minStartDate, this.state.start);
-        if (start && minStartDate) {
-            let minStart: Moment = moment().add(minStartDate.relative);
-            return start.isAfter(minStart)
-        }
-
-        return true;
-    }
     constructor(props: any) {
         super(props);
 
@@ -63,53 +40,84 @@ export class DateRangeView extends React.Component<IViewProps, any> {
 
         let defaultStart = !!defaultStartValue ? moment(defaultStartValue, dateFormat) : null;
         let defaultEnd  = !!defaultEndValue ? moment(defaultEndValue, dateFormat) : null;
+        let {minStartDate} = this.props.field.componentProps as IDateRangeProps;
+
+        let minStart: Moment;
+        if (minStartDate) {
+            minStart = moment().add(toJS(minStartDate.relative))
+        }
+
+        let disposer = observe(props.field.componentProps, "minStartDate", (change) => {
+            if(change.newValue) {
+                this.setState({'minStart' : moment().add(toJS(change.newValue.relative))})
+            } else {
+                this.setState({'minStart' : null})
+            }
+        });
 
         this.state = {
             start: defaultStart,
             end: defaultEnd,
             mode: dateMode,
-            dateFormat: dateFormat
+            dateFormat: dateFormat,
+            minStart: minStart,
+            disposer: disposer
         }
+
+
+    }
+
+    componentWillUnmount() {
+        this.state.disposer();
     }
 
     disabledStartDate = (startValue:  moment.Moment) => {
-        console.log("Checking disabled start date", startValue, this.state.end);
         const endValue = this.state.end;
-        if (!startValue || !endValue) {
-          return false;
+        const minStart = this.state.minStart;
+        let response = false;
+
+        if(startValue) {
+            if(minStart && startValue.isBefore(minStart)) {
+                return true;
+            }
+            if (endValue && startValue.isAfter(endValue)) {
+                return true;
+            }
         }
-        return this.checkMinStart(startValue, endValue) && !startValue.isAfter(endValue);
+        return response;
     }
 
     disabledEndDate = (endValue: moment.Moment) => {
+        let response = false;
         const startValue = this.state.start;
-        if (!endValue || !startValue) {
+        if(!endValue || !startValue) {
             return false;
+        } else {
+            response = endValue.isBefore(startValue)
         }
-        let result = this.checkMaxEnd(startValue, endValue) && endValue.isBefore(startValue);
-        return result;
+        return response;
     }
 
-    onChange = (field, value) => {
-        let state = Object.assign(this.state, {[field]: value})
+    onChange = (field: string, value: moment.Moment) => {
+        let {state} = this;
         if (state.start && state.end) {
             let {startValuePropsName, endValuePropsName} = this.props.field.componentProps as IDateRangeProps;
             this.props.onChange({[startValuePropsName] : state.start.format(this.state.dateFormat), [endValuePropsName]: state.end.format(this.state.dateFormat)});
         }
-        this.setState(state);
     }
 
     onStartChange = (value) => {
+        this.setState({'start': value});
         this.onChange('start', value);
     }
 
     onEndChange = (value) => {
+        this.setState({'end': value});
         this.onChange('end', value);
     }
 
     render() {
         let {field} = this.props;
-
         return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-daterange-field`}>
             <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
                 <DatePicker
@@ -118,7 +126,8 @@ export class DateRangeView extends React.Component<IViewProps, any> {
                     format={this.state.dateFormat}
                     defaultValue={this.state.defaultEnd}
                     placeholder="Start"
-                    onChange={this.onStartChange} />
+                    onChange={this.onStartChange}
+                    value={this.state.start}/>
             </span>
             <span id={`${field.id}-start`} className="fl-daterange-field-end">
                 <DatePicker
@@ -127,7 +136,8 @@ export class DateRangeView extends React.Component<IViewProps, any> {
                     format={this.state.dateFormat}
                     defaultValue={this.state.defaultEnd}
                     placeholder="End"
-                    onChange={this.onEndChange} />
+                    onChange={this.onEndChange}
+                    value={this.state.end}/>
             </span>
          </div>
     }
