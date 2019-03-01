@@ -1,4 +1,4 @@
-import { Button, Divider, Empty, Form, Input, Select, Table, Row, Col } from "antd";
+import { Button, Divider, Empty, Form, Input, Select, Table } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { IPredicate } from "../../../models/condition.predicate";
@@ -17,7 +17,6 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
     }
 
     setExpression = (e) => {
-        console.log("Expression", e)
         this.setState({expression: e});
     }
 
@@ -30,10 +29,14 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
     }
 
     addPredicate(p: IPredicate) {
-        if (!this.props.editorStore.field.condition) {
-            this.props.editorStore.field.setCondition({predicates: []});
-        }
-        this.props.editorStore.field.condition.addPredicates(p);
+        let {editorStore} = this.props;
+        editorStore.addPredicate(p);
+        return;
+    }
+
+    removePredicate(uuid: string) {
+        let {editorStore} = this.props;
+        editorStore.removePredicate(uuid);
     }
 
     handleSubmit = (e) => {
@@ -41,44 +44,49 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
         e.stopPropagation();
         this.addPredicate({
             field: this.state.field,
-            condition: this.state.expresion,
+            condition: this.state.expression,
             value: this.state.value,
             operator: this.state.operator
         });
-
         this.setState({field: null, expression: null, value: null, operator: null})
     }
 
     render() {
-        let {field, availableConditionSources, availableExpressions, availableOperators} = this.props.editorStore;
+        let {field, availableConditionSources, availableExpressions, availableOperators, hasCondition, numPredicates} = this.props.editorStore;
         let columns : any = [
             { title: 'Field', dataIndex: 'field', key: 'field' },
             { title: 'Condition', dataIndex: 'condition', key: 'condition' },
             { title: 'Value', dataIndex: 'value', key: 'value'},
-            { title: 'Operator', dataIndex: 'operator', key: 'operator'}
+            { title: 'Operator', dataIndex: 'operator', key: 'operator'},
+            { title: 'Action', key: 'action',
+                render: (text, record) => (
+                  <span>
+                    <a href="javascript:;" onClick={(e) => this.removePredicate(record.uuid)}>Delete</a>
+                  </span>
+                ),
+              }
         ]
-
-        return <Row gutter={8}>
-            <Col span={8}>
-            { !field.condition && <Empty description={
+        return <div>
+            { numPredicates > 0 && <div>
+                <Table dataSource={field.condition.predicates || []} columns={columns} rowKey='uuid'/>
+                </div>
+            }
+            { numPredicates == 0 && <Empty description={
                     <span>No conditional rendering on this field</span>
                     }>
                 </Empty>
             }
-            {   field.condition && <div>
-                <Table dataSource={field.condition.predicates || []} columns={columns} />
-                <Divider/></div>
-            }
+            <Divider/>
             <Form onSubmit={(e)=> this.handleSubmit(e)}>
-                <Form.Item label="Source field">
+                <Form.Item label="Source field" help="Field the condition will get its source value from" required>
                     <Select showSearch={true} onChange={(e) => this.setField(e)} value={this.state.field}>
                         { availableConditionSources.map((f)=>{
                             return <Select.Option key={f.id} value={f.id} disabled={field.id == f.id}>{f.name}</Select.Option>
                         })}
                     </Select>
                 </Form.Item>
-                <Form.Item label="Expression">
-                    <Select onChange={(e) => this.setExpression(e)}  value={this.state.expresion}>
+                <Form.Item label="Expression" help="The expression to evaluate"  required>
+                    <Select onChange={(e) => this.setExpression(e)}  value={this.state.expression}>
                         {
                             availableExpressions.map((e)=> {
                                 return <Select.Option key={e.value} value={e.value}>{e.name}</Select.Option>
@@ -86,8 +94,11 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
                         }
                     </Select>
                 </Form.Item>
-                <Form.Item label="Operator">
-                    <Select onChange={(e) => this.setOperator(e)} value={this.state.operator} disabled={!field.condition || field.condition.predicates.length <=1}>
+                <Form.Item label="Value" help="The target value"  required={!this.state.expression || this.state.expression.indexOf('hasval') > -1 || !this.state.field}>
+                    <Input type="text" disabled={ !this.state.expression || this.state.expression.indexOf('hasval') > -1 || !this.state.field} onChange={(e) => this.setValue(e)}></Input>
+                </Form.Item>
+                <Form.Item label="Operator" help="Operator to combine conditions">
+                    <Select onChange={(e) => this.setOperator(e)} value={this.state.operator} disabled={numPredicates == 0}>
                         {
                             availableOperators.map((e)=> {
                                 return <Select.Option key={e.value} value={e.value}>{e.name}</Select.Option>
@@ -95,14 +106,10 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
                         }
                     </Select>
                 </Form.Item>
-                <Form.Item label="Value">
-                    <Input type="text" disabled={ !this.state.expression || this.state.expression.indexOf('hasval') > -1 || !this.state.field} onChange={(e) => this.setValue(e)}></Input>
-                </Form.Item>
                 <Form.Item>
-                    <Button htmlType="submit" type="primary" disabled={!this.state.field || !this.state.expresion}>Add</Button>
+                    <Button icon="plus" htmlType="submit" type="primary" disabled={!this.state.field || !this.state.expression}>Add</Button>
                 </Form.Item>
             </Form>
-            </Col>
-        </Row>
+        </div>
     }
 }

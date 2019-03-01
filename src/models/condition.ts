@@ -3,7 +3,7 @@ import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
 
 export interface ICondition {
-    predicates: any|Predicate[],
+    predicates: IPredicate[],
     ancestors?: string[],
 }
 

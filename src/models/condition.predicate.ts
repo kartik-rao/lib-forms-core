@@ -2,6 +2,7 @@ import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
 
 export interface IPredicate {
+    uuid?: string;
     field: string;
     condition: any;
     value: any;
@@ -11,6 +12,7 @@ export interface IPredicate {
 class Predicate implements IPredicate {
     static readonly PredicateConditions = ["eq",  "neq",  "gt",  "lt", "gteq", "lteq", "hasval", "nothasval"];
     static readonly PredicateOperators = ["or", "and"];
+    uuid: string;
     field: string;
     condition: string;
     value: any;
@@ -24,6 +26,7 @@ class Predicate implements IPredicate {
         if(data.operator && Predicate.PredicateOperators.indexOf(data.operator) == -1) {
             throw new Error(`InvalidPredicateOperator - ${data.operator}`);
         }
+        this.uuid = data.uuid;
         this.store = store;
         this.field = data.field;
         this.condition = data.condition;

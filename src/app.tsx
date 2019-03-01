@@ -7,6 +7,7 @@ import { Factory } from "./models/factory";
 import Form from './models/form';
 import FormStore from "./state/FormStore";
 import { FormView } from "./views/FormView";
+import "./app.css";
 
 enableLogging({
     action: true,

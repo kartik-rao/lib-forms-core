@@ -7,7 +7,7 @@ import Form, {IFormProps} from "./form";
 import FormStore from "../state/FormStore";
 import Condition, {ICondition} from "./condition";
 import Predicate, {IPredicate} from "./condition.predicate";
-
+import { uuid } from "./common";
 
 export class Factory {
     store: FormStore;
@@ -45,6 +45,9 @@ export class Factory {
     makePredicates(...predicates: IPredicate[]) : Predicate[] {
         let response: Predicate[] = [];
         predicates.forEach((predicate: IPredicate) => {
+            if(!predicate.uuid) {
+                predicate.uuid = uuid();
+            }
             response.push(new Predicate(predicate, this.store));
         });
         return response;

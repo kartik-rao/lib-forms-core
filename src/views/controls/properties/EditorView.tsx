@@ -13,9 +13,9 @@ export class EditorView extends React.Component<IFieldEditorView,any> {
 
     render() {
         let {editorStore} = this.props;
-        return <Drawer title="Edit Field" width={720} onClose={() => editorStore.setField(null)} visible={editorStore.visible}
+        return <Drawer title="Edit Field" width={480} onClose={() => editorStore.setField(null)} visible={editorStore.visible}
         style={{ overflow: 'auto', height: 'calc(100% - 108px)', paddingBottom: '108px' }}>
-        <Tabs>
+        {editorStore.field && <Tabs>
             <Tabs.TabPane tab="Properties" key="1">
                 <FieldPropertiesView editorStore={editorStore}/>
             </Tabs.TabPane>
@@ -23,7 +23,7 @@ export class EditorView extends React.Component<IFieldEditorView,any> {
             <Tabs.TabPane tab="Condition" key="3">
                 <ConditionsView editorStore={editorStore}/>
             </Tabs.TabPane>
-        </Tabs>
+        </Tabs>}
         </Drawer>
     }
 }

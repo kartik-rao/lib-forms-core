@@ -1,20 +1,29 @@
-import {action, decorate, observable, computed, set, toJS} from "mobx";
-import Field from "../../../models/field";
+import { action, computed, decorate, observable } from "mobx";
 import { ICondition } from "../../../models/condition";
+import Predicate, { IPredicate } from "../../../models/condition.predicate";
+import { Factory } from "../../../models/factory";
+import Field from "../../../models/field";
 import FormStore from "../../../state/FormStore";
-import Predicate from "../../../models/condition.predicate";
 
-class EditorStore {
+export interface IEditorStoreProps {
     field: Field
     formStore: FormStore;
+    factory: Factory;
+}
 
-    constructor(data: any) {
+class EditorStore implements IEditorStoreProps {
+    field: Field
+    formStore: FormStore;
+    factory: Factory;
+
+    constructor(data: IEditorStoreProps) {
         this.initialize(data);
     }
 
-    @action initialize(data: any) {
+    @action initialize(data: IEditorStoreProps) {
         this.field = data.field;
         this.formStore = data.formStore;
+        this.factory = data.factory;
         return;
     }
 
@@ -48,7 +57,43 @@ class EditorStore {
         return operators;
     }
 
-    @action updateCondition = (c: ICondition) => {
+    @computed get hasCondition() : boolean {
+        return !!this.field.condition;
+    }
+
+    @computed get numPredicates() : number {
+        return this.field.condition ? this.field.condition.predicates.length : 0;
+    }
+
+    @action addCondition = (c: ICondition) => {
+        this.field.setCondition(this.factory.makeCondition(c));
+    }
+
+    @action removePredicate(uuid: string) {
+        let {condition} = this.field;
+        let index = condition.predicates.findIndex((p: Predicate)=> {
+            return p.uuid == uuid;
+        });
+
+        if (index > -1) {
+            condition.predicates.splice(index, 1);
+        }
+
+        if (condition.predicates.length == 0) {
+            this.field.setCondition(null);
+        }
+    }
+
+    @action addPredicate = (p: IPredicate) => {
+        if (!this.field.condition) {
+            let condition = this.factory.makeCondition({predicates: [p]});
+            this.field.setCondition(condition);
+            return;
+        }
+        this.field.condition.addPredicates(...this.factory.makePredicates(p));
+    }
+
+    @action setCondition = (c: ICondition) => {
         this.field.setCondition(c);
     }
 

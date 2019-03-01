@@ -26,6 +26,7 @@ class Field implements IFieldProps {
     validationRules : any;
     validationErrors: any[];
     componentProps: IComponentProps;
+    _dispose : any;
 
     @action mergeUpdate(data: IFieldProps) {
         this.id = data.id;
@@ -129,10 +130,20 @@ class Field implements IFieldProps {
     }
 
     @action setCondition(condition: ICondition) {
+        if(condition == null) {
+            this.condition = null;
+            this.conditionState = true;
+            if(this._dispose) {
+                this._dispose();
+            }
+            this.validate();
+            return;
+        }
+
         this.condition = new Condition(condition, this.store);
         this.conditionState = this.condition.value;
 
-        observe(this.condition, "value", (change) => {
+        this._dispose = observe(this.condition, "value", (change) => {
             this.setConditionState(change.newValue)
             if(change.newValue == true) {
                 this.validate();
