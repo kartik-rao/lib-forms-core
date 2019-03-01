@@ -32,7 +32,7 @@ describe("ColumnView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 placeholder: "Enter f1",
             }
@@ -59,11 +59,11 @@ describe("ColumnView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: ["f1"],
+            valuePropName: "f1",
             componentProps: {
                 placeholder: "Enter f1",
             },
-            validationRules : {
+            validation : {
                 presence: {message: "f1 is required"}
             }
         }, store);

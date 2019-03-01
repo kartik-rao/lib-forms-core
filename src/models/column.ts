@@ -22,7 +22,7 @@ class Column implements IColumn {
 
     @computed get errors() : any[] {
         return this.fields.reduce((all: any[], f: Field)=>{
-            return all.concat(f.validationErrors);
+            return all.concat(f.validator.errors);
         }, <any[]>[]);
     }
 

@@ -5,6 +5,7 @@ import {uuid} from "./common";
 const validate = require('validate.js');
 
 import {IFieldProps, IComponentProps, IFieldStorage, ChoiceOption} from "./field.properties";
+import Validator, { IValidationRule } from "./field.validation";
 
 class Field implements IFieldProps {
     readonly _type : string = "Field";
@@ -23,8 +24,8 @@ class Field implements IFieldProps {
     storage: IFieldStorage;
     store: FormStore;
     conditionState: boolean;
-    validationRules : any;
-    validationErrors: any[];
+    validation : IValidationRule;
+    validator : Validator;
     componentProps: IComponentProps;
     _dispose : any;
 
@@ -48,7 +49,7 @@ class Field implements IFieldProps {
         this.label = data.label;
         this.inputType = data.inputType;
         this.valuePropName = data.valuePropName || this.name
-        this.validationRules = data.validationRules;
+        this.validator = new Validator({rule: data.validation, field: this, store: store});
         this.storage = data.storage;
         this.label = data.label;
         this.helpText = data.helpText;
@@ -74,20 +75,8 @@ class Field implements IFieldProps {
             this.condition = null;
             this.conditionState = true;
         }
-        this.validationErrors = [];
-        this.validate();
+        this.validator.validate();
         return;
-    }
-
-    formatError(errors: any): any {
-        return errors.map((e: any) => {
-            return {id: this.id,
-                name: e.attribute,
-                message: e.options.message,
-                prefixedMessage: e.error,
-                validator: e.validator
-            };
-        });
     }
 
     @computed get isTouched() : boolean {
@@ -95,11 +84,11 @@ class Field implements IFieldProps {
     }
 
     @computed get isValidateable() {
-        return !this.isHidden && this.conditionState && !!this.validationRules && Object.keys(this.validationRules).length > 0;
+        return this.validator.isValidateable;
     }
 
     @computed get isValid() : boolean {
-        return this.validationErrors.length == 0;
+        return this.validator.isValid;
     }
 
     @computed get isHidden() : boolean {
@@ -152,29 +141,14 @@ class Field implements IFieldProps {
     }
 
     @action validate() {
-        if (this.isValidateable == true) {
-            let constraints = {};
-            constraints[this.name] = toJS(this.validationRules);
-            let values = {};
-            values[this.name] = this.store.values[this.id] || null;
-            validate.formatters.custom = this.formatError.bind(this);
-            this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
-            if (this.validationErrors.length > 0) {
-                this.store.setFieldError(this.id, this.validationErrors[0].message);
-            } else {
-                this.store.setFieldError(this.id, undefined);
-            }
-
-        } else {
-            this.validationErrors = [];
-        }
-        return;
+        if (!this.validator) { console.warn("VALIDATOR IS NULL !!!!!!!!!!!!")}
+       this.validator.validate();
     }
 
     @computed get serialize(): string  {
         let clone = toJS(this);
         delete clone.store;
-        delete clone.validationErrors
+        delete clone.validation;
         return JSON.stringify(clone);
     }
 
@@ -198,8 +172,7 @@ decorate(Field, {
     condition: observable,
     storage: observable,
     conditionState: observable,
-    validationRules : observable,
-    validationErrors: observable,
+    validator: observable,
     componentProps: observable
 });
 

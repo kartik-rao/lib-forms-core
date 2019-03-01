@@ -1,73 +1,118 @@
 import {action, decorate, observable, computed, observe, toJS} from "mobx";
 import FormStore from "../state/FormStore";
+import * as moment from 'moment'
+import Field from "./field";
+
 var validate = require("validate.js");
 
-export enum FieldType {
-    string = "string", // Must be of type string. This is the default type.
-    number = "number", // Must be of type number.
-    boolean = "boolean", // Must be of type boolean.
-    method = "method", // Must be of type function.
-    regexp = "regexp", // Must be an instance of RegExp or a string that does not generate an exception when creating a new RegExp.
-    integer = "integer", // Must be of type number and an integer.
-    float = "float", // Must be of type number and a floating point number.
-    array = "array", // Must be an array as determined by Array.isArray.
-    object = "object", // Must be of type object and not Array.isArray.
-    enum = "enum", // Value must exist in the enum.
-    date = "date", // Value must be valid as determined by Date
-    url = "url", // Must be of type url.
-    hex = "hex", // Must be of type hex.
-    email = "email" // Must be of type email
-}
-
-export interface IFieldValidationRule {
-    name: string;
-    value: any;
-    message: string;
-}
-
-export class FieldValidationRule implements IFieldValidationRule {
-    name: string;
-    value: any;
-    message: string;
-
-    constructor(props: any) {
-        this.name = props.name;
-        this.value = props.value;
-        this.message = props.message;
+validate.extend(validate.validators.datetime, {
+    // The value is guaranteed not to be null or undefined but otherwise it
+    // could be anything.
+    parse: function(value, options) : number {
+      return +moment.utc(value);
+    },
+    // Input is a unix timestamp
+    format: function(value: moment.MomentInput, options: any = {}) : string {
+      var format = options.dateOnly ? "YYYY-MM-DD" : "YYYY-MM-DD hh:mm:ss";
+      return moment.utc(value).format(format);
     }
-}
-
-class FieldValidation {
-    store: FormStore;
-    public rules: FieldValidationRule[] = [];
-
-    addRule(rule: any) : void {
-        this.rules.push(new FieldValidationRule(rule))
-    }
-
-    addRules(rules: any[] = []) : FieldValidation {
-        let self = this;
-        rules.forEach((r) => {
-            self.addRule(r);
-        });
-        return this;
-    }
-
-    @computed get isValid() : boolean {
-        return false;
-    }
-
-    @action initialize(store: FormStore) {
-        this.store = store;
-    }
-
-    constructor(store: FormStore) {
-        observe
-    }
-}
-
-decorate(FieldValidation, {
-    rules: observable
 });
 
-export default FieldValidation;
+export interface IValidationRule {
+    date? : any,
+    datetime? : any,
+    email?: any,
+    equality?: any,
+    exclusion?: any,
+    format?: any,
+    inclusion?: any,
+    length?: any,
+    numericality?: any,
+    presence?: any,
+    url?: any
+}
+
+export interface IValidationError {
+    id: string,
+    name: string,
+    message: string,
+    prefixedMessage: string,
+    validator: string
+}
+
+export type ValidationRule = Partial<Record<keyof IValidationRule, string>>;
+
+export interface IValidationProps {
+    store: FormStore,
+    field: Field,
+    rule: ValidationRule
+}
+
+class Validator {
+    store: FormStore;
+    field: Field;
+    rule : ValidationRule;
+    validationErrors: IValidationError[] = [];
+
+    @computed get isValid() : boolean {
+        return this.validationErrors.length == 0;
+    }
+
+    @computed get errors() : IValidationError[] {
+        return this.validationErrors;
+    }
+
+    formatError(errors: any): any {
+        return errors.map((e: any) => {
+            return {id: this.field.id,
+                name: e.attribute,
+                message: e.options.message,
+                prefixedMessage: e.error,
+                validator: e.validator
+            };
+        });
+    }
+
+    @computed get isValidateable() {
+        let {field} = this;
+        return !field.isHidden && field.conditionState && !!this.rule && Object.keys(this.rule).length > 0;
+    }
+
+    @action validate() {
+        if (this.field.isValidateable == true) {
+            let {field} = this;
+            let {id, name} = field;
+            let constraints = {};
+            constraints[field.name] = toJS(this.rule);
+            let values = {};
+            values[name] = this.store.values[id] || null;
+            validate.formatters.custom = this.formatError.bind(this);
+            this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
+            if (this.validationErrors.length > 0) {
+                this.store.setFieldError(id, this.validationErrors[0].message);
+            } else {
+                this.store.setFieldError(id, undefined);
+            }
+
+        } else {
+            this.validationErrors = [];
+        }
+    }
+
+    @action initialize(data: IValidationProps) {
+        this.rule = data.rule || {} as ValidationRule;
+        this.store = data.store;
+        this.field = data.field;
+    }
+
+    constructor(data: IValidationProps) {
+        this.initialize(data);
+    }
+}
+
+decorate(Validator, {
+    rule: observable,
+    validationErrors: observable
+});
+
+export default Validator;

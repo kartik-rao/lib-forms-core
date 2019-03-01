@@ -15,6 +15,7 @@ import { RateProps } from "antd/lib/rate/index";
 import { SwitchProps } from "antd/lib/switch/index";
 import { SliderProps } from "antd/lib/slider";
 import { TextAreaProps } from "antd/lib/input";
+import {IValidationRule} from "./field.validation";
 
 /* CheckboxGroupProps|CheckboxProps|InputProps  */
 export class FieldTypes {
@@ -173,6 +174,6 @@ export interface IFieldProps {
     valuePropName: string;
     condition?: ICondition;
     storage?: IFieldStorage;
-    validationRules?: any;
+    validation?: IValidationRule;
     componentProps: IComponentProps
 }

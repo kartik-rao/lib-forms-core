@@ -11,11 +11,11 @@ const F1: IFieldProps= {
     name: "f1",
     type: "string",
     inputType : "text",
-    validationRules: {
+    validation: {
         presence: {message: 'Required validation message'},
         length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
     },
-    valuePropName: ["f1"],
+    valuePropName: "f1",
     componentProps: {
         placeholder: "Enter f1",
     }
@@ -26,10 +26,10 @@ const F2: IFieldProps = {id: "f2",
     type: "string",
     inputType : "text",
     condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
-    validationRules: {
+    validation: {
         presence: {message: 'Required validation message'}
     },
-    valuePropName: ["f2"],
+    valuePropName: "f2",
     componentProps: {
         placeholder: "Enter f2",
     }

@@ -14,7 +14,7 @@ describe("Field", () => {
             name: "f2",
             type: "string",
             inputType : "text",
-            valuePropName: ["firstName"],
+            valuePropName: "firstName",
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -37,7 +37,7 @@ describe("Field", () => {
             type: "string",
             inputType : "text",
             condition: c,
-            valuePropName: ["firstName"],
+            valuePropName: "firstName",
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -75,11 +75,11 @@ describe("Field", () => {
             name: "f2",
             type: "string",
             inputType : "text",
-            validationRules: {
+            validation: {
                 presence: {message: 'Required validation message'},
                 length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
             },
-            valuePropName: ["firstName"],
+            valuePropName: "firstName",
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -87,7 +87,7 @@ describe("Field", () => {
 
         try {
             expect(f.isValid).toEqual(false);
-            expect(keys(f.validationErrors).length).toBeGreaterThan(0);
+            expect(keys(f.validator.errors).length).toBeGreaterThan(0);
             when(() => f.value == 'qq', () => {
                 expect(f.isValid).toEqual(true);
                 done();

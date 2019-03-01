@@ -10,6 +10,8 @@ class FormStore {
     debug : boolean;
     form: Form
     submitting: boolean;
+    validationDisabled: boolean;
+    conditionsDisabled: boolean;
 
     @computed get fieldMeta() : any {
         return this.form.content.pages.reduce((all: {}, p: Page) => {

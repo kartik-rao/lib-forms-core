@@ -5,7 +5,7 @@ export interface IPredicate {
     uuid?: string;
     field: string;
     condition: any;
-    value: any;
+    value?: any;
     operator?: string;
 }
 

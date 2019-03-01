@@ -98,7 +98,7 @@ class EditorStore implements IEditorStoreProps {
     }
 
     @action addValidationRule = (rule: any) => {
-        this.field.validationRules = {...this.field.validationRules, ...rule};
+        this.field.validator.rule = {...this.field.validator.rule, ...rule};
     }
 
     @action setFieldProperty = (key: string, value: any) => {
