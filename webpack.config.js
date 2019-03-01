@@ -17,6 +17,7 @@ module.exports = {
                 test: /\.ts(x?)$/,
                 use: { loader: 'awesome-typescript-loader',
                     options : {
+                        bail: true,
                         useCache: true,
                         reportFiles: [
                             'src/**/*.{ts,tsx}'
