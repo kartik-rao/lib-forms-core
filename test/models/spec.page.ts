@@ -5,9 +5,11 @@ import Section, { ISection } from "../../src/models/section";
 import Page, {IPage} from "../../src/models/page";
 import FormStore from "../../src/state/FormStore";
 import {when} from "mobx";
+import {genElementId} from "../utils";
 
-const F1: IFieldProps= {
-    id: "f1",
+let f1_id = genElementId('field');
+const F1: IFieldProps = {
+    id: f1_id,
     name: "f1",
     type: "string",
     inputType : "text",
@@ -21,11 +23,12 @@ const F1: IFieldProps= {
     }
 };
 
-const F2: IFieldProps = {id: "f2",
+const F2: IFieldProps = {
+    id: genElementId('field'),
     name: "f2",
     type: "string",
     inputType : "text",
-    condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
+    condition: {predicates: [{field: f1_id, condition: "eq", value: "qq"}]},
     validation: {
         presence: {message: 'Required validation message'}
     },
@@ -58,7 +61,7 @@ describe('Page', () => {
     let store: FormStore;
 
     beforeEach(() => {
-        store = new FormStore({values: {"f1":"", "f2": ""}});
+        store = new FormStore({values: {}});
     });
 
     it("can be initialised", () => {

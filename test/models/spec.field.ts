@@ -1,16 +1,17 @@
 import FormStore from "../../src/state/FormStore";
 import { when, toJS, keys } from "mobx";
 import Field from "../../src/models/field";
+import {genElementId} from "../utils";
 
 describe("Field", () => {
     let store: FormStore;
     beforeEach(() => {
-        store = new FormStore({values: {"f1":"", "f2": ""}});
+        store = new FormStore({values: {}});
     });
 
     it("Can initialize a field and set its value", async (done: any) => {
         let f = new Field({
-            id: "f2",
+            id: genElementId('field'),
             name: "f2",
             type: "string",
             inputType : "text",
@@ -32,7 +33,7 @@ describe("Field", () => {
         let c = {predicates: [{field: "f1", condition: "eq", value: "qq"}]};
 
         let f = new Field({
-            id: "f2",
+            id: genElementId('field'),
             name: "f2",
             type: "string",
             inputType : "text",
@@ -71,7 +72,7 @@ describe("Field", () => {
 
     it("Can validate/revalidate on change", async (done: any) => {
         let f = new Field({
-            id: "f2",
+            id: genElementId('field'),
             name: "f2",
             type: "string",
             inputType : "text",

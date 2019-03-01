@@ -39,7 +39,8 @@ const F1: IFieldProps = {
     }
 };
 
-const F2: IFieldProps = {id: "f2",
+const F2: IFieldProps = {
+    id: "f2",
     name: "f2",
     type: "string",
     inputType : "text",
@@ -59,7 +60,7 @@ describe('Factory', () => {
 
     describe(".makeFields", () => {
         beforeEach(() => {
-            store = new FormStore({values: {"f1":"", "f2": ""}});
+            store = new FormStore({values: {}});
             factory = new Factory(store);
         });
         it("can create fields", () => {
@@ -87,7 +88,7 @@ describe('Factory', () => {
 
     describe(".makeColumn", () => {
         beforeEach(() => {
-            store = new FormStore({values: {"f1":"", "f2": ""}});
+            store = new FormStore({values: {}});
             factory = new Factory(store);
         });
         it("can create columns", () => {
@@ -118,7 +119,7 @@ describe('Factory', () => {
 
     describe(".makeSection", () => {
         beforeEach(() => {
-            store = new FormStore({values: {"f1":"", "f2": ""}});
+            store = new FormStore({values: {}});
             factory = new Factory(store);
         });
         it("can create sections", () => {
@@ -158,7 +159,7 @@ describe('Factory', () => {
 
     describe(".makePages", () => {
         beforeEach(() => {
-            store = new FormStore({values: {"f1":"", "f2": ""}});
+            store = new FormStore({values: {}});
             factory = new Factory(store);
         });
         it("can create pages", () => {
@@ -204,7 +205,7 @@ describe('Factory', () => {
 
     describe(".makeForm", () => {
         beforeEach(() => {
-            store = new FormStore({values: {"f1":"", "f2": ""}});
+            store = new FormStore({values: {}});
             factory = new Factory(store);
         });
         it("can create a form", () => {

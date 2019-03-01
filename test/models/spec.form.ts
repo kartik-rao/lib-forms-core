@@ -9,7 +9,7 @@ import {when} from "mobx";
 import {genElementId} from "../utils";
 
 const F1: IFieldProps= {
-    id: "f1",
+    id:  genElementId('field'),
     name: "f1",
     type: "string",
     inputType : "text",
@@ -24,7 +24,7 @@ const F1: IFieldProps= {
 };
 
 const F2: IFieldProps = {id: "f2",
-    name: "f2",
+    name:  genElementId('field'),
     type: "string",
     inputType : "text",
     placeholder: "",

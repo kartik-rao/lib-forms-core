@@ -80,13 +80,12 @@ class Validator {
 
     @action validate() {
         if (this.field.isValidateable == true) {
-            let {field} = this;
-            let {id, name} = field;
+            let {field, store} = this;
+            let {id} = field;
             let constraints = {};
-            constraints[field.name] = toJS(this.rule);
-            let values = {};
-            values[name] = this.store.values[id] || null;
+            constraints[field.id] = toJS(this.rule);
             validate.formatters.custom = this.formatError.bind(this);
+            let values = toJS(store.values)
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
             if (this.validationErrors.length > 0) {
                 this.store.setFieldError(id, this.validationErrors[0].message);

@@ -3,9 +3,11 @@ import {IFieldProps} from "../../src/models/field.properties";
 import Field  from "../../src/models/field";
 import FormStore from "../../src/state/FormStore";
 import { when, toJS } from "mobx";
+import {genElementId} from "../utils";
 
+let f1_id = genElementId('field');
 const F1: IFieldProps = {
-    id: "f1",
+    id:  f1_id,
     name: "f1",
     type: "string",
     inputType : "text",
@@ -19,11 +21,13 @@ const F1: IFieldProps = {
     }
 };
 
-const F2: IFieldProps= {id: "f2",
-    name: "f2",
+let f2_id = genElementId('field');
+const F2: IFieldProps = {
+    id: f2_id,
+    name:  "f2",
     type: "string",
     inputType : "text",
-    condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
+    condition: {predicates: [{field: f1_id, condition: "eq", value: "qq"}]},
     validation: {
         presence: {message: 'Required validation message'}
     },
@@ -42,7 +46,7 @@ const C1: IColumn = {
 describe('Column', () => {
     let store: FormStore;
     beforeEach(() => {
-        store = new FormStore({values: {"f1":"", "f2": ""}});
+        store = new FormStore({values: {}});
     });
 
     it("can be initialized", () => {

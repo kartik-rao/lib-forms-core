@@ -4,6 +4,8 @@ import Field from "../../src/models/field";
 import Section, { ISection } from "../../src/models/section";
 import FormStore from "../../src/state/FormStore";
 import {when} from "mobx";
+import { genElementId } from "../utils";
+let f1_id = genElementId('field');
 
 const F1: IFieldProps = {
     id: "f1",
@@ -24,7 +26,7 @@ const F2: IFieldProps= {id: "f2",
     name: "f2",
     type: "string",
     inputType : "text",
-    condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
+    condition: {predicates: [{field: f1_id, condition: "eq", value: "qq"}]},
     validation: {
         presence: {message: 'Required validation message'}
     },
@@ -51,7 +53,7 @@ describe('Section', () => {
     let store: FormStore;
 
     beforeEach(() => {
-        store = new FormStore({values: {"f1":"", "f2": ""}});
+        store = new FormStore({values: {}});
     });
 
     it("can be initialised", () => {
