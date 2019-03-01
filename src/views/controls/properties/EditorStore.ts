@@ -4,6 +4,7 @@ import Predicate, { IPredicate } from "../../../models/condition.predicate";
 import { Factory } from "../../../models/factory";
 import Field from "../../../models/field";
 import FormStore from "../../../state/FormStore";
+import { IValidationRule } from "../../../models/validation";
 
 export interface IEditorStoreProps {
     field: Field
@@ -97,8 +98,8 @@ class EditorStore implements IEditorStoreProps {
         this.field.setCondition(c);
     }
 
-    @action addValidationRule = (rule: any) => {
-        this.field.validator.rule = {...this.field.validator.rule, ...rule};
+    @action addValidationRule = (key: string, rule: IValidationRule) => {
+        this.field.validation = {...this.field.validation, [key]: rule};
     }
 
     @action setFieldProperty = (key: string, value: any) => {

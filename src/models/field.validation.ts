@@ -2,6 +2,7 @@ import {action, decorate, observable, computed, observe, toJS} from "mobx";
 import FormStore from "../state/FormStore";
 import * as moment from 'moment'
 import Field from "./field";
+import {IValidationError, IValidationRule} from "./validation";
 
 var validate = require("validate.js");
 
@@ -18,40 +19,16 @@ validate.extend(validate.validators.datetime, {
     }
 });
 
-export interface IValidationRule {
-    date? : any,
-    datetime? : any,
-    email?: any,
-    equality?: any,
-    exclusion?: any,
-    format?: any,
-    inclusion?: any,
-    length?: any,
-    numericality?: any,
-    presence?: any,
-    url?: any
-}
-
-export interface IValidationError {
-    id: string,
-    name: string,
-    message: string,
-    prefixedMessage: string,
-    validator: string
-}
-
-export type ValidationRule = Partial<Record<keyof IValidationRule, string>>;
-
 export interface IValidationProps {
     store: FormStore,
     field: Field,
-    rule: ValidationRule
+    rule: IValidationRule
 }
 
 class Validator {
     store: FormStore;
     field: Field;
-    rule : ValidationRule;
+    rule : IValidationRule;
     validationErrors: IValidationError[] = [];
 
     @computed get isValid() : boolean {
@@ -62,7 +39,7 @@ class Validator {
         return this.validationErrors;
     }
 
-    formatError(errors: any): any {
+    formatError(errors: any): IValidationError {
         return errors.map((e: any) => {
             return {id: this.field.id,
                 name: e.attribute,
@@ -99,7 +76,7 @@ class Validator {
     }
 
     @action initialize(data: IValidationProps) {
-        this.rule = data.rule || {} as ValidationRule;
+        this.rule = data.rule || {} as IValidationRule;
         this.store = data.store;
         this.field = data.field;
     }

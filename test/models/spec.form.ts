@@ -7,6 +7,7 @@ import Form from "../../src/models/form";
 import FormStore from "../../src/state/FormStore";
 import {when} from "mobx";
 import {genElementId} from "../utils";
+import { LengthConstraint } from "../../src/models/validation";
 
 const F1: IFieldProps= {
     id:  genElementId('field'),

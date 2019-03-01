@@ -38,7 +38,7 @@
                                     fields: [
                                         {
                                             id: "f1", name: "f1", type: "text", inputType: "input", label: "f1 - Text Label",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: 'f1 is a required field' },
                                                 length: { message: 'f1 should be length 2', minimum: 2},
                                             },
@@ -49,7 +49,7 @@
                                         },
                                         {
                                             id: 'f10', name: "f10", type: 'number', label: "f10 -Number Field ", inputType : "number",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: 'f10 is a required field' },
                                                 numericality : true
                                             },
@@ -59,7 +59,7 @@
                                         },
                                         {
                                             id: 'f11', name: "f11", type: 'radiogroup', label: "f11 -Radiogroup ", inputType : "radiogroup",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: 'f11 is a required field' }
                                             },
                                             componentProps: {
@@ -68,7 +68,7 @@
                                         },
                                         {
                                             id: 'f12', name: "f12", type: 'checkboxgroup', label: "f12 - Checkboxgroup ", inputType : "checkboxgroup",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: 'f12 is a required field' }
                                             },
                                             componentProps: {
@@ -90,7 +90,7 @@
                                             ]}
                                         },{
                                             id: "f8", name: "f8", inputType: "datepicker", label: "f8 - datepicker label",
-                                            validationRules: {
+                                            validation: {
                                                     presence: { message: "f8 is required"}
                                             },
                                             componentProps: {
@@ -99,7 +99,7 @@
                                         },
                                         {
                                             id: "f9", name: "f9", inputType: "daterange", label: "f9 - daterange label",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: "f9 is required"}
                                             },
                                             componentProps: {
@@ -112,7 +112,7 @@
                                         },
                                     {
                                         id: "f3", name: "f3", type: "text", inputType: "input", label: "f3 - conditional text label",
-                                        validationRules: {
+                                        validation: {
                                             presence: { message: 'f3 is required' }
                                         },
                                         condition: {predicates:[ { field: "f1", condition: "eq", value: "showme" } ]},
@@ -139,7 +139,7 @@
                                             value: "Lorem ipsum text"
                                         },{
                                             id: "f4", name: "f4", type: "text", inputType: "input", label: "f4 - text label F4",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: 'f4 s required' },
                                                 length: { minimum: 2,  message: "f4 must be of minlength=2" },
                                             },
@@ -164,7 +164,7 @@
                                         title: 'Section 1 - Column 1',
                                         fields: [{
                                             id: "f6", name: "f6", type: "text", inputType: "input", label: "f6 - text label",
-                                            validationRules: {
+                                            validation: {
                                                 presence: { message: 'Reqired validation message' },
                                                 length: { minimum: 2,  message: "MinLength=2 validation message" },
                                             },

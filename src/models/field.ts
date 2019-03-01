@@ -2,10 +2,10 @@ import { action, computed, decorate, observable, observe, toJS, reaction } from 
 import FormStore from "../state/FormStore";
 import Condition, { ICondition } from "./condition";
 import {uuid} from "./common";
-const validate = require('validate.js');
 
 import {IFieldProps, IComponentProps, IFieldStorage, ChoiceOption} from "./field.properties";
-import Validator, { IValidationRule } from "./field.validation";
+import Validator from "./field.validation";
+import {IValidationRule} from "./validation";
 
 class Field implements IFieldProps {
     readonly _type : string = "Field";
@@ -49,7 +49,8 @@ class Field implements IFieldProps {
         this.label = data.label;
         this.inputType = data.inputType;
         this.valuePropName = data.valuePropName || this.name
-        this.validator = new Validator({rule: data.validation, field: this, store: store});
+        this.validation = data.validation;
+        this.validator = new Validator({rule: this.validation, field: this, store: store});
         this.storage = data.storage;
         this.label = data.label;
         this.helpText = data.helpText;
@@ -77,6 +78,10 @@ class Field implements IFieldProps {
         }
         this.validator.validate();
         return;
+    }
+
+    @computed get className() : string {
+        return `.fl-field .fl-${this.inputType}${this.type?'-'+this.type:''}`;
     }
 
     @computed get isTouched() : boolean {
@@ -141,7 +146,6 @@ class Field implements IFieldProps {
     }
 
     @action validate() {
-        if (!this.validator) { console.warn("VALIDATOR IS NULL !!!!!!!!!!!!")}
        this.validator.validate();
     }
 
@@ -167,6 +171,7 @@ decorate(Field, {
     inputType: observable,
     helpText: observable,
     placeholder: observable,
+    validation: observable,
     options: observable,
     valuePropName : observable,
     condition: observable,
