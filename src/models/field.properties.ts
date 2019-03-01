@@ -8,14 +8,12 @@ import { RadioGroupProps } from "antd/lib/radio/index";
 import { SelectProps } from "antd/lib/select/index";
 import { CascaderProps } from "antd/lib/cascader/index";
 import { TransferProps } from "antd/lib/transfer/index";
-
 import { ICondition } from "./condition";
-import FormStore from "../state/FormStore";
 import { RateProps } from "antd/lib/rate/index";
 import { SwitchProps } from "antd/lib/switch/index";
 import { SliderProps } from "antd/lib/slider";
 import { TextAreaProps } from "antd/lib/input";
-import {IValidationRule} from "./field.validation";
+import { IValidationRule } from "./validation";
 
 /* CheckboxGroupProps|CheckboxProps|InputProps  */
 export class FieldTypes {
