@@ -11,4 +11,9 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         super(props);
     }
 
+    render() {
+        let {editorStore} = this.props;
+        let {field} = editorStore;
+        return null
+    }
 }
