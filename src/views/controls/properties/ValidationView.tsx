@@ -1,4 +1,4 @@
-import { List, Card, Row, Col, Form ,Select, Input, DatePicker, Divider, InputNumber} from "antd";
+import { List, Card, Row, Col, Form ,Select, Input, DatePicker, Divider, InputNumber, Checkbox} from "antd";
 import { observer } from "mobx-react";
 import {toJS, keys} from "mobx";
 import * as React from "react";
@@ -149,6 +149,62 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                     </Form.Item>
                     {this.state.properties['maximum'] && <Form.Item label="Message - Maximum" help="Shown when 'Maximum' validation fails (optional)">
                         <Input type="text" onChange={(e) => this.setRuleProperty('tooLong', e.target.value)}></Input>
+                    </Form.Item>}
+                </div> }
+                { this.state.ruleType == 'numericality' && <div>
+                    <Form.Item label="Constraint - Integer" help="Value must be an integer">
+                        <Checkbox checked={this.state.properties.integerOnly} onChange={(e)=>{this.setRuleProperty('integerOnly', e.target.value)}}></Checkbox>
+                    </Form.Item>
+                    {this.state.properties['is'] && <Form.Item label="Message - Maximum" help="Shown when 'Exactly' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Greater Than" help="Value must be greater than">
+                        <InputNumber onChange={(e) => {this.setRuleProperty("greaterThan", e)}}></InputNumber>
+                    </Form.Item>
+                    {this.state.properties['is'] && <Form.Item label="Message - Maximum" help="Shown when 'Exactly' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Greater Than Equal To" help="Value must be greater than or equal to">
+                        <InputNumber onChange={(e) => {this.setRuleProperty("greaterThanOrEqualTo", e)}}></InputNumber>
+                    </Form.Item>
+                    {this.state.properties['is'] && <Form.Item label="Message - Maximum" help="Shown when 'Exactly' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Equal To" help="Value must be exactly">
+                        <InputNumber disabled={this.state.properties.greaterThanOrEqualTo||this.state.properties.lesserThanOrEqualTo||this.state.properties.greaterThan||this.state.properties.lesserThanThan} onChange={(e) => {this.setRuleProperty("equalTo", e)}}></InputNumber>
+                    </Form.Item>
+                    {this.state.properties['is'] && <Form.Item label="Message - Maximum" help="Shown when 'Exactly' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Less Than" help="Value must be less than">
+                        <InputNumber disabled={this.state.properties.equalTo} onChange={(e) => {this.setRuleProperty("lessThan", e)}}></InputNumber>
+                    </Form.Item>
+                    {this.state.properties['is'] && <Form.Item label="Message - Maximum" help="Shown when 'Exactly' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Less Than Equal To" help="Value must be less than or equal to">
+                        <InputNumber disabled={this.state.properties.equalTo} onChange={(e) => {this.setRuleProperty("lessThanOrEqualTo", e)}}></InputNumber>
+                    </Form.Item>
+                    {this.state.properties['is'] && <Form.Item label="Message - Maximum" help="Shown when 'Exactly' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Divisible By" help="Value must be divisible by">
+                        <InputNumber min={2}  disabled={this.state.properties.equalTo} onChange={(e) => {this.setRuleProperty("divisibleBy", e)}}></InputNumber>
+                    </Form.Item>
+                    {this.state.properties['notDivisibleBy'] && <Form.Item label="Message - Not Divisible By" help="Shown when 'Not Divisible By' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('wrongLength', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Odd" help="Value must be odd">
+                        <Checkbox checked={this.state.properties.equalTo} onChange={(e)=>{this.setRuleProperty('odd', e.target.value)}}></Checkbox>
+                    </Form.Item>
+                    {this.state.properties['notOdd'] && <Form.Item label="Message - Not Odd" help="Shown when 'Not Odd' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('notOdd', e.target.value)}></Input>
+                    </Form.Item>}
+                    <Form.Item label="Constraint - Even" help="Value must be even">
+                        <Checkbox checked={this.state.properties.equalTo} onChange={(e)=>{this.setRuleProperty('even', e.target.value)}}></Checkbox>
+                    </Form.Item>
+                    {this.state.properties['notEven'] && <Form.Item label="Message - Not Even" help="Shown when 'Not Even' validation fails (optional)">
+                        <Input type="text" onChange={(e) => this.setRuleProperty('notEven', e.target.value)}></Input>
                     </Form.Item>}
                 </div> }
             </Form>
