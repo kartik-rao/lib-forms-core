@@ -49,7 +49,7 @@ export class FieldView extends React.Component<IFieldProps, any> {
             hasFeedback={store.touched[id] && store.errors[id] ? true : false}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
             help={store.touched[id] ? (store.errors[id] ? store.errors[id] : field.helpText): field.helpText}
-            required={!!field.validation && !field.validation.presence}>
+            required={field.isRequired}>
                 {inputType == "input" && <InputView field={field} onChange={onChange} onBlur={onBlur}/>}
                 {inputType == "checkbox" && <CheckboxView field={field} onChange={onChange}  />}
                 {inputType == "number" && <NumberView field={field} onChange={onChange} onBlur={onBlur}  />}

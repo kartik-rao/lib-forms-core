@@ -100,6 +100,10 @@ class Field implements IFieldProps {
         return this.inputType == "hidden";
     }
 
+    @computed get isRequired() : boolean {
+        return this.validation && !!this.validation.presence;
+    }
+
     @computed get currentValue() {
         return this.value
     }
@@ -178,7 +182,7 @@ decorate(Field, {
     storage: observable,
     conditionState: observable,
     validator: observable,
-    componentProps: observable
+    componentProps: observable,
 });
 
 export default Field;

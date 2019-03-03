@@ -1,4 +1,4 @@
-import { List, Card, Row, Col, Form ,Select, Input, DatePicker, Divider, InputNumber, Checkbox} from "antd";
+import { Table, Card, Row, Col, Form ,Select, Input, DatePicker, Divider, InputNumber, Checkbox} from "antd";
 import { observer } from "mobx-react";
 import {toJS, keys} from "mobx";
 import * as React from "react";
@@ -7,6 +7,7 @@ import {ValidationRuleNames} from "../../../models/validation";
 import * as moment from "moment";
 import { IValidationRule } from "../../../models/validation";
 import Field from "../../../models/field";
+import {ValidationListView} from "./partials/ValidationListView";
 
 @observer
 export class ValidationView extends React.Component<IFieldEditorView,any> {
@@ -31,16 +32,22 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         this.props.editorStore.addValidationRule(this.state.ruleType, this.state.properties);
         this.setState({rule: null, properties: {}});
     }
+
+    removeRule
     render() {
         let {editorStore} = this.props;
         let {field} = editorStore;
         let {fieldMeta} = editorStore.formStore;
         let fieldList = [];
+
         Object.keys(toJS(fieldMeta)).map((id: string)=> {
             fieldList.push(fieldMeta[id]);
         });
+
         return <Row>
             <Col span={20} offset={2}>
+                <ValidationListView validation={field.validation} onRemove={editorStore.removeValidationRule}/>
+            <Divider/>
             <Card title={`Add Validation Rule${this.state.ruleType ? ' - ' + this.state.ruleType: ''}`}>
             <Form>
                 <Form.Item label="Rule">

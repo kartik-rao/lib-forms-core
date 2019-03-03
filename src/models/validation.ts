@@ -1,98 +1,7 @@
-type EmailConstraintProps = {
-    message: string;
-}
-
-type DateConstraintProps = {
-    earliest?: string;
-    latest?  :string;
-    dateOnly?: boolean;
-    notValid: string;
-    tooEarly: string;
-    tooLate : string;
-    message: string;
-}
-
-// Validator will expect value to be present in values object with key of attribute
-type EqualityConstraintProps = {
-    attribute : string;
-    comparator?: any;
-    message: string;
-}
-
-type ExclusionConstraintProps = {
-    within: any|string[];
-    message: string;
-}
-
-type InclusionConstraintProps = {
-    within: any|string[];
-    message: string;
-}
-
-type FormatConstraintProps = {
-    pattern: string;
-    flags?: string;
-    message: string;
-}
-
-type LengthConstraintProps = {
-    is : number;
-    minimum: number;
-    maximum: number;
-    notValid: string;
-    tooLong: string;
-    tooShort: string;
-    wrongLength: string;
-    tokenizer: any;
-    message: string;
-}
-
-type NumericalityConstraintProps = {
-    onlyInteger: boolean;
-    strict: boolean;
-    greaterThan: number;
-    greaterThanOrEqualTo: number;
-    equalTo: number;
-    lessThanOrEqualTo: number;
-    lessThan: number;
-    divisibleBy: number;
-    odd: boolean;
-    event: boolean;
-    notValid : string;
-    notInteger : string;
-    notGreaterThan : string;
-    notGreaterThanOrEqualTo : string;
-    notEqualTo : string;
-    notLessThan : string;
-    notLessThanOrEqualTo : string;
-    notDivisibleBy : string;
-    notOdd : string;
-    notEven : string;
-    message: string;
-}
-
-type PresenceConstraintProps = {
-    allowEmpty: boolean;
-    message: string;
-}
-
-type URLConstraintProps = {
-    schemes: string[];
-    allowLocal: boolean;
-    message: string;
-}
-
-export type DateConstraint = Partial<DateConstraintProps>;
-export type DateTimeConstraint = Partial<DateConstraintProps>;
-export type EmailConstraint = Partial<EmailConstraintProps>;
-export type EqualityConstraint = Partial<EqualityConstraintProps>;
-export type ExclusionConstraint = Partial<ExclusionConstraintProps>;
-export type InclusionConstraint = Partial<InclusionConstraintProps>;
-export type FormatConstraint = Partial<FormatConstraintProps>;
-export type LengthConstraint = Partial<LengthConstraintProps>;
-export type NumericalityConstraint = Partial<NumericalityConstraintProps>;
-export type PresenceConstraint = Partial<PresenceConstraintProps>;
-export type URLConstraint = Partial<URLConstraintProps>;
+import {GenericConstraint, DateConstraint, DateTimeConstraint, EmailConstraint, EqualityConstraint, ExclusionConstraint,
+    InclusionConstraint, FormatConstraint, LengthConstraint, NumericalityConstraint,
+    PresenceConstraint, URLConstraint} from "./validation.constraints";
+import { decorate, observable, action } from "mobx";
 
 export interface IValidationRule {
     date? : DateConstraint,
@@ -109,18 +18,32 @@ export interface IValidationRule {
 }
 
 export const ValidationRuleNames = [
-    {key: "date", label: "date", value: "date"},
-    {key: "datetime", label: "datetime", value: "datetime"},
-    {key: "email", label: "email", value: "email"},
-    {key: "equality", label: "equality", value: "equality"},
-    {key: "exclusion", label: "exclusion", value: "exclusion"},
-    {key: "format", label: "format", value: "format"},
-    {key: "inclusion", label: "inclusion", value: "inclusion"},
-    {key: "length", label: "length", value: "length"},
-    {key: "numericality", label: "numericality", value: "numericality"},
-    {key: "presence", label: "presence", value: "presence"},
-    {key: "url", label: "url", value: "url"}
+    {key: "date", label: "Date", value: "date"},
+    {key: "datetime", label: "Datetime", value: "datetime"},
+    {key: "email", label: "Email", value: "email"},
+    {key: "equality", label: "Equals", value: "equality"},
+    {key: "exclusion", label: "Excludes", value: "exclusion"},
+    {key: "format", label: "Matches", value: "format"},
+    {key: "inclusion", label: "Includes", value: "inclusion"},
+    {key: "length", label: "Length", value: "length"},
+    {key: "numericality", label: "Numeric", value: "numericality"},
+    {key: "presence", label: "Present", value: "presence"},
+    {key: "url", label: "URL", value: "url"}
 ];
+
+export const ValidationRuleMap = {
+    "date": "Date",
+    "datetime": "Datetime",
+    "email": "Email",
+    "equality": "Equals",
+    "exclusion": "Excludes",
+    "format": "Matches",
+    "inclusion": "Includes",
+    "length": "Length",
+    "numericality": "Numeric",
+    "presence": "Present",
+    "url": "URL"
+};
 
 export interface IValidationError {
     id: string,
@@ -130,5 +53,59 @@ export interface IValidationError {
     validator: string
 }
 
-export type ValidationRule = Partial<IValidationRule>;
 
+class ValidationRule implements IValidationRule {
+    date : DateConstraint
+    datetime : DateTimeConstraint
+    email: EmailConstraint
+    equality: EqualityConstraint
+    exclusion: ExclusionConstraint
+    format: FormatConstraint
+    inclusion: InclusionConstraint
+    length: LengthConstraint
+    numericality: NumericalityConstraint
+    presence: PresenceConstraint
+    url: URLConstraint
+
+    constructor(rule: IValidationRule) {
+        this.initialize(rule);
+    }
+
+    @action initialize(rule: IValidationRule) {
+        this.date = rule.date;
+        this.datetime = rule.datetime;
+        this.email = rule.email;
+        this.equality = rule.equality;
+        this.exclusion = rule.exclusion;
+        this.format = rule.format;
+        this.inclusion = rule.inclusion;
+        this.length = rule.length;
+        this.numericality = rule.numericality;
+        this.presence = rule.presence;
+        this.url = rule.url;
+    }
+
+    @action addConstraint(key: string, settings: GenericConstraint) {
+        this[key] = settings;
+    }
+
+    @action removeConstraint(key: string) {
+        this[key] = null;
+    }
+}
+
+decorate(ValidationRule, {
+    date : observable,
+    datetime : observable,
+    email: observable,
+    equality: observable,
+    exclusion: observable,
+    format: observable,
+    inclusion: observable,
+    length: observable,
+    numericality: observable,
+    presence: observable,
+    url: observable
+});
+
+export default ValidationRule;

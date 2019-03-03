@@ -1,4 +1,4 @@
-import { action, computed, decorate, observable } from "mobx";
+import { action, computed, decorate, observable, toJS } from "mobx";
 import { ICondition } from "../../../models/condition";
 import Predicate, { IPredicate } from "../../../models/condition.predicate";
 import { Factory } from "../../../models/factory";
@@ -100,6 +100,11 @@ class EditorStore implements IEditorStoreProps {
 
     @action addValidationRule = (key: string, rule: IValidationRule) => {
         this.field.validation = {...this.field.validation, [key]: rule};
+    }
+
+    @action removeValidationRule = (key: string) => {
+        delete this.field.validation[key];
+        console.log(toJS(this.field.validation));
     }
 
     @action setFieldProperty = (key: string, value: any) => {
