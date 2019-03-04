@@ -1,4 +1,5 @@
 var path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -56,7 +57,9 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
-        "antd" : "antd"
+        "antd" : "antd",
+        'mobx': "mobx",
+        'mobx-react': "mobxReact"
     },
     devServer: {
         compress: true,
@@ -65,9 +68,12 @@ module.exports = {
         port: 8080
     },
     plugins: [
+            // Ignore all locale files of moment.js
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
         new HtmlWebpackPlugin({template: 'public/template.html', inject: false}),
         new ExtractTextPlugin({filename:"style.css", allChunks: true}),
+        new BundleAnalyzerPlugin()
     ],
     optimization: {
         minimize: true,
