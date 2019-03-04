@@ -101,6 +101,7 @@ class EditorStore implements IEditorStoreProps {
 
     @action addValidationRule = (key: string, rule: GenericConstraint) => {
         this.field.validation.addConstraint(key, rule);
+        console.log("After Add", this.field.validation.constraints);
     }
 
     @action removeValidationRule = (key: string) => {

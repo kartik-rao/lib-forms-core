@@ -1,13 +1,11 @@
-import { Table, Card, Row, Col, Form ,Select, Input, DatePicker, Divider, InputNumber, Checkbox} from "antd";
+import { Button, Card, Checkbox, Col, DatePicker, Divider, Form, Input, InputNumber, Row, Select } from "antd";
+import { toJS } from "mobx";
 import { observer } from "mobx-react";
-import {toJS, keys} from "mobx";
 import * as React from "react";
-import { IFieldEditorView } from "./IFieldEditorView";
-import {ValidationRuleNames} from "../../../models/validation";
-import * as moment from "moment";
-import { IValidationRule } from "../../../models/validation";
 import Field from "../../../models/field";
-import {ValidationListView} from "./partials/ValidationListView";
+import { ValidationRuleNames } from "../../../models/validation";
+import { IFieldEditorView } from "./IFieldEditorView";
+import { ValidationListView } from "./partials/ValidationListView";
 
 @observer
 export class ValidationView extends React.Component<IFieldEditorView,any> {
@@ -16,7 +14,8 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         super(props);
         this.state = {
             ruleType : null,
-            properties: {}
+            properties: {},
+            isValid: false
         }
     }
 
@@ -28,7 +27,66 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         this.setState({properties: {...this.state.properties, [name]: value}});
     }
 
-    applyRule() {
+    isRuleValid() {
+        let {ruleType, properties} = this.state;
+        if(!ruleType) {
+            return false;
+        }
+        let isValid = false;
+        switch(this.state.ruleType) {
+            case "datetime" :{
+                isValid = properties['latest'] || properties['latest'];
+                break;
+            }
+            case "date" :{
+                isValid = properties['latest'] || properties['latest'];
+                break;
+            }
+            case "equality":{
+                isValid = !!properties['attribute'];
+                break;
+            }
+            case "exclusion": {
+                isValid = !!properties['within'];
+                break;
+            }
+            case "inclusion":{
+                isValid = !!properties['within'];
+                break;
+            }
+            case "format":{
+                isValid = !!properties['pattern'];
+                break;
+            }
+            case "length":{
+                isValid = (!properties['minimum'] && !properties['maximum'] && properties['is']) || ((properties['minimum'] || properties['maximum']) && !properties['is']);
+                break;
+            }
+            case "numericality": {
+                if(properties['is']) {
+                    isValid = properties['strict'] ? Object.keys(properties).length == 2 : false;
+                } else {
+                    isValid = Object.keys(properties).length > 0;
+                }
+                break;
+            }
+            case "presence": {
+                isValid = !!properties['presence'];
+                break;
+            }
+            case "url":{
+                isValid = !!properties['url'];
+                break;
+            }
+            default:{
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    applyRule = () => {
+        console.log("Apply Rule", this.state);
         this.props.editorStore.addValidationRule(this.state.ruleType, this.state.properties);
         this.setState({rule: null, properties: {}});
     }
@@ -129,6 +187,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                                 this.setRuleProperty('maximum', null)
                                 this.setRuleProperty('minimum', null)
                                 this.setRuleProperty('is', e)
+                                console.log(this.state);
                             }
                         }}>
                        </InputNumber>
@@ -213,6 +272,9 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                         <Input type="text" onChange={(e) => this.setRuleProperty('notEven', e.target.value)}></Input>
                     </Form.Item>}
                 </div> }
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" disabled={!this.isRuleValid()} onClick={this.applyRule}>Add Rule</Button>
+                </Form.Item>
             </Form>
          </Card>
     </Col></Row>
