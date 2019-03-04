@@ -1,12 +1,10 @@
 import { DatePicker } from "antd";
 import {toJS, observe} from 'mobx';
 import { observer } from "mobx-react";
-import * as moment from 'moment'
-import {Moment} from 'moment';
+import moment from 'moment'
 import * as React from "react";
 import { IViewProps } from "./IViewProps";
 import { IDateRangeProps } from "../../models/field.properties";
-import { any } from "prop-types";
 
 @observer
 export class DateRangeView extends React.Component<IViewProps, any> {
@@ -42,7 +40,7 @@ export class DateRangeView extends React.Component<IViewProps, any> {
         let defaultEnd  = !!defaultEndValue ? moment(defaultEndValue, dateFormat) : null;
         let {minStartDate} = this.props.field.componentProps as IDateRangeProps;
 
-        let minStart: Moment;
+        let minStart: moment.Moment;
         if (minStartDate) {
             minStart = moment().add(toJS(minStartDate.relative))
         }
