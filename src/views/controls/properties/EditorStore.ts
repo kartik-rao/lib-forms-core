@@ -1,11 +1,10 @@
-import { action, computed, decorate, observable, toJS } from "mobx";
+import { action, computed, decorate, observable } from "mobx";
 import { ICondition } from "../../../models/condition";
 import Predicate, { IPredicate } from "../../../models/condition.predicate";
 import { Factory } from "../../../models/factory";
 import Field from "../../../models/field";
-import FormStore from "../../../state/FormStore";
-import { IValidationRule } from "../../../models/validation";
 import { GenericConstraint } from "../../../models/validation.constraints";
+import FormStore from "../../../state/FormStore";
 
 export interface IEditorStoreProps {
     field: Field
