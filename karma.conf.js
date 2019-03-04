@@ -29,7 +29,7 @@ module.exports = function (config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     // Manually add 'coverage-istanbul' for coverage,
     // otherwise we get duplicate console.log output
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage-istanbul'],
     // web server port
     port: 9876,
     // enable / disable colors in the output (reporters and logs)
@@ -115,7 +115,7 @@ module.exports = function (config) {
             },
             {
               test: /\.ts$/,
-              exclude: /(node_modules|\.spec\.ts$)/,
+              exclude: /(node_modules|spec\.*\.ts$)/,
               loader: 'istanbul-instrumenter-loader',
               enforce: 'post',
               options: {
