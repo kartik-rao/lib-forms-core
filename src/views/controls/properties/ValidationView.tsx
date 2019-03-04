@@ -33,7 +33,6 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         this.setState({rule: null, properties: {}});
     }
 
-    removeRule
     render() {
         let {editorStore} = this.props;
         let {field} = editorStore;

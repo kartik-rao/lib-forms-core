@@ -5,6 +5,7 @@ import { Factory } from "../../../models/factory";
 import Field from "../../../models/field";
 import FormStore from "../../../state/FormStore";
 import { IValidationRule } from "../../../models/validation";
+import { GenericConstraint } from "../../../models/validation.constraints";
 
 export interface IEditorStoreProps {
     field: Field
@@ -98,13 +99,12 @@ class EditorStore implements IEditorStoreProps {
         this.field.setCondition(c);
     }
 
-    @action addValidationRule = (key: string, rule: IValidationRule) => {
-        this.field.validation = {...this.field.validation, [key]: rule};
+    @action addValidationRule = (key: string, rule: GenericConstraint) => {
+        this.field.validation.addConstraint(key, rule);
     }
 
     @action removeValidationRule = (key: string) => {
-        delete this.field.validation[key];
-        console.log(toJS(this.field.validation));
+        this.field.validation.removeConstraint(key);
     }
 
     @action setFieldProperty = (key: string, value: any) => {

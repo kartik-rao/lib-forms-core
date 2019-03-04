@@ -2,7 +2,7 @@ import {action, decorate, observable, computed, observe, toJS} from "mobx";
 import FormStore from "../state/FormStore";
 import * as moment from 'moment'
 import Field from "./field";
-import {IValidationError, IValidationRule} from "./validation";
+import ValidationRule, {IValidationError, IValidationRule} from "./validation";
 
 var validate = require("validate.js");
 
@@ -28,7 +28,7 @@ export interface IValidationProps {
 class Validator {
     store: FormStore;
     field: Field;
-    rule : IValidationRule;
+    rule : ValidationRule;
     validationErrors: IValidationError[] = [];
 
     @computed get isValid() : boolean {
@@ -60,7 +60,7 @@ class Validator {
             let {field, store} = this;
             let {id} = field;
             let constraints = {};
-            constraints[field.id] = toJS(this.rule);
+            constraints[field.id] = this.rule.constraints;
             validate.formatters.custom = this.formatError.bind(this);
             let values = toJS(store.values)
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
@@ -76,7 +76,7 @@ class Validator {
     }
 
     @action initialize(data: IValidationProps) {
-        this.rule = data.rule || {} as IValidationRule;
+        this.rule = new ValidationRule(data.rule || {} as IValidationRule);
         this.store = data.store;
         this.field = data.field;
     }

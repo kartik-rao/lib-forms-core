@@ -1,7 +1,8 @@
 import {GenericConstraint, DateConstraint, DateTimeConstraint, EmailConstraint, EqualityConstraint, ExclusionConstraint,
     InclusionConstraint, FormatConstraint, LengthConstraint, NumericalityConstraint,
     PresenceConstraint, URLConstraint} from "./validation.constraints";
-import { decorate, observable, action } from "mobx";
+
+import { decorate, observable, action, computed, toJS } from "mobx";
 
 export interface IValidationRule {
     date? : DateConstraint,
@@ -71,7 +72,7 @@ class ValidationRule implements IValidationRule {
         this.initialize(rule);
     }
 
-    @action initialize(rule: IValidationRule) {
+    @action initialize(rule: IValidationRule = {}) {
         this.date = rule.date;
         this.datetime = rule.datetime;
         this.email = rule.email;
@@ -85,6 +86,15 @@ class ValidationRule implements IValidationRule {
         this.url = rule.url;
     }
 
+    @computed get constraints() : IValidationRule {
+        let c = {};
+        Object.keys((toJS(this))).map((k: string) => {
+            if (typeof this[k] !== 'undefined' && this[k]) {
+                c[k] = this[k];
+            }
+        });
+        return c;
+    }
     @action addConstraint(key: string, settings: GenericConstraint) {
         this[key] = settings;
     }

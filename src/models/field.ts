@@ -4,8 +4,8 @@ import Condition, { ICondition } from "./condition";
 import {uuid} from "./common";
 
 import {IFieldProps, IComponentProps, IFieldStorage, ChoiceOption} from "./field.properties";
-import Validator from "./field.validation";
-import {IValidationRule} from "./validation";
+import Validator from "./validator";
+import ValidationRule from "./validation";
 
 class Field implements IFieldProps {
     readonly _type : string = "Field";
@@ -24,7 +24,7 @@ class Field implements IFieldProps {
     storage: IFieldStorage;
     store: FormStore;
     conditionState: boolean;
-    validation : IValidationRule;
+    validation : ValidationRule;
     validator : Validator;
     componentProps: IComponentProps;
     _dispose : any;
@@ -49,7 +49,7 @@ class Field implements IFieldProps {
         this.label = data.label;
         this.inputType = data.inputType;
         this.valuePropName = data.valuePropName || this.name
-        this.validation = data.validation;
+        this.validation = new ValidationRule(data.validation);
         this.validator = new Validator({rule: this.validation, field: this, store: store});
         this.storage = data.storage;
         this.label = data.label;
