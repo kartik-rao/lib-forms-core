@@ -8,7 +8,7 @@
     "test": "ts-node --project ./tsconfig.test.json node_modules/jasmine/bin/jasmine --config=./jasmine.json",
     "karma": "karma start",
     "build": "tsc",
-    "pkg": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --colors"
+    "pack": "cross-env NODE_ENV=production node_modules/.bin/webpack"
   },
   "author": "Kartik",
   "license": "UNLICENSED",
@@ -80,7 +80,7 @@
     "typescript": "^3.3.1",
     "webpack": "^4.29.2",
     "webpack-bundle-analyzer": "^3.0.4",
-    "webpack-cli": "^2.0.14",
+    "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.14",
     "webpack-node-externals": "^1.7.2",
     "webpack-serve": "^0.3.1"
