@@ -1,0 +1,7 @@
+
+.awcache
+coverage
+node_modules
+assets
+dist
+test
