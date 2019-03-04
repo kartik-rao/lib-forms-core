@@ -1,12 +1,11 @@
 import { observer } from "mobx-react";
 import {toJS} from "mobx";
-
 import * as React from "react";
 import { Form, Input, Select,  Button, DatePicker, InputNumber} from "antd";
 import { IFieldEditorView } from "./IFieldEditorView"
 import { IFieldProps } from "../../../models/field.properties";
 import { FormComponentProps } from "antd/lib/form";
-import { IFormProps } from "../../../models/form";
+
 
 @observer
 class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEditorView, any> {
@@ -20,7 +19,6 @@ class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEdito
         let {field} = this.props.editorStore;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 let merge = {componentProps: {}};
                 Object.keys(values).forEach((p: string) => {
                     if(p.indexOf("c_") == 0) {
@@ -29,13 +27,10 @@ class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEdito
                         merge[p] = values[p];
                     }
                 });
-                console.log("Merging", merge);
                 field.mergeUpdate(merge);
-            } else {
-                console.log("Errors in the form", err);
             }
         });
-        return
+        return;
     }
 
     render() {
