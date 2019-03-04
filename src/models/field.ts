@@ -156,7 +156,7 @@ class Field implements IFieldProps {
     @computed get serialize(): string  {
         let clone = toJS(this);
         delete clone.store;
-        delete clone.validation;
+        delete clone.validator;;
         return JSON.stringify(clone);
     }
 
