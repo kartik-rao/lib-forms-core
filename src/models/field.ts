@@ -29,7 +29,7 @@ class Field implements IFieldProps {
     componentProps: IComponentProps;
     _dispose : any;
 
-    @action mergeUpdate(data: IFieldProps) {
+    @action mergeUpdate(data: Partial<IFieldProps>) {
         this.id = data.id;
         this.name = data.name;
         this.label = data.label;
