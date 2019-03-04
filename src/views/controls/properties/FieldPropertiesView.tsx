@@ -2,106 +2,189 @@ import { observer } from "mobx-react";
 import {toJS} from "mobx";
 
 import * as React from "react";
-import { Form, Input, Select, Row, Col, Card, Button} from "antd";
+import { Form, Input, Select,  Button, DatePicker, InputNumber} from "antd";
 import { IFieldEditorView } from "./IFieldEditorView"
 import { IFieldProps } from "../../../models/field.properties";
+import { FormComponentProps } from "antd/lib/form";
+import { IFormProps } from "../../../models/form";
 
 @observer
-export class FieldPropertiesView extends React.Component<IFieldEditorView, any> {
-
-    isUpdated : boolean = false;
-
-    constructor(props: IFieldEditorView) {
+class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEditorView, any> {
+    constructor(props: FormComponentProps&IFieldEditorView) {
         super(props);
-        this.state = toJS(this.props.editorStore.field);
-    }
-
-    setFieldProperty(key:string, value: any) {
-        this.isUpdated = true;
-        this.setState({[key] : value});
-    }
-
-    setComponentProperty(key: string, value: any) {
-        this.isUpdated = true;
-        this.setState({componentProps:{...this.state.componentProps, [key] : value}});
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         e.stopPropagation();
         let {field} = this.props.editorStore;
-        field.mergeUpdate(this.state as IFieldProps);
-        this.isUpdated = false;
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                let merge = {componentProps: {}};
+                Object.keys(values).forEach((p: string) => {
+                    if(p.indexOf("c_") == 0) {
+                        merge.componentProps[p.replace("c_","")] = values[p]
+                    } else  {
+                        merge[p] = values[p];
+                    }
+                });
+                console.log("Merging", merge);
+                field.mergeUpdate(merge);
+            } else {
+                console.log("Errors in the form", err);
+            }
+        });
         return
     }
 
     render() {
-        let field = this.state;
-        return <Row>
-                <Col span={20} offset={2}>
-                <Card title="Update Field Properties">
-                <Form layout="horizontal" onSubmit={(e) => this.handleSubmit(e)}>
-                <Form.Item label="Name" style={{ marginBottom: 10 }} required>
-                    <Input type="text" placeholder="Field name" value={field.name} onChange={(e) => this.setFieldProperty("name", e.target.value)}></Input>
-                </Form.Item>
-                <Form.Item label="Label" style={{ marginBottom: 10 }}>
-                    <Input type="text" placeholder="Enter label" value={field.label} onChange={(e) => {this.setFieldProperty('label', e.target.value)}}></Input>
-                </Form.Item>
-                <Form.Item label="Placeholder Text" style={{ marginBottom: 10 }}>
-                    <Input type="text" placeholder="Enter placeholder text" value={field.componentProps.placeholder} onChange={(e) => {this.setComponentProperty('placeholder', e.target.value)}}></Input>
-                </Form.Item>
-                {/* <Form.Item label="Default Value">
-                    { field.inputType == 'datepicker' && <DatePicker mode="date"
-                        defaultValue={component.defaultValue ? moment(component.defaultValue, component.dateFormat): null}
-                        format={component.dateFormat} onChange={(m) => setTextValue('componentProps.defaultValue', m.format(component.dateFormat))}/> }
-                    { field.inputType == 'number' && <InputNumber value={component.defaultValue} onChange={(e) => {setTextValue('componentProps.defaultValue', e);}}/> }
-                    { field.inputType !== 'datepicker' && field.inputType !== 'daterange' &&
-                        <Input type="text" title="Default Value" placeholder="Enter default value" value={component.defaultValue} onChange={(e) => {setTextValue('componentProps.defaultValue', e.target.value);}}></Input>
+        let field = toJS(this.props.editorStore.field) as IFieldProps;
+        let formLayoutProps = {
+            labelcol: {span: 8, offset: 2},
+            wrappercol: {span: 8, offset: 2}
+        };
+        let {getFieldDecorator, getFieldValue} = this.props.form;
+
+        return  <Form {...formLayoutProps} onSubmit={(e) => this.handleSubmit(e)}>
+            {/* GENERAL PROPERTIES */}
+            <Form.Item label="Name" required>
+                {
+                    getFieldDecorator('name', {
+                        initialValue : field.name, rules: [
+                            {type: "string"},
+                            {required: true, message: "A name is required"}]
+                        })(<Input/>)
+                }
+            </Form.Item>
+            <Form.Item label="Label" required>
+                {
+                    getFieldDecorator('label', {
+                        initialValue : field.label, rules: [
+                            {type: "string"},
+                            {required: true, message: "A label is required"}]
+                        })(<Input/>)
+                }
+            </Form.Item>
+
+            {field.inputType !== 'checkbox' && <Form.Item label="Placeholder Text">
+                {
+                    getFieldDecorator('c_placeholder', { initialValue : field.componentProps["placeholder"],
+                        rules: [
+                            {type: "string"}
+                    ]})(<Input/>)
+                }
+            </Form.Item>}
+            {/* DatePicker and DateRange Properties */}
+            {field.inputType.indexOf('date') == 0 && <Form.Item label="Date Format" required>
+                {
+                    getFieldDecorator('c_dateFormat', {
+                        initialValue: field.componentProps["dateFormat"],
+                        rules: [{required: true, message: "A date format is required"}]
+                    }) (<Select>
+                        <Select.Option key="dd-mm-yyyy" value="DD-MM-YYYY">DD-MM-YYYY</Select.Option>
+                        <Select.Option key="mm-dd-yyyy" value="MM-DD-YYYY">MM-DD-YYYY</Select.Option>
+                        <Select.Option key="yyyy-mm-dd" value="YYYY-MM-DD">YYYY-MM-DD</Select.Option>
+                        <Select.Option key="dd/mm/yyyy" value="DD/MM/YYYY">DD/MM/YYYY</Select.Option>
+                        <Select.Option key="mm/dd/yyyy" value="MM/DD/YYYY">MM/DD/YYYY</Select.Option>
+                        <Select.Option key="yyyy/mm/dd" value="YYYY/MM/DD">YYYY/MM/DD</Select.Option>
+                    </Select>)
+                }  </Form.Item>
+            }
+            {
+                field.inputType == 'daterange' && <div>
+                    <Form.Item label="Default start date">
+                    {
+                        getFieldDecorator('c_defaultStartValue', {
+                            initialValue: field.componentProps["defaultStartValue"]
+                        })(<DatePicker format={getFieldValue('c_dateFormat')}/>)
+                    }
+                    </Form.Item>
+                    <Form.Item label="Default end date">
+                    {
+                        getFieldDecorator('c_defaultEndValue', {
+                            initialValue: field.componentProps["defaultEndValue"]
+                        })(<DatePicker format={getFieldValue('c_dateFormat')}/>)
+                    }
+                    </Form.Item>
+                    <Form.Item label="Start date property name">
+                    {
+                        getFieldDecorator('c_startValuePropsName', {
+                            initialValue: field.componentProps["startValuePropsName"],
+                            rules: [ {pattern: /^[aA-zZ][\w|_|0-9]+/, message: "Must be valid property name"}]
+                        })(<Input/>)
+                    }
+                    </Form.Item>
+                    <Form.Item label="End date property name">
+                    {
+                        getFieldDecorator('c_endValuePropsName', {
+                            initialValue: field.componentProps["endValuePropsName"],
+                            rules: [ {pattern: /^[aA-zZ][\w|_|0-9]+/, message: "Must be valid property name"}]
+                        })(<Input/>)
+                    }
+                    </Form.Item>
+                </div>
+            }
+            { field.inputType == 'number' && <Form.Item label="Default value">
+                {
+                    getFieldDecorator("c_defaultValue", {
+                        initialValue: field.componentProps['defaultValue'],
+                        rules: [{type: 'number'}]
+                    })(<InputNumber/>)
+                }
+            </Form.Item>
+            }
+            { field.inputType !== 'number' && field.inputType !== 'datepicker' && field.inputType !== 'daterange' &&
+                <Form.Item label="Default Value">
+                    {
+                        getFieldDecorator("c_defaultValue", {
+                            initialValue: field.componentProps['defaultValue'],
+                            rules: [{type: 'string'}]
+                        })(<Input/>)
                     }
                 </Form.Item>
-                { field.inputType ==  'daterange' &&
-                    <div>
-                        <Form.Item label="Range starts from"><DatePicker mode="date"
-                            defaultValue={component.startValue ? moment(component.startValue, component.dateFormat): null}
-                            format={component.dateFormat} onChange={(m) => setTextValue('componentProps.startValue', m.format(component.dateFormat))}/></Form.Item>
-                        <Form.Item label="Range ends at"><DatePicker mode="date"
-                            defaultValue={component.endValue ? moment(component.endValue, component.dateFormat): null}
-                            format={component.dateFormat} onChange={(m) => setTextValue('componentProps.endValue', m.format(component.dateFormat))}/></Form.Item>
-                    </div>
-                } */}
-                {field.inputType.indexOf('checkbox') > 0 && <Form.Item label="Size">
-                    <Select  value={field.componentProps.size || 'default'} onChange={(e) => {this.setComponentProperty('size', e)}}>
+            }
+            {field.inputType.indexOf('checkbox') > 0 && <Form.Item label="Size">
+                {
+                    getFieldDecorator("c_size", {
+                        initialValue: field.componentProps['size'],
+                        rules: [{type: 'string'}]
+                    })(<Select>
                         <Select.Option value={"default"}>default</Select.Option>
                         <Select.Option value={"small"}>small</Select.Option>
                         <Select.Option value={"large"}>large</Select.Option>
-                    </Select>
-                </Form.Item>}
-                {field.inputType !== 'daterange' &&
-                    <Form.Item label="Value property name" required>
-                        <Input type="text" title="Value property name" placeholder="Value property" value={field.valuePropName} onChange={(e) => {this.setFieldProperty('valuePropName', e.target.value)}}/>
-                    </Form.Item>
+                    </Select>)
                 }
-                {field.inputType == 'daterange' &&
-                    <div>
-                    <Form.Item label="Start date property name" required>
-                        <Input type="text" title="Start date value property" placeholder="start_date" value={field.componentProps["startValuePropsName"]}
-                            onChange={(e) => {e.target.value && e.target.value.length > 0 && this.setComponentProperty('startValuePropName', e.target.value)}} required/>
-                    </Form.Item>
-                    <Form.Item  label="End date property name"  required>
-                        <Input type="text" title="End date value property" placeholder="end_date" value={field.componentProps["endValuePropsName"]}
-                            onChange={(e) => {e.target.value && e.target.value.length > 0 && this.setComponentProperty('endValuePropName', e.target.value)}} required/>
-                    </Form.Item>
-                    </div>
+                </Form.Item>
+            }
+            {field.inputType !== 'daterange' &&
+                <Form.Item label="Value property name" required>
+                    {
+                        getFieldDecorator("valuePropName", {
+                            initialValue: field.valuePropName,
+                            rules: [
+                                {type: 'string'},
+                                {required: true, message: 'A value property name is required'},
+                                {pattern: /^[aA-zZ][aA-zZ|_|0-9]+/, message: 'Can only use a-z, underscore and numbers'},
+                            ]
+                        })(<Input />)
+                    }
+                </Form.Item>
+            }
+            <Form.Item label="Help Text">
+                {
+                    getFieldDecorator("helpText", {
+                        initialValue: field.helpText,
+                        rules: [{type: 'string'}]
+                    })(<Input.TextArea />)
                 }
-                <Form.Item label="Help Text">
-                    <Input.TextArea title="Help Text" placeholder="Enter help text" value={field.helpText} onChange={(e) => {this.setFieldProperty('helpText', e.target.value)}}></Input.TextArea>
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" disabled={!this.isUpdated}>Apply</Button>
-                </Form.Item>
-            </Form>
-            </Card>
-        </Col>
-    </Row>
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit">Apply</Button>
+            </Form.Item>
+    </Form>
     }
 }
+
+const WrappedFieldPropertiesView = Form.create({ name: 'FieldPropertiesView' })(FieldPropertiesView);
+export default WrappedFieldPropertiesView;
