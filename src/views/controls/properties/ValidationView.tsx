@@ -110,9 +110,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
             fieldList.push(fieldMeta[id]);
         });
 
-        return <Row>
-            <Col span={20} offset={2}>
-                <ValidationListView validation={field.validator.rule} onEdit={this.onEdit} onRemove={editorStore.removeValidationRule}/>
+        return <div><ValidationListView validation={field.validator.rule} onEdit={this.onEdit} onRemove={editorStore.removeValidationRule}/>
             <Divider/>
             <Card title={`${this.state.isEditing == true ? "Edit" : "Add"} Validation Rule${this.state.ruleType ? ' - ' + this.state.ruleType: ''}`}>
             <Form>
@@ -282,6 +280,6 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                 </Form.Item>
             </Form>
          </Card>
-    </Col></Row>
+    </div>
     }
 }

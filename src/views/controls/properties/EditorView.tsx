@@ -1,8 +1,8 @@
-import { Tabs, Drawer, Card } from "antd";
+import { Tabs, Drawer, Row, Col } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { ConditionsView } from "./ConditionsView";
-import { FieldPropertiesView } from "./FieldPropertiesView";
+import FieldPropertiesView from "./FieldPropertiesView";
 import { IFieldEditorView } from "./IFieldEditorView";
 import { ValidationView } from "./ValidationView";
 
@@ -22,13 +22,13 @@ export class EditorView extends React.Component<IFieldEditorView,any> {
             {editorStore.field &&
                 <Tabs>
                     <Tabs.TabPane tab="Properties" key="1">
-                        <FieldPropertiesView editorStore={editorStore}/>
+                        <Row><Col span={20} offset={2}><FieldPropertiesView editorStore={editorStore}/></Col></Row>
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Validation" key="2">
-                        <ValidationView editorStore={editorStore} />
+                        <Row><Col span={20} offset={2}><ValidationView editorStore={editorStore} /></Col></Row>
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Condition" key="3">
-                        <ConditionsView editorStore={editorStore}/>
+                        <Row><Col span={20} offset={2}><ConditionsView editorStore={editorStore}/></Col></Row>
                     </Tabs.TabPane>
                 </Tabs>
             }
