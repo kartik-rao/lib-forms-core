@@ -19,15 +19,15 @@ import { SliderView } from "./controls/SliderView";
 import { TextAreaView } from "./controls/TextAreaView";
 import { TextBlockView } from "./controls/TextBlockView";
 
-export interface IFieldProps {
+export interface IFieldViewProps {
     field: Field;
     store: FormStore;
 }
 
 @observer
-export class FieldView extends React.Component<IFieldProps, any> {
-    props: IFieldProps
-    constructor(props: IFieldProps) {
+export class FieldView extends React.Component<IFieldViewProps, any> {
+    props: IFieldViewProps
+    constructor(props: IFieldViewProps) {
         super(props);
         this.props = props;
     }

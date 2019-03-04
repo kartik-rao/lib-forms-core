@@ -36,15 +36,15 @@ export class FieldTypes {
     static textblock : string = "textblock";
 }
 
-export interface DateConstraintDuration {
+export interface IDateDurationConstraint {
     years? : number;
     quarters? : number;
     months?: number;
     days?: number;
 }
-export interface DateConstraint {
+export interface IDateRangeConstraint {
     from?: "now"|"start"|"end";
-    relative: DateConstraintDuration;
+    relative: IDateDurationConstraint;
 }
 export interface ChoiceOption {
     label : string;
@@ -90,9 +90,9 @@ export interface IDateRangeProps extends RangePickerProps {
     endValuePropsName?: string;
     defaultStartValue?: string;
     defaultEndValue?  : string;
-    minStartDate?: DateConstraint;
-    maxEndDate?: DateConstraint;
-    maxRange?: DateConstraint;
+    minStartDate?: IDateRangeConstraint;
+    maxEndDate?: IDateRangeConstraint;
+    maxRange?: IDateRangeConstraint;
 }
 
 export interface IInputProps extends InputProps {
