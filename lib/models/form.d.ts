@@ -1,5 +1,6 @@
 import Page from "./page";
 import FormStore from "../state/FormStore";
+import { FormEvent } from "react";
 export interface IFormTenant {
     eid: number;
     mid: number;
@@ -106,6 +107,6 @@ declare class Form implements IFormProps {
     readonly isSubmittable: boolean;
     readonly fieldMetadata: any;
     readonly errors: any[];
-    handleSubmit(): void;
+    handleSubmit(e: FormEvent): void;
 }
 export default Form;

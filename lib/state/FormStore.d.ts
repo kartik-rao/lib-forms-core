@@ -7,6 +7,9 @@ declare class FormStore {
     debug: boolean;
     form: Form;
     submitting: boolean;
+    validationDisabled: boolean;
+    conditionsDisabled: boolean;
+    readonly fieldMeta: any;
     readonly fieldNames: string[];
     readonly isValid: boolean;
     setSubmitting(value: boolean): void;
