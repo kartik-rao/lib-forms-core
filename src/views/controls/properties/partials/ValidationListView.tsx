@@ -6,6 +6,7 @@ import ValidationRule, { ValidationRuleMap } from "../../../../models/validation
 export interface IValidationListViewProps {
     validation: ValidationRule;
     onRemove: (rule: string) => void;
+    onEdit: (rule: string) => void;
 }
 
 @observer
@@ -28,13 +29,23 @@ export class ValidationListView extends React.Component<IValidationListViewProps
           {
             title: 'Constraints',
             dataIndex: 'constraint',
-            key: 'constraint'
+            key: 'constraint',
+            render: (text, record) => {
+                return <ul>
+                        {Object.keys(record.constraint).map((key) => {
+                            return key == 'message' ? null : <li key={key}>{key} - {record.constraint[key]}</li>;
+                        })}
+                    </ul>
+                }
           },
           {
             title: 'Actions',
             key: 'action',
             render: (text, record) => (
-                <Button type="primary" onClick={(e) => {this.props.onRemove(record.rule); console.log(this.props.validation.constraints)}} icon="delete" size="small">Remove</Button>
+                <span>
+                    <Button shape="circle" type="default" onClick={(e) => {this.props.onEdit(record.rule);}} icon="tool" size="small"  style={{marginRight: '5px'}}></Button>
+                    <Button shape="circle" type="danger" onClick={(e) => {this.props.onRemove(record.rule);}} icon="delete" size="small"></Button>
+                </span>
             ),
           }];
 
@@ -50,12 +61,7 @@ export class ValidationListView extends React.Component<IValidationListViewProps
                 row.name = ValidationRuleMap[rule];
                 row.key = index;
                 row.defaultMessage = message;
-                row.constraint = "";
-                Object.keys(constraints[rule]).forEach((key: string) => {
-                    if (key != 'message') {
-                        row.constraint += `${key} = ${constraints[rule][key]}`;
-                    }
-                });
+                row.constraint = constraints[rule];
                 rows.push(row);
             });
         }

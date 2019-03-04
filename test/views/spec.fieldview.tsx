@@ -97,13 +97,13 @@ describe("FieldView", () => {
         let input1 = container.querySelectorAll('input')[0];
         expect(input1).toBeDefined();
         expect(f.isValid).toBe(false);
-        expect(store.errors[f.id]).toEqual(validationMessage);
+        expect(store.errors[f.id]).toContain(validationMessage);
         act(() => {
             f.setTouched()
         });
         let feedback = container.querySelectorAll(".show-help-enter")
         expect(feedback.length).toBeGreaterThan(0)
-        expect(feedback[0].textContent).toEqual(validationMessage);
+        expect(feedback[0].textContent).toContain(validationMessage);
 
         act(() => {
             ReactTestUtils.Simulate.change(input1, {target: {value: 'f1value'} as HTMLInputElement});

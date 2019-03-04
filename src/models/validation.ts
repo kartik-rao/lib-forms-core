@@ -88,19 +88,24 @@ class ValidationRule implements IValidationRule {
 
     @computed get constraints() : IValidationRule {
         let c = {};
-        Object.keys((toJS(this))).map((k: string) => {
-            if (typeof this[k] !== 'undefined' && this[k]) {
-                c[k] = this[k];
+        Object.keys(ValidationRuleMap).forEach((rule: string) => {
+            if (this[rule]) {
+                c[rule] = toJS(this[rule]);
             }
-        });
+        })
         return c;
     }
     @action addConstraint(key: string, settings: GenericConstraint) {
         this[key] = settings;
     }
 
+    @action updateConstraint(key: string, settings: GenericConstraint) {
+        this[key] = settings;
+    }
+
     @action removeConstraint(key: string) {
         this[key] = null;
+        console.log("After remove constraint", this.constraints);
     }
 }
 

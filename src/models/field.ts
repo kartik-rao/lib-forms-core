@@ -5,7 +5,7 @@ import {uuid} from "./common";
 
 import {IFieldProps, IComponentProps, IFieldStorage, ChoiceOption} from "./field.properties";
 import Validator from "./validator";
-import ValidationRule from "./validation";
+import ValidationRule, { IValidationRule } from "./validation";
 
 class Field implements IFieldProps {
     readonly _type : string = "Field";
@@ -24,8 +24,8 @@ class Field implements IFieldProps {
     storage: IFieldStorage;
     store: FormStore;
     conditionState: boolean;
-    validation : ValidationRule;
     validator : Validator;
+    validation: IValidationRule;
     componentProps: IComponentProps;
     _dispose : any;
 
@@ -49,8 +49,8 @@ class Field implements IFieldProps {
         this.label = data.label;
         this.inputType = data.inputType;
         this.valuePropName = data.valuePropName || this.name
-        this.validation = new ValidationRule(data.validation);
-        this.validator = new Validator({rule: this.validation, field: this, store: store});
+        this.validation = data.validation;
+        this.validator = new Validator({rule: new ValidationRule(data.validation), field: this, store: store});
         this.storage = data.storage;
         this.label = data.label;
         this.helpText = data.helpText;
@@ -76,7 +76,7 @@ class Field implements IFieldProps {
             this.condition = null;
             this.conditionState = true;
         }
-        this.validator.validate();
+        this.validate();
         return;
     }
 
@@ -101,7 +101,7 @@ class Field implements IFieldProps {
     }
 
     @computed get isRequired() : boolean {
-        return this.validation && !!this.validation.presence;
+        return !!this.validator.rule.presence;
     }
 
     @computed get currentValue() {

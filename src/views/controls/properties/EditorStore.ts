@@ -100,12 +100,15 @@ class EditorStore implements IEditorStoreProps {
     }
 
     @action addValidationRule = (key: string, rule: GenericConstraint) => {
-        this.field.validation.addConstraint(key, rule);
-        console.log("After Add", this.field.validation.constraints);
+        this.field.validator.rule.addConstraint(key, rule);
+    }
+
+    @action updateValidationRule = (key: string, rule: GenericConstraint) => {
+        this.field.validator.rule.updateConstraint(key, rule);
     }
 
     @action removeValidationRule = (key: string) => {
-        this.field.validation.removeConstraint(key);
+        this.field.validator.rule.removeConstraint(key);
     }
 
     @action setFieldProperty = (key: string, value: any) => {

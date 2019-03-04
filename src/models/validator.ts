@@ -1,4 +1,4 @@
-import {action, decorate, observable, computed, observe, toJS} from "mobx";
+import {action, decorate, observable, computed, toJS} from "mobx";
 import FormStore from "../state/FormStore";
 import * as moment from 'moment'
 import Field from "./field";
@@ -41,10 +41,13 @@ class Validator {
 
     formatError(errors: any): IValidationError {
         return errors.map((e: any) => {
+            console.log("Validation Error", e)
+            let prefixedMessage = e.error || "";
+            let unPrefixedMessage = e.error ? e.error.replace(`${e.attribute.toUpperCase()} `, "") : e.options.message;
             return {id: this.field.id,
                 name: e.attribute,
-                message: e.options.message,
-                prefixedMessage: e.error,
+                message: unPrefixedMessage,
+                prefixedMessage: prefixedMessage,
                 validator: e.validator
             };
         });
@@ -62,8 +65,10 @@ class Validator {
             let constraints = {};
             constraints[field.id] = this.rule.constraints;
             validate.formatters.custom = this.formatError.bind(this);
-            let values = toJS(store.values)
+            let values = toJS(store.values);
+
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
+            console.log("Using constraints", toJS(constraints), toJS(this.validationErrors));
             if (this.validationErrors.length > 0) {
                 this.store.setFieldError(id, this.validationErrors[0].message);
             } else {
@@ -73,6 +78,10 @@ class Validator {
         } else {
             this.validationErrors = [];
         }
+    }
+
+    @computed get isRequired() : boolean {
+        return !!this.rule.presence;
     }
 
     @action initialize(data: IValidationProps) {
