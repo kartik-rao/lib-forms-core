@@ -1,6 +1,6 @@
 import {action, decorate, observable, computed, toJS} from "mobx";
 import FormStore from "../state/FormStore";
-import * as moment from 'moment'
+import moment from 'moment'
 import Field from "./field";
 import ValidationRule, {IValidationError, IValidationRule} from "./validation";
 
