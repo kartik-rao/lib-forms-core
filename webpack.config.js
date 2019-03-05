@@ -47,6 +47,7 @@ module.exports = {
     devtool: 'source-map',
     resolve: {
         extensions: ['.ts', '.js', '.jsx', '.tsx', '.css'],
+        alias: { mobx: __dirname + "/node_modules/mobx/lib/mobx.es6.js" }
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -58,8 +59,7 @@ module.exports = {
         "react": "React",
         "react-dom": "ReactDOM",
         "antd" : "antd",
-        'mobx': "mobx",
-        'mobx-react': "mobxReact"
+        'moment': 'moment'
     },
     devServer: {
         compress: true,
