@@ -36,7 +36,7 @@ describe("FieldView.NumberView", () => {
                 defaultValue:1
             }
         }, store);
-        console.warn ("POST CONSTRUCTORE", !!f.validator)
+
         let onChange = sinon.spy();
         act(() => {
             ReactDOM.render(<NumberView field={f} onChange={onChange} />, container);
