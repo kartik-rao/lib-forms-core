@@ -1,14 +1,17 @@
 import {action, decorate, observable, computed} from "mobx";
+import {IFieldProps} from "./field.properties";
 import Field from "./field";
 import FormStore from "../state/FormStore";
 import {valueOrDefault, uuid} from "./common";
+import { IValidationError } from "./validation";
 
 export interface IColumn {
+    id  :string;
     uuid?:string;
-    id?  :string;
+    _type?: string
     name?:string;
     title?:string;
-    fields?: Field[]
+    fields?: IFieldProps[];
 }
 
 class Column implements IColumn {
@@ -20,7 +23,7 @@ class Column implements IColumn {
     fields: Field[];
     store: FormStore;
 
-    @computed get errors() : any[] {
+    @computed get errors() : IValidationError[] {
         return this.fields.reduce((all: any[], f: Field)=>{
             return all.concat(f.validator.errors);
         }, <any[]>[]);
@@ -32,15 +35,9 @@ class Column implements IColumn {
         });
     }
 
-    @computed get fieldMetadata() : any {
+    @computed get idFieldMap() : { [key:string]:Field; } {
         return this.fields.reduce((all: {}, f: Field)=>{
-            all[f.id] = {
-                id: f.id,
-                name: f.name,
-                type: f.type,
-                inputType: f.inputType,
-                valuePropName: f.valuePropName
-            };
+            all[f.id] = f;
             return all;
         }, {});
     }
@@ -55,6 +52,10 @@ class Column implements IColumn {
         } else {
             this.fields.push(field);
         }
+    }
+
+    @action addFields(...fields: Field[]) {
+        fields.forEach((f: Field) => this.addField(f));
     }
 
     @action removeField(index: number) {
@@ -75,7 +76,7 @@ class Column implements IColumn {
         this.id = data.id;
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
         this.title = valueOrDefault(data.title, '');
-        this.fields = valueOrDefault(data.fields, <Field[]>[]);
+        this.fields = valueOrDefault(<Field[]>data.fields, <Field[]>[]);
     }
 }
 

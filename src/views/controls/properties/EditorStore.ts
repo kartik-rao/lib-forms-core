@@ -31,12 +31,12 @@ class EditorStore implements IEditorStoreProps {
     @computed get availableConditionSources() {
         let {formStore} = this;
         let fieldList = [];
-        Object.keys(this.formStore.fieldMeta).forEach((id: string, index: number) => {
+        Object.keys(this.formStore.idFieldMap).forEach((id: string, index: number) => {
             fieldList.push({
                 key: index,
-                id: formStore.fieldMeta[id].id,
-                label:formStore.fieldMeta[id].label,
-                name:formStore.fieldMeta[id].name
+                id: id,
+                label:formStore.idFieldMap[id].label,
+                name:formStore.idFieldMap[id].name
             });
         });
         return fieldList;

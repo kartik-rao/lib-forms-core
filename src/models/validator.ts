@@ -41,7 +41,6 @@ class Validator {
 
     formatError(errors: any): IValidationError {
         return errors.map((e: any) => {
-            console.log("Validation Error", e)
             let prefixedMessage = e.error || "";
             let unPrefixedMessage = e.error ? e.error.replace(`${e.attribute.toUpperCase()} `, "") : e.options.message;
             return {id: this.field.id,
@@ -68,13 +67,11 @@ class Validator {
             let values = toJS(store.values);
 
             this.validationErrors = validate(values, constraints, {format: "custom"}) || [];
-            console.log("Using constraints", toJS(constraints), toJS(this.validationErrors));
             if (this.validationErrors.length > 0) {
                 this.store.setFieldError(id, this.validationErrors[0].message);
             } else {
                 this.store.setFieldError(id, undefined);
             }
-
         } else {
             this.validationErrors = [];
         }

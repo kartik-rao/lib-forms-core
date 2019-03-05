@@ -15,6 +15,7 @@ class Field implements IFieldProps {
     type: string;
     label: string;
     value : any;
+    touched: boolean;
     inputType: string;
     helpText: string;
     placeholder: string;
@@ -119,12 +120,14 @@ class Field implements IFieldProps {
     }
 
     @action setTouched() {
+        this.touched = true;
         this.store.setFieldTouched(this.id);
         this.validate();
     }
 
     @action setConditionState(value: boolean) {
         this.conditionState = value;
+        this.validate();
     }
 
     @action setCondition(condition: ICondition) {
@@ -171,6 +174,7 @@ decorate(Field, {
     uuid: observable,
     type: observable,
     label: observable,
+    touched: observable,
     value : observable,
     inputType: observable,
     helpText: observable,

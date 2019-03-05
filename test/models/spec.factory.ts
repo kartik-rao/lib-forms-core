@@ -14,7 +14,8 @@ const P1: IPage = {
 
 const S1 : ISection = {
     id : "s1",
-    name: "section 1"
+    name: "section 1",
+    columns: []
 }
 
 const C1 : IColumn = {
@@ -60,7 +61,7 @@ describe('Factory', () => {
 
     describe(".makeFields", () => {
         beforeEach(() => {
-            store = new FormStore({values: {}});
+            store = new FormStore();
             factory = new Factory(store);
         });
         it("can create fields", () => {
@@ -88,7 +89,7 @@ describe('Factory', () => {
 
     describe(".makeColumn", () => {
         beforeEach(() => {
-            store = new FormStore({values: {}});
+            store = new FormStore();
             factory = new Factory(store);
         });
         it("can create columns", () => {
@@ -119,7 +120,7 @@ describe('Factory', () => {
 
     describe(".makeSection", () => {
         beforeEach(() => {
-            store = new FormStore({values: {}});
+            store = new FormStore();
             factory = new Factory(store);
         });
         it("can create sections", () => {
@@ -159,7 +160,7 @@ describe('Factory', () => {
 
     describe(".makePages", () => {
         beforeEach(() => {
-            store = new FormStore({values: {}});
+            store = new FormStore();
             factory = new Factory(store);
         });
         it("can create pages", () => {
@@ -205,7 +206,7 @@ describe('Factory', () => {
 
     describe(".makeForm", () => {
         beforeEach(() => {
-            store = new FormStore({values: {}});
+            store = new FormStore();
             factory = new Factory(store);
         });
         it("can create a form", () => {

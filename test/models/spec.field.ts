@@ -6,7 +6,7 @@ import {genElementId} from "../utils";
 describe("Field", () => {
     let store: FormStore;
     beforeEach(() => {
-        store = new FormStore({values: {}});
+        store = new FormStore();
     });
 
     it("Can initialize a field and set its value", async (done: any) => {

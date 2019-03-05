@@ -1,16 +1,17 @@
-import Column from "./column";
+import Column, {IColumn} from "./column";
 import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../state/FormStore";
 import {valueOrDefault, uuid} from "./common";
+import Field from "./field";
+import { IValidationError } from "./validation";
 
 export interface ISection {
-    id?: string;
+    id: string;
     uuid?:string;
-    name?: string;
+    name: string;
     title?: string;
     gutter?:number;
-    columns?: Column[];
-    store?: FormStore;
+    columns: IColumn[];
 }
 
 class Section implements ISection {
@@ -23,7 +24,7 @@ class Section implements ISection {
     columns: Column[];
     store: FormStore;
 
-    @computed get errors() : any[] {
+    @computed get errors() : IValidationError[] {
         return this.columns.reduce((all: any[], c: Column) => {
             return all.concat(c.errors);
         }, <any[]>[]);
@@ -62,9 +63,9 @@ class Section implements ISection {
         });
     }
 
-    @computed get fieldMetadata() : any {
+    @computed get idFieldMap() : { [key:string]: Field; } {
         return this.columns.reduce((all: {}, c: Column)=>{
-            return {...all, ...c.fieldMetadata}
+            return {...all, ...c.idFieldMap}
         }, {});
     }
 
@@ -74,7 +75,7 @@ class Section implements ISection {
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
         this.title = valueOrDefault(data.title, '');
         this.gutter = valueOrDefault(data.gutter, 0);
-        this.columns = valueOrDefault(data.columns, <Column[]>[]);
+        this.columns = valueOrDefault(<Column[]>data.columns, <Column[]>[]);
         this.store = store;
     }
 
@@ -84,8 +85,8 @@ class Section implements ISection {
 }
 
 decorate(Section, {
-    name: observable,
     id: observable,
+    name: observable,
     uuid: observable,
     title: observable,
     gutter: observable,

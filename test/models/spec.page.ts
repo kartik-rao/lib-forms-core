@@ -61,7 +61,7 @@ describe('Page', () => {
     let store: FormStore;
 
     beforeEach(() => {
-        store = new FormStore({values: {}});
+        store = new FormStore();
     });
 
     it("can be initialised", () => {

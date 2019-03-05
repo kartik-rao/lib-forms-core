@@ -4,90 +4,10 @@ import {valueOrDefault, uuid} from "./common";
 import Page from "./page";
 import FormStore from "../state/FormStore";
 import { FormEvent } from "react";
+import Field from "./field";
 
-export interface IFormTenant {
-    eid: number;
-    mid: number;
-    context: string;
-    stack: string;
-}
-
-export interface IFormTransition {
-    action?: string;
-    textContent?: string;
-    htmlContent?: string;
-    redirectTo?: string;
-}
-
-export interface IFormTransitions {
-    submitted?: IFormTransition
-    inactive?: IFormTransition
-    ended?: IFormTransition
-}
-
-export interface IFormStatus {
-    timezone?: string;
-    paused?: boolean;
-    active?: boolean;
-    created?: Date;
-    edited?: Date;
-    starts?: Date;
-    ends?: Date;
-}
-
-export interface IFormContent {
-    title?: string;
-    subtitle?: string;
-    labels?: string;
-    offset?: string;
-    width?: string;
-    sidebar?: any;
-    scripts?: string[];
-    styles?: string[];
-    datasets?: any[];
-    pages?: Page[];
-    paginate?: boolean;
-    css?: {
-        inline: string[];
-        external: string[];
-    }
-    header? : {
-        rows: any[];
-    }
-    footer? : {
-        rows: any[];
-    }
-    trackingPixels?: any[];
-}
-
-export interface IFormLayoutOptions {
-    showSteps?: boolean,
-    showPageTitles?: boolean,
-    showSectionTitles?: boolean,
-    showSectionBorders? : boolean,
-    showPageBorders?: boolean,
-    validationDisablesPaging?: boolean,
-    wrapperSpan?: number,
-    wrapperOffset?: number
-}
-
-export interface IFormProps {
-    id: string;
-    uuid?: string;
-    exid?: string;
-    desc?: string;
-    name?: string;
-    tenant?: IFormTenant;
-    status?: IFormStatus;
-    content?: IFormContent;
-    values?: any;
-    layout?: any;
-    formLayoutOptions?: IFormLayoutOptions;
-    stopSubmit?: boolean;
-    submitTarget?: string;
-    successRedirect?: string;
-    errorRedirect?: string;
-}
+import {IFormProps, IFormTenant, IFormContent, IFormLayoutOptions, IFormStatus} from "./form.properties";
+import { IValidationError } from "./validation";
 
 class Form implements IFormProps {
     id: string;
@@ -98,7 +18,6 @@ class Form implements IFormProps {
     tenant: IFormTenant;
     status: IFormStatus;
     content: IFormContent;
-    values: any;
     layout: any;
     stopSubmit: boolean;
     submitTarget: string;
@@ -150,7 +69,7 @@ class Form implements IFormProps {
                 scripts: valueOrDefault(data.content.scripts, null),
                 styles: valueOrDefault(data.content.styles, null),
                 datasets: valueOrDefault(data.content.datasets, null),
-                pages: valueOrDefault(data.content.pages, []),
+                pages: valueOrDefault(<Page[]>data.content.pages, []),
                 paginate: valueOrDefault(data.content.paginate, false)
             }
             if (data.content.css) {
@@ -201,7 +120,7 @@ class Form implements IFormProps {
             this.content.footer = {rows: []}
             this.content.trackingPixels = [];
         }
-        this.values = valueOrDefault(data.values, {});
+
         this.layout = valueOrDefault(data.layout, "vertical");
         this.formLayoutOptions = valueOrDefault(data.formLayoutOptions, {});
     }
@@ -234,40 +153,46 @@ class Form implements IFormProps {
         }
     }
 
-    @action removePage(index: number) {
+    @action removePage(index: number) : void {
         this.content.pages.splice(index, 1);
     }
 
-    @action movePage(atIndex: number, toIndex: number) {
+    @action movePage(atIndex: number, toIndex: number) : void {
         this.content.pages.splice(toIndex, 0, this.content.pages.splice(atIndex, 1)[0]);
     }
 
-    @computed get isSubmittable() {
+    @computed get isSubmittable() : boolean {
         let validTarget =  !!this.stopSubmit ?  !this.stopSubmit : true
         return this.errors.length == 0 && validTarget;
     }
 
-    @computed get fieldMetadata() : any {
+    @computed get idFieldMap() : { [key:string]:Field; }  {
         return this.content.pages.reduce((all: {}, s: Page)=>{
-            return {...all, ...s.fieldMetadata}
+            return {...all, ...s.idFieldMap}
         }, {});
     }
 
-    @computed get errors() : any[] {
+    @computed get errors() : IValidationError[] {
         return this.content.pages.reduce((all: any[], p: Page)=>{
             return all.concat(p.errors);
         }, <any[]>[]);
     }
 
+    @computed get values() : { [key:string]: any; } {
+        return Object.keys(this.idFieldMap).reduce((all: {}, id: string) => {
+            let f: Field = this.idFieldMap[id];
+            return {...all, [f.id]: f.value}
+        }, {});
+    }
 
     @action.bound handleSubmit(e: FormEvent) {
         e.preventDefault();
         e.stopPropagation();
         this.store.setSubmitting(true);
-        let meta = this.fieldMetadata;
+        let meta = this.idFieldMap;
         let payload = {};
-        let values = toJS(this.store.values);
-        Object.keys(this.store.values).forEach((id: string) => {
+        let values = toJS(this.values);
+        Object.keys(this.values).forEach((id: string) => {
             let key = meta[id].valuePropName || meta[id].name;
             payload[key] = values[id];
         });
@@ -303,7 +228,7 @@ decorate(Form, {
     tenant: observable,
     status: observable,
     content:observable,
-    values: observable,
+    values: computed,
     layout: observable,
     stopSubmit: observable,
     submitTarget: observable,

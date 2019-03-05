@@ -1,3 +1,4 @@
+import FormStore from "../state/FormStore";
 import { InputProps } from "antd/lib/input/Input";
 import { CheckboxProps } from "antd/lib/checkbox/Checkbox";
 import { CheckboxGroupProps } from "antd/lib/checkbox/index";
@@ -173,5 +174,5 @@ export interface IFieldProps {
     condition?: ICondition;
     storage?: IFieldStorage;
     validation?: IValidationRule;
-    componentProps: IComponentProps
+    componentProps: IComponentProps;
 }

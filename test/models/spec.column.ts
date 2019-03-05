@@ -46,7 +46,7 @@ const C1: IColumn = {
 describe('Column', () => {
     let store: FormStore;
     beforeEach(() => {
-        store = new FormStore({values: {}});
+        store = new FormStore();
     });
 
     it("can be initialized", () => {

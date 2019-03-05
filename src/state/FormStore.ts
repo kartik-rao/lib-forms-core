@@ -1,8 +1,18 @@
 import {action, decorate, observable, computed, set, toJS} from "mobx";
 import Form from "../models/form";
 import Page from "../models/page";
+import Field from "../models/field";
+import { uuid } from "../models/common";
+
+export interface IFormStoreProps {
+    _instanceid?: string
+    values?: any;
+    form?  : Form;
+    debug? : boolean
+}
 
 class FormStore {
+    _instanceid: string;
     errors: any;
     values: any;
     touched: any;
@@ -13,9 +23,9 @@ class FormStore {
     validationDisabled: boolean;
     conditionsDisabled: boolean;
 
-    @computed get fieldMeta() : any {
+    @computed get idFieldMap() : { [key:string]:Field; } {
         return this.form.content.pages.reduce((all: {}, p: Page) => {
-            return {...all, ...p.fieldMetadata};
+            return {...all, ...p.idFieldMap};
         }, {});
     }
 
@@ -48,7 +58,7 @@ class FormStore {
     }
 
     @action nextPage() {
-        let currentPage = this.form.content.pages[this.currentPage];
+        let currentPage = this.form.content.pages[this.currentPage] as Page;
         let errors = currentPage.errors;
         if (!errors || errors.length == 0) {
             this.currentPage = this.currentPage + 1;
@@ -80,18 +90,18 @@ class FormStore {
         set(this.errors, id, error);
     }
 
-    @action initialize(data: any) {
-        this.form = data.form;
-        this.values = data.values || {};
+    @action initialize() {
+        this._instanceid = uuid();
+        this.values = {};
         this.errors = {};
         this.touched = {};
         this.currentPage = 0;
-        this.debug = !!data.debug ? data.debug : false;
+        this.debug = false;
         return;
     }
 
-    constructor(data: any) {
-        this.initialize(data);
+    constructor() {
+        this.initialize();
     }
 }
 

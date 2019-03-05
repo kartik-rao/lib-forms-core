@@ -3,7 +3,8 @@ import {IFieldProps} from "./field.properties";
 import Field from "./field";
 import Column, {IColumn} from "./column";
 import Section, {ISection} from "./section";
-import Form, {IFormProps} from "./form";
+import {IFormProps} from "./form.properties";
+import Form from "./form";
 import FormStore from "../state/FormStore";
 import Condition, {ICondition} from "./condition";
 import Predicate, {IPredicate} from "./condition.predicate";
@@ -14,32 +15,6 @@ export class Factory {
 
     constructor(store: FormStore) {
         this.store = store;
-    }
-
-    makeSections(...sections: ISection[]) : Section[] {
-        let response: Section[] = [];
-        if (!sections || sections.length == 0) {
-            return <Section[]>[];
-        }
-        sections.forEach((s: ISection) => {
-            let columns = s.columns && s.columns.length > 0 ? this.makeColumns(...s.columns) : <Column[]>[];
-            response.push(new Section({...s, columns: columns}, this.store));
-        });
-        return response;
-    }
-
-    makeColumns(...columns: IColumn[]) : Column[] {
-        let response : Column[] = [];
-        if (!columns || columns.length == 0) {
-            return response;
-        }
-
-        columns.forEach((c: IColumn)=> {
-            let fields = this.makeFields(...c.fields);
-            let column = new Column({...c, fields: fields}, this.store);
-            response.push(column);
-        })
-        return response;
     }
 
     makePredicates(...predicates: IPredicate[]) : Predicate[] {
@@ -69,6 +44,32 @@ export class Factory {
         }, <Field[]>[]);
     }
 
+    makeColumns(...columns: IColumn[]) : Column[] {
+        let response : Column[] = [];
+        if (!columns || columns.length == 0) {
+            return response;
+        }
+
+        columns.forEach((c: IColumn)=> {
+            let fields = this.makeFields(...c.fields);
+            let column = new Column({...c, fields: fields}, this.store);
+            response.push(column);
+        })
+        return response;
+    }
+
+    makeSections(...sections: ISection[]) : Section[] {
+        let response: Section[] = [];
+        if (!sections || sections.length == 0) {
+            return <Section[]>[];
+        }
+        sections.forEach((s: ISection) => {
+            let columns = s.columns && s.columns.length > 0 ? this.makeColumns(...s.columns) : <Column[]>[];
+            response.push(new Section({...s, columns: columns}, this.store));
+        });
+        return response;
+    }
+
     makePages(...pages: IPage[]) : Page[] {
         if (!pages || pages.length == 0) {
             return <Page[]>[];
@@ -82,14 +83,15 @@ export class Factory {
     }
 
     makeForm(formData: IFormProps) : Form {
+        let form: Form;
         if (formData && formData.content && formData.content.pages) {
             formData.content.pages = this.makePages(...formData.content.pages)
-            return new Form(formData, this.store);
+            form = new Form(formData, this.store);
         } else {
             let _formData = formData ? formData : {id: null, content: {pages: []}}
-            return new Form(_formData, this.store);
+            form = new Form(_formData, this.store);
         }
+        this.store.setForm(form);
+        return form;
     }
-
-
 }

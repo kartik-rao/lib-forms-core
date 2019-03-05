@@ -103,11 +103,11 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
     render() {
         let {editorStore} = this.props;
         let {field} = editorStore;
-        let {fieldMeta} = editorStore.formStore;
+        let {idFieldMap} = editorStore.formStore;
         let fieldList = [];
 
-        Object.keys(toJS(fieldMeta)).map((id: string)=> {
-            fieldList.push(fieldMeta[id]);
+        Object.keys(toJS(idFieldMap)).map((id: string)=> {
+            fieldList.push(idFieldMap[id]);
         });
 
         return <div><ValidationListView validation={field.validator.rule} onEdit={this.onEdit} onRemove={editorStore.removeValidationRule}/>

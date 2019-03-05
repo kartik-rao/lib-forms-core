@@ -1,19 +1,19 @@
-import Section from "./section";
+import Section, {ISection} from "./section";
 import FormStore from "../state/FormStore";
 import Column from "./column";
 import Field from "./field";
-import {action, decorate, observable, computed, observe} from "mobx";
+import {action, decorate, observable, computed} from "mobx";
 import {valueOrDefault, uuid} from "./common";
+import { IValidationError } from "./validation";
 
 export interface IPage {
     id: string;
     uuid?:string;
-    name?: string;
+    name: string;
     icon?: string;
-    sections?: Section[];
+    sections: ISection[];
     title?: string;
     subtitle?: string;
-    store?: FormStore;
 }
 
 class Page implements IPage {
@@ -66,13 +66,13 @@ class Page implements IPage {
         return fieldIds;
     }
 
-    @computed get fieldMetadata() : any {
+    @computed get idFieldMap() : { [key:string]:Field; }  {
         return this.sections.reduce((all: {}, s: Section)=>{
-            return {...all, ...s.fieldMetadata}
+            return {...all, ...s.idFieldMap}
         }, {});
     }
 
-    @computed get errors() : any[] {
+    @computed get errors() : IValidationError[] {
         return this.sections.reduce((all: any[], s: Section)=>{
             return all.concat(s.errors);
         }, <any[]>[]);
@@ -112,13 +112,13 @@ class Page implements IPage {
 
     @action private initialize(data: IPage, store: FormStore) {
         this.id = data.id;
+        this.store = store;
         this.uuid = valueOrDefault(data.uuid, uuid());
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
         this.icon = valueOrDefault(data.name, "");
-        this.sections = valueOrDefault(data.sections, <Section[]>[]);
+        this.sections = valueOrDefault(<Section[]>data.sections, <Section[]>[]);
         this.title = valueOrDefault(data.title, "");
         this.subtitle = valueOrDefault(data.subtitle, "");
-        this.store = store;
     }
 
     constructor (data: IPage, store: FormStore) {
