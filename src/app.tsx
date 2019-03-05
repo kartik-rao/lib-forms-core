@@ -18,7 +18,7 @@ enableLogging({
 
 export function renderForm(selector:string, initialState: any) {
     let debug = (window && window.location.hostname.indexOf('localhost') > -1) ? true : false;
-    let store = new FormStore({debug: debug});
+    let store = new FormStore();
     let factory = new Factory(store);
     let form: Form = factory.makeForm(initialState);
 

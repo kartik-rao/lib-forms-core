@@ -7,6 +7,7 @@ import { PageView } from "./PageView";
 import { EditorView } from "./controls/properties/EditorView";
 import EditorStore from "./controls/properties/EditorStore";
 import { Factory } from "../models/factory";
+import Field from "../models/field";
 
 interface FormComponentProps {
     store: FormStore;
@@ -24,7 +25,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
     render() {
         const {store: formStore} = this.props;
         let editorStore = new EditorStore({
-            formStore: formStore, field: formStore.form.content.pages[0].sections[0].columns[0].fields[0],
+            formStore: formStore, field: formStore.form.content.pages[0].sections[0].columns[0].fields[0] as Field,
             factory : new Factory(formStore)
         });
 
@@ -53,7 +54,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
                 <Col span={20}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
                         <div className="page-wrapper">
-                            <PageView page={content.pages[formStore.currentPage]} store={formStore}></PageView>
+                            <PageView page={content.pages[formStore.currentPage] as Page} store={formStore}></PageView>
                         </div>
                         <div className="page-actions">
                             <Card>
