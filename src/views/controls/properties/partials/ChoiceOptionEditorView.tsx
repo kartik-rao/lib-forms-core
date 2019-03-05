@@ -122,7 +122,7 @@ export class ChoiceOptionEditorView extends React.Component<IChoiceOptionEditorP
           title: '',
           key: "operate",
           render: (text, record, index) =>
-            <span style={{textAlign:'center'}}><Icon className="drag-handle" type="drag"/></span>
+            <span style={{float:'right', marginRight:'20%'}}><Icon className="drag-handle" type="drag"/></span>
         },
           {
             title: 'Label',
