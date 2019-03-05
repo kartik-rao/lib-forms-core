@@ -58,7 +58,7 @@ class Validator {
     }
 
     @action validate() {
-        if (this.field.isValidateable == true) {
+        if (this.isValidateable == true) {
             let {field, store} = this;
             let {id} = field;
             let constraints = {};
