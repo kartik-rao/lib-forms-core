@@ -1,10 +1,11 @@
 import { observer } from "mobx-react";
-import {toJS} from "mobx";
+import {toJS, action} from "mobx";
 import * as React from "react";
 import { Form, Input, Select,  Button, DatePicker, InputNumber} from "antd";
 import { IFieldEditorView } from "./IFieldEditorView"
-import { IFieldProps } from "../../../models/field.properties";
+import { IFieldProps, ISelectProps, ChoiceOption } from "../../../models/field.properties";
 import { FormComponentProps } from "antd/lib/form";
+import { ChoiceOptionEditorView } from "./partials/ChoiceOptionEditorView";
 
 
 @observer
@@ -31,6 +32,10 @@ class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEdito
             }
         });
         return;
+    }
+
+    @action.bound updateOptions(options: ChoiceOption[]) {
+        this.props.editorStore.field.componentProps["options"] = options;
     }
 
     render() {
@@ -62,7 +67,7 @@ class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEdito
                 }
             </Form.Item>
 
-            {field.inputType !== 'checkbox' && <Form.Item label="Placeholder Text">
+            {field.inputType != 'checkbox' && <Form.Item label="Placeholder Text">
                 {
                     getFieldDecorator('c_placeholder', { initialValue : field.componentProps["placeholder"],
                         rules: [
@@ -166,6 +171,7 @@ class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEdito
                     }
                 </Form.Item>
             }
+            {field.inputType == 'select' && <ChoiceOptionEditorView type="select" items={(field.componentProps as ISelectProps).options} onChange={this.updateOptions}/>}
             <Form.Item label="Help Text">
                 {
                     getFieldDecorator("helpText", {

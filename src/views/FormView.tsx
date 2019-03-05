@@ -25,7 +25,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
     render() {
         const {store: formStore} = this.props;
         let editorStore = new EditorStore({
-            formStore: formStore, field: formStore.form.content.pages[0].sections[0].columns[0].fields[0] as Field,
+            formStore: formStore, field: formStore.form.content.pages[0].sections[0].columns[1].fields[0] as Field,
             factory : new Factory(formStore)
         });
 

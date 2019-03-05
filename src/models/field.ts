@@ -19,7 +19,6 @@ class Field implements IFieldProps {
     inputType: string;
     helpText: string;
     placeholder: string;
-    options: ChoiceOption[];
     valuePropName: string;
     condition: Condition;
     storage: IFieldStorage;
@@ -57,7 +56,7 @@ class Field implements IFieldProps {
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
         this.componentProps = data.componentProps;
-
+        console.log(this.inputType, this.componentProps);
         if (this.componentProps && this.componentProps['defaultValue']) {
             this.setValue(this.componentProps['defaultValue']);
         } else if (this.componentProps && this.componentProps['defaultChecked']) {
@@ -180,13 +179,12 @@ decorate(Field, {
     helpText: observable,
     placeholder: observable,
     validation: observable,
-    options: observable,
     valuePropName : observable,
     condition: observable,
     storage: observable,
     conditionState: observable,
     validator: observable,
-    componentProps: observable,
+    componentProps: observable
 });
 
 export default Field;
