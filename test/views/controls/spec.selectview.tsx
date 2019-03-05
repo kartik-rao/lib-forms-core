@@ -5,7 +5,7 @@ import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import {SelectView} from '../../../src/views/controls/SelectView';
 import Field from '../../../src/models/field';
 import {FieldTypes, ISelectProps} from "../../../src/models/field.properties";
-import FormStore from '../../../src/state/FormStore';
+import FormStore from '../../../src/store/FormStore';
 import {genElementId, printPrettyHtml} from "../../utils";
 import sinon from "sinon";
 import Enzyme from 'enzyme';
@@ -27,7 +27,7 @@ describe("FieldView.SelectView", () => {
     });
 
     beforeAll(()=> {
-        store = new FormStore({values: {}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });

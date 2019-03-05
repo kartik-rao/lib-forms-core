@@ -1,5 +1,5 @@
 import { action, computed, decorate, observable, observe, toJS, reaction } from "mobx";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import Condition, { ICondition } from "./condition";
 import {uuid} from "./common";
 

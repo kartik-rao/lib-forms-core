@@ -1,4 +1,4 @@
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import { InputProps } from "antd/lib/input/Input";
 import { CheckboxProps } from "antd/lib/checkbox/Checkbox";
 import { CheckboxGroupProps } from "antd/lib/checkbox/index";

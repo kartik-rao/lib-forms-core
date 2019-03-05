@@ -5,7 +5,7 @@ import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import Column from '../../src/models/column';
 import Field from '../../src/models/field';
 import Section from '../../src/models/section';
-import FormStore from '../../src/state/FormStore';
+import FormStore from '../../src/store/FormStore';
 import { SectionView } from "../../src/views/SectionView";
 import {genElementId} from "../utils";
 
@@ -22,13 +22,13 @@ describe("SectionView", () => {
     });
 
     beforeEach(()=> {
-        store = new FormStore({values: {"f1": "", "f2": ""}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });
 
     it("can render a column and child fields", (done) => {
-        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title"}, store)
+        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title", columns:[]}, store)
         let f: Field = new Field({
             id: genElementId("field"),
             name: "First Name",
@@ -59,7 +59,7 @@ describe("SectionView", () => {
     });
 
     it("is aware of field errors", (done) => {
-        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title"}, store)
+        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title", columns:[]}, store)
         let c: Column = new Column({id: genElementId("column")}, store);
         let f: Field = new Field({
             id: genElementId("field"),

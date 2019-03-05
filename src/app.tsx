@@ -5,7 +5,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Factory } from "./models/factory";
 import Form from './models/form';
-import FormStore from "./state/FormStore";
+import FormStore from "./store/FormStore";
 import { FormView } from "./views/FormView";
 import "./app.css";
 

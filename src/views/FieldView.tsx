@@ -2,7 +2,7 @@ import { Form } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Field from "../models/field";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import { CheckboxGroupView } from "./controls/CheckboxGroupView";
 import { CheckboxView } from "./controls/CheckboxView";
 import { DatePickerView } from "./controls/DatePickerView";

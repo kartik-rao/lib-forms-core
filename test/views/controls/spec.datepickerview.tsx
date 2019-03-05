@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import {DatePickerView} from '../../../src/views/controls/DatePickerView';
 import Field from '../../../src/models/field';
-import FormStore from '../../../src/state/FormStore';
+import FormStore from '../../../src/store/FormStore';
 import {genElementId} from "../../utils";
 import sinon from "sinon";
 import {FieldTypes, IDatePickerProps} from "../../../src/models/field.properties";
@@ -28,7 +28,7 @@ describe("FieldView.DatePickerView", () => {
     });
 
     beforeAll(()=> {
-        store = new FormStore({values: {}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });

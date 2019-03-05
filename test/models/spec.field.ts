@@ -1,4 +1,4 @@
-import FormStore from "../../src/state/FormStore";
+import FormStore from "../../src/store/FormStore";
 import { when, toJS, keys } from "mobx";
 import Field from "../../src/models/field";
 import {genElementId} from "../utils";

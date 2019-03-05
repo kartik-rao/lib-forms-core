@@ -1,4 +1,4 @@
-import FormStore from "../../src/state/FormStore";
+import FormStore from "../../src/store/FormStore";
 import { Factory } from "../../src/models/factory";
 import { IFieldProps } from "../../src/models/field.properties";
 import { IColumn } from "../../src/models/column";

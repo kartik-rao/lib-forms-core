@@ -3,7 +3,7 @@ import {IFieldProps} from "../../src/models/field.properties";
 import Field from "../../src/models/field";
 import Section, { ISection } from "../../src/models/section";
 import Page, {IPage} from "../../src/models/page";
-import FormStore from "../../src/state/FormStore";
+import FormStore from "../../src/store/FormStore";
 import {when} from "mobx";
 import {genElementId} from "../utils";
 

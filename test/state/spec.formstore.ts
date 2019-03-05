@@ -3,7 +3,7 @@ import { Factory } from "../../src/models/factory";
 import { IFieldProps } from "../../src/models/field.properties";
 import Form from "../../src/models/form";
 import { IPage } from "../../src/models/page";
-import FormStore from "../../src/state/FormStore";
+import FormStore from "../../src/store/FormStore";
 
 const F1: IFieldProps= {
     id:  "f1",

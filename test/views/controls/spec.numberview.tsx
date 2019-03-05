@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import {NumberView} from '../../../src/views/controls/NumberView';
 import Field from '../../../src/models/field';
-import FormStore from '../../../src/state/FormStore';
+import FormStore from '../../../src/store/FormStore';
 import {genElementId} from "../../utils";
 import sinon from "sinon";
 
@@ -21,7 +21,7 @@ describe("FieldView.NumberView", () => {
     });
 
     beforeAll(()=> {
-        store = new FormStore({values: {}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });

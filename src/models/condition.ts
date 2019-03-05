@@ -1,6 +1,6 @@
 import Predicate, {IPredicate} from "./condition.predicate";
 import {action, decorate, observable, computed, toJS} from "mobx";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 
 export interface ICondition {
     predicates: IPredicate[],

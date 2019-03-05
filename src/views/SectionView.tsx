@@ -4,7 +4,7 @@ import {ColumnView} from "./ColumnView";
 import { observer } from "mobx-react";
 import Column from "../models/column";
 import Section from "../models/section";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 
 export interface SectionProps {
     section: Section;

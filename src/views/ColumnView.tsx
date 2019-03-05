@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import Column from "../models/column";
 import Field from "../models/field";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import { FieldView } from "./FieldView";
 
 export interface ColumnProps {

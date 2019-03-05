@@ -1,18 +1,15 @@
-import {action, decorate, observable, computed, set, toJS} from "mobx";
+import {action, decorate, observable, computed, set} from "mobx";
 import Form from "../models/form";
 import Page from "../models/page";
 import Field from "../models/field";
-import { uuid } from "../models/common";
 
 export interface IFormStoreProps {
-    _instanceid?: string
     values?: any;
     form?  : Form;
     debug? : boolean
 }
 
 class FormStore {
-    _instanceid: string;
     errors: any;
     values: any;
     touched: any;
@@ -91,7 +88,6 @@ class FormStore {
     }
 
     @action initialize() {
-        this._instanceid = uuid();
         this.values = {};
         this.errors = {};
         this.touched = {};

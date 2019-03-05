@@ -1,5 +1,5 @@
 import Section, {ISection} from "./section";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import Column from "./column";
 import Field from "./field";
 import {action, decorate, observable, computed} from "mobx";

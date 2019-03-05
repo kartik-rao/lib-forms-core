@@ -2,7 +2,7 @@ import {action, decorate, observable, computed, toJS} from "mobx";
 import axios from "axios";
 import {valueOrDefault, uuid} from "./common";
 import Page from "./page";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import { FormEvent } from "react";
 import Field from "./field";
 

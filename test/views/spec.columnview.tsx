@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import Column from '../../src/models/column';
 import Field from '../../src/models/field';
-import FormStore from '../../src/state/FormStore';
+import FormStore from '../../src/store/FormStore';
 import { ColumnView } from "../../src/views/ColumnView";
 import {genElementId} from "../utils";
 
@@ -21,7 +21,7 @@ describe("ColumnView", () => {
     });
 
     beforeAll(()=> {
-        store = new FormStore({values: {}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });

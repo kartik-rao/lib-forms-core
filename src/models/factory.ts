@@ -5,7 +5,7 @@ import Column, {IColumn} from "./column";
 import Section, {ISection} from "./section";
 import {IFormProps} from "./form.properties";
 import Form from "./form";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import Condition, {ICondition} from "./condition";
 import Predicate, {IPredicate} from "./condition.predicate";
 import { uuid } from "./common";

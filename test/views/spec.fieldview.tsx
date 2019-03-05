@@ -3,7 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import Field from '../../src/models/field';
-import FormStore from '../../src/state/FormStore';
+import FormStore from '../../src/store/FormStore';
 import { FieldView } from "../../src/views/FieldView";
 import {genElementId, printPrettyHtml} from "../utils";
 
@@ -20,7 +20,7 @@ describe("FieldView", () => {
     });
 
     beforeEach(()=> {
-        store = new FormStore({values: {}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });

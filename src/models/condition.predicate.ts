@@ -1,5 +1,5 @@
 import {action, decorate, observable, computed} from "mobx";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 
 export interface IPredicate {
     uuid?: string;

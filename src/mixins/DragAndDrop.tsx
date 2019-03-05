@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 import * as React from "react";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import { Draggable, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
 type Constructor<T = {}> = new (...args: any[]) => T;

@@ -5,7 +5,7 @@ import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import Column from '../../src/models/column';
 import Field from '../../src/models/field';
 import Section from '../../src/models/section';
-import FormStore from '../../src/state/FormStore';
+import FormStore from '../../src/store/FormStore';
 import { PageView } from "../../src/views/PageView";
 import Page from '../../src/models/page';
 import {genElementId} from "../utils";
@@ -23,14 +23,14 @@ describe("PageView", () => {
     });
 
     beforeEach(()=> {
-        store = new FormStore({values: {}});
+        store = new FormStore();
         container = document.createElement('div');
         document.body.appendChild(container);
     });
 
     it("can render a section, column and child fields", (done) => {
         let p = new Page({ id: genElementId("page"), sections: [], name: "Page 1"}, store);
-        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title"}, store)
+        let s: Section = new Section({id: genElementId("section"), name: "s1", title: "s1 title", columns:[]}, store)
         let c: Column = new Column({id: genElementId("column")}, store);
         let f: Field = new Field({
             id: genElementId("field"),
@@ -63,7 +63,7 @@ describe("PageView", () => {
     });
 
     it("is aware of field errors", (done) => {
-        let s: Section = new Section({id:genElementId("page"), name: "s1", title: "s1 title"}, store)
+        let s: Section = new Section({id:genElementId("page"), name: "s1", title: "s1 title", columns:[]}, store)
         let c: Column = new Column({id: genElementId("column")}, store);
         let f: Field = new Field({
             id: genElementId("field"),

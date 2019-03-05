@@ -1,5 +1,5 @@
 import {IFieldProps} from "../../models/field.properties";
-import FormStore from "../../state/FormStore";
+import FormStore from "../../store/FormStore";
 
 export interface IViewProps {
     field: IFieldProps;
