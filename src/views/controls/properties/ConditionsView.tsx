@@ -51,6 +51,14 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
         editorStore.removePredicate(uuid);
     }
 
+    @action cancel() {
+        this.isAdding = false;
+        this.field = null;
+        this.expression = null;
+        this.value = null;
+        this.operator = null;
+    }
+
     @action
     handleSubmit = (e) => {
         e.preventDefault();
@@ -61,10 +69,8 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
             value: this.value,
             operator: this.operator
         });
-        this.field = null;
-        this.expression = null;
-        this.value = null;
-        this.operator = null;
+
+        this.cancel();
     }
 
     @action setIsAdding (value: boolean) {
@@ -98,7 +104,7 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
                 </Empty>
             }
             </Card>
-            {this.isAdding == true && <Card title="Add condition">
+            {this.isAdding  && <Card title="Add condition">
                 <Form onSubmit={(e)=> this.handleSubmit(e)}>
                     <Form.Item label="Source field" help="Field the condition will get its source value from" required>
                         <Select showSearch={true} onChange={(e) => this.setField(e)} value={this.field}>
@@ -129,7 +135,8 @@ export class ConditionsView extends React.Component<IFieldEditorView,any> {
                         </Select>
                     </Form.Item>
                     <Form.Item>
-                        <Button icon="plus" htmlType="submit" type="primary" disabled={!this.field || !this.expression}>Add</Button>
+                        <Button style={{float: 'right', marginLeft: '10px'}} icon="plus" htmlType="submit" type="primary" disabled={!this.field || !this.expression}>Add</Button>
+                        <Button style={{float: 'right'}} onClick={() => this.cancel()}>Cancel</Button>
                     </Form.Item>
                 </Form>
             </Card>}

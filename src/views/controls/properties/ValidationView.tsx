@@ -143,7 +143,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                         onRemove={editorStore.removeValidationRule}/>
                 }
             </Card>
-            <Card style={{marginTop:'15px', visibility: (this.isAdding || this.isEditing) ? 'visible' : 'hidden'}} title={`${this.isEditing == true ? "Edit" : "Add"} Rule ${this.ruleType ? ' - ' + this.ruleType: ''}`}>
+            {(this.isAdding || this.isEditing) && <Card style={{marginTop:'15px'}} title={`${this.isEditing == true ? "Edit" : "Add"} Rule ${this.ruleType ? ' - ' + this.ruleType: ''}`}>
             <Form>
                 <Form.Item label="Rule">
                     <Select onChange={(e) => this.setRuleType(e)} style={{ width: 200 }} placeholder="Select a rule to apply" value={this.ruleType}>
@@ -308,7 +308,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                     <Button style={{float: 'right'}} onClick={() => this.cancel()}>Cancel</Button>
                 </Form.Item>
             </Form>
-         </Card>
+         </Card>}
     </div>
     }
 }
