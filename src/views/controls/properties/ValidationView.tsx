@@ -29,11 +29,15 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
     @action
     setRuleProperty(name: string, value: any) {
         this.properties = {...this.properties, [name]: value};
+        console.log(toJS(this.properties))
     }
 
     @action
-    setIsAdding(isAdding:boolean) {
-        this.isAdding = isAdding;
+    cancel() {
+        this.ruleType = null;
+        this.properties = {};
+        this.isEditing = false
+        this.isAdding = false;
     }
 
     @computed get isRuleValid() : boolean {
@@ -80,7 +84,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                 break;
             }
             case "presence": {
-                isValid = !!properties['presence'];
+                isValid = !!properties['message'];
                 break;
             }
             case "url":{
@@ -102,11 +106,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         } else {
             this.props.editorStore.addValidationRule(this.ruleType, this.properties);
         }
-
-        this.ruleType = null;
-        this.properties = {};
-        this.isEditing = false
-        this.isAdding = false;
+        this.cancel();
     }
 
     @action
@@ -114,6 +114,11 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
         this.isEditing = true
         this.ruleType = rule;
         this.properties= this.props.editorStore.field.validator.rule[rule];
+    }
+
+    @action
+    setIsAdding(isAdding:boolean) {
+        this.isAdding = isAdding;
     }
 
     render() {
@@ -138,7 +143,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                         onRemove={editorStore.removeValidationRule}/>
                 }
             </Card>
-            <Card style={{marginTop:'15px', visibility: this.isAdding ? 'visible' : 'hidden'}} title={`${this.isEditing == true ? "Edit" : "Add"} Rule ${this.ruleType ? ' - ' + this.ruleType: ''}`}>
+            <Card style={{marginTop:'15px', visibility: (this.isAdding || this.isEditing) ? 'visible' : 'hidden'}} title={`${this.isEditing == true ? "Edit" : "Add"} Rule ${this.ruleType ? ' - ' + this.ruleType: ''}`}>
             <Form>
                 <Form.Item label="Rule">
                     <Select onChange={(e) => this.setRuleType(e)} style={{ width: 200 }} placeholder="Select a rule to apply" value={this.ruleType}>
@@ -147,9 +152,9 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                         })}
                     </Select>
                 </Form.Item>
-                <Form.Item style={{visibility: !!this.ruleType ? 'visible' : 'hidden', display: !!this.ruleType ? 'block': 'none'}} label="Message" help={`Shown when '${this.ruleType}' validation fails`}>
+                {this.ruleType && <Form.Item  label="Message" help={`Shown when '${this.ruleType}' validation fails`}>
                     <Input type="text"  value={this.properties.message} onChange={(e) => this.setRuleProperty('message', e.target.value)}></Input>
-                </Form.Item>
+                </Form.Item>}
                 { this.ruleType && this.ruleType.indexOf('date') > -1 && <div>
                     <Form.Item label="Constraint - Not before" help="Entered date cannot be before this date" required={!this.properties['latest']} >
                         <DatePicker value={this.properties.earliest ? moment(this.properties.earliest, this.dateFormat) : null} onChange={(e) => {
@@ -300,7 +305,7 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                 </div> }
                 <Form.Item>
                     <Button style={{float: 'right', marginLeft: '10px'}} type="primary" htmlType="submit" disabled={!this.isRuleValid} onClick={this.applyRule}>{this.isEditing == true ? "Apply" : "Add"}</Button>
-                    <Button style={{float: 'right'}} onClick={() => this.setIsAdding(false)}>Cancel</Button>
+                    <Button style={{float: 'right'}} onClick={() => this.cancel()}>Cancel</Button>
                 </Form.Item>
             </Form>
          </Card>
