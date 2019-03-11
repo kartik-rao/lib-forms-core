@@ -28,7 +28,7 @@ export class SectionView extends React.Component<SectionProps, any> {
         // Handle form layout options
         return <div id={section.id}>
             <Card bordered={true} title={section.name}>
-                <Row gutter={24}>
+                <Row gutter={section.gutter || 4}>
                     {section.columns.map((column: Column, cn: number) => {
                         return <ColumnView store={store} key={column.uuid} column={column} span={24/numColumns}/>
                     })}

@@ -29,12 +29,13 @@
                         title: 'Page 1',
                         sections: [
                             {
-                                gutter: 16,
+                                gutter: 12,
                                 name: "Section 1",
                                 columns: [{
                                     id: 1,
                                     name: 's1c1',
                                     title: 'Section 1 - Column 1',
+                                    // span: 10,
                                     fields: [
                                         {
                                             id: "f1", name: "f1", type: "text", inputType: "input", label: "f1 - Text Label",
@@ -43,7 +44,7 @@
                                                 length: { message: 'f1 should be length 2', minimum: 2},
                                             },
                                             componentProps: {
-                                                size: "small",
+                                                size: "large",
                                                 placeholder: 'Placeholder Text',
                                             }
                                         },

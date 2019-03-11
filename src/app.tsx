@@ -21,9 +21,9 @@ export function renderForm(selector:string, initialState: any) {
     let store = new FormStore();
     let factory = new Factory(store);
     let form: Form = factory.makeForm(initialState);
-
+    console.log(initialState);
     render(
-        <Layout style={{height:"100vh"}}>
+        <Layout style={{height:"100vh"}} >
             {debug && <Devtools/>}
             <Row><br/></Row>
             <Row justify="space-around">

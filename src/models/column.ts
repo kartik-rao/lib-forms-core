@@ -8,9 +8,10 @@ import { IValidationError } from "./validation";
 export interface IColumn {
     id  :string;
     uuid?:string;
-    _type?: string
+    _type?: string;
     name?:string;
     title?:string;
+    span?:number;
     fields?: IFieldProps[];
 }
 
@@ -19,6 +20,7 @@ class Column implements IColumn {
     uuid: string;
     id: string;
     name: string;
+    span: number;
     title: string;
     fields: Field[];
     store: FormStore;
@@ -74,6 +76,7 @@ class Column implements IColumn {
         this.uuid = valueOrDefault(data.uuid, uuid());
         this.store = store;
         this.id = data.id;
+        this.span = data.span;
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
         this.title = valueOrDefault(data.title, '');
         this.fields = valueOrDefault(<Field[]>data.fields, <Field[]>[]);
@@ -85,6 +88,7 @@ decorate(Column, {
     uuid: observable,
     id: observable,
     title: observable,
+    span: observable,
     fields: observable
 })
 
