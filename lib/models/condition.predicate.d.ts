@@ -1,4 +1,4 @@
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 export interface IPredicate {
     uuid?: string;
     field: string;

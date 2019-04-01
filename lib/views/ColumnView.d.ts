@@ -1,6 +1,6 @@
 import * as React from "react";
 import Column from "../models/column";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 export interface ColumnProps {
     column: Column;
     store: FormStore;

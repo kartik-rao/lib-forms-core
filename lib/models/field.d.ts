@@ -1,6 +1,6 @@
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import Condition, { ICondition } from "./condition";
-import { IFieldProps, IComponentProps, IFieldStorage, ChoiceOption } from "./field.properties";
+import { IFieldProps, IComponentProps, IFieldStorage } from "./field.properties";
 import Validator from "./validator";
 import { IValidationRule } from "./validation";
 declare class Field implements IFieldProps {
@@ -11,10 +11,10 @@ declare class Field implements IFieldProps {
     type: string;
     label: string;
     value: any;
+    touched: boolean;
     inputType: string;
     helpText: string;
     placeholder: string;
-    options: ChoiceOption[];
     valuePropName: string;
     condition: Condition;
     storage: IFieldStorage;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import Page from "../models/page";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 export interface PageProps {
     store: FormStore;
     page: Page;

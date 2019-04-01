@@ -1,4 +1,4 @@
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import Field from "./field";
 import ValidationRule, { IValidationError, IValidationRule } from "./validation";
 export interface IValidationProps {

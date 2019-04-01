@@ -1,6 +1,6 @@
 import * as React from "react";
 import Section from "../models/section";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 export interface SectionProps {
     section: Section;
     store: FormStore;

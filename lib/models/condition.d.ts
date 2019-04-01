@@ -1,5 +1,5 @@
 import Predicate, { IPredicate } from "./condition.predicate";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 export interface ICondition {
     predicates: IPredicate[];
     ancestors?: string[];

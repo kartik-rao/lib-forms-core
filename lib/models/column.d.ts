@@ -1,25 +1,33 @@
+import { IFieldProps } from "./field.properties";
 import Field from "./field";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
+import { IValidationError } from "./validation";
 export interface IColumn {
+    id: string;
     uuid?: string;
-    id?: string;
+    _type?: string;
     name?: string;
     title?: string;
-    fields?: Field[];
+    span?: number;
+    fields?: IFieldProps[];
 }
 declare class Column implements IColumn {
     readonly _type: string;
     uuid: string;
     id: string;
     name: string;
+    span: number;
     title: string;
     fields: Field[];
     store: FormStore;
-    readonly errors: any[];
+    readonly errors: IValidationError[];
     readonly isValid: boolean;
-    readonly fieldMetadata: any;
+    readonly idFieldMap: {
+        [key: string]: Field;
+    };
     readonly numFields: number;
     addField(field: Field, index?: number): void;
+    addFields(...fields: Field[]): void;
     removeField(index: number): void;
     moveField(atIndex: number, toIndex: number): void;
     constructor(data: IColumn, store: any);

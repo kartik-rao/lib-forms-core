@@ -1,5 +1,5 @@
 import * as React from "react";
-import FormStore from "../state/FormStore";
+import FormStore from "../store/FormStore";
 import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
 declare type Constructor<T = {}> = new (...args: any[]) => T;
 export declare function getMixinType<T>(C: Constructor<T>): T;

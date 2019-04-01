@@ -1,13 +1,14 @@
-import Column from "./column";
-import FormStore from "../state/FormStore";
+import Column, { IColumn } from "./column";
+import FormStore from "../store/FormStore";
+import Field from "./field";
+import { IValidationError } from "./validation";
 export interface ISection {
-    id?: string;
+    id: string;
     uuid?: string;
-    name?: string;
+    name: string;
     title?: string;
     gutter?: number;
-    columns?: Column[];
-    store?: FormStore;
+    columns: IColumn[];
 }
 declare class Section implements ISection {
     readonly _type: string;
@@ -18,14 +19,16 @@ declare class Section implements ISection {
     gutter: number;
     columns: Column[];
     store: FormStore;
-    readonly errors: any[];
+    readonly errors: IValidationError[];
     readonly numFields: number;
     addColumn(column: Column, index?: number): void;
     removeColumn(index: number): void;
     moveColumn(atIndex: number, toIndex: number): void;
     readonly numColumns: number;
     readonly isValid: boolean;
-    readonly fieldMetadata: any;
+    readonly idFieldMap: {
+        [key: string]: Field;
+    };
     initialize(data: ISection, store: FormStore): void;
     constructor(data: ISection, store: FormStore);
 }

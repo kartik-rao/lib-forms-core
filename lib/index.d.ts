@@ -12,7 +12,7 @@ export * from "./models/factory";
 export * from "./models/validation";
 export * from "./models/validation.constraints";
 export * from "./models/validator";
-export * from "./state/FormStore";
+export * from "./store/FormStore";
 export * from "./views/ColumnView";
 export * from "./views/FieldView";
 export * from "./views/PageView";

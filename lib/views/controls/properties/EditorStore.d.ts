@@ -3,7 +3,7 @@ import { IPredicate } from "../../../models/condition.predicate";
 import { Factory } from "../../../models/factory";
 import Field from "../../../models/field";
 import { GenericConstraint } from "../../../models/validation.constraints";
-import FormStore from "../../../state/FormStore";
+import FormStore from "../../../store/FormStore";
 export interface IEditorStoreProps {
     field: Field;
     formStore: FormStore;
