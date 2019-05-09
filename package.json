@@ -13,6 +13,7 @@
   "author": "Kartik",
   "license": "UNLICENSED",
   "dependencies": {
+    "@kartikrao/uikit": "^3.1.4",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "mobx": "^5.9.0",
