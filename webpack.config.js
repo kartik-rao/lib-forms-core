@@ -40,7 +40,7 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                     allChunks: true, fallback: "style-loader", use: "css-loader"
                   }),
-                include: /src\/app.css|node_modules\/antd\//
+                include: /src\/app.css|node_modules\/antd\/|node_modules\/@kartikrao\/uikit\/dist\/css\/uikit\-core\.css|node_modules\/@kartikrao\/uikit\/dist\/css\/uikit\.css/
             }
         ]
     },

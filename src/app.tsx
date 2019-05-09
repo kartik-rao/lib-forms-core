@@ -9,6 +9,15 @@ import FormStore from "./store/FormStore";
 import { FormView } from "./views/FormView";
 import "./app.css";
 
+import UIkit from '@kartikrao/uikit';
+import Icons from '@kartikrao/uikit/dist/js/uikit-icons';
+
+// loads the Icon plugin
+UIkit.use(Icons);
+
+// components can be called from the imported UIkit reference
+UIkit.notification('Hello world.');
+
 enableLogging({
     action: true,
     reaction: false,
