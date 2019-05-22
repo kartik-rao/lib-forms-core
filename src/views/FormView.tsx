@@ -72,9 +72,6 @@ export class FormView extends React.Component<FormComponentProps, any> {
                         <div>Values<br/>{JSON.stringify(formStore.values)}</div>
                     </Form>
                 </Col>
-                <Col span={4}>
-                    <EditorView editorStore={editorStore}/>
-                </Col>
             </Row>
         </div>
         )
