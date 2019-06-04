@@ -57,7 +57,7 @@ export interface TransferItem {
     description: string;
     disabled: boolean;
 }
-export interface IInternalProps {
+export interface IFieldInternalProps {
     icon?: string;
     width?: number;
     children?: any[];
@@ -67,6 +67,17 @@ export interface IInternalProps {
     queryParam?: string;
     saveable?: boolean;
     location?: any;
+}
+export interface IFieldRuntimeProps {
+    readonly isHidden: boolean;
+    readonly className: string;
+    readonly isTouched: boolean;
+    readonly isValidateable: boolean;
+    readonly isValid: boolean;
+    readonly isRequired: boolean;
+    readonly currentValue: any;
+    readonly isDisabled: boolean;
+    readonly serialize: string;
 }
 export interface ICheckboxProps extends CheckboxProps {
     defaultValue?: boolean;
@@ -139,14 +150,14 @@ export interface IFieldStorage {
     isRequired: boolean;
     isSendable: boolean;
 }
-export interface IFieldProps extends IInternalProps {
+export interface IFieldProps extends IFieldInternalProps {
     id: string;
     name: string;
+    children?: any[];
     uuid?: string;
     type?: string;
     label?: string;
     value?: any;
-    touched?: boolean;
     inputType: string;
     helpText?: string;
     placeholder?: string;

@@ -1,10 +1,10 @@
 import FormStore from "../store/FormStore";
 import Condition, { ICondition } from "./condition";
-import { IFieldProps, IComponentProps, IFieldStorage } from "./field.properties";
+import { IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps } from "./field.properties";
 import Validator from "./validator";
 import { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
-declare class Field implements IFieldProps {
+declare class Field implements IFieldProps, IFieldRuntimeProps {
     readonly _type: string;
     id: string;
     name: string;
