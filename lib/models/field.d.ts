@@ -17,6 +17,7 @@ declare class Field implements IFieldProps, IFieldRuntimeProps {
     helpText: string;
     placeholder: string;
     fieldOptions: IFieldOptions;
+    children: any;
     condition: Condition;
     storage: IFieldStorage;
     store: FormStore;

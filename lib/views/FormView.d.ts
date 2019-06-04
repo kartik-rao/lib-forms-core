@@ -4,7 +4,7 @@ interface FormComponentProps {
     store: FormStore;
 }
 export declare class FormView extends React.Component<FormComponentProps, any> {
-    setFieldError: any;
+    props: FormComponentProps;
     constructor(props: any);
     render(): JSX.Element;
 }
