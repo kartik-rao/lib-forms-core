@@ -14,8 +14,6 @@ export class SliderView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as ISliderProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-slider-field">
-            <Slider {...component} onChange={onChange}/>
-         </div>
+        return <Slider {...component} onChange={onChange}/>
     }
 }

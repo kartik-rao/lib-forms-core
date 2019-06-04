@@ -85,13 +85,11 @@ export class DateRangeView extends React.Component<IViewProps, any> {
 
     render() {
         let {field} = this.props;
-        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-daterange-field`}>
-            <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
+        return <span id={`${field.id}-start`} className="fl-daterange-field-start" style={{marginRight: '5px'}} >
             <DatePicker.RangePicker
                 onChange={this.onChange}
                 format={this.state.dateFormat}
                 />
-            </span>
-         </div>
+        </span>
     }
 }

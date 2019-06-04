@@ -14,8 +14,6 @@ export class CascaderView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as ICascaderProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-cascader-field">
-            <Cascader {...component} onChange={onChange}/>
-         </div>
+        return <Cascader {...component} onChange={onChange}/>;
     }
 }

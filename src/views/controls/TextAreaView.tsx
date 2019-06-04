@@ -13,8 +13,6 @@ export class TextAreaView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as ITextAreaProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-textarea-field">
-            <Input.TextArea {...component} onChange={onChange}/>
-         </div>
+        return <Input.TextArea {...component} onChange={onChange}/>
     }
 }

@@ -44,10 +44,22 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
 
         let {id} = field;
         // TODO Pass form layout to Field
-
-        return !field.isDisabled && <Form.Item label={field.label}
-            hasFeedback={store.touched[id] && store.errors[id] ? true : false}
+        const formItemLayout = {
+            labelCol: {
+              xs: { span: 24 },
+              sm: { span: 6 },
+            },
+            wrapperCol: {
+              xs: { span: 24 },
+              sm: { span: 14 },
+            },
+          };
+        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-${field.inputType}-${field.type}-field`}>{
+            !field.isDisabled && <Form.Item label={field.label}
+            hasFeedback={store.touched[id] && store.errors[id] ? true : null}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
+            id={id}
+            {...formItemLayout}
             help={store.touched[id] ? (store.errors[id] ? store.errors[id] : field.helpText): field.helpText}
             required={field.isRequired}>
                 {inputType == "input" && <InputView field={field} onChange={onChange} onBlur={onBlur}/>}
@@ -69,5 +81,6 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
                 {inputType == 'slider' && <SliderView field={field} onChange={onChange}/>}
                 {inputType == "textblock" && <TextBlockView field={field} onChange={onChange}></TextBlockView>}
             </Form.Item>
+        }</div>
     }
 }

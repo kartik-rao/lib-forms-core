@@ -21,6 +21,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
     helpText: string;
     placeholder: string;
     fieldOptions: IFieldOptions;
+    children: any;
     condition: Condition;
     storage: IFieldStorage;
     store: FormStore;
@@ -60,7 +61,8 @@ class Field implements IFieldProps, IFieldRuntimeProps {
         this.label = data.label;
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
-        this.componentProps = data.componentProps;
+        this.children = data.children || {};
+        this.componentProps = data.componentProps || {};
         this.location = data.location || {};
         this.touched = false;
 
@@ -139,7 +141,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
     }
 
     @action setCondition(condition: ICondition) {
-        if(condition == null) {
+        if(condition == null || !condition.predicates || condition.predicates.length == 0) {
             this.condition = null;
             this.conditionState = true;
             if(this._dispose) {

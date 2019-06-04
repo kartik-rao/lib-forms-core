@@ -1,14 +1,14 @@
-import Page, {IPage} from "./page";
-import {IFieldProps} from "./field.properties";
-import Field from "./field";
-import Column, {IColumn} from "./column";
-import Section, {ISection} from "./section";
-import {IFormProps} from "./form.properties";
-import Form from "./form";
 import FormStore from "../store/FormStore";
-import Condition, {ICondition} from "./condition";
-import Predicate, {IPredicate} from "./condition.predicate";
+import Column, { IColumn } from "./column";
 import { uuid } from "./common";
+import Condition, { ICondition } from "./condition";
+import Predicate, { IPredicate } from "./condition.predicate";
+import Field from "./field";
+import { IFieldProps } from "./field.properties";
+import Form from "./form";
+import { IFormProps } from "./form.properties";
+import Page, { IPage } from "./page";
+import Section, { ISection } from "./section";
 
 export class Factory {
     store: FormStore;

@@ -14,8 +14,6 @@ export class CheckboxView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as ICheckboxProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-checkbox-field">
-            <Checkbox {...component} onChange={onChange}/>
-         </div>
+        return <Checkbox {...component} onChange={onChange}/>
     }
 }

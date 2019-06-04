@@ -14,8 +14,6 @@ export class StarRatingView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as IStarRatingProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-starrating-field">
-            <Rate {...component} onChange={onChange}/>
-         </div>
+        return <Rate {...component} onChange={onChange}/>
     }
 }

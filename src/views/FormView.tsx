@@ -15,19 +15,14 @@ interface FormComponentProps {
 
 @observer
 export class FormView extends React.Component<FormComponentProps, any> {
-
-    setFieldError: any;
-
+    props: FormComponentProps
     constructor(props: any) {
         super(props);
+        this.props = props;
     }
 
     render() {
         const {store: formStore} = this.props;
-        let editorStore = new EditorStore({
-            formStore: formStore, field: formStore.form.content.pages[0].sections[0].columns[1].fields[0] as Field,
-            factory : new Factory(formStore)
-        });
 
         let {form} = formStore;
         let {content, formLayoutOptions} = form;

@@ -10,8 +10,6 @@ export class TextBlockView extends React.Component<IViewProps, any> {
 
     render() {
         let {field} = this.props;
-        return <div className="fl-field fl-textblock-field">
-            <p id={field.id} data-uuid={field.uuid}>{field.value}</p>
-         </div>
+        return <p id={field.id} data-uuid={field.uuid}>{field.value}</p>
     }
 }

@@ -1,6 +1,5 @@
 import { Col, Layout, Row } from "antd";
 import { enableLogging } from 'mobx-logger';
-import Devtools from "mobx-react-devtools";
 import React from 'react';
 import { render } from 'react-dom';
 import { Factory } from "./models/factory";
@@ -21,13 +20,13 @@ export function renderForm(selector:string, initialState: any) {
     let store = new FormStore();
     let factory = new Factory(store);
     let form: Form = factory.makeForm(initialState);
-
+    let {wrapperSpan, wrapperOffset} = form.formLayoutOptions;
+    console.log("Initial Form is ", form);
     render(
         <Layout style={{height:"100vh"}} >
-            {debug && <Devtools/>}
             <Row><br/></Row>
             <Row justify="space-around">
-                <Col span={form.formLayoutOptions.wrapperSpan} offset={form.formLayoutOptions.wrapperOffset}>
+                <Col span={wrapperSpan} offset={wrapperOffset}>
                     <FormView store={store}/>
                 </Col>
             </Row>

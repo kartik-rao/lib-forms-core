@@ -14,11 +14,7 @@ export class NumberView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange, onBlur} = this.props;
         let component = field.componentProps as INumberProps;
-
         let handleChange = (e) => {!!e ? onChange(parseInt(e)) : void(0)};
-
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-number-field">
-            <InputNumber {...component} onChange={handleChange} onBlur={onBlur}/>
-        </div>
+        return <InputNumber {...component} onChange={handleChange} onBlur={onBlur}/>
     }
 }

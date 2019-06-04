@@ -14,8 +14,6 @@ export class SwitchView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as ISwitchProps;
-        return <div id={field.id} data-uuid={field.uuid} className="fl-field fl-switch-field">
-            <Switch {...component} onChange={onChange}/>
-         </div>
+        return <Switch {...component} onChange={onChange}/>
     }
 }
