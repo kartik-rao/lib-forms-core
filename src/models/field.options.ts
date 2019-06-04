@@ -7,6 +7,6 @@ export interface IFieldOptions {
     rules?: any;
     trigger?: any;
     validateFirst?: any;
-    valuePropsName?: any;
+    valuePropName?: any;
     type?: any;
 }

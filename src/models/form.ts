@@ -193,7 +193,7 @@ class Form implements IFormProps {
         let payload = {};
         let values = toJS(this.values);
         Object.keys(this.values).forEach((id: string) => {
-            let key = meta[id].valuePropName || meta[id].name;
+            let key = meta[id].fieldOptions.valuePropName || meta[id].name;
             payload[key] = values[id];
         });
 

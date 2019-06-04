@@ -16,7 +16,7 @@ const F1: IFieldProps = {
         presence: {message: 'Required validation message'},
         length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
     },
-    valuePropName: "f1",
+    fieldOptions: {valuePropName: "f1"},
     componentProps: {
         placeholder: "Enter f1"
     }
@@ -30,7 +30,7 @@ const F2: IFieldProps= {id: "f2",
     validation: {
         presence: {message: 'Required validation message'}
     },
-    valuePropName: "f2",
+    fieldOptions: {valuePropName: "f2"},
     componentProps: {
         placeholder: "Enter f2"
     }

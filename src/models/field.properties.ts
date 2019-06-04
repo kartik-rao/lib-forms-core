@@ -71,6 +71,7 @@ export interface IInternalProps {
     helpPlacement?: string;
     queryParam?: string;
     saveable?: boolean;
+    location?: any;
 }
 
 // Marker interface, no special properties required;
@@ -178,13 +179,13 @@ export interface IFieldProps extends IInternalProps {
     type?: string;
     label?: string;
     value? : any;
+    touched?: boolean;
     inputType : string;
     helpText? : string;
     placeholder?: string;
-    valuePropName: string;
     condition?: ICondition;
     storage?: IFieldStorage;
     validation?: IValidationRule;
     componentProps: IComponentProps;
-    fieldOptions?: IFieldOptions;
+    fieldOptions: IFieldOptions;
 }

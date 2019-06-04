@@ -15,7 +15,7 @@ describe("Field", () => {
             name: "f2",
             type: "string",
             inputType : "text",
-            valuePropName: "firstName",
+            fieldOptions: {valuePropName: "firstName"},
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -38,7 +38,7 @@ describe("Field", () => {
             type: "string",
             inputType : "text",
             condition: c,
-            valuePropName: "firstName",
+            fieldOptions: {valuePropName: "firstName"},
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -80,7 +80,7 @@ describe("Field", () => {
                 presence: {message: 'Required validation message'},
                 length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
             },
-            valuePropName: "firstName",
+            fieldOptions: {valuePropName: "firstName"},
             componentProps: {
                 placeholder: "Enter first Name"
             }

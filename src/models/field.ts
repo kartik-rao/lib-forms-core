@@ -6,6 +6,7 @@ import {uuid} from "./common";
 import {IFieldProps, IComponentProps, IFieldStorage} from "./field.properties";
 import Validator from "./validator";
 import ValidationRule, { IValidationRule } from "./validation";
+import { IFieldOptions } from "./field.options";
 
 class Field implements IFieldProps {
     readonly _type : string = "Field";
@@ -19,10 +20,11 @@ class Field implements IFieldProps {
     inputType: string;
     helpText: string;
     placeholder: string;
-    valuePropName: string;
+    fieldOptions: IFieldOptions;
     condition: Condition;
     storage: IFieldStorage;
     store: FormStore;
+    location: any;
     conditionState: boolean;
     validator : Validator;
     validation: IValidationRule;
@@ -35,7 +37,9 @@ class Field implements IFieldProps {
         this.label = data.label;
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
-        this.valuePropName = data.valuePropName;
+        this.fieldOptions = {
+            valuePropName: data.fieldOptions.valuePropName
+        }
         this.componentProps = <IComponentProps>{...this.componentProps, ...data.componentProps};
         return;
     }
@@ -48,7 +52,8 @@ class Field implements IFieldProps {
         this.type = data.type;
         this.label = data.label;
         this.inputType = data.inputType;
-        this.valuePropName = data.valuePropName || this.name
+        this.fieldOptions = data.fieldOptions ? Object.assign({id: data.id}, {...data.fieldOptions}) : {id: data.id};
+        this.fieldOptions.valuePropName = (data.fieldOptions||{}).valuePropName || this.name;
         this.validation = data.validation;
         this.validator = new Validator({rule: new ValidationRule(data.validation), field: this, store: store});
         this.storage = data.storage;
@@ -56,6 +61,8 @@ class Field implements IFieldProps {
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
         this.componentProps = data.componentProps;
+        this.location = data.location || {};
+        this.touched = false;
 
         if (this.componentProps && this.componentProps['defaultValue']) {
             this.setValue(this.componentProps['defaultValue']);
@@ -63,7 +70,9 @@ class Field implements IFieldProps {
             this.setValue(this.componentProps['defaultChecked']);
         }
 
-        this.valuePropName = this.valuePropName ? this.valuePropName : `${this.id}_value`;
+        if (!this.fieldOptions.valuePropName) {
+            this.fieldOptions.valuePropName = `${this.id}_value`;
+        }
 
         if(this.inputType == 'daterange') {
             this.componentProps["startValuePropsName"] = !!this.componentProps["startValuePropsName"] ? this.componentProps["startValuePropsName"] : `start_date`;
@@ -179,7 +188,7 @@ decorate(Field, {
     helpText: observable,
     placeholder: observable,
     validation: observable,
-    valuePropName : observable,
+    fieldOptions: observable,
     condition: observable,
     storage: observable,
     conditionState: observable,
