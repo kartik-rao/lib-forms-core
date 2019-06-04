@@ -1,13 +1,9 @@
-import { Button, Card, Col, Form, Row, Steps, Icon } from "antd";
+import { Button, Card, Col, Form, Icon, Row, Steps } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Page from "../models/page";
 import FormStore from "../store/FormStore";
 import { PageView } from "./PageView";
-import { EditorView } from "./controls/properties/EditorView";
-import EditorStore from "./controls/properties/EditorStore";
-import { Factory } from "../models/factory";
-import Field from "../models/field";
 
 interface FormComponentProps {
     store: FormStore;
