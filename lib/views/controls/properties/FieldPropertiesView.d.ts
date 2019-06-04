@@ -10,5 +10,5 @@ declare class FieldPropertiesView extends React.Component<IFieldPropertiesViewPr
     updateOptions(options: ChoiceOption[]): void;
     render(): JSX.Element;
 }
-declare const WrappedFieldPropertiesView: import("antd/lib/form/interface").ConnectedComponentClass<typeof FieldPropertiesView, Pick<IFieldPropertiesViewProps, "wrappedComponentRef" | "editorStore">>;
+declare const WrappedFieldPropertiesView: import("antd/lib/form/interface").ConnectedComponentClass<typeof FieldPropertiesView, Pick<IFieldPropertiesViewProps, "editorStore" | "wrappedComponentRef">>;
 export default WrappedFieldPropertiesView;
