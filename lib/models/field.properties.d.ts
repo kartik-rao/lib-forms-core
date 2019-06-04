@@ -66,6 +66,7 @@ export interface IInternalProps {
     helpPlacement?: string;
     queryParam?: string;
     saveable?: boolean;
+    location?: any;
 }
 export interface ICheckboxProps extends CheckboxProps {
     defaultValue?: boolean;
@@ -145,13 +146,13 @@ export interface IFieldProps extends IInternalProps {
     type?: string;
     label?: string;
     value?: any;
+    touched?: boolean;
     inputType: string;
     helpText?: string;
     placeholder?: string;
-    valuePropName: string;
     condition?: ICondition;
     storage?: IFieldStorage;
     validation?: IValidationRule;
     componentProps: IComponentProps;
-    fieldOptions?: IFieldOptions;
+    fieldOptions: IFieldOptions;
 }

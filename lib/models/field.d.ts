@@ -3,6 +3,7 @@ import Condition, { ICondition } from "./condition";
 import { IFieldProps, IComponentProps, IFieldStorage } from "./field.properties";
 import Validator from "./validator";
 import { IValidationRule } from "./validation";
+import { IFieldOptions } from "./field.options";
 declare class Field implements IFieldProps {
     readonly _type: string;
     id: string;
@@ -15,10 +16,11 @@ declare class Field implements IFieldProps {
     inputType: string;
     helpText: string;
     placeholder: string;
-    valuePropName: string;
+    fieldOptions: IFieldOptions;
     condition: Condition;
     storage: IFieldStorage;
     store: FormStore;
+    location: any;
     conditionState: boolean;
     validator: Validator;
     validation: IValidationRule;

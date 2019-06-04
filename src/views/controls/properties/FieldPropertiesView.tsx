@@ -164,7 +164,7 @@ class FieldPropertiesView extends React.Component<IFieldPropertiesViewProps, any
                 <Form.Item label="Value property name" required>
                     {
                         getFieldDecorator("valuePropName", {
-                            initialValue: field.valuePropName,
+                            initialValue: field.fieldOptions.valuePropName,
                             rules: [
                                 {type: 'string'},
                                 {required: true, message: 'A value property name is required'},
