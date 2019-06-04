@@ -9,4 +9,5 @@ export interface IFieldOptions {
     validateFirst?: any;
     valuePropName?: any;
     type?: any;
+    format?: string;
 }
