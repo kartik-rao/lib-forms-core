@@ -14,6 +14,7 @@ import { SwitchProps } from "antd/lib/switch/index";
 import { SliderProps } from "antd/lib/slider";
 import { TextAreaProps } from "antd/lib/input";
 import { IValidationRule } from "./validation";
+import { IFieldOptions } from "./field.options";
 export declare class FieldTypes {
     static text: string;
     static input: string;
@@ -57,6 +58,14 @@ export interface TransferItem {
     disabled: boolean;
 }
 export interface IInternalProps {
+    icon?: string;
+    width?: number;
+    children?: any[];
+    showLabel?: boolean;
+    showLegend?: boolean;
+    helpPlacement?: string;
+    queryParam?: string;
+    saveable?: boolean;
 }
 export interface ICheckboxProps extends CheckboxProps {
     defaultValue?: boolean;
@@ -129,7 +138,7 @@ export interface IFieldStorage {
     isRequired: boolean;
     isSendable: boolean;
 }
-export interface IFieldProps {
+export interface IFieldProps extends IInternalProps {
     id: string;
     name: string;
     uuid?: string;
@@ -144,4 +153,5 @@ export interface IFieldProps {
     storage?: IFieldStorage;
     validation?: IValidationRule;
     componentProps: IComponentProps;
+    fieldOptions?: IFieldOptions;
 }
