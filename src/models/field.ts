@@ -3,12 +3,12 @@ import FormStore from "../store/FormStore";
 import Condition, { ICondition } from "./condition";
 import {uuid} from "./common";
 
-import {IFieldProps, IComponentProps, IFieldStorage} from "./field.properties";
+import {IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps} from "./field.properties";
 import Validator from "./validator";
 import ValidationRule, { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
 
-class Field implements IFieldProps {
+class Field implements IFieldProps, IFieldRuntimeProps {
     readonly _type : string = "Field";
     id: string;
     name: string;

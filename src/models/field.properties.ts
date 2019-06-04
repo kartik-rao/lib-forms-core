@@ -62,7 +62,7 @@ export interface TransferItem {
     disabled: boolean;
 }
 
-export interface IInternalProps {
+export interface IFieldInternalProps {
     icon?: string;
     width?: number;
     children?: any[];
@@ -72,6 +72,19 @@ export interface IInternalProps {
     queryParam?: string;
     saveable?: boolean;
     location?: any;
+}
+
+export interface IFieldRuntimeProps {
+    /** The following are computed values */
+    readonly isHidden : boolean;
+    readonly className : string;
+    readonly isTouched : boolean;
+    readonly isValidateable : boolean;
+    readonly isValid : boolean;
+    readonly isRequired : boolean;
+    readonly currentValue : any;
+    readonly isDisabled : boolean;
+    readonly serialize: string ;
 }
 
 // Marker interface, no special properties required;
@@ -172,14 +185,15 @@ export interface IFieldStorage {
     isSendable: boolean;
 }
 
-export interface IFieldProps extends IInternalProps {
+export interface IFieldProps extends IFieldInternalProps {
     id: string;
     name: string;
+    children?: any[];
     uuid?: string;
     type?: string;
     label?: string;
     value? : any;
-    touched?: boolean;
+
     inputType : string;
     helpText? : string;
     placeholder?: string;
