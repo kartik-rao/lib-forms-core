@@ -15,9 +15,6 @@ import Icons from '@kartikrao/uikit/dist/js/uikit-icons';
 // loads the Icon plugin
 UIkit.use(Icons);
 
-// components can be called from the imported UIkit reference
-UIkit.notification('Hello world.');
-
 enableLogging({
     action: true,
     reaction: false,
@@ -32,14 +29,18 @@ export function renderForm(selector:string, initialState: any) {
     let form: Form = factory.makeForm(initialState);
     console.log(initialState);
     render(
-        <Layout style={{height:"100vh"}} >
-            {debug && <Devtools/>}
-            <Row><br/></Row>
-            <Row justify="space-around">
-                <Col span={form.formLayoutOptions.wrapperSpan} offset={form.formLayoutOptions.wrapperOffset}>
-                    <FormView store={store}/>
-                </Col>
-            </Row>
-        </Layout> ,document.querySelector(selector)
+        <div className="fl-container">
+            <div className="fl-grid">
+                {debug && <Devtools/>}
+                <div className="fl-flex fl-flex-row">
+                    <div><br/></div>
+                    <div className="fl-flex fl-flex-column">
+                        <div className="fl-width-1-1">
+                            <FormView store={store}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> ,document.querySelector(selector)
     )
 };

@@ -9,3 +9,7 @@
 html body {
     width: 100%
 }
+
+fl-container {
+    max-width: 100%;
+}
