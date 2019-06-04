@@ -29,7 +29,6 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
     @action
     setRuleProperty(name: string, value: any) {
         this.properties = {...this.properties, [name]: value};
-        console.log(toJS(this.properties))
     }
 
     @action
@@ -100,7 +99,6 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
 
     @action
     applyRule = () => {
-        console.log(`Apply Rule`);
         if (this.isEditing == true) {
             this.props.editorStore.updateValidationRule(this.ruleType, this.properties);
         } else {
@@ -221,7 +219,6 @@ export class ValidationView extends React.Component<IFieldEditorView,any> {
                                 this.setRuleProperty('maximum', null)
                                 this.setRuleProperty('minimum', null)
                                 this.setRuleProperty('is', e)
-                                console.log(this);
                             }
                         }}>
                        </InputNumber>

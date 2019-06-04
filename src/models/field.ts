@@ -1,9 +1,9 @@
-import { action, computed, decorate, observable, observe, toJS, reaction } from "mobx";
+import { action, computed, decorate, observable, observe, toJS } from "mobx";
 import FormStore from "../store/FormStore";
 import Condition, { ICondition } from "./condition";
 import {uuid} from "./common";
 
-import {IFieldProps, IComponentProps, IFieldStorage, ChoiceOption} from "./field.properties";
+import {IFieldProps, IComponentProps, IFieldStorage} from "./field.properties";
 import Validator from "./validator";
 import ValidationRule, { IValidationRule } from "./validation";
 
@@ -36,7 +36,7 @@ class Field implements IFieldProps {
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
         this.valuePropName = data.valuePropName;
-        this.componentProps = {...this.componentProps, ...data.componentProps};
+        this.componentProps = <IComponentProps>{...this.componentProps, ...data.componentProps};
         return;
     }
 
@@ -56,7 +56,7 @@ class Field implements IFieldProps {
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
         this.componentProps = data.componentProps;
-        console.log(this.inputType, this.componentProps);
+
         if (this.componentProps && this.componentProps['defaultValue']) {
             this.setValue(this.componentProps['defaultValue']);
         } else if (this.componentProps && this.componentProps['defaultChecked']) {

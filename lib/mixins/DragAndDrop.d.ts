@@ -1,11 +1,10 @@
 import * as React from "react";
 import FormStore from "../store/FormStore";
-import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
 declare type Constructor<T = {}> = new (...args: any[]) => T;
 export declare function getMixinType<T>(C: Constructor<T>): T;
 export declare function mixinDragDropContext<TBase extends Constructor>(Base: TBase): {
     new (...args: any[]): {
-        onDragEnd(result: DropResult, provided: ResponderProvided): void;
+        onDragEnd(result: any, provided: any): void;
     };
 } & TBase;
 export interface DroppableWrapperProps {

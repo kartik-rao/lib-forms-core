@@ -24,9 +24,7 @@ export class ChoiceOptionEditorView extends React.Component<IChoiceOptionEditorP
 
     constructor(props: IChoiceOptionEditorProps) {
         super(props);
-        console.log(props.items);
         this.initialize(props);
-
     }
 
     @action initialize(props: IChoiceOptionEditorProps) {

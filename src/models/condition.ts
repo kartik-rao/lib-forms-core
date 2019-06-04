@@ -39,7 +39,6 @@ class Condition {
     }
 
     reduce(lhs:any, rhs:any, op: string) : boolean {
-        console.log("Reduce", lhs, rhs, op)
         if (op == 'and') {
             return lhs && rhs;
         } else {

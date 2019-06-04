@@ -105,7 +105,6 @@ class ValidationRule implements IValidationRule {
 
     @action removeConstraint(key: string) {
         this[key] = null;
-        console.log("After remove constraint", this.constraints);
     }
 }
 

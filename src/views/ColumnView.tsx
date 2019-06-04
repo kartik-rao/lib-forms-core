@@ -25,8 +25,6 @@ export class ColumnView extends React.Component<ColumnProps, any> {
     render() {
         let {store, column} = this.props;
         const { fields } = column;
-        console.log(toJS(column));
-        // TODO : Write reusable DnD wrapper
         return  <div id={column.id} className="form-col">
             <Col span={column.span ? column.span : this.props.span}>
                 {fields.map((field: Field) => {

@@ -7,10 +7,13 @@ import { IFieldProps, ISelectProps, ChoiceOption } from "../../../models/field.p
 import { FormComponentProps } from "antd/lib/form";
 import { ChoiceOptionEditorView } from "./partials/ChoiceOptionEditorView";
 
+export interface IFieldPropertiesViewProps extends FormComponentProps, IFieldEditorView {
+
+}
 
 @observer
-class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEditorView, any> {
-    constructor(props: FormComponentProps&IFieldEditorView) {
+class FieldPropertiesView extends React.Component<IFieldPropertiesViewProps, any> {
+    constructor(props: IFieldPropertiesViewProps) {
         super(props);
     }
 
@@ -187,5 +190,5 @@ class FieldPropertiesView extends React.Component<FormComponentProps&IFieldEdito
     }
 }
 
-const WrappedFieldPropertiesView = Form.create({ name: 'FieldPropertiesView' })(FieldPropertiesView);
+const WrappedFieldPropertiesView = Form.create<IFieldPropertiesViewProps>({ name: 'FieldPropertiesView' })(FieldPropertiesView);
 export default WrappedFieldPropertiesView;
