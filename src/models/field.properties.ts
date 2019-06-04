@@ -1,4 +1,3 @@
-import FormStore from "../store/FormStore";
 import { InputProps } from "antd/lib/input/Input";
 import { CheckboxProps } from "antd/lib/checkbox/Checkbox";
 import { CheckboxGroupProps } from "antd/lib/checkbox/index";
@@ -15,6 +14,7 @@ import { SwitchProps } from "antd/lib/switch/index";
 import { SliderProps } from "antd/lib/slider";
 import { TextAreaProps } from "antd/lib/input";
 import { IValidationRule } from "./validation";
+import { IFieldOptions } from "./field.options";
 
 /* CheckboxGroupProps|CheckboxProps|InputProps  */
 export class FieldTypes {
@@ -63,7 +63,14 @@ export interface TransferItem {
 }
 
 export interface IInternalProps {
-
+    icon?: string;
+    width?: number;
+    children?: any[];
+    showLabel?: boolean;
+    showLegend?: boolean;
+    helpPlacement?: string;
+    queryParam?: string;
+    saveable?: boolean;
 }
 
 // Marker interface, no special properties required;
@@ -164,7 +171,7 @@ export interface IFieldStorage {
     isSendable: boolean;
 }
 
-export interface IFieldProps {
+export interface IFieldProps extends IInternalProps {
     id: string;
     name: string;
     uuid?: string;
@@ -179,4 +186,5 @@ export interface IFieldProps {
     storage?: IFieldStorage;
     validation?: IValidationRule;
     componentProps: IComponentProps;
+    fieldOptions?: IFieldOptions;
 }
