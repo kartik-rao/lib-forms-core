@@ -56,9 +56,6 @@ export class FormView extends React.Component<FormComponentProps, any> {
                                 </Row>
                             </Card>
                         </div>
-                        <div>Errors<br/>{JSON.stringify(formStore.errors)}</div>
-                        <div>Touched<br/>{JSON.stringify(formStore.touched)}</div>
-                        <div>Values<br/>{JSON.stringify(formStore.values)}</div>
                     </Form>
                 </Col>
             </Row>
