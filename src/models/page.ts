@@ -113,7 +113,7 @@ class Page implements IPage {
     @action private initialize(data: IPage, store: FormStore) {
         this.id = data.id;
         this.store = store;
-        this.uuid = valueOrDefault(data.uuid, uuid());
+        this.uuid = data.uuid;
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
         this.icon = valueOrDefault(data.name, "");
         this.sections = valueOrDefault(<Section[]>data.sections, <Section[]>[]);

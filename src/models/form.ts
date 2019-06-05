@@ -6,7 +6,7 @@ import FormStore from "../store/FormStore";
 import { FormEvent } from "react";
 import Field from "./field";
 
-import {IFormProps, IFormTenant, IFormContent, IFormLayoutOptions, IFormStatus} from "./form.properties";
+import {IFormProps, IFormTenant, IFormContent, IFormLayoutOptions, IFormStatus, IFormItemLayoutOptions} from "./form.properties";
 import { IValidationError } from "./validation";
 
 class Form implements IFormProps {
@@ -22,6 +22,7 @@ class Form implements IFormProps {
     stopSubmit: boolean;
     submitTarget: string;
     formLayoutOptions: IFormLayoutOptions;
+    itemLayoutOptions: IFormItemLayoutOptions;
     store: FormStore
     submitError: string;
     successRedirect: string;
@@ -123,6 +124,7 @@ class Form implements IFormProps {
 
         this.layout = valueOrDefault(data.layout, "vertical");
         this.formLayoutOptions = valueOrDefault(data.formLayoutOptions, {});
+        this.itemLayoutOptions = data.itemLayoutOptions || {};
     }
 
     constructor(data: IFormProps, store: FormStore) {
@@ -233,7 +235,8 @@ decorate(Form, {
     stopSubmit: observable,
     submitTarget: observable,
     submitError: observable,
-    formLayoutOptions: observable
+    formLayoutOptions: observable,
+    itemLayoutOptions: observable
 });
 
 export default Form;

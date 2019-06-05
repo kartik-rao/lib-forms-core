@@ -8,20 +8,21 @@ import FormStore from "./store/FormStore";
 import { FormView } from "./views/FormView";
 import "./app.css";
 
+const debug = (window && window.location.hostname.indexOf('localhost') > -1) ? true : false;
+
 enableLogging({
-    action: true,
+    action: debug,
     reaction: false,
     transaction: false,
     compute: false
 });
 
 export function renderForm(selector:string, initialState: any) {
-    let debug = (window && window.location.hostname.indexOf('localhost') > -1) ? true : false;
     let store = new FormStore();
     let factory = new Factory(store);
     let form: Form = factory.makeForm(initialState);
     let {wrapperSpan, wrapperOffset} = form.formLayoutOptions;
-    console.log("Initial Form is ", form);
+
     render(
         <Layout style={{height:"100vh"}} >
             <Row><br/></Row>
@@ -30,6 +31,6 @@ export function renderForm(selector:string, initialState: any) {
                     <FormView store={store}/>
                 </Col>
             </Row>
-        </Layout> ,document.querySelector(selector)
+        </Layout>, document.querySelector(selector)
     )
 };

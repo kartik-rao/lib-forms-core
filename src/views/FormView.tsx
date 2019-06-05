@@ -23,7 +23,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
         let {form} = formStore;
         let {content, formLayoutOptions} = form;
 
-        return (<div className="form-wrapper">
+        return (<div className="fl-form-wrap">
             {content.title && <Row>
                    <Col span={20}>
                         <Card><h2>{content.title}</h2><br/><h3>{content.subtitle}</h3></Card>
@@ -44,10 +44,8 @@ export class FormView extends React.Component<FormComponentProps, any> {
             <Row>
                 <Col span={20}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
-                        <div className="page-wrapper">
-                            <PageView page={content.pages[formStore.currentPage] as Page} store={formStore}></PageView>
-                        </div>
-                        <div className="page-actions">
+                        <PageView page={content.pages[formStore.currentPage] as Page} store={formStore}></PageView>
+                        <div className="fl-form-actions">
                             <Card>
                                 <Row>
                                     <Col span={24} style={{ textAlign: 'right' }}>

@@ -73,7 +73,7 @@ class Column implements IColumn {
     }
 
     @action initialize(data: IColumn, store: FormStore) {
-        this.uuid = valueOrDefault(data.uuid, uuid());
+        this.uuid = data.uuid;
         this.store = store;
         this.id = data.id;
         this.span = data.span;

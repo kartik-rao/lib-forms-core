@@ -48,7 +48,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
     @action initialize(data: IFieldProps, store: FormStore) {
         this.store = store;
         this.id = data.id;
-        this.uuid = data.uuid || uuid();
+        this.uuid = data.uuid;
         this.name = data.name || `${this._type}_${data.id}`;
         this.type = data.type;
         this.label = data.label;

@@ -33,33 +33,24 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
     }
 
     render() {
-        const {field, store} = this.props;
-        const {inputType} = field;
+        const { field, store } = this.props;
+        const { itemLayoutOptions } = store.form;
 
         let onChange = (e) => {
             let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
             field.setValue(value);
         };
+
         let onBlur = () => field.setTouched();
 
-        let {id} = field;
-        // TODO Pass form layout to Field
-        const formItemLayout = {
-            labelCol: {
-              xs: { span: 24 },
-              sm: { span: 6 },
-            },
-            wrapperCol: {
-              xs: { span: 24 },
-              sm: { span: 14 },
-            },
-          };
-        return <div id={field.id} data-uuid={field.uuid} className={`fl-field fl-${field.inputType}-${field.type}-field`}>{
-            !field.isDisabled && <Form.Item label={field.label}
+        let {id, inputType, type } = field;
+        let fieldClass = inputType == type ? inputType : `${inputType}-${type}`;
+
+        return <div id={`fl-field-${field.id}`} data-uuid={field.uuid} className={`fl-field fl-field-${fieldClass}`}>
+            { !field.isDisabled && <Form.Item label={field.label}
             hasFeedback={store.touched[id] && store.errors[id] ? true : null}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
-            id={id}
-            {...formItemLayout}
+            {...itemLayoutOptions}
             help={store.touched[id] ? (store.errors[id] ? store.errors[id] : field.helpText): field.helpText}
             required={field.isRequired}>
                 {inputType == "input" && <InputView field={field} onChange={onChange} onBlur={onBlur}/>}
@@ -80,7 +71,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
                 {inputType == 'transfer' && <TransferView field={field} onChange={onChange} />}
                 {inputType == 'slider' && <SliderView field={field} onChange={onChange}/>}
                 {inputType == "textblock" && <TextBlockView field={field} onChange={onChange}></TextBlockView>}
-            </Form.Item>
-        }</div>
+                </Form.Item> }
+        </div>
     }
 }

@@ -25,9 +25,9 @@ export class PageView extends React.Component<PageProps, any> {
 
     render() {
         let {store, page} = this.props;
-        return <div className="page-content">
+        return <div className="fl-page-wrap">
             <Card title={page.title}>
-                <div className="page">
+                <div id={`fl-page-${store.currentPage}`} className="fl-page" data-uuid={page.uuid}>
                     {page.sections.map((section: Section, sn: number) => {
                         return <SectionView key={section.uuid} store={store} section={section}></SectionView>
                     })}

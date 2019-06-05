@@ -71,7 +71,7 @@ class Section implements ISection {
 
     @action initialize(data: ISection, store: FormStore) {
         this.id = data.id;
-        this.uuid = valueOrDefault(data.uuid, uuid());
+        this.uuid = data.uuid;
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
         this.title = valueOrDefault(data.title, '');
         this.gutter = valueOrDefault(data.gutter, 0);

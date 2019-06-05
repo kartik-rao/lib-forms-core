@@ -25,7 +25,7 @@ export class SectionView extends React.Component<SectionProps, any> {
         const numColumns = section.columns.length;
         // Handle form layout options
 
-        return <div id={section.id}>
+        return <div className="fl-section" data-uuid={section.uuid}>
             <Card bordered={true} title={section.name}>
                 <Row gutter={section.gutter || 4}>
                     {section.columns.map((column: Column, cn: number) => {

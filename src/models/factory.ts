@@ -17,19 +17,23 @@ export class Factory {
         this.store = store;
     }
 
+    setUUID<T>(item: T) {
+        if (!item['uuid']) {
+            item['uuid'] = uuid();
+        }
+    }
+
     makePredicates(...predicates: IPredicate[]) : Predicate[] {
         let response: Predicate[] = [];
         predicates.forEach((predicate: IPredicate) => {
-            if(!predicate.uuid) {
-                predicate.uuid = uuid();
-            }
+            this.setUUID(predicate);
             response.push(new Predicate(predicate, this.store));
         });
         return response;
 
     }
 
-    makeCondition(condition: ICondition) {
+    makeCondition(condition: ICondition) : Condition {
         let predicates = this.makePredicates(...condition.predicates);
         return new Condition({predicates: predicates}, this.store);
     }
@@ -38,7 +42,8 @@ export class Factory {
         if (!fields || fields.length == 0) {
             return <Field[]>[];
         }
-        return fields.reduce((r: Field[], f:IFieldProps) => {
+        return fields.reduce((r: Field[], f: IFieldProps) => {
+            this.setUUID(f);
             r.push(new Field({...f, condition: f.condition}, this.store));
             return r;
         }, <Field[]>[]);
@@ -50,7 +55,8 @@ export class Factory {
             return response;
         }
 
-        columns.forEach((c: IColumn)=> {
+        columns.forEach((c: IColumn) => {
+            this.setUUID(c);
             let fields = this.makeFields(...c.fields);
             let column = new Column({...c, fields: fields}, this.store);
             response.push(column);
@@ -64,6 +70,7 @@ export class Factory {
             return <Section[]>[];
         }
         sections.forEach((s: ISection) => {
+            this.setUUID(s);
             let columns = s.columns && s.columns.length > 0 ? this.makeColumns(...s.columns) : <Column[]>[];
             response.push(new Section({...s, columns: columns}, this.store));
         });
@@ -76,6 +83,7 @@ export class Factory {
         }
         let response: Page[] = [];
         pages.forEach((page: IPage) => {
+            this.setUUID(page);
             let sections = this.makeSections(...page.sections);
             response.push(new Page({...page, sections: sections}, this.store));
         });

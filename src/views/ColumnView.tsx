@@ -5,7 +5,6 @@ import Column from "../models/column";
 import Field from "../models/field";
 import FormStore from "../store/FormStore";
 import { FieldView } from "./FieldView";
-import { toJS } from "mobx";
 
 export interface ColumnProps {
     column: Column;
@@ -25,7 +24,7 @@ export class ColumnView extends React.Component<ColumnProps, any> {
     render() {
         let {store, column} = this.props;
         const { fields } = column;
-        return  <div id={column.id} className="form-col">
+        return <div className="fl-col" data-uuid={column.uuid}>
             <Col span={column.span ? column.span : this.props.span}>
                 {fields.map((field: Field) => {
                     return <FieldView field={field} store={store} key={field.uuid}></FieldView>
