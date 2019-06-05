@@ -59,6 +59,10 @@ export interface IFormLayoutOptions {
     wrapperSpan?: number;
     wrapperOffset?: number;
 }
+export interface IFormItemLayoutOptions {
+    labelCol?: any;
+    wrapperCol?: any;
+}
 export interface IFormProps {
     id: string;
     uuid?: string;
@@ -71,6 +75,7 @@ export interface IFormProps {
     values?: any;
     layout?: any;
     formLayoutOptions?: IFormLayoutOptions;
+    itemLayoutOptions?: IFormItemLayoutOptions;
     stopSubmit?: boolean;
     submitTarget?: string;
     successRedirect?: string;

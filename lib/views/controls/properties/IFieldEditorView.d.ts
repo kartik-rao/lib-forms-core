@@ -1,4 +1,4 @@
-import EditorStore from "./EditorStore";
+import EditorStore from "../../../store/EditorStore";
 export interface IFieldEditorView {
     editorStore: EditorStore;
 }

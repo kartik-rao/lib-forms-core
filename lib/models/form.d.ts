@@ -2,7 +2,7 @@ import Page from "./page";
 import FormStore from "../store/FormStore";
 import { FormEvent } from "react";
 import Field from "./field";
-import { IFormProps, IFormTenant, IFormContent, IFormLayoutOptions, IFormStatus } from "./form.properties";
+import { IFormProps, IFormTenant, IFormContent, IFormLayoutOptions, IFormStatus, IFormItemLayoutOptions } from "./form.properties";
 import { IValidationError } from "./validation";
 declare class Form implements IFormProps {
     id: string;
@@ -17,6 +17,7 @@ declare class Form implements IFormProps {
     stopSubmit: boolean;
     submitTarget: string;
     formLayoutOptions: IFormLayoutOptions;
+    itemLayoutOptions: IFormItemLayoutOptions;
     store: FormStore;
     submitError: string;
     successRedirect: string;
