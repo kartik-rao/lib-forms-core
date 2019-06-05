@@ -25,14 +25,18 @@ module.exports = {
                         ],
                         getCustomTransformers: () => ({
                             before: [ tsImportPluginFactory( {
-                                libraryName: 'antd',
-                                libraryDirectory: 'node_modules',
-                                style: true
+                                libraryDirectory: 'es',
+                                style: 'css'
                               }) ]
-                        })
+                        }),
+                        compilerOptions: {
+                            module: 'esnext',
+                            allowJs: true,
+                            declaration: false,
+                        }
                     }
                 },
-                exclude: /\/node_modules\//
+                exclude: /node_modules/
             },
             { test: /\.png$|\.eot$|\.woff$|\.ttf$/, loader: "url-loader?limit=100000" },
             {
@@ -68,7 +72,7 @@ module.exports = {
         port: 8080
     },
     plugins: [
-            // Ignore all locale files of moment.js
+        // Ignore all locale files of moment.js
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
         new HtmlWebpackPlugin({template: 'public/template.html', inject: false}),
