@@ -1,6 +1,6 @@
 import {action, decorate, observable, computed, toJS} from "mobx";
 import axios from "axios";
-import {valueOrDefault, uuid} from "./common";
+import {valueOrDefault} from "./common";
 import Page from "./page";
 import FormStore from "../store/FormStore";
 import { FormEvent } from "react";
@@ -31,7 +31,7 @@ class Form implements IFormProps {
     @action initialize(data: IFormProps, store: FormStore) {
         this.store = store;
         this.id = data.id;
-        this.uuid = valueOrDefault(data.uuid, uuid());
+        this.uuid = data.uuid;
         this.exid = valueOrDefault(data.exid, null);
         this.desc = valueOrDefault(data.desc, null);
         if (data.tenant) {

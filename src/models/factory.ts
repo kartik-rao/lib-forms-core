@@ -1,6 +1,6 @@
 import FormStore from "../store/FormStore";
 import Column, { IColumn } from "./column";
-import { uuid } from "./common";
+const uuidv1 = require('uuid/v1');
 import Condition, { ICondition } from "./condition";
 import Predicate, { IPredicate } from "./condition.predicate";
 import Field from "./field";
@@ -19,7 +19,7 @@ export class Factory {
 
     setUUID<T>(item: T) {
         if (!item['uuid']) {
-            item['uuid'] = uuid();
+            item['uuid'] = uuidv1();
         }
     }
 

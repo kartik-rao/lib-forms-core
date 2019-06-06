@@ -1,7 +1,6 @@
 import { action, computed, decorate, observable, observe, toJS } from "mobx";
 import FormStore from "../store/FormStore";
 import Condition, { ICondition } from "./condition";
-import {uuid} from "./common";
 
 import {IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps} from "./field.properties";
 import Validator from "./validator";

@@ -1,7 +1,7 @@
 import Column, {IColumn} from "./column";
 import {action, decorate, observable, computed} from "mobx";
 import FormStore from "../store/FormStore";
-import {valueOrDefault, uuid} from "./common";
+import {valueOrDefault} from "./common";
 import Field from "./field";
 import { IValidationError } from "./validation";
 

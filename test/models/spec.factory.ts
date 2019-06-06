@@ -76,7 +76,10 @@ describe('Factory', () => {
             fields[0].setValue("qq");
             expect(fields[1].conditionState).toEqual(true);
         });
-
+        it("created fields have unique uuid", () => {
+            let fields = factory.makeFields(F1, F2);
+            expect(fields[0].uuid == fields[1].uuid).toBeFalsy();
+        });
         it("created fields have observable validation state", () => {
             let fields = factory.makeFields(F1, F2);
             expect(fields[0].isValid).toEqual(false);

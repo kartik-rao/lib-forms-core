@@ -3,7 +3,7 @@ import FormStore from "../store/FormStore";
 import Column from "./column";
 import Field from "./field";
 import {action, decorate, observable, computed} from "mobx";
-import {valueOrDefault, uuid} from "./common";
+import {valueOrDefault} from "./common";
 import { IValidationError } from "./validation";
 
 export interface IPage {

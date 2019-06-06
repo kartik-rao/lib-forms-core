@@ -2,7 +2,7 @@ import {action, decorate, observable, computed} from "mobx";
 import {IFieldProps} from "./field.properties";
 import Field from "./field";
 import FormStore from "../store/FormStore";
-import {valueOrDefault, uuid} from "./common";
+import {valueOrDefault} from "./common";
 import { IValidationError } from "./validation";
 
 export interface IColumn {
