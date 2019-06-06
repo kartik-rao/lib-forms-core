@@ -95,7 +95,7 @@ class Page implements IPage {
     }
 
     @action addSection(section: Section, index?: number) : void {
-        if (index) {
+        if (typeof index != 'undefined' && index != null && index > -1) {
             this.sections.splice(index, 0, section);
         } else {
             this.sections.push(section);
