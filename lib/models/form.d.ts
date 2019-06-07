@@ -29,6 +29,7 @@ declare class Form implements IFormProps {
     readonly numFields: number;
     addPage(p: Page, index?: number): void;
     removePage(index: number): void;
+    swapPages(index1: number, index2: number): void;
     movePage(atIndex: number, toIndex: number): void;
     readonly isSubmittable: boolean;
     readonly idFieldMap: {
