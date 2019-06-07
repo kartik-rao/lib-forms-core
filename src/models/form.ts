@@ -159,6 +159,11 @@ class Form implements IFormProps {
         this.content.pages.splice(index, 1);
     }
 
+    @action swapPages(index1: number, index2: number): void {
+        let { pages } = this.content;
+        [pages[index1], pages[index2]] = [pages[index2], pages[index1]];
+    }
+
     @action movePage(atIndex: number, toIndex: number) : void {
         this.content.pages.splice(toIndex, 0, this.content.pages.splice(atIndex, 1)[0]);
     }
