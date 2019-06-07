@@ -22,16 +22,16 @@ export class FormView extends React.Component<FormComponentProps, any> {
 
         let {form} = formStore;
         let {content, formLayoutOptions} = form;
-
+        let { wrapperSpan } = formLayoutOptions;
         return (<div className="fl-form-wrap">
             {content.title && <Row>
-                   <Col span={20}>
+                   <Col span={wrapperSpan}>
                         <Card><h2>{content.title}</h2><br/><h3>{content.subtitle}</h3></Card>
                     </Col>
                 </Row>
             }
             {formLayoutOptions.showSteps && <Row>
-                <Col span={20}>
+                <Col span={wrapperSpan}>
                     <Card>
                         <Steps size="small" current={formStore.currentPage}>
                             {content.pages.map((page: Page, pn: number) => {
@@ -42,7 +42,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
                 </Col>
             </Row>}
             <Row>
-                <Col span={20}>
+                <Col span={wrapperSpan}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
                         <PageView page={content.pages[formStore.currentPage] as Page} store={formStore}></PageView>
                         <div className="fl-form-actions">
