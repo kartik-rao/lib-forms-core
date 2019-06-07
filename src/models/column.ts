@@ -64,6 +64,11 @@ class Column implements IColumn {
         this.fields.splice(index, 1)
     }
 
+    @action swapFields(index1: number, index2: number): void {
+        let { fields } = this;
+        [fields[index1], fields[index2]] = [fields[index2], fields[index1]];
+    }
+
     @action moveField(atIndex: number, toIndex: number) {
         this.fields.splice(toIndex, 0, this.fields.splice(atIndex, 1)[0]);
     }

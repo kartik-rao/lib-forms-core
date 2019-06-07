@@ -106,6 +106,11 @@ class Page implements IPage {
         this.sections.splice(index, 1)
     }
 
+    @action swapSections(index1: number, index2: number): void {
+        let { sections } = this;
+        [sections[index1], sections[index2]] = [sections[index2], sections[index1]];
+    }
+
     @action moveSection(atIndex: number, toIndex: number) {
         this.sections.splice(toIndex, 0, this.sections.splice(atIndex, 1)[0]);
     }

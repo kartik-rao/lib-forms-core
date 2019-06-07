@@ -49,6 +49,11 @@ class Section implements ISection {
         this.columns.splice(index, 1)
     }
 
+    @action swapColumns(index1: number, index2: number): void {
+        let { columns } = this;
+        [columns[index1], columns[index2]] = [columns[index2], columns[index1]];
+    }
+
     @action moveColumn(atIndex: number, toIndex: number) {
         this.columns.splice(toIndex, 0, this.columns.splice(atIndex, 1)[0]);
     }
