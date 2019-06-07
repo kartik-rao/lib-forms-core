@@ -29,6 +29,7 @@ declare class Column implements IColumn {
     addField(field: Field, index?: number): void;
     addFields(...fields: Field[]): void;
     removeField(index: number): void;
+    swapFields(index1: number, index2: number): void;
     moveField(atIndex: number, toIndex: number): void;
     constructor(data: IColumn, store: any);
     initialize(data: IColumn, store: FormStore): void;

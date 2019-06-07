@@ -32,6 +32,7 @@ declare class Page implements IPage {
     readonly numFields: number;
     addSection(section: Section, index?: number): void;
     removeSection(index: number): void;
+    swapSections(index1: number, index2: number): void;
     moveSection(atIndex: number, toIndex: number): void;
     private initialize;
     constructor(data: IPage, store: FormStore);

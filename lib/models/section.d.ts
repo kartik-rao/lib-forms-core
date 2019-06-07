@@ -23,6 +23,7 @@ declare class Section implements ISection {
     readonly numFields: number;
     addColumn(column: Column, index?: number): void;
     removeColumn(index: number): void;
+    swapColumns(index1: number, index2: number): void;
     moveColumn(atIndex: number, toIndex: number): void;
     readonly numColumns: number;
     readonly isValid: boolean;

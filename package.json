@@ -1,6 +1,6 @@
 {
   "name": "@kartikrao/lib-forms-core",
-  "version": "3.8.5",
+  "version": "3.8.6",
   "description": "Core interfaces for forms",
   "main": "lib/index.js",
   "scripts": {
