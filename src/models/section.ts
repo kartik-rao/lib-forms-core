@@ -38,7 +38,7 @@ class Section implements ISection {
     }
 
     @action addColumn(column: Column, index?: number) : void {
-        if (index) {
+        if (typeof index != 'undefined' && index != null && index > -1) {
             this.columns.splice(index, 0, column);
         } else {
             this.columns.push(column);

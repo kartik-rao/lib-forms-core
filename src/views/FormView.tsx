@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Icon, Row, Steps } from "antd";
+import { Button, Card, Col, Form, Icon, Row, Steps, PageHeader, Statistic, Layout } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Page from "../models/page";
@@ -22,31 +22,29 @@ export class FormView extends React.Component<FormComponentProps, any> {
 
         let {form} = formStore;
         let {content, formLayoutOptions} = form;
-        let { wrapperSpan } = formLayoutOptions;
-        return (<div className="fl-form-wrap">
+        let { wrapperSpan, wrapperOffset } = formLayoutOptions;
+        return (
+            <Layout>
+            <Row>
+                <Col span={wrapperSpan} offset={wrapperOffset}>
+            <div className="fl-form-wrap">
             {content.title && <Row>
-                   <Col span={wrapperSpan}>
-                        <Card><h2>{content.title}</h2><br/><h3>{content.subtitle}</h3></Card>
+                <Col span={wrapperSpan}>
+                    <PageHeader title={content.title} subTitle={content.subtitle} extra={(form.formLayoutOptions.showSteps && <div>
+                        <Statistic title="Page" value={formStore.currentPage + 1} suffix={"/ " + content.pages.length} />
+                    </div>)} />
+                        <div className="fl-ph-wrap">
+                        <div className="fl-ph-content fl-ph-padding">{form.desc}</div>
+                        </div>
                     </Col>
                 </Row>
             }
-            {formLayoutOptions.showSteps && <Row>
-                <Col span={wrapperSpan}>
-                    <Card>
-                        <Steps size="small" current={formStore.currentPage}>
-                            {content.pages.map((page: Page, pn: number) => {
-                                return <Steps.Step title={page.title} key={pn}/>
-                            })}
-                        </Steps>
-                    </Card>
-                </Col>
-            </Row>}
             <Row>
                 <Col span={wrapperSpan}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout}>
                         <PageView page={content.pages[formStore.currentPage] as Page} store={formStore}></PageView>
                         <div className="fl-form-actions">
-                            <Card>
+                            <Card bordered={false}>
                                 <Row>
                                     <Col span={24} style={{ textAlign: 'right' }}>
                                         { formStore.currentPage == content.pages.length -1 && <Button disabled={Object.keys(formStore.touched).length == 0 || !form.isValid || formStore.isSubmitting } type="primary" style={{ marginLeft: 8 }} htmlType="submit" className="action-button">Submit</Button>}
@@ -60,6 +58,11 @@ export class FormView extends React.Component<FormComponentProps, any> {
                 </Col>
             </Row>
         </div>
+            </Col>
+            </Row>
+        </Layout>
         )
     }
 }
+
+

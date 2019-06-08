@@ -49,7 +49,7 @@ class Column implements IColumn {
     }
 
     @action addField(field: Field, index?: number) : void {
-        if (index) {
+        if (typeof index != 'undefined' && index != null && index > -1) {
             this.fields.splice(index, 0, field);
         } else {
             this.fields.push(field);

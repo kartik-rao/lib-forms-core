@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Card, Row} from "antd";
+import {Card, Row, Divider} from "antd";
 import {ColumnView} from "./ColumnView";
 import { observer } from "mobx-react";
 import Column from "../models/column";
@@ -23,13 +23,13 @@ export class SectionView extends React.Component<SectionProps, any> {
     render() {
         let {store, section} = this.props;
         const numColumns = section.columns.length;
-        // Handle form layout options
+        let span = numColumns <= 1 ? 8 : 24 / numColumns;
 
         return <div className="fl-section" data-uuid={section.uuid}>
-            <Card bordered={true} title={section.name}>
+            <Card bordered={false} title={section.name} style={{padding: "0px"}} size="small">
                 <Row gutter={section.gutter || 4}>
                     {section.columns.map((column: Column, cn: number) => {
-                        return <ColumnView store={store} key={column.uuid} column={column} span={24/numColumns}/>
+                        return <ColumnView store={store} key={column.uuid} column={column} span={span}/>
                     })}
                 </Row>
             </Card>

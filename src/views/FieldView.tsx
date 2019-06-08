@@ -70,7 +70,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
                 {inputType == 'switch' && <SwitchView field={field} onChange={onChange} />}
                 {inputType == 'transfer' && <TransferView field={field} onChange={onChange} />}
                 {inputType == 'slider' && <SliderView field={field} onChange={onChange}/>}
-                {inputType == "textblock" && <TextBlockView field={field} onChange={onChange}></TextBlockView>}
+                {inputType == "textblock" && <TextBlockView field={field} onChange={onChange}/>}
                 </Form.Item> }
         </div>
     }

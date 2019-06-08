@@ -1,4 +1,4 @@
-import { Col } from "antd";
+import { Col, Card } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Column from "../models/column";
@@ -26,9 +26,11 @@ export class ColumnView extends React.Component<ColumnProps, any> {
         const { fields } = column;
         return <div className="fl-col" data-uuid={column.uuid}>
             <Col span={column.span ? column.span : this.props.span}>
-                {fields.map((field: Field) => {
-                    return <FieldView field={field} store={store} key={field.uuid}></FieldView>
-                })}
+                <Card bordered={false}>
+                    {fields.map((field: Field) => {
+                        return <FieldView field={field} store={store} key={field.uuid}></FieldView>
+                    })}
+                </Card>
             </Col>
         </div>;
     }

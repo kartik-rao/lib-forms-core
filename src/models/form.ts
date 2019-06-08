@@ -148,7 +148,7 @@ class Form implements IFormProps {
     }
 
     @action addPage(p : Page, index?: number) {
-        if (index) {
+        if (typeof index != 'undefined' && index != null && index > -1) {
             this.content.pages.splice(index, 0, p);
         } else {
             this.content.pages.push(p)

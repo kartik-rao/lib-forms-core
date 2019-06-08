@@ -20,17 +20,7 @@ enableLogging({
 export function renderForm(selector:string, initialState: any) {
     let store = new FormStore();
     let factory = new Factory(store);
-    let form: Form = factory.makeForm(initialState);
-    let {wrapperSpan, wrapperOffset} = form.formLayoutOptions;
+    factory.makeForm(initialState);
 
-    render(
-        <Layout style={{height:"100vh"}} >
-            <Row><br/></Row>
-            <Row justify="space-around">
-                <Col span={wrapperSpan} offset={wrapperOffset}>
-                    <FormView store={store}/>
-                </Col>
-            </Row>
-        </Layout>, document.querySelector(selector)
-    )
+    render(<FormView store={store}/>, document.querySelector(selector))
 };
