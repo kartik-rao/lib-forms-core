@@ -510,7 +510,7 @@
         "signature": "178de13aa72cfb1c97306df7cd435f72c8ce76875075157c1c990bbac3eb4e4c"
       },
       "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts": {
-        "version": "5824b48a63c6dbfe8327ddc1f5382fcb2c50fc06bb4d5688f615fba6dced996a",
+        "version": "d7b035af97ea4e78169e0c956f6dc6d6250e27e40c7805edee5d849c94dc3d3b",
         "signature": "11d28c39322a2c71a9bdec99ecb4a208766570fddce3c4ae696febd1fc67a527"
       },
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts": {
@@ -6249,7 +6249,6 @@
       "/users/kartik/development/repositories/lib-forms-core/src/models/page.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/form.properties.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/form.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/factory.ts",
@@ -6471,7 +6470,8 @@
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/uglify-js/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/index.d.ts",
-      "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts"
+      "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts",
+      "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts"
     ]
   },
   "version": "3.5.1"
