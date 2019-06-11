@@ -55,19 +55,15 @@ class FormStore {
     }
 
     @action nextPage() {
-        if (this.form.formLayoutOptions.validationDisablesPaging == false) {
-            this.currentPage = this.currentPage + 1;
-            return;
-        }
         let currentPage = this.form.content.pages[this.currentPage] as Page;
         let errors = currentPage.errors;
-        if (!errors || errors.length == 0) {
+        let {validationDisablesPaging} = this.form.formLayoutOptions;
+        // Highlight all errors
+        currentPage.fieldIds.forEach((id: string) => {
+            this.touched[id] = true;
+        });
+        if (!errors || errors.length == 0||validationDisablesPaging == false) {
             this.currentPage = this.currentPage + 1;
-        } else {
-            // Highlight all errors
-            currentPage.fieldIds.forEach((id: string) => {
-                this.touched[id] = true;
-            })
         }
     }
 
@@ -88,6 +84,7 @@ class FormStore {
     }
 
     @action setFieldError(id: string, error: any) {
+        console.log(id, error);
         set(this.errors, id, error);
     }
 
