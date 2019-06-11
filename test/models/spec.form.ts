@@ -11,6 +11,7 @@ import {genElementId} from "../utils";
 const F1: IFieldProps= {
     id:  genElementId('field'),
     name: "f1",
+    uuid : 'f1',
     type: "string",
     inputType : "text",
     validation: {
@@ -25,6 +26,7 @@ const F1: IFieldProps= {
 
 const F2: IFieldProps = {id: "f2",
     name:  genElementId('field'),
+    uuid : 'f2',
     type: "string",
     inputType : "text",
     placeholder: "",
@@ -40,6 +42,7 @@ const F2: IFieldProps = {id: "f2",
 
 const C1: IColumn = {
     id: "1",
+    uuid: 'c1',
     name: "Column 1",
     title: "The First Column",
     fields: []
@@ -47,12 +50,14 @@ const C1: IColumn = {
 
 const S1: ISection = {
     id: 's1',
+    uuid : 's1',
     columns: [],
     name: "Section 1"
 }
 
 const P1: IPage = {
     id: 'p1',
+    uuid: 'p1',
     sections: [],
     name: "Page 1"
 }

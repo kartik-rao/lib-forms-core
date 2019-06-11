@@ -10,6 +10,7 @@ import {genElementId} from "../utils";
 let f1_id = genElementId('field');
 const F1: IFieldProps = {
     id: f1_id,
+    uuid : 'f1',
     name: "f1",
     type: "string",
     inputType : "text",
@@ -26,6 +27,7 @@ const F1: IFieldProps = {
 const F2: IFieldProps = {
     id: genElementId('field'),
     name: "f2",
+    uuid : 'f2',
     type: "string",
     inputType : "text",
     condition: {predicates: [{field: f1_id, condition: "eq", value: "qq"}]},
@@ -40,6 +42,7 @@ const F2: IFieldProps = {
 
 const C1: IColumn = {
     id: "1",
+    uuid : 'c1',
     name: "Column 1",
     title: "The First Column",
     fields: []
@@ -47,12 +50,14 @@ const C1: IColumn = {
 
 const S1: ISection = {
     id: 's1',
+    uuid : 's1',
     columns: [],
     name: "Section 1"
 }
 
 const P1: IPage = {
     id: 'p1',
+    uuid : 'p1',
     sections: [],
     name: "Page 1"
 }

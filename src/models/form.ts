@@ -186,9 +186,9 @@ class Form implements IFormProps {
     }
 
     @computed get values() : { [key:string]: any; } {
-        return Object.keys(this.idFieldMap).reduce((all: {}, id: string) => {
-            let f: Field = this.idFieldMap[id];
-            return {...all, [f.id]: f.value}
+        return Object.keys(this.idFieldMap).reduce((all: {}, uuid: string) => {
+            let f: Field = this.idFieldMap[uuid];
+            return {...all, [f.uuid]: f.value}
         }, {});
     }
 

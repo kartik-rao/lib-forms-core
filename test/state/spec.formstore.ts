@@ -7,6 +7,7 @@ import FormStore from "../../src/store/FormStore";
 
 const F1: IFieldProps= {
     id:  "f1",
+    uuid : 'f1',
     name: "f1",
     type: "string",
     inputType : "text",
@@ -22,6 +23,7 @@ const F1: IFieldProps= {
 
 const F2: IFieldProps = {
     id: "f2",
+    uuid : 'f2',
     name: "f2",
     type: "string",
     inputType : "text",
@@ -38,10 +40,13 @@ const F2: IFieldProps = {
 
 const P1: IPage = {
     id: 'p1',
+    uuid : 'p1',
     sections: [{
         id: 's1',
+        uuid : 's1',
         columns: [{
             id: "1",
+            uuid: 'c1',
             name: "Column 1",
             title: "The First Column",
             fields: [F1, F2]

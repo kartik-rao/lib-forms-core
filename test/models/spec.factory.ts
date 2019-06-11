@@ -9,20 +9,23 @@ import Form from "../../src/models/form";
 const P1: IPage = {
     id: 'p1',
     sections: [],
-    name: "Page 1"
+    name: "Page 1",
+    uuid : 'p1'
 }
 
 const S1 : ISection = {
     id : "s1",
     name: "section 1",
-    columns: []
+    columns: [],
+    uuid : 's1'
 }
 
 const C1 : IColumn = {
     id: "c1",
     name: "Column 1",
     title: "The First Column",
-    fields: []
+    fields: [],
+    uuid : 'c1'
 }
 
 const F1: IFieldProps = {
@@ -34,6 +37,7 @@ const F1: IFieldProps = {
     validation: {
         presence: {message: 'Required validation message'}
     },
+    uuid: 'f1',
     fieldOptions: {valuePropName: "f1"},
     componentProps: {
         placeholder: "Enter f1"
@@ -45,6 +49,7 @@ const F2: IFieldProps = {
     name: "f2",
     type: "string",
     inputType : "text",
+    uuid : 'f2',
     condition: {predicates: [{field: "f1", condition: "eq", value: "qq"}]},
     validation: {
         presence: {message: 'Required validation message'}

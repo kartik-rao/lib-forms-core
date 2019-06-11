@@ -13,6 +13,7 @@ describe("Field", () => {
         let f = new Field({
             id: genElementId('field'),
             name: "f2",
+            uuid : 'f2',
             type: "string",
             inputType : "text",
             fieldOptions: {valuePropName: "firstName"},
@@ -36,6 +37,7 @@ describe("Field", () => {
             id: genElementId('field'),
             name: "f2",
             type: "string",
+            uuid : 'f2',
             inputType : "text",
             condition: c,
             fieldOptions: {valuePropName: "firstName"},
@@ -74,6 +76,7 @@ describe("Field", () => {
         let f = new Field({
             id: genElementId('field'),
             name: "f2",
+            uuid: 'f2',
             type: "string",
             inputType : "text",
             validation: {

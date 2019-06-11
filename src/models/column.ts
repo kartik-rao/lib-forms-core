@@ -7,7 +7,7 @@ import { IValidationError } from "./validation";
 
 export interface IColumn {
     id  :string;
-    uuid?:string;
+    uuid:string;
     _type?: string;
     name?:string;
     title?:string;
@@ -39,7 +39,7 @@ class Column implements IColumn {
 
     @computed get idFieldMap() : { [key:string]:Field; } {
         return this.fields.reduce((all: {}, f: Field)=>{
-            all[f.id] = f;
+            all[f.uuid] = f;
             return all;
         }, {});
     }

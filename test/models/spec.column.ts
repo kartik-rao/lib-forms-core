@@ -11,6 +11,7 @@ const F1: IFieldProps = {
     name: "f1",
     type: "string",
     inputType : "text",
+    uuid: 'f1',
     validation: {
         presence: {message: 'Required validation message'},
         length: {wrongLength: 'MinLength=2 validation message', minimum: 2}
@@ -31,6 +32,7 @@ const F2: IFieldProps = {
     validation: {
         presence: {message: 'Required validation message'}
     },
+    uuid: 'f2',
     fieldOptions: {valuePropName: "f2"},
     componentProps: {
         placeholder: "Enter f2"
@@ -40,7 +42,8 @@ const F2: IFieldProps = {
 const C1: IColumn = {
     id: "c1",
     name: "Column 1",
-    title: "The First Column"
+    title: "The First Column",
+    uuid: 'c1'
 }
 
 describe('Column', () => {
@@ -101,7 +104,8 @@ describe('Column', () => {
             id: "1",
             name: "Column 1",
             title: "The First Column",
-            fields: []
+            fields: [],
+            uuid: 'c1'
         }, store);
         c.addField(new Field(F1, store));
         c.addField(new Field(F2, store));
@@ -121,7 +125,8 @@ describe('Column', () => {
         let c = new Column({
             id: "1",
             name: "Column 1",
-            title: "The First Column"
+            title: "The First Column",
+            uuid: 'c1'
         }, store);
         c.addField(new Field(F1, store));
         c.addField(new Field(F2, store));

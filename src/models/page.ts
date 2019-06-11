@@ -8,7 +8,7 @@ import { IValidationError } from "./validation";
 
 export interface IPage {
     id: string;
-    uuid?:string;
+    uuid:string;
     name: string;
     icon?: string;
     sections: ISection[];
