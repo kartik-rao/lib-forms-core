@@ -198,8 +198,8 @@ class Form implements IFormProps {
         this.store.setSubmitting(true);
         let meta = this.idFieldMap;
         let payload = {};
-        let values = toJS(this.values);
-        Object.keys(this.values).forEach((id: string) => {
+        let values = this.values;
+        Object.keys(values).forEach((id: string) => {
             let key = meta[id].fieldOptions.valuePropName || meta[id].name;
             payload[key] = values[id];
         });
@@ -235,7 +235,6 @@ decorate(Form, {
     tenant: observable,
     status: observable,
     content:observable,
-    values: computed,
     layout: observable,
     stopSubmit: observable,
     submitTarget: observable,
