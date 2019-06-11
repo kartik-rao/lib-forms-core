@@ -22,5 +22,10 @@ export function renderForm(selector:string, initialState: any) {
     let factory = new Factory(store);
     factory.makeForm(initialState);
 
-    render(<FormView store={store}/>, document.querySelector(selector))
+    render(
+        <Layout style={{height: '100vh', overflow: 'hidden'}}>
+            <Layout.Header></Layout.Header>
+            <FormView store={store}/>
+    </Layout>, document.querySelector(selector)
+    )
 };
