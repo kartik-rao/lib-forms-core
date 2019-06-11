@@ -26,7 +26,7 @@ export class SectionView extends React.Component<SectionProps, any> {
         let span = numColumns <= 1 ? 8 : 24 / numColumns;
 
         return <div className="fl-section" data-uuid={section.uuid}>
-            <Card bordered={false} title={section.name} style={{padding: "0px"}} size="small">
+            <Card bordered={false} title={section.name} style={{padding: "1px"}} size="small">
                 <Row gutter={section.gutter || 4}>
                     {section.columns.map((column: Column, cn: number) => {
                         return <ColumnView store={store} key={column.uuid} column={column} span={span}/>

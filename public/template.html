@@ -122,6 +122,25 @@
                                         }
                                     }]
                                 }]
+                            },
+                            {
+                                name: "P2S2",
+                                columns: [
+                                    {
+                                        id: 9,
+                                        name: 'p1s2c1',
+                                        title: 'p1s2c1',
+                                        fields: [{
+                                            id: "f18", name: "f18", type: "text", inputType: "input", label: "f18 - text label",
+                                            validation: {
+                                                presence: { message: 'F18 is reqired' }
+                                            },
+                                            componentProps: {
+                                                placeholder: 'Placeholder Text F18',
+                                            }
+                                        }]
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -186,7 +205,7 @@
                 showSectionTitles: false,
                 showSectionBorders : false,
                 showPageBorders: false,
-                validationDisablesPaging: true,
+                validationDisablesPaging: false,
                 wrapperSpan: 24,
                 wrapperOffset: 0
             }

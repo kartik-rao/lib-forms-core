@@ -55,6 +55,10 @@ class FormStore {
     }
 
     @action nextPage() {
+        if (this.form.formLayoutOptions.validationDisablesPaging == false) {
+            this.currentPage = this.currentPage + 1;
+            return;
+        }
         let currentPage = this.form.content.pages[this.currentPage] as Page;
         let errors = currentPage.errors;
         if (!errors || errors.length == 0) {
