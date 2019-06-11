@@ -4,7 +4,7 @@ import FormStore from "../store/FormStore";
 import { IValidationError } from "./validation";
 export interface IColumn {
     id: string;
-    uuid?: string;
+    uuid: string;
     _type?: string;
     name?: string;
     title?: string;

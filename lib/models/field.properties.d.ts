@@ -154,7 +154,7 @@ export interface IFieldProps extends IFieldInternalProps {
     id: string;
     name: string;
     children?: any[];
-    uuid?: string;
+    uuid: string;
     type?: string;
     label?: string;
     value?: any;

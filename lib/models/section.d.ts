@@ -4,7 +4,7 @@ import Field from "./field";
 import { IValidationError } from "./validation";
 export interface ISection {
     id: string;
-    uuid?: string;
+    uuid: string;
     name: string;
     title?: string;
     gutter?: number;
