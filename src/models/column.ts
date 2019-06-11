@@ -1,4 +1,4 @@
-import {action, decorate, observable, computed} from "mobx";
+import {action, decorate, observable, computed, toJS} from "mobx";
 import {IFieldProps} from "./field.properties";
 import Field from "./field";
 import FormStore from "../store/FormStore";
@@ -39,7 +39,7 @@ class Column implements IColumn {
 
     @computed get idFieldMap() : { [key:string]:Field; } {
         return this.fields.reduce((all: {}, f: Field)=>{
-            all[f.id] = f;
+            all[f.id] = toJS(f);
             return all;
         }, {});
     }
