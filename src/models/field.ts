@@ -38,7 +38,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
         this.fieldOptions = {
-            valuePropName: data.fieldOptions.valuePropName
+            valuePropName: data.fieldOptions ? data.fieldOptions.valuePropName : this.fieldOptions.valuePropName
         }
         this.componentProps = <IComponentProps>{...this.componentProps, ...data.componentProps};
         return;
