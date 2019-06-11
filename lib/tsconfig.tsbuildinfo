@@ -486,7 +486,7 @@
         "signature": "fd99031acf5970c9c801549bdbfcf20aff93a5fc1ea90382f3482042861e021b"
       },
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts": {
-        "version": "afb9e6d26a961a3e95931e962b956863e913f55ff327a336081fb3d731467087",
+        "version": "7024c01bb7efc194a3d77569959f86d0c345c928108054d21d2cc4e6d100459f",
         "signature": "c7c7be99410802ab1018a42bf8ab6bb7a026a08902548de91d721a0c0c1d4876"
       },
       "/users/kartik/development/repositories/lib-forms-core/src/models/column.ts": {
@@ -6243,7 +6243,6 @@
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.options.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/validator.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/column.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/section.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/page.ts",
@@ -6471,7 +6470,8 @@
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/uglify-js/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/index.d.ts",
-      "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts"
+      "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts",
+      "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts"
     ]
   },
   "version": "3.5.1"
