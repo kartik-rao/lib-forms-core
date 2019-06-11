@@ -1129,38 +1129,6 @@
         "version": "7a85713d4e22c7a4926b665ba8bed1ffbe6a58b73108d5dca58c924ce98289e1",
         "signature": "2ea4e3bfca5964a3775212d0491878b7ae05a4ebf7f4a97fc705597a6e995e79"
       },
-      "/users/kartik/development/repositories/lib-forms-core/src/store/editorstore.ts": {
-        "version": "b630e083f1f73bcbbda3389e5f37de13572be8ac49215f32b0ad962a18308bd9",
-        "signature": "c2efd2a8c85ebb2b620fe21afe7a98f62e1aee0594babe6640b68c439b165c51"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts": {
-        "version": "758d3018f018c8dab811ed7e96f973cf69f90eb34a6987d0e6c805ccf22a458a",
-        "signature": "680c354be440c34864d2535ad40d1bc4243fdc2d179ff5f7c95b93594c5342cf"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/conditionsview.tsx": {
-        "version": "02ad6342b16f928d2d7f3c24c7bd246dcfaf60aee785cfd873c1b157f4529189",
-        "signature": "74f7398edab6034d73e63b9325a4c3538411941c5b70052dd7218e66a7ff69ac"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/choiceoptioneditorview.tsx": {
-        "version": "ffd07f8f82cdd04022b0231e46aa9597b8e2fec0f07c076cb5a2eb8679c1a740",
-        "signature": "671be10d55e45bbc2508f53fa39aef42349ff51a7709c7ec6c53ac4e6aeb1da9"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/fieldpropertiesview.tsx": {
-        "version": "4cae223680c028e3ecb636dcc53ae2baacade2b783c4b5485e60cad79899c927",
-        "signature": "4e4d383f927ed5f8b3fa1fa626a3e023e01af1d44ddaaa3aee402fdcc13e0a6e"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/validationlistview.tsx": {
-        "version": "c6e73d321478f0c392068f5af61039d90597fec15fb99d22502bb811550af50a",
-        "signature": "1ff1f6e062a2d4c16a7f93f7769fa13b302d83a5e9b7102128c842742758c09a"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/validationview.tsx": {
-        "version": "9b900f87d769a74f554a4cb62c1997fe5dbf6ff498f3172caf2eaa677d0f5d5a",
-        "signature": "47f1cdfe6bdfd68f8e95b4a454fd30a2b519be4ff25a2d8ea3e48b219d8f4906"
-      },
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/editorview.tsx": {
-        "version": "6ac0b85833c4fa8f0cdd757ba77ee052e130b320a93f0ed722f9962294b535e8",
-        "signature": "04ade8cb1989fd064f5fe9702279682d4495589f8a526adc57d061919876f4fb"
-      },
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/anymatch/index.d.ts": {
         "version": "48b52264fa193879a074197839dbb4796fa07e86350ff888e5361e06aa46df76",
         "signature": "48b52264fa193879a074197839dbb4796fa07e86350ff888e5361e06aa46df76"
@@ -3373,85 +3341,6 @@
         "/users/kartik/development/repositories/lib-forms-core/src/models/form.ts",
         "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
         "/users/kartik/development/repositories/lib-forms-core/src/views/formview.tsx",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/store/editorstore.ts": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx/lib/mobx.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/condition.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/factory.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/validation.constraints.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts": [
-        "/users/kartik/development/repositories/lib-forms-core/src/store/editorstore.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/conditionsview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx/lib/mobx.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/choiceoptioneditorview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx/lib/mobx.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/fieldpropertiesview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx/lib/mobx.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/form/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/choiceoptioneditorview.tsx",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/validationlistview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/validation.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/validationview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx/lib/mobx.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/validation.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/moment/moment.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/validationlistview.tsx",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/editorview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/conditionsview.tsx",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/fieldpropertiesview.tsx",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/validationview.tsx",
         "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
         "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
       ],
@@ -5709,45 +5598,6 @@
         "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
         "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
       ],
-      "/users/kartik/development/repositories/lib-forms-core/src/store/editorstore.ts": [
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/factory.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/condition.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/validation.constraints.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts": [
-        "/users/kartik/development/repositories/lib-forms-core/src/store/editorstore.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/conditionsview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/choiceoptioneditorview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/fieldpropertiesview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/form/interface.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/antd/lib/form/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/validationlistview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/src/models/validation.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/validationview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts"
-      ],
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/editorview.tsx": [
-        "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react/index.d.ts",
-        "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts"
-      ],
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/anymatch/index.d.ts": [
         "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/util.d.ts",
         "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/node/ts3.1/util.d.ts"
@@ -6394,9 +6244,11 @@
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/validator.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts",
+      "/users/kartik/development/repositories/lib-forms-core/src/models/column.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/section.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/page.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/form.properties.ts",
+      "/users/kartik/development/repositories/lib-forms-core/src/models/form.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.ts",
@@ -6547,18 +6399,11 @@
       "/users/kartik/development/repositories/lib-forms-core/src/views/columnview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/sectionview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/pageview.tsx",
+      "/users/kartik/development/repositories/lib-forms-core/src/views/formview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/index.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-logger/lib/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react-dom/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/app.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/store/editorstore.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/ifieldeditorview.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/conditionsview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/choiceoptioneditorview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/fieldpropertiesview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/partials/validationlistview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/validationview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/properties/editorview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/anymatch/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/cheerio/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/enzyme/index.d.ts",
@@ -6626,10 +6471,7 @@
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/uglify-js/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/index.d.ts",
-      "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/models/column.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/models/form.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/formview.tsx"
+      "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts"
     ]
   },
   "version": "3.5.1"
