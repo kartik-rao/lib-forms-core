@@ -12,6 +12,27 @@ export interface IValidationRule {
     presence?: PresenceConstraint;
     url?: URLConstraint;
 }
+export declare const ValidationAllowedRules: {
+    "input": string[];
+    "checkbox": string[];
+    "number": string[];
+    "select": string[];
+    "cascader": string[];
+    "radiogroup": string[];
+    "checboxgroup": string[];
+    "textarea": string[];
+    "daterange": string[];
+    "datepicker": string[];
+    "monthpicker": string[];
+    "timepicker": string[];
+    "yearpicker": string[];
+    "starrating": string[];
+    "switch": string[];
+    "transfer": string[];
+    "slider": string[];
+    "textblock": any[];
+    "hidden": any[];
+};
 export declare const ValidationRuleNames: {
     key: string;
     label: string;
