@@ -88,9 +88,8 @@ export interface IFieldRuntimeProps {
     readonly serialize: string ;
 }
 
-// Marker interface, no special properties required;
 export interface ICheckboxProps extends CheckboxProps {
-    defaultValue? : boolean;
+    defaultChecked? : boolean;
 }
 
 
