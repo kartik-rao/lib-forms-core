@@ -81,7 +81,7 @@ export interface IFieldRuntimeProps {
     readonly serialize: string;
 }
 export interface ICheckboxProps extends CheckboxProps {
-    defaultValue?: boolean;
+    defaultChecked?: boolean;
 }
 export interface ICheckboxGroupProps extends CheckboxGroupProps {
     defaultValue?: (string | number | boolean)[];
