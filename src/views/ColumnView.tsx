@@ -24,7 +24,7 @@ export class ColumnView extends React.Component<ColumnProps, any> {
     render() {
         let {store, column} = this.props;
         const { fields } = column;
-        return <div className="fl-col" data-uuid={column.uuid}>
+        return <div className="fl-col" data-uuid={column.uuid} id={column.id}>
             <Col span={column.span ? column.span : this.props.span}>
                 <Card bordered={false}>
                     {fields.map((field: Field) => {
