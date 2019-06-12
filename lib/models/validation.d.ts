@@ -19,7 +19,7 @@ export declare const ValidationAllowedRules: {
     "select": string[];
     "cascader": string[];
     "radiogroup": string[];
-    "checboxgroup": string[];
+    "checkboxgroup": string[];
     "textarea": string[];
     "daterange": string[];
     "datepicker": string[];
