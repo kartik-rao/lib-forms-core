@@ -25,7 +25,7 @@ export const ValidationAllowedRules = {
     "select"      : ["presence"],
     "cascader"    : ["presence"],
     "radiogroup"  : ["presence"],
-    "checboxgroup": ["presence"],
+    "checkboxgroup": ["presence"],
     "textarea"    : ["email", "equality", "format", "inclusion", "length", "presence", "url"],
     "daterange"   : ["presence", "date", "datetime"],
     "datepicker"  : ["presence", "date", "datetime"],

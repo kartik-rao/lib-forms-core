@@ -14,6 +14,6 @@ export class CheckboxGroupView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange, onBlur} = this.props;
         let component = field.componentProps as ICheckboxGroupProps;
-        return <Checkbox.Group {...component} onChange={onChange}  options={component.options}/>
+        return <Checkbox.Group {...component} onChange={onChange} options={component.options}/>
     }
 }
