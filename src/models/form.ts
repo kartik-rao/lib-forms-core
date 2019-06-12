@@ -188,6 +188,10 @@ class Form implements IFormProps {
     @computed get values() : { [key:string]: any; } {
         return Object.keys(this.idFieldMap).reduce((all: {}, id: string) => {
             let f: Field = this.idFieldMap[id];
+            // HTMLFragment and TextBlock have no value
+            if (f.inputType ==  'htmlfragment' || f.inputType == 'textblock') {
+                return all;
+            }
             return {...all, [f.id]: f.value}
         }, {});
     }
