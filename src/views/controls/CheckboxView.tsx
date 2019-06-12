@@ -14,6 +14,6 @@ export class CheckboxView extends React.Component<IViewProps, any> {
     render() {
         let {field, onChange} = this.props;
         let component = field.componentProps as ICheckboxProps;
-        return <Checkbox {...component} onChange={onChange}/>
+        return <Checkbox {...component} defaultChecked={component.defaultChecked} onChange={onChange}/>
     }
 }
