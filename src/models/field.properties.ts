@@ -4,7 +4,7 @@ import { CheckboxGroupProps } from "antd/lib/checkbox/index";
 import { DatePickerProps, RangePickerValue } from "antd/lib/date-picker/interface";
 import { RangePickerProps } from "antd/lib/date-picker/interface";
 import { InputNumberProps} from "antd/lib/input-number/index";
-import { RadioGroupProps } from "antd/lib/radio/index";
+import { RadioGroupProps, RadioProps } from "antd/lib/radio/index";
 import { SelectProps } from "antd/lib/select/index";
 import { CascaderProps } from "antd/lib/cascader/index";
 import { TransferProps } from "antd/lib/transfer/index";
@@ -125,6 +125,11 @@ export interface IRadioGroupProps extends RadioGroupProps {
     options: ChoiceOption[]
 }
 
+export interface IRadioProps extends RadioProps {
+    optionLabel: string;
+    optionValue: string;
+}
+
 export interface ISelectProps extends SelectProps {
     options: ChoiceOption[]
 }
@@ -156,6 +161,10 @@ export interface IRangePickerProps extends RangePickerProps {
     defaultValue?: RangePickerValue;
 }
 
+export interface IHTMLFragmentProps extends TextAreaProps {
+    defaultValue? : string;
+}
+
 export interface ISliderProps extends SliderProps {
 
 }
@@ -171,7 +180,7 @@ export interface ITextBlockProps {
 export type IComponentProps = IRangePickerProps | ICheckboxProps|ICheckboxGroupProps|IDatePickerProps|IDateRangeProps|
                             INumberProps|IRadioGroupProps|ISelectProps|IInputProps|ICascaderProps|
                             IStarRatingProps|ISwitchProps|ITransferProps|ISliderProps|ITextAreaProps|
-                            ITextBlockProps;
+                            ITextBlockProps | IRadioProps;
 
 export interface IFieldStorage {
     unique: boolean;

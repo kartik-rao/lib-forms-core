@@ -18,6 +18,8 @@ import { TransferView } from "./controls/TransferView";
 import { SliderView } from "./controls/SliderView";
 import { TextAreaView } from "./controls/TextAreaView";
 import { TextBlockView } from "./controls/TextBlockView";
+import { HTMLFragmentView } from './controls/HtmlFragmentView';
+import { RadioView } from './controls/RadioView';
 
 export interface IFieldViewProps {
     field: Field;
@@ -54,6 +56,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
             help={store.touched[id] ? (store.errors[id] ? store.errors[id] : field.helpText): field.helpText}
             required={field.isRequired}>
                 {inputType == "input" && <InputView field={field} onChange={onChange} onBlur={onBlur}/>}
+                {inputType == "radio" && <RadioView field={field} onChange={onChange} />}
                 {inputType == "checkbox" && <CheckboxView field={field} onChange={onChange}  />}
                 {inputType == "number" && <NumberView field={field} onChange={onChange} onBlur={onBlur}  />}
                 {inputType == "select" && <SelectView field={field} onChange={onChange} onBlur={onBlur}  />}
@@ -71,6 +74,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
                 {inputType == 'transfer' && <TransferView field={field} onChange={onChange} />}
                 {inputType == 'slider' && <SliderView field={field} onChange={onChange}/>}
                 {inputType == "textblock" && <TextBlockView field={field} onChange={onChange}/>}
+                {inputType == "htmlfragment" && <HTMLFragmentView field={field}/>}
                 </Form.Item> }
         </div>
     }
