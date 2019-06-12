@@ -1,12 +1,11 @@
-import { Col, Layout, Row } from "antd";
+import { Layout } from "antd";
 import { enableLogging } from 'mobx-logger';
 import React from 'react';
 import { render } from 'react-dom';
+import "./app.css";
 import { Factory } from "./models/factory";
-import Form from './models/form';
 import FormStore from "./store/FormStore";
 import { FormView } from "./views/FormView";
-import "./app.css";
 
 const debug = (window && window.location.hostname.indexOf('localhost') > -1) ? true : false;
 
