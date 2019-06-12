@@ -4,7 +4,7 @@ import { CheckboxGroupProps } from "antd/lib/checkbox/index";
 import { DatePickerProps, RangePickerValue } from "antd/lib/date-picker/interface";
 import { RangePickerProps } from "antd/lib/date-picker/interface";
 import { InputNumberProps } from "antd/lib/input-number/index";
-import { RadioGroupProps } from "antd/lib/radio/index";
+import { RadioGroupProps, RadioProps } from "antd/lib/radio/index";
 import { SelectProps } from "antd/lib/select/index";
 import { CascaderProps } from "antd/lib/cascader/index";
 import { TransferProps } from "antd/lib/transfer/index";
@@ -15,6 +15,7 @@ import { SliderProps } from "antd/lib/slider";
 import { TextAreaProps } from "antd/lib/input";
 import { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
+import { CSSProperties } from 'react';
 export declare class FieldTypes {
     static text: string;
     static input: string;
@@ -108,6 +109,10 @@ export interface IInputProps extends InputProps {
 export interface IRadioGroupProps extends RadioGroupProps {
     options: ChoiceOption[];
 }
+export interface IRadioProps extends RadioProps {
+    optionLabel: string;
+    optionValue: string;
+}
 export interface ISelectProps extends SelectProps {
     options: ChoiceOption[];
 }
@@ -132,13 +137,22 @@ export interface ISwitchProps extends SwitchProps {
 export interface IRangePickerProps extends RangePickerProps {
     defaultValue?: RangePickerValue;
 }
+export interface IHTMLFragmentProps {
+    fragmentUrl: string;
+    allowForms?: boolean;
+    allowScripts?: boolean;
+    allowPopups?: boolean;
+    className: string;
+    seamless: boolean;
+    style: CSSProperties;
+}
 export interface ISliderProps extends SliderProps {
 }
 export interface ITextAreaProps extends TextAreaProps {
 }
 export interface ITextBlockProps {
 }
-export declare type IComponentProps = IRangePickerProps | ICheckboxProps | ICheckboxGroupProps | IDatePickerProps | IDateRangeProps | INumberProps | IRadioGroupProps | ISelectProps | IInputProps | ICascaderProps | IStarRatingProps | ISwitchProps | ITransferProps | ISliderProps | ITextAreaProps | ITextBlockProps;
+export declare type IComponentProps = IRangePickerProps | ICheckboxProps | ICheckboxGroupProps | IDatePickerProps | IDateRangeProps | INumberProps | IRadioGroupProps | ISelectProps | IInputProps | ICascaderProps | IStarRatingProps | ISwitchProps | ITransferProps | ISliderProps | ITextAreaProps | ITextBlockProps | IRadioProps;
 export interface IFieldStorage {
     unique: boolean;
     name: string;

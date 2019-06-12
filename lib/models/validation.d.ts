@@ -32,6 +32,7 @@ export declare const ValidationAllowedRules: {
     "slider": string[];
     "textblock": any[];
     "hidden": any[];
+    "htmlfragment": any[];
 };
 export declare const ValidationRuleNames: {
     key: string;
