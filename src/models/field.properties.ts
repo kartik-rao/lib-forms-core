@@ -15,6 +15,7 @@ import { SliderProps } from "antd/lib/slider";
 import { TextAreaProps } from "antd/lib/input";
 import { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
+import { CSSProperties } from 'react';
 
 /* CheckboxGroupProps|CheckboxProps|InputProps  */
 export class FieldTypes {
@@ -161,8 +162,14 @@ export interface IRangePickerProps extends RangePickerProps {
     defaultValue?: RangePickerValue;
 }
 
-export interface IHTMLFragmentProps extends TextAreaProps {
-    defaultValue? : string;
+export interface IHTMLFragmentProps {
+    fragmentUrl: string;
+    allowForms? : boolean;
+    allowScripts? : boolean;
+    allowPopups? : boolean;
+    className: string;
+    seamless: boolean;
+    style: CSSProperties;
 }
 
 export interface ISliderProps extends SliderProps {
