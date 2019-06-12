@@ -84,7 +84,6 @@ class FormStore {
     }
 
     @action setFieldError(id: string, error: any) {
-        console.log(id, error);
         set(this.errors, id, error);
     }
 
