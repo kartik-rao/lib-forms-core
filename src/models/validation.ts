@@ -18,6 +18,28 @@ export interface IValidationRule {
     url?: URLConstraint
 }
 
+export const ValidationAllowedRules = {
+    "input"       : ["email", "equality", "format", "inclusion", "length", "presence", "url"],
+    "checkbox"    : ["presence"],
+    "number"      : ["presence", "equality", "format"],
+    "select"      : ["presence"],
+    "cascader"    : ["presence"],
+    "radiogroup"  : ["presence"],
+    "checboxgroup": ["presence"],
+    "textarea"   : ["email", "equality", "format", "inclusion", "length", "presence", "url"],
+    "daterange"  : ["presence", "date", "datetime"],
+    "datepicker" : ["presence", "date", "datetime"],
+    "monthpicker": ["presence", "date", "datetime"],
+    "timepicker" : ["presence", "date", "datetime"],
+    "yearpicker" : ["presence", "date", "datetime"],
+    "starrating" : ["presence"],
+    "switch"     : ["presence"],
+    "transfer"   : ["presence"],
+    "slider"     : ["presence"],
+    "textblock"  : [],
+    "hidden"     : []
+}
+
 export const ValidationRuleNames = [
     {key: "date", label: "Date", value: "date"},
     {key: "datetime", label: "Datetime", value: "datetime"},
