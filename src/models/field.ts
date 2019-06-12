@@ -32,14 +32,13 @@ class Field implements IFieldProps, IFieldRuntimeProps {
     _dispose : any;
 
     @action mergeUpdate(data: Partial<IFieldProps>) {
-        this.id = data.id;
+        this.id = data.id ? data.id : this.id;
         this.name = data.name;
         this.label = data.label;
         this.helpText = data.helpText;
         this.placeholder = data.placeholder;
-        this.fieldOptions = {
-            valuePropName: data.fieldOptions ? data.fieldOptions.valuePropName : this.fieldOptions.valuePropName
-        }
+        let {fieldOptions} = data;
+        this.fieldOptions = {...this.fieldOptions, ...{valuePropName: fieldOptions ? fieldOptions.valuePropName : this.fieldOptions.valuePropName}};
         this.componentProps = <IComponentProps>{...this.componentProps, ...data.componentProps};
         return;
     }
