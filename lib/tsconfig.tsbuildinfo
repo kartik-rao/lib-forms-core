@@ -486,7 +486,7 @@
         "signature": "fd99031acf5970c9c801549bdbfcf20aff93a5fc1ea90382f3482042861e021b"
       },
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts": {
-        "version": "7024c01bb7efc194a3d77569959f86d0c345c928108054d21d2cc4e6d100459f",
+        "version": "d692ff86bdd16176fd7ce0698f317bca9519ab9b26ba3ca18faa087602864f4d",
         "signature": "c7c7be99410802ab1018a42bf8ab6bb7a026a08902548de91d721a0c0c1d4876"
       },
       "/users/kartik/development/repositories/lib-forms-core/src/models/column.ts": {
@@ -6279,12 +6279,12 @@
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.options.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/field.properties.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/validator.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/column.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/section.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/page.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/form.properties.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/form.ts",
+      "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.predicate.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/condition.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/models/factory.ts",
@@ -6416,6 +6416,7 @@
       "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-react/dist/mobx-react.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/iviewprops.ts",
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/checkboxgroupview.tsx",
+      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/checkboxview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/datepickerview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/daterangeview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/inputview.tsx",
@@ -6432,9 +6433,14 @@
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/htmlfragmentview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/controls/radioview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/views/fieldview.tsx",
+      "/users/kartik/development/repositories/lib-forms-core/src/views/columnview.tsx",
+      "/users/kartik/development/repositories/lib-forms-core/src/views/sectionview.tsx",
+      "/users/kartik/development/repositories/lib-forms-core/src/views/pageview.tsx",
+      "/users/kartik/development/repositories/lib-forms-core/src/views/formview.tsx",
       "/users/kartik/development/repositories/lib-forms-core/src/index.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/mobx-logger/lib/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/react-dom/index.d.ts",
+      "/users/kartik/development/repositories/lib-forms-core/src/app.tsx",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/anymatch/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/cheerio/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/enzyme/index.d.ts",
@@ -6503,13 +6509,7 @@
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack/index.d.ts",
       "/users/kartik/development/repositories/lib-forms-core/node_modules/@types/webpack-env/index.d.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/store/formstore.ts",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/controls/checkboxview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/columnview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/sectionview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/pageview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/views/formview.tsx",
-      "/users/kartik/development/repositories/lib-forms-core/src/app.tsx"
+      "/users/kartik/development/repositories/lib-forms-core/src/models/field.ts"
     ]
   },
   "version": "3.5.1"
