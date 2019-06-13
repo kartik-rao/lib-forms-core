@@ -31,6 +31,7 @@ class Form implements IFormProps {
     @action initialize(data: IFormProps, store: FormStore) {
         this.store = store;
         this.id = data.id;
+        this.name = data.name;
         this.uuid = data.uuid;
         this.exid = valueOrDefault(data.exid, null);
         this.desc = valueOrDefault(data.desc, null);
