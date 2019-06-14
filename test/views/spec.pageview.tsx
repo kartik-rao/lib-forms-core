@@ -2,12 +2,7 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import { Column } from '../../src/models/column';
-import { Field } from '../../src/models/field';
-import { Page } from '../../src/models/page';
-import { Section } from '../../src/models/section';
-import { FormStore } from '../../src/store/FormStore';
-import { PageView } from "../../src/views/PageView";
+import { Column, Field, FormStore, Page, PageView, Section } from "../../src/index";
 import { genElementId } from "../utils";
 
 // Dont allow store mutations outside of actions!!

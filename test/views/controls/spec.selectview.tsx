@@ -6,10 +6,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { act } from 'react-dom/test-utils'; // ES6
 import sinon from "sinon";
-import { Field } from '../../../src/models/field';
-import { FieldTypes, ISelectProps } from "../../../src/models/field.properties";
-import { FormStore } from '../../../src/store/FormStore';
-import { SelectView } from '../../../src/views/controls/SelectView';
+import { Field, FieldTypes, ISelectProps, FormStore, SelectView } from "../../../src/index";
 import { genElementId } from "../../utils";
 
 Enzyme.configure({ adapter: new Adapter() });

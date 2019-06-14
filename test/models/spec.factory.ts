@@ -1,10 +1,4 @@
-import { FormStore } from "../../src/store/FormStore";
-import { Factory } from "../../src/models/factory";
-import { IFieldProps } from "../../src/models/field.properties";
-import { IColumn } from "../../src/models/column";
-import { ISection } from "../../src/models/section";
-import { IPage } from "../../src/models/page";
-import { Form } from "../../src/models/form";
+import {FormStore, Factory, IFieldProps, IColumn, ISection, IPage, Form} from "../../src/index";
 
 const P1: IPage = {
     id: 'p1',

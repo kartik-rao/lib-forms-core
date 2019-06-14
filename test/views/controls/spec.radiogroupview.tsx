@@ -5,10 +5,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { act } from 'react-dom/test-utils'; // ES6
 import sinon from "sinon";
-import { Field } from '../../../src/models/field';
-import { FieldTypes, IRadioGroupProps } from "../../../src/models/field.properties";
-import { FormStore } from '../../../src/store/FormStore';
-import { RadioGroupView } from '../../../src/views/controls/RadioGroupView';
+import {Field, FieldTypes, FormStore, IRadioGroupProps, RadioGroupView} from "../../../src/index";
 import { genElementId } from "../../utils";
 
 

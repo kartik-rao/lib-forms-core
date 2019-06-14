@@ -1,5 +1,4 @@
-import { Condition } from "../../src/models/condition";
-import { FormStore } from "../../src/store/FormStore";
+import { Condition, FormStore } from "../../src/index";
 
 import { when } from "mobx";
 // "eq",  "neq",  "gt",  "lt", "gteq", "lteq", "hasval", "nothasval"

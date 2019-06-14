@@ -1,11 +1,6 @@
 import { when } from "mobx";
-import { Column, IColumn } from "../../src/models/column";
-import { Field } from "../../src/models/field";
-import { IFieldProps } from "../../src/models/field.properties";
-import { Form } from "../../src/models/form";
-import { Page, IPage } from "../../src/models/page";
-import { ISection, Section } from "../../src/models/section";
-import { FormStore } from "../../src/store/FormStore";
+import {Column, IColumn, Field, Form, IFieldProps, Page, IPage, ISection, Section, FormStore} from "../../src/index"
+
 import { genElementId } from "../utils";
 
 const F1: IFieldProps= {

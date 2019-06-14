@@ -1,17 +1,16 @@
-import { configure } from 'mobx';
-import * as React from "react";
-import ReactDOM from "react-dom";
-import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {DatePickerView} from '../../../src/views/controls/DatePickerView';
-import {Field} from '../../../src/models/field';
-import { FormStore } from '../../../src/store/FormStore';
-import {genElementId} from "../../utils";
-import sinon from "sinon";
-import {FieldTypes, IDatePickerProps} from "../../../src/models/field.properties";
 import { DatePicker } from "antd";
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { configure } from 'mobx';
 import moment from 'moment';
+import * as React from "react";
+import ReactDOM from "react-dom";
+import { act } from 'react-dom/test-utils'; // ES6
+import sinon from "sinon";
+
+import { FieldTypes, IDatePickerProps, Field, FormStore, DatePickerView } from "../../../src/index";
+
+import { genElementId } from "../../utils";
 
 Enzyme.configure({ adapter: new Adapter() });
 

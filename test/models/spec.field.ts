@@ -1,6 +1,5 @@
 import { keys, when } from "mobx";
-import { Field } from "../../src/models/field";
-import { FormStore } from "../../src/store/FormStore";
+import { Field, FormStore } from "../../src/index";
 import { genElementId } from "../utils";
 
 describe("Field", () => {

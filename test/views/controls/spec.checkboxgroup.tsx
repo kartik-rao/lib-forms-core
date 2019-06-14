@@ -5,9 +5,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { act } from 'react-dom/test-utils'; // ES6
 import sinon from "sinon";
-import {Field} from '../../../src/models/field';
-import { FieldTypes, ICheckboxGroupProps } from "../../../src/models/field.properties";
-import { FormStore } from '../../../src/store/FormStore';
+import {Field, FieldTypes,ICheckboxGroupProps, FormStore } from "../../../src/index";
 import { CheckboxGroupView } from '../../../src/views/controls/CheckboxGroupView';
 import { genElementId } from "../../utils";
 

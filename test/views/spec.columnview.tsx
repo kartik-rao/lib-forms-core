@@ -2,11 +2,8 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {Column} from '../../src/models/column';
-import {Field} from '../../src/models/field';
-import { FormStore } from '../../src/store/FormStore';
-import { ColumnView } from "../../src/views/ColumnView";
-import {genElementId} from "../utils";
+import { Column, ColumnView, Field, FormStore } from '../../src/index';
+import { genElementId } from "../utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});

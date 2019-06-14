@@ -2,11 +2,9 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {NumberView} from '../../../src/views/controls/NumberView';
-import {Field} from '../../../src/models/field';
-import { FormStore } from '../../../src/store/FormStore';
-import {genElementId} from "../../utils";
 import sinon from "sinon";
+import { Field, FormStore, NumberView } from "../../../src/index";
+import { genElementId } from "../../utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});

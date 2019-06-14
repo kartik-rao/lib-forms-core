@@ -1,10 +1,7 @@
 import { when } from "mobx";
-import { Column, IColumn } from "../../src/models/column";
-import { Field } from "../../src/models/field";
-import { IFieldProps } from "../../src/models/field.properties";
-import { ISection, Section } from "../../src/models/section";
-import { FormStore } from "../../src/store/FormStore";
+import {Column, IColumn, Field, IFieldProps, ISection, Section, FormStore} from "../../src//index";
 import { genElementId } from "../utils";
+
 let f1_id = genElementId('field');
 
 const F1: IFieldProps = {
