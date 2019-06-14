@@ -25,9 +25,10 @@ export class PageView extends React.Component<PageProps, any> {
 
     render() {
         let {store, page} = this.props;
+        let {showPageTitles} = store.form.formLayoutOptions;
         return <div className="fl-page-wrap">
-            <Card style={{padding:"0"}} bordered={false}>
-                <div id={`fl-page-${page.id || store.currentPage}`} className="fl-page" data-uuid={page.uuid}>
+            <Card style={{padding:"0"}} bordered={false} title={showPageTitles ? page.title : ''}>
+                <div id={`fl-page-${page.id || store.currentPage}`} className="fl-page" data-uuid={`fl-page-${page.uuid}`}>
                     {page.sections.map((section: Section, sn: number) => {
                         return <SectionView key={section.uuid} store={store} section={section}></SectionView>
                     })}
