@@ -66,13 +66,8 @@ export interface IFormLayoutOptions {
     labelCol?: ColSpanOffset;
 }
 
-export enum ScreenWidths {
-    "xs" = "xs",
-    "sm" = "sm",
-    "md" = "md",
-    "lg" = "lg",
-    "xl" = "xl"
-};
+export type ScreenWidth = "xs"|"sm"|"md"|"lg"|"xl";
+export const AllScreenWidths: string[] = ["xs","sm","md","lg","xl"];
 
 export interface ColSpanOffset {
     span: number;
@@ -81,8 +76,8 @@ export interface ColSpanOffset {
 
 export interface IFormItemLayoutOptions {
     labelAlign? : "left"|"right";
-    labelCol?: {[key in keyof typeof ScreenWidths]?: ColSpanOffset}|ColSpanOffset;
-    wrapperCol?: {[key in keyof typeof ScreenWidths]?: ColSpanOffset}|ColSpanOffset;
+    labelCol?: {[key in ScreenWidth]?: ColSpanOffset}|ColSpanOffset;
+    wrapperCol?: {[key in ScreenWidth]?: ColSpanOffset}|ColSpanOffset;
 }
 
 export interface IFormProps {
