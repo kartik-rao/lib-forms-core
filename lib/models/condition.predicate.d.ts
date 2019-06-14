@@ -1,4 +1,4 @@
-import FormStore from "../store/FormStore";
+import { FormStore } from "../store/FormStore";
 export interface IPredicate {
     uuid?: string;
     field: string;
@@ -6,7 +6,7 @@ export interface IPredicate {
     value?: any;
     operator?: string;
 }
-declare class Predicate implements IPredicate {
+export declare class Predicate implements IPredicate {
     static readonly PredicateConditions: string[];
     static readonly PredicateOperators: string[];
     uuid: string;
@@ -18,4 +18,3 @@ declare class Predicate implements IPredicate {
     initialize(data: IPredicate, store: FormStore): void;
     constructor(data: IPredicate, store: FormStore);
 }
-export default Predicate;

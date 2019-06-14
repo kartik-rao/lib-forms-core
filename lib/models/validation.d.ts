@@ -1,4 +1,4 @@
-import { GenericConstraint, DateConstraint, DateTimeConstraint, EmailConstraint, EqualityConstraint, ExclusionConstraint, InclusionConstraint, FormatConstraint, LengthConstraint, NumericalityConstraint, PresenceConstraint, URLConstraint } from "./validation.constraints";
+import { DateConstraint, DateTimeConstraint, EmailConstraint, EqualityConstraint, ExclusionConstraint, FormatConstraint, GenericConstraint, InclusionConstraint, LengthConstraint, NumericalityConstraint, PresenceConstraint, URLConstraint } from "./validation.constraints";
 export interface IValidationRule {
     date?: DateConstraint;
     datetime?: DateTimeConstraint;
@@ -59,7 +59,7 @@ export interface IValidationError {
     prefixedMessage: string;
     validator: string;
 }
-declare class ValidationRule implements IValidationRule {
+export declare class ValidationRule implements IValidationRule {
     date: DateConstraint;
     datetime: DateTimeConstraint;
     email: EmailConstraint;
@@ -78,4 +78,3 @@ declare class ValidationRule implements IValidationRule {
     updateConstraint(key: string, settings: GenericConstraint): void;
     removeConstraint(key: string): void;
 }
-export default ValidationRule;

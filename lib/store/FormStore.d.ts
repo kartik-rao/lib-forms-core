@@ -1,11 +1,11 @@
-import Form from "../models/form";
-import Field from "../models/field";
+import { Field } from "../models/field";
+import { Form } from "../models/form";
 export interface IFormStoreProps {
     values?: any;
     form?: Form;
     debug?: boolean;
 }
-declare class FormStore {
+export declare class FormStore {
     errors: any;
     values: any;
     touched: any;
@@ -32,4 +32,3 @@ declare class FormStore {
     initialize(): void;
     constructor();
 }
-export default FormStore;

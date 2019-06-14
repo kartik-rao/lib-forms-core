@@ -1,6 +1,6 @@
-import Section, { ISection } from "./section";
-import FormStore from "../store/FormStore";
-import Field from "./field";
+import { FormStore } from "../store/FormStore";
+import { Field } from "./field";
+import { ISection, Section } from "./section";
 import { IValidationError } from "./validation";
 export interface IPage {
     id: string;
@@ -11,7 +11,7 @@ export interface IPage {
     title?: string;
     subtitle?: string;
 }
-declare class Page implements IPage {
+export declare class Page implements IPage {
     readonly _type: string;
     id: string;
     uuid: string;
@@ -37,4 +37,3 @@ declare class Page implements IPage {
     private initialize;
     constructor(data: IPage, store: FormStore);
 }
-export default Page;

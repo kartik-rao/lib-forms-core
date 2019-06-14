@@ -1,6 +1,6 @@
 import * as React from "react";
-import Field from "../models/field";
-import FormStore from "../store/FormStore";
+import { Field } from "../models/field";
+import { FormStore } from "../store/FormStore";
 export interface IFieldViewProps {
     field: Field;
     store: FormStore;

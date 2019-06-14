@@ -1,10 +1,10 @@
-import Predicate, { IPredicate } from "./condition.predicate";
-import FormStore from "../store/FormStore";
+import { FormStore } from "../store/FormStore";
+import { IPredicate, Predicate } from "./condition.predicate";
 export interface ICondition {
     predicates: IPredicate[];
     ancestors?: string[];
 }
-declare class Condition {
+export declare class Condition {
     predicates: Predicate[];
     ancestors?: string[];
     store: FormStore;
@@ -14,4 +14,3 @@ declare class Condition {
     reduce(lhs: any, rhs: any, op: string): boolean;
     readonly value: boolean;
 }
-export default Condition;

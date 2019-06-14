@@ -1,6 +1,6 @@
+import { FormStore } from "../store/FormStore";
+import { Field } from "./field";
 import { IFieldProps } from "./field.properties";
-import Field from "./field";
-import FormStore from "../store/FormStore";
 import { IValidationError } from "./validation";
 export interface IColumn {
     id: string;
@@ -11,7 +11,7 @@ export interface IColumn {
     span?: number;
     fields?: IFieldProps[];
 }
-declare class Column implements IColumn {
+export declare class Column implements IColumn {
     readonly _type: string;
     uuid: string;
     id: string;
@@ -34,4 +34,3 @@ declare class Column implements IColumn {
     constructor(data: IColumn, store: any);
     initialize(data: IColumn, store: FormStore): void;
 }
-export default Column;

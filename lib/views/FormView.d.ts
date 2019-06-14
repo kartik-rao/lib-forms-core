@@ -1,5 +1,5 @@
 import * as React from "react";
-import FormStore from "../store/FormStore";
+import { FormStore } from "../store/FormStore";
 interface FormComponentProps {
     store: FormStore;
 }

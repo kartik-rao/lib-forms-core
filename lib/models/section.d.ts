@@ -1,6 +1,6 @@
-import Column, { IColumn } from "./column";
-import FormStore from "../store/FormStore";
-import Field from "./field";
+import { FormStore } from "../store/FormStore";
+import { Column, IColumn } from "./column";
+import { Field } from "./field";
 import { IValidationError } from "./validation";
 export interface ISection {
     id: string;
@@ -10,7 +10,7 @@ export interface ISection {
     gutter?: number;
     columns: IColumn[];
 }
-declare class Section implements ISection {
+export declare class Section implements ISection {
     readonly _type: string;
     id: string;
     uuid: string;
@@ -33,4 +33,3 @@ declare class Section implements ISection {
     initialize(data: ISection, store: FormStore): void;
     constructor(data: ISection, store: FormStore);
 }
-export default Section;

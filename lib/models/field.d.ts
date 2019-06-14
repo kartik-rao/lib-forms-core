@@ -1,15 +1,15 @@
-import FormStore from "../store/FormStore";
-import Condition, { ICondition } from "./condition";
-import { IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps } from "./field.properties";
-import Validator from "./validator";
-import { IValidationRule } from "./validation";
+import { FormStore } from "../store/FormStore";
+import { Condition, ICondition } from "./condition";
 import { IFieldOptions } from "./field.options";
-import { IFormItemLayoutOptions } from './form.properties';
-declare class Field implements IFieldProps, IFieldRuntimeProps {
+import { IComponentProps, IFieldProps, IFieldRuntimeProps, IFieldStorage } from "./field.properties";
+import { ItemLayoutOptions } from './layout';
+import { IValidationRule } from "./validation";
+import { Validator } from "./validator";
+export declare class Field implements IFieldProps, IFieldRuntimeProps {
     readonly _type: string;
+    uuid: string;
     id: string;
     name: string;
-    uuid: string;
     type: string;
     label: string;
     value: any;
@@ -27,7 +27,7 @@ declare class Field implements IFieldProps, IFieldRuntimeProps {
     validator: Validator;
     validation: IValidationRule;
     componentProps: IComponentProps;
-    itemLayoutOptions: IFormItemLayoutOptions;
+    itemLayoutOptions: ItemLayoutOptions;
     _dispose: any;
     mergeUpdate(data: Partial<IFieldProps>): void;
     initialize(data: IFieldProps, store: FormStore): void;
@@ -47,4 +47,3 @@ declare class Field implements IFieldProps, IFieldRuntimeProps {
     readonly serialize: string;
     constructor(data: IFieldProps, store: FormStore);
 }
-export default Field;
