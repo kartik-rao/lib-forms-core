@@ -1,5 +1,5 @@
-import {action, decorate, observable, computed} from "mobx";
-import FormStore from "../store/FormStore";
+import { action, observable } from "mobx";
+import { FormStore } from "../store/FormStore";
 
 export interface IPredicate {
     uuid?: string;
@@ -9,14 +9,14 @@ export interface IPredicate {
     operator?: string;
 }
 
-class Predicate implements IPredicate {
+export class Predicate implements IPredicate {
     static readonly PredicateConditions = ["eq",  "neq",  "gt",  "lt", "gteq", "lteq", "hasval", "nothasval"];
     static readonly PredicateOperators = ["or", "and"];
     uuid: string;
-    field: string;
-    condition: string;
-    value: any;
-    operator: string = "or";
+    @observable field: string;
+    @observable condition: string;
+    @observable value: any;
+    @observable operator: string = "or";
     store: FormStore;
 
     @action initialize(data: IPredicate, store: FormStore) {
@@ -38,12 +38,3 @@ class Predicate implements IPredicate {
         this.initialize(data, store);
     }
 }
-
-decorate(Predicate, {
-    field: observable,
-    condition: observable,
-    value: observable,
-    operator: observable
-});
-
-export default Predicate;

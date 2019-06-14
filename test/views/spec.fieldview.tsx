@@ -2,8 +2,8 @@ import { configure, toJS } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import Field from '../../src/models/field';
-import FormStore from '../../src/store/FormStore';
+import {Field} from '../../src/models/field';
+import { FormStore } from '../../src/store/FormStore';
 import { FieldView } from "../../src/views/FieldView";
 import {genElementId, printPrettyHtml} from "../utils";
 
@@ -31,7 +31,9 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "firstName",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -52,7 +54,9 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "firstName",
+            fieldOptions : {
+                valuePropName: "firstName"
+            },
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -79,7 +83,9 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "firstName",
+            fieldOptions : {
+                valuePropName: "firstName"
+            },
             componentProps: {
                 placeholder: "Enter first Name"
             },
@@ -119,7 +125,9 @@ describe("FieldView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "firstName",
+            fieldOptions : {
+                valuePropName: "firstName"
+            },
             componentProps: {
                 placeholder: "Enter first Name"
             }
@@ -130,7 +138,9 @@ describe("FieldView", () => {
             type: "text",
             inputType: "input",
             condition : {predicates: [{condition: "eq", field: f1.id, value: "f1value"}]},
-            valuePropName: "lastName",
+            fieldOptions : {
+                valuePropName: "lastName"
+            },
             componentProps: {
                 placeholder: "Enter last name if first name is 'f1value'"
             }

@@ -1,8 +1,6 @@
-import {GenericConstraint, DateConstraint, DateTimeConstraint, EmailConstraint, EqualityConstraint, ExclusionConstraint,
-    InclusionConstraint, FormatConstraint, LengthConstraint, NumericalityConstraint,
-    PresenceConstraint, URLConstraint} from "./validation.constraints";
+import { action, computed, observable, toJS } from "mobx";
+import { DateConstraint, DateTimeConstraint, EmailConstraint, EqualityConstraint, ExclusionConstraint, FormatConstraint, GenericConstraint, InclusionConstraint, LengthConstraint, NumericalityConstraint, PresenceConstraint, URLConstraint } from "./validation.constraints";
 
-import { decorate, observable, action, computed, toJS } from "mobx";
 
 export interface IValidationRule {
     date? : DateConstraint,
@@ -77,19 +75,18 @@ export interface IValidationError {
     validator: string
 }
 
-
-class ValidationRule implements IValidationRule {
-    date : DateConstraint
-    datetime : DateTimeConstraint
-    email: EmailConstraint
-    equality: EqualityConstraint
-    exclusion: ExclusionConstraint
-    format: FormatConstraint
-    inclusion: InclusionConstraint
-    length: LengthConstraint
-    numericality: NumericalityConstraint
-    presence: PresenceConstraint
-    url: URLConstraint
+export class ValidationRule implements IValidationRule {
+    @observable date : DateConstraint
+    @observable datetime : DateTimeConstraint
+    @observable email: EmailConstraint
+    @observable equality: EqualityConstraint
+    @observable exclusion: ExclusionConstraint
+    @observable format: FormatConstraint
+    @observable inclusion: InclusionConstraint
+    @observable length: LengthConstraint
+    @observable numericality: NumericalityConstraint
+    @observable presence: PresenceConstraint
+    @observable url: URLConstraint
 
     constructor(rule: IValidationRule) {
         this.initialize(rule);
@@ -130,19 +127,3 @@ class ValidationRule implements IValidationRule {
         this[key] = null;
     }
 }
-
-decorate(ValidationRule, {
-    date : observable,
-    datetime : observable,
-    email: observable,
-    equality: observable,
-    exclusion: observable,
-    format: observable,
-    inclusion: observable,
-    length: observable,
-    numericality: observable,
-    presence: observable,
-    url: observable
-});
-
-export default ValidationRule;

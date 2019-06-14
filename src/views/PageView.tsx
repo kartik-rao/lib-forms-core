@@ -1,9 +1,9 @@
 import { Card } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
-import Page from "../models/page";
-import Section from "../models/section";
-import FormStore from "../store/FormStore";
+import { Page } from "../models/page";
+import { Section } from "../models/section";
+import { FormStore } from "../store/FormStore";
 import { SectionView } from "./SectionView";
 
 

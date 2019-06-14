@@ -1,7 +1,7 @@
-import FormStore from "../../src/store/FormStore";
-import { when, toJS, keys } from "mobx";
-import Field from "../../src/models/field";
-import {genElementId} from "../utils";
+import { keys, when } from "mobx";
+import { Field } from "../../src/models/field";
+import { FormStore } from "../../src/store/FormStore";
+import { genElementId } from "../utils";
 
 describe("Field", () => {
     let store: FormStore;

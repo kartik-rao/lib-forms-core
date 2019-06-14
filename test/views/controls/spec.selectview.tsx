@@ -1,16 +1,16 @@
+import { Select } from "antd";
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
-import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {SelectView} from '../../../src/views/controls/SelectView';
-import Field from '../../../src/models/field';
-import {FieldTypes, ISelectProps} from "../../../src/models/field.properties";
-import FormStore from '../../../src/store/FormStore';
-import {genElementId, printPrettyHtml} from "../../utils";
+import { act } from 'react-dom/test-utils'; // ES6
 import sinon from "sinon";
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import {Select} from "antd";
+import { Field } from '../../../src/models/field';
+import { FieldTypes, ISelectProps } from "../../../src/models/field.properties";
+import { FormStore } from '../../../src/store/FormStore';
+import { SelectView } from '../../../src/views/controls/SelectView';
+import { genElementId } from "../../utils";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -37,7 +37,9 @@ describe("FieldView.SelectView", () => {
             id: genElementId("field"),
             name: "First Name",
             inputType: FieldTypes.select,
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 defaultValue: "NZ",
                 options : [{
@@ -70,7 +72,9 @@ describe("FieldView.SelectView", () => {
             id: genElementId("field"),
             name: "First Name",
             inputType: FieldTypes.select,
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 defaultValue: "NZ",
                 options : [{

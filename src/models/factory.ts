@@ -1,14 +1,14 @@
-import FormStore from "../store/FormStore";
-import Column, { IColumn } from "./column";
-const uuidv1 = require('uuid/v1');
-import Condition, { ICondition } from "./condition";
-import Predicate, { IPredicate } from "./condition.predicate";
-import Field from "./field";
+import { FormStore } from "../store/FormStore";
+import { Column, IColumn } from "./column";
+import { Condition, ICondition } from "./condition";
+import { IPredicate, Predicate } from "./condition.predicate";
+import { Field } from "./field";
 import { IFieldProps } from "./field.properties";
-import Form from "./form";
+import { Form } from "./form";
 import { IFormProps } from "./form.properties";
-import Page, { IPage } from "./page";
-import Section, { ISection } from "./section";
+import { IPage, Page } from "./page";
+import { ISection, Section } from "./section";
+const uuidv1 = require('uuid/v1');
 
 export class Factory {
     store: FormStore;

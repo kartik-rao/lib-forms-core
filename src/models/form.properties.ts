@@ -1,4 +1,5 @@
 import {IPage} from "./page";
+import {FormLayoutOptions, ItemLayoutOptions} from "./layout";
 export interface IFormTenant {
     eid: number;
     mid: number;
@@ -54,31 +55,6 @@ export interface IFormContent {
     trackingPixels?: any[];
 }
 
-export interface IFormLayoutOptions {
-    showSteps?: boolean,
-    showPageTitles?: boolean,
-    showSectionTitles?: boolean,
-    showSectionBorders? : boolean,
-    showPageBorders?: boolean,
-    validationDisablesPaging?: boolean;
-    labelAlign?: "left" | "right";
-    wrapperCol?: ColSpanOffset;
-    labelCol?: ColSpanOffset;
-}
-
-export type ScreenWidth = "xs"|"sm"|"md"|"lg"|"xl";
-export const AllScreenWidths: string[] = ["xs","sm","md","lg","xl"];
-
-export interface ColSpanOffset {
-    span: number;
-    offset?: number;
-}
-
-export interface IFormItemLayoutOptions {
-    labelAlign? : "left"|"right";
-    labelCol?: {[key in ScreenWidth]?: ColSpanOffset}|ColSpanOffset;
-    wrapperCol?: {[key in ScreenWidth]?: ColSpanOffset}|ColSpanOffset;
-}
 
 export interface IFormProps {
     id: string;
@@ -91,8 +67,8 @@ export interface IFormProps {
     content?: IFormContent;
     values?: any;
     layout?: "vertical"|"horizontal"|"inline";
-    formLayoutOptions?: IFormLayoutOptions;
-    itemLayoutOptions?: IFormItemLayoutOptions;
+    formLayoutOptions?: FormLayoutOptions;
+    itemLayoutOptions?: ItemLayoutOptions;
     stopSubmit?: boolean;
     submitTarget?: string;
     successRedirect?: string;

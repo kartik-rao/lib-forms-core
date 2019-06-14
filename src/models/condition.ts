@@ -1,15 +1,15 @@
-import Predicate, {IPredicate} from "./condition.predicate";
-import {action, decorate, observable, computed, toJS} from "mobx";
-import FormStore from "../store/FormStore";
+import { action, computed, observable } from "mobx";
+import { FormStore } from "../store/FormStore";
+import { IPredicate, Predicate } from "./condition.predicate";
 
 export interface ICondition {
     predicates: IPredicate[],
     ancestors?: string[],
 }
 
-class Condition {
-    predicates: Predicate[];
-    ancestors?: string[];
+export class Condition {
+    @observable predicates: Predicate[];
+    @observable ancestors?: string[];
     store: FormStore;
 
     @action initialize(data: ICondition, store: FormStore) {
@@ -90,10 +90,3 @@ class Condition {
         return state;
     }
 }
-
-decorate(Condition, {
-    predicates: observable,
-    ancestors: observable
-});
-
-export default Condition;

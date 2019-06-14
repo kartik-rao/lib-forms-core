@@ -3,8 +3,8 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
 import {InputView} from '../../../src/views/controls/InputView';
-import Field from '../../../src/models/field';
-import FormStore from '../../../src/store/FormStore';
+import {Field} from '../../../src/models/field';
+import { FormStore } from '../../../src/store/FormStore';
 import {genElementId} from "../../utils";
 import sinon from "sinon";
 import {FieldTypes, IInputProps} from "../../../src/models/field.properties";
@@ -33,7 +33,9 @@ describe("FieldView.InputView", () => {
             name: "First Name",
             type: "text",
             inputType: FieldTypes.input,
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter f1",
             } as IInputProps
@@ -71,7 +73,9 @@ describe("FieldView.InputView", () => {
             name: "First Name",
             type: "hidden",
             inputType: "input",
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter f1",
             }

@@ -1,8 +1,8 @@
-import {action, decorate, observable, computed, toJS} from "mobx";
-import {IFieldProps} from "./field.properties";
-import Field from "./field";
-import FormStore from "../store/FormStore";
-import {valueOrDefault} from "./common";
+import { action, computed, observable } from "mobx";
+import { FormStore } from "../store/FormStore";
+import { valueOrDefault } from "./common";
+import { Field } from "./field";
+import { IFieldProps } from "./field.properties";
 import { IValidationError } from "./validation";
 
 export interface IColumn {
@@ -15,14 +15,14 @@ export interface IColumn {
     fields?: IFieldProps[];
 }
 
-class Column implements IColumn {
+export class Column implements IColumn {
     readonly _type : string = "Column";
-    uuid: string;
-    id: string;
-    name: string;
-    span: number;
-    title: string;
-    fields: Field[];
+    @observable uuid: string;
+    @observable id: string;
+    @observable name: string;
+    @observable span: number;
+    @observable title: string;
+    @observable fields: Field[];
     store: FormStore;
 
     @computed get errors() : IValidationError[] {
@@ -87,14 +87,3 @@ class Column implements IColumn {
         this.fields = valueOrDefault(<Field[]>data.fields, <Field[]>[]);
     }
 }
-
-decorate(Column, {
-    name: observable,
-    uuid: observable,
-    id: observable,
-    title: observable,
-    span: observable,
-    fields: observable
-})
-
-export default Column

@@ -1,7 +1,7 @@
-import {action, decorate, observable, computed, set} from "mobx";
-import Form from "../models/form";
-import Page from "../models/page";
-import Field from "../models/field";
+import { action, computed, observable, set } from "mobx";
+import { Field } from "../models/field";
+import { Form } from "../models/form";
+import { Page } from "../models/page";
 
 export interface IFormStoreProps {
     values?: any;
@@ -9,16 +9,16 @@ export interface IFormStoreProps {
     debug? : boolean
 }
 
-class FormStore {
-    errors: any;
-    values: any;
-    touched: any;
-    currentPage: number;
-    debug : boolean;
-    form: Form
-    submitting: boolean;
-    validationDisabled: boolean;
-    conditionsDisabled: boolean;
+export class FormStore {
+    @observable errors: any;
+    @observable values: any;
+    @observable touched: any;
+    @observable currentPage: number;
+    @observable debug : boolean;
+    @observable form: Form
+    @observable submitting: boolean;
+    @observable validationDisabled: boolean;
+    @observable conditionsDisabled: boolean;
 
     @computed get idFieldMap() : { [key:string]:Field; } {
         return this.form.content.pages.reduce((all: {}, p: Page) => {
@@ -100,14 +100,3 @@ class FormStore {
         this.initialize();
     }
 }
-
-decorate(FormStore, {
-    errors: observable,
-    values: observable,
-    touched: observable,
-    form: observable,
-    currentPage: observable,
-    submitting: observable
-})
-
-export default FormStore;

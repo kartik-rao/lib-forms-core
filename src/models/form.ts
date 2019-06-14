@@ -1,32 +1,34 @@
-import {action, decorate, observable, computed, toJS} from "mobx";
 import axios from "axios";
-import {valueOrDefault} from "./common";
-import Page from "./page";
-import FormStore from "../store/FormStore";
+import { action, computed, observable } from "mobx";
 import { FormEvent } from "react";
-import Field from "./field";
-
-import {IFormProps, IFormTenant, IFormContent, IFormLayoutOptions, IFormStatus, IFormItemLayoutOptions} from "./form.properties";
+import { FormStore } from "../store/FormStore";
+import { valueOrDefault } from "./common";
+import { Field } from "./field";
+import { IFormContent, IFormProps, IFormStatus, IFormTenant } from "./form.properties";
+import { FormLayoutOptions, ItemLayoutOptions } from './layout';
+import {Page} from "./page";
 import { IValidationError } from "./validation";
 
-class Form implements IFormProps {
-    id: string;
-    uuid: string;
-    exid: string;
-    desc: string;
-    name: string;
-    tenant: IFormTenant;
-    status: IFormStatus;
-    content: IFormContent;
-    layout: any;
-    stopSubmit: boolean;
-    submitTarget: string;
-    formLayoutOptions: IFormLayoutOptions;
-    itemLayoutOptions: IFormItemLayoutOptions;
+
+export class Form implements IFormProps {
     store: FormStore
-    submitError: string;
-    successRedirect: string;
-    errorRedirect: string;
+    uuid: string;
+
+    @observable id: string;
+    @observable exid: string;
+    @observable desc: string;
+    @observable name: string;
+    @observable tenant: IFormTenant;
+    @observable status: IFormStatus;
+    @observable content: IFormContent;
+    @observable layout: any;
+    @observable stopSubmit: boolean;
+    @observable submitTarget: string;
+    @observable submitError: string;
+    @observable formLayoutOptions: FormLayoutOptions;
+    @observable itemLayoutOptions: ItemLayoutOptions;
+    @observable successRedirect: string;
+    @observable errorRedirect: string;
 
     @action initialize(data: IFormProps, store: FormStore) {
         this.store = store;
@@ -124,8 +126,8 @@ class Form implements IFormProps {
         }
 
         this.layout = valueOrDefault(data.layout, "vertical");
-        this.formLayoutOptions = valueOrDefault(data.formLayoutOptions, {});
-        this.itemLayoutOptions = data.itemLayoutOptions || {};
+        this.formLayoutOptions = new FormLayoutOptions(data.formLayoutOptions);
+        this.itemLayoutOptions = new ItemLayoutOptions(data.itemLayoutOptions);
     }
 
     constructor(data: IFormProps, store: FormStore) {
@@ -231,21 +233,3 @@ class Form implements IFormProps {
         }
     }
 }
-
-decorate(Form, {
-    id: observable,
-    exid: observable,
-    desc: observable,
-    name: observable,
-    tenant: observable,
-    status: observable,
-    content:observable,
-    layout: observable,
-    stopSubmit: observable,
-    submitTarget: observable,
-    submitError: observable,
-    formLayoutOptions: observable,
-    itemLayoutOptions: observable
-});
-
-export default Form;

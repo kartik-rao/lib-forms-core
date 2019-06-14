@@ -1,8 +1,8 @@
 import {action, decorate, observable, computed, toJS} from "mobx";
-import FormStore from "../store/FormStore";
+import { FormStore } from "../store/FormStore";
 import moment from 'moment'
-import Field from "./field";
-import ValidationRule, {IValidationError, IValidationRule} from "./validation";
+import {Field} from "./field";
+import {ValidationRule, IValidationError, IValidationRule} from "./validation";
 
 var validate = require("validate.js");
 
@@ -25,11 +25,11 @@ export interface IValidationProps {
     rule: IValidationRule
 }
 
-class Validator {
+export class Validator {
     store: FormStore;
     field: Field;
-    rule : ValidationRule;
-    validationErrors: IValidationError[] = [];
+    @observable rule : ValidationRule;
+    @observable validationErrors: IValidationError[] = [];
 
     @computed get isValid() : boolean {
         return this.validationErrors.length == 0;
@@ -91,10 +91,3 @@ class Validator {
         this.initialize(data);
     }
 }
-
-decorate(Validator, {
-    rule: observable,
-    validationErrors: observable
-});
-
-export default Validator;

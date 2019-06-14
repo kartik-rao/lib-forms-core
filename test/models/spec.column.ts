@@ -1,9 +1,9 @@
-import Column, { IColumn } from "../../src/models/column";
-import {IFieldProps} from "../../src/models/field.properties";
-import Field  from "../../src/models/field";
-import FormStore from "../../src/store/FormStore";
-import { when, toJS } from "mobx";
-import {genElementId} from "../utils";
+import { when } from "mobx";
+import { Column, IColumn } from "../../src/models/column";
+import { Field } from "../../src/models/field";
+import { IFieldProps } from "../../src/models/field.properties";
+import { FormStore } from "../../src/store/FormStore";
+import { genElementId } from "../utils";
 
 let f1_id = genElementId('field');
 const F1: IFieldProps = {

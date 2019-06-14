@@ -2,9 +2,9 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import Column from '../../src/models/column';
-import Field from '../../src/models/field';
-import FormStore from '../../src/store/FormStore';
+import {Column} from '../../src/models/column';
+import {Field} from '../../src/models/field';
+import { FormStore } from '../../src/store/FormStore';
 import { ColumnView } from "../../src/views/ColumnView";
 import {genElementId} from "../utils";
 
@@ -32,7 +32,9 @@ describe("ColumnView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "f1",
+            fieldOptions: {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter f1",
             }
@@ -59,7 +61,9 @@ describe("ColumnView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter f1",
             },

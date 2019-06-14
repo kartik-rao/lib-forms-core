@@ -1,9 +1,9 @@
-import { Col, Card } from "antd";
+import { Card, Col } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
-import Column from "../models/column";
-import Field from "../models/field";
-import FormStore from "../store/FormStore";
+import { Column } from "../models/column";
+import { Field } from "../models/field";
+import { FormStore } from "../store/FormStore";
 import { FieldView } from "./FieldView";
 
 export interface ColumnProps {

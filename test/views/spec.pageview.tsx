@@ -2,13 +2,13 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import Column from '../../src/models/column';
-import Field from '../../src/models/field';
-import Section from '../../src/models/section';
-import FormStore from '../../src/store/FormStore';
+import { Column } from '../../src/models/column';
+import { Field } from '../../src/models/field';
+import { Page } from '../../src/models/page';
+import { Section } from '../../src/models/section';
+import { FormStore } from '../../src/store/FormStore';
 import { PageView } from "../../src/views/PageView";
-import Page from '../../src/models/page';
-import {genElementId} from "../utils";
+import { genElementId } from "../utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});
@@ -37,7 +37,9 @@ describe("PageView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter first name",
             }
@@ -74,7 +76,9 @@ describe("PageView", () => {
             validation : {
                 presence: {message: "First Name is required"}
             },
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter first name",
             }

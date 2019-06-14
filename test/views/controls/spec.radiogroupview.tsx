@@ -1,16 +1,16 @@
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
-import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import {RadioGroupView} from '../../../src/views/controls/RadioGroupView';
-import Field from '../../../src/models/field';
-import FormStore from '../../../src/store/FormStore';
-import {FieldTypes, IRadioGroupProps} from "../../../src/models/field.properties";
-import {genElementId, printPrettyHtml} from "../../utils";
+import { act } from 'react-dom/test-utils'; // ES6
 import sinon from "sinon";
+import { Field } from '../../../src/models/field';
+import { FieldTypes, IRadioGroupProps } from "../../../src/models/field.properties";
+import { FormStore } from '../../../src/store/FormStore';
+import { RadioGroupView } from '../../../src/views/controls/RadioGroupView';
+import { genElementId } from "../../utils";
 
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -37,7 +37,9 @@ describe("FieldView.RadioGroupView", () => {
             id: genElementId("field"),
             name: "Country",
             inputType: FieldTypes.radiogroup,
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 defaultValue: "NZ",
                 options : [{
@@ -68,7 +70,9 @@ describe("FieldView.RadioGroupView", () => {
             id: genElementId("field"),
             name: "Country",
             inputType: "select",
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 defaultValue: "NZ",
                 options : [{

@@ -1,8 +1,8 @@
-import Column, {IColumn} from "./column";
-import {action, decorate, observable, computed} from "mobx";
-import FormStore from "../store/FormStore";
-import {valueOrDefault} from "./common";
-import Field from "./field";
+import { action, computed, observable } from "mobx";
+import { FormStore } from "../store/FormStore";
+import { Column, IColumn } from "./column";
+import { valueOrDefault } from "./common";
+import { Field } from "./field";
 import { IValidationError } from "./validation";
 
 export interface ISection {
@@ -14,14 +14,14 @@ export interface ISection {
     columns: IColumn[];
 }
 
-class Section implements ISection {
+export class Section implements ISection {
     readonly _type : string = "Section";
-    id: string;
-    uuid:string;
-    name: string;
-    title: string;
-    gutter: number;
-    columns: Column[];
+    @observable id: string;
+    @observable uuid:string;
+    @observable name: string;
+    @observable title: string;
+    @observable gutter: number;
+    @observable columns: Column[];
     store: FormStore;
 
     @computed get errors() : IValidationError[] {
@@ -88,14 +88,3 @@ class Section implements ISection {
         this.initialize(data, store);
     }
 }
-
-decorate(Section, {
-    id: observable,
-    name: observable,
-    uuid: observable,
-    title: observable,
-    gutter: observable,
-    columns: observable
-})
-
-export default Section

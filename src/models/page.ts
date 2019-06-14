@@ -1,9 +1,9 @@
-import Section, {ISection} from "./section";
-import FormStore from "../store/FormStore";
-import Column from "./column";
-import Field from "./field";
-import {action, decorate, observable, computed} from "mobx";
-import {valueOrDefault} from "./common";
+import { action, computed, observable } from "mobx";
+import { FormStore } from "../store/FormStore";
+import { Column } from "./column";
+import { valueOrDefault } from "./common";
+import { Field } from "./field";
+import { ISection, Section } from "./section";
 import { IValidationError } from "./validation";
 
 export interface IPage {
@@ -16,15 +16,15 @@ export interface IPage {
     subtitle?: string;
 }
 
-class Page implements IPage {
+export class Page implements IPage {
     readonly _type : string = "Page";
-    id: string;
-    uuid: string;
-    name: string;
-    icon: string;
-    sections: Section[];
-    title: string;
-    subtitle: string;
+    @observable id: string;
+    @observable uuid: string;
+    @observable name: string;
+    @observable icon: string;
+    @observable sections: Section[];
+    @observable title: string;
+    @observable subtitle: string;
     store: FormStore;
 
     @computed get fieldNames() : string[] {
@@ -130,15 +130,3 @@ class Page implements IPage {
         this.initialize(data, store);
     }
 }
-
-decorate(Page, {
-    id: observable,
-    name: observable,
-    uuid: observable,
-    icon: observable,
-    sections: observable,
-    title: observable,
-    subtitle: observable
-})
-
-export default Page

@@ -2,10 +2,10 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import Column from '../../src/models/column';
-import Field from '../../src/models/field';
-import Section from '../../src/models/section';
-import FormStore from '../../src/store/FormStore';
+import {Column} from '../../src/models/column';
+import {Field} from '../../src/models/field';
+import {Section} from '../../src/models/section';
+import { FormStore } from '../../src/store/FormStore';
 import { SectionView } from "../../src/views/SectionView";
 import {genElementId} from "../utils";
 
@@ -34,7 +34,9 @@ describe("SectionView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter first name",
             }
@@ -66,7 +68,9 @@ describe("SectionView", () => {
             name: "First Name",
             type: "text",
             inputType: "input",
-            valuePropName: "f1",
+            fieldOptions : {
+                valuePropName: "f1"
+            },
             componentProps: {
                 placeholder: "Enter first name",
             },

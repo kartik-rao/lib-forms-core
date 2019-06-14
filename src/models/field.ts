@@ -1,36 +1,37 @@
-import { action, computed, decorate, observable, observe, toJS } from "mobx";
-import FormStore from "../store/FormStore";
-import Condition, { ICondition } from "./condition";
-
-import {IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps} from "./field.properties";
-import Validator from "./validator";
-import ValidationRule, { IValidationRule } from "./validation";
+import { action, computed, observable, observe, toJS } from "mobx";
+import { FormStore } from "../store/FormStore";
+import { Condition, ICondition } from "./condition";
 import { IFieldOptions } from "./field.options";
-import { IFormItemLayoutOptions } from './form.properties';
+import { IComponentProps, IFieldProps, IFieldRuntimeProps, IFieldStorage } from "./field.properties";
+import { ItemLayoutOptions } from './layout';
+import { IValidationRule, ValidationRule } from "./validation";
+import { Validator } from "./validator";
 
-class Field implements IFieldProps, IFieldRuntimeProps {
+
+export class Field implements IFieldProps, IFieldRuntimeProps {
     readonly _type : string = "Field";
-    id: string;
-    name: string;
     uuid: string;
-    type: string;
-    label: string;
-    value : any;
-    touched: boolean;
-    inputType: string;
-    helpText: string;
-    placeholder: string;
+    @observable id: string;
+    @observable name: string;
+
+    @observable type: string;
+    @observable label: string;
+    @observable value : any;
+    @observable touched: boolean;
+    @observable inputType: string;
+    @observable helpText: string;
+    @observable placeholder: string;
     fieldOptions: IFieldOptions;
     children: any;
-    condition: Condition;
-    storage: IFieldStorage;
+    @observable condition: Condition;
+    @observable storage: IFieldStorage;
     store: FormStore;
-    location: any;
-    conditionState: boolean;
-    validator : Validator;
+    @observable location: any;
+    @observable conditionState: boolean;
+    @observable validator : Validator;
     validation: IValidationRule;
-    componentProps: IComponentProps;
-    itemLayoutOptions : IFormItemLayoutOptions;
+    @observable componentProps: IComponentProps;
+    @observable itemLayoutOptions : ItemLayoutOptions;
     _dispose : any;
 
     @action mergeUpdate(data: Partial<IFieldProps>) {
@@ -65,7 +66,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
         this.componentProps = data.componentProps || {};
         this.location = data.location || {};
         this.touched = false;
-        this.itemLayoutOptions = data.itemLayoutOptions ? data.itemLayoutOptions : null;
+        this.itemLayoutOptions = new ItemLayoutOptions(data.itemLayoutOptions);
 
         if (this.componentProps && this.componentProps['defaultValue']) {
             this.setValue(this.componentProps['defaultValue']);
@@ -178,26 +179,3 @@ class Field implements IFieldProps, IFieldRuntimeProps {
         this.initialize(data, store);
     }
 }
-
-decorate(Field, {
-    id: observable,
-    name: observable,
-    uuid: observable,
-    type: observable,
-    label: observable,
-    touched: observable,
-    value : observable,
-    inputType: observable,
-    helpText: observable,
-    placeholder: observable,
-    validation: observable,
-    fieldOptions: observable,
-    condition: observable,
-    storage: observable,
-    conditionState: observable,
-    validator: observable,
-    componentProps: observable,
-    itemLayoutOptions: observable
-});
-
-export default Field;

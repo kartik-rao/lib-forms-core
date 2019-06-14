@@ -1,9 +1,9 @@
 import { Form } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
-import Field from "../models/field";
-import { IFormItemLayoutOptions } from '../models/form.properties';
-import FormStore from "../store/FormStore";
+import {Field} from "../models/field";
+import { IItemLayoutOptions } from '../models/layout';
+import { FormStore } from "../store/FormStore";
 import { CascaderView } from "./controls/CascaderView";
 import { CheckboxGroupView } from "./controls/CheckboxGroupView";
 import { CheckboxView } from "./controls/CheckboxView";
@@ -53,7 +53,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
         // labelCol should only be passed if form is horizontal
         // otherwise the control does not go to the next line
         // Allow field item layout options to override form layout options
-        let itemLayout: IFormItemLayoutOptions = field.itemLayoutOptions || store.form.itemLayoutOptions || {};
+        let itemLayout: IItemLayoutOptions = field.itemLayoutOptions || store.form.itemLayoutOptions || {};
 
         return <div id={`fl-field-${field.id}`} data-uuid={field.uuid} className={`fl-field fl-field-${fieldClass}`}>
             { !field.isDisabled && <Form.Item label={field.label} labelAlign={itemLayout.labelAlign}

@@ -1,10 +1,10 @@
-import * as React from "react";
-import {Card, Row, Divider} from "antd";
-import {ColumnView} from "./ColumnView";
+import { Card, Row } from "antd";
 import { observer } from "mobx-react";
-import Column from "../models/column";
-import Section from "../models/section";
-import FormStore from "../store/FormStore";
+import * as React from "react";
+import { Column } from "../models/column";
+import { Section } from "../models/section";
+import { FormStore } from "../store/FormStore";
+import { ColumnView } from "./ColumnView";
 
 export interface SectionProps {
     section: Section;
