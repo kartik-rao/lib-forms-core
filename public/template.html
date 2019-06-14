@@ -39,6 +39,7 @@
                                     fields: [
                                         {
                                             id: "f1", name: "f1", type: "text", inputType: "input", label: "f1 - Text Label",
+                                            helpText: "f1 help",
                                             validation: {
                                                 presence: { message: 'f1 is a required field' },
                                                 length: { message: 'f1 should be length 2', minimum: 2},
@@ -50,6 +51,7 @@
                                         },
                                         {
                                             id: 'f10', name: "f10", type: 'number', label: "f10 -Number Field ", inputType : "number",
+                                            helpText: "f2 help",
                                             validation: {
                                                 presence: { message: 'f10 is a required field' },
                                                 numericality : true
@@ -143,6 +145,10 @@
                                             },
                                             componentProps: {
                                                 placeholder: 'Placeholder Text F18',
+                                            },
+                                            itemLayoutOptions: {
+                                                labelCol: {span: 24},
+                                                wrapperCol: {span: 12}
                                             }
                                         }]
                                     }
@@ -207,13 +213,14 @@
             },
             formLayoutOptions: {
                 showSteps: true,
-                showPageTitles : false,
-                showSectionTitles: false,
-                showSectionBorders : false,
-                showPageBorders: false,
-                validationDisablesPaging: false,
-                wrapperSpan: 24,
-                wrapperOffset: 0
+                showPageTitles : true,
+                showSectionTitles: true,
+                showSectionBorders : true,
+                showPageBorders: true,
+                validationDisablesPaging: false
+            },
+            itemLayoutOptions : {
+                wrapperCol: {span: 12}
             }
         });
     </script>
