@@ -12,7 +12,9 @@
     "preversion": "npm test",
     "version": "npm run build && git add -A lib",
     "postversion": "git push && git push --tags",
-    "release": "npm version patch && npm publish"
+    "release": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "author": "Kartik Rao",
   "license": "UNLICENSED",
