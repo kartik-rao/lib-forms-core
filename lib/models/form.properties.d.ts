@@ -56,6 +56,9 @@ export interface IFormLayoutOptions {
     showSectionBorders?: boolean;
     showPageBorders?: boolean;
     validationDisablesPaging?: boolean;
+    labelAlign?: "left" | "right";
+    wrapperCol?: ColSpanOffset;
+    labelCol?: ColSpanOffset;
 }
 export declare enum ScreenWidths {
     "xs" = "xs",
@@ -69,6 +72,7 @@ export interface ColSpanOffset {
     offset?: number;
 }
 export interface IFormItemLayoutOptions {
+    labelAlign?: "left" | "right";
     labelCol?: {
         [key in keyof typeof ScreenWidths]?: ColSpanOffset;
     } | ColSpanOffset;
