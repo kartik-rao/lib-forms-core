@@ -27,7 +27,8 @@ export class FormView extends React.Component<FormComponentProps, any> {
 
         return (
             <Layout style={{height: '100%', overflow: 'hidden'}} className="fl-form-container">
-                <FormHeaderView store={formStore} />
+                <FormHeaderView title={content.title} subtitle={content.subtitle} desc={form.desc}
+                    currentPage={formStore.currentPage} numPages={formStore.numPages} showSteps={formLayoutOptions.showSteps} />
                 <Layout style={{overflow: 'hidden', border: '1px solid #ededed'}}>
                     <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout} style={{height: '100%'}} {...formLayoutOptions}>
                         <Layout.Content style={{overflowY: 'scroll', height: 'calc(100% - 68px)', backgroundColor: 'white' }}>
