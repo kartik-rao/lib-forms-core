@@ -2,24 +2,25 @@ import { Form } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import Field from "../models/field";
+import { IFormItemLayoutOptions } from '../models/form.properties';
 import FormStore from "../store/FormStore";
+import { CascaderView } from "./controls/CascaderView";
 import { CheckboxGroupView } from "./controls/CheckboxGroupView";
 import { CheckboxView } from "./controls/CheckboxView";
 import { DatePickerView } from "./controls/DatePickerView";
 import { DateRangeView } from "./controls/DateRangeView";
+import { HTMLFragmentView } from './controls/HtmlFragmentView';
 import { InputView } from "./controls/InputView";
 import { NumberView } from "./controls/NumberView";
 import { RadioGroupView } from "./controls/RadioGroupView";
+import { RadioView } from './controls/RadioView';
 import { SelectView } from "./controls/SelectView";
-import { CascaderView } from "./controls/CascaderView";
+import { SliderView } from "./controls/SliderView";
 import { StarRatingView } from "./controls/StarRatingView";
 import { SwitchView } from "./controls/SwitchView";
-import { TransferView } from "./controls/TransferView";
-import { SliderView } from "./controls/SliderView";
 import { TextAreaView } from "./controls/TextAreaView";
 import { TextBlockView } from "./controls/TextBlockView";
-import { HTMLFragmentView } from './controls/HtmlFragmentView';
-import { RadioView } from './controls/RadioView';
+import { TransferView } from "./controls/TransferView";
 
 export interface IFieldViewProps {
     field: Field;
@@ -36,7 +37,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
 
     render() {
         const { field, store } = this.props;
-        const { itemLayoutOptions } = store.form;
+        const { layout } = store.form;
 
         let onChange = (e) => {
             let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
@@ -44,16 +45,24 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
         };
 
         let onBlur = () => field.setTouched();
-
         let {id, inputType, type } = field;
-        let fieldClass = inputType == type ? inputType : `${inputType}-${type}`;
+
+        // Some fields only have inputtype
+        let fieldClass = inputType == type ? inputType : (type ? `${inputType}-${type}` : `${inputType}`);
+
+        // labelCol should only be passed if form is horizontal
+        // otherwise the control does not go to the next line
+        // Allow field item layout options to override form layout options
+        let itemLayout: IFormItemLayoutOptions = field.itemLayoutOptions || store.form.itemLayoutOptions || {};
 
         return <div id={`fl-field-${field.id}`} data-uuid={field.uuid} className={`fl-field fl-field-${fieldClass}`}>
             { !field.isDisabled && <Form.Item label={field.label}
             hasFeedback={store.touched[id] && store.errors[id] ? true : null}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
-            {...itemLayoutOptions}
-            help={store.touched[id] ? (store.errors[id] ? store.errors[id] : field.helpText): field.helpText}
+            wrapperCol={itemLayout.wrapperCol}
+            labelCol={layout == "horizontal" ? itemLayout.labelCol : null}
+            extra={field.helpText}
+            help={store.touched[id] ? (store.errors[id] ? store.errors[id] : field.helpText): ''}
             required={field.isRequired}>
                 {inputType == "input" && <InputView field={field} onChange={onChange} onBlur={onBlur}/>}
                 {inputType == "radio" && <RadioView field={field} onChange={onChange} />}

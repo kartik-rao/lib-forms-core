@@ -6,6 +6,7 @@ import {IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps} from ".
 import Validator from "./validator";
 import ValidationRule, { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
+import { IFormItemLayoutOptions } from './form.properties';
 
 class Field implements IFieldProps, IFieldRuntimeProps {
     readonly _type : string = "Field";
@@ -29,6 +30,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
     validator : Validator;
     validation: IValidationRule;
     componentProps: IComponentProps;
+    itemLayoutOptions : IFormItemLayoutOptions;
     _dispose : any;
 
     @action mergeUpdate(data: Partial<IFieldProps>) {
@@ -63,6 +65,7 @@ class Field implements IFieldProps, IFieldRuntimeProps {
         this.componentProps = data.componentProps || {};
         this.location = data.location || {};
         this.touched = false;
+        this.itemLayoutOptions = data.itemLayoutOptions ? data.itemLayoutOptions : null;
 
         if (this.componentProps && this.componentProps['defaultValue']) {
             this.setValue(this.componentProps['defaultValue']);
@@ -193,7 +196,8 @@ decorate(Field, {
     storage: observable,
     conditionState: observable,
     validator: observable,
-    componentProps: observable
+    componentProps: observable,
+    itemLayoutOptions: observable
 });
 
 export default Field;

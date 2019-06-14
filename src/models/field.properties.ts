@@ -16,6 +16,7 @@ import { TextAreaProps } from "antd/lib/input";
 import { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
 import { CSSProperties } from 'react';
+import { IFormItemLayoutOptions } from './form.properties';
 
 /* CheckboxGroupProps|CheckboxProps|InputProps  */
 export class FieldTypes {
@@ -217,4 +218,5 @@ export interface IFieldProps extends IFieldInternalProps {
     validation?: IValidationRule;
     componentProps: IComponentProps;
     fieldOptions: IFieldOptions;
+    itemLayoutOptions?: IFormItemLayoutOptions;
 }
