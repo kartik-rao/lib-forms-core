@@ -16,6 +16,7 @@ import { TextAreaProps } from "antd/lib/input";
 import { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
 import { CSSProperties } from 'react';
+import { IFormItemLayoutOptions } from './form.properties';
 export declare class FieldTypes {
     static text: string;
     static input: string;
@@ -180,4 +181,5 @@ export interface IFieldProps extends IFieldInternalProps {
     validation?: IValidationRule;
     componentProps: IComponentProps;
     fieldOptions: IFieldOptions;
+    itemLayoutOptions?: IFormItemLayoutOptions;
 }

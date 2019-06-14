@@ -4,6 +4,7 @@ import { IFieldProps, IComponentProps, IFieldStorage, IFieldRuntimeProps } from 
 import Validator from "./validator";
 import { IValidationRule } from "./validation";
 import { IFieldOptions } from "./field.options";
+import { IFormItemLayoutOptions } from './form.properties';
 declare class Field implements IFieldProps, IFieldRuntimeProps {
     readonly _type: string;
     id: string;
@@ -26,6 +27,7 @@ declare class Field implements IFieldProps, IFieldRuntimeProps {
     validator: Validator;
     validation: IValidationRule;
     componentProps: IComponentProps;
+    itemLayoutOptions: IFormItemLayoutOptions;
     _dispose: any;
     mergeUpdate(data: Partial<IFieldProps>): void;
     initialize(data: IFieldProps, store: FormStore): void;

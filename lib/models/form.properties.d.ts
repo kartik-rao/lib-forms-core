@@ -56,12 +56,25 @@ export interface IFormLayoutOptions {
     showSectionBorders?: boolean;
     showPageBorders?: boolean;
     validationDisablesPaging?: boolean;
-    wrapperSpan?: number;
-    wrapperOffset?: number;
+}
+export declare enum ScreenWidths {
+    "xs" = "xs",
+    "sm" = "sm",
+    "md" = "md",
+    "lg" = "lg",
+    "xl" = "xl"
+}
+export interface ColSpanOffset {
+    span: number;
+    offset?: number;
 }
 export interface IFormItemLayoutOptions {
-    labelCol?: any;
-    wrapperCol?: any;
+    labelCol?: {
+        [key in keyof typeof ScreenWidths]?: ColSpanOffset;
+    };
+    wrapperCol?: {
+        [key in keyof typeof ScreenWidths]?: ColSpanOffset;
+    };
 }
 export interface IFormProps {
     id: string;
@@ -73,7 +86,7 @@ export interface IFormProps {
     status?: IFormStatus;
     content?: IFormContent;
     values?: any;
-    layout?: any;
+    layout?: "vertical" | "horizontal" | "inline";
     formLayoutOptions?: IFormLayoutOptions;
     itemLayoutOptions?: IFormItemLayoutOptions;
     stopSubmit?: boolean;
