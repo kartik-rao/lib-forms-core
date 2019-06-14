@@ -22,17 +22,17 @@ export class FormView extends React.Component<FormComponentProps, any> {
 
         let {form} = formStore;
         let {content, formLayoutOptions} = form;
-        let { wrapperSpan, wrapperOffset } = formLayoutOptions;
         let {currentPage} = formStore;
+
         return (
             <Layout style={{height: '100%', overflow: 'hidden'}} className="fl-form-container">
                 <div className="fl-shadow-bottom" style={{ marginBottom: '2px'}}>
                     <PageHeader className="fl-ph" style={{'minHeight': '68px', border: 'none'}} title={content.title} subTitle={content.subtitle}
-                        extra={(form.formLayoutOptions.showSteps && <div>
+                        extra={(formLayoutOptions.showSteps && <div>
                         <Statistic title="Page" value={formStore.currentPage + 1} suffix={"/ " + content.pages.length} />
                         </div>)} />
                     {content.title && <Row>
-                        <Col span={wrapperSpan}>
+                        <Col span={24}>
                             <div className="fl-ph-wrap">
                                 <div className="fl-ph-content fl-ph-padding">{form.desc}</div>
                             </div>
