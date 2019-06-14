@@ -56,7 +56,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
         let itemLayout: IFormItemLayoutOptions = field.itemLayoutOptions || store.form.itemLayoutOptions || {};
 
         return <div id={`fl-field-${field.id}`} data-uuid={field.uuid} className={`fl-field fl-field-${fieldClass}`}>
-            { !field.isDisabled && <Form.Item label={field.label}
+            { !field.isDisabled && <Form.Item label={field.label} labelAlign={itemLayout.labelAlign}
             hasFeedback={store.touched[id] && store.errors[id] ? true : null}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
             wrapperCol={itemLayout.wrapperCol}

@@ -30,7 +30,7 @@ export class FormView extends React.Component<FormComponentProps, any> {
                 <FormHeaderView title={content.title} subtitle={content.subtitle} desc={form.desc}
                     currentPage={formStore.currentPage} numPages={formStore.numPages} showSteps={formLayoutOptions.showSteps} />
                 <Layout style={{overflow: 'hidden', border: '1px solid #ededed'}}>
-                    <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout} style={{height: '100%'}} {...formLayoutOptions}>
+                    <Form onSubmit={(e) => form.handleSubmit(e)} layout={form.layout} style={{height: '100%'}} wrapperCol={formLayoutOptions.wrapperCol} labelCol={formLayoutOptions.labelCol} labelAlign={formLayoutOptions.labelAlign}>
                         <Layout.Content style={{overflowY: 'scroll', height: 'calc(100% - 68px)', backgroundColor: 'white' }}>
                             <PageView page={content.pages[currentPage] as Page} store={formStore}></PageView>
                         </Layout.Content>

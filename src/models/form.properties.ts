@@ -60,7 +60,10 @@ export interface IFormLayoutOptions {
     showSectionTitles?: boolean,
     showSectionBorders? : boolean,
     showPageBorders?: boolean,
-    validationDisablesPaging?: boolean
+    validationDisablesPaging?: boolean;
+    labelAlign?: "left" | "right";
+    wrapperCol?: ColSpanOffset;
+    labelCol?: ColSpanOffset;
 }
 
 export enum ScreenWidths {
@@ -77,6 +80,7 @@ export interface ColSpanOffset {
 }
 
 export interface IFormItemLayoutOptions {
+    labelAlign? : "left"|"right";
     labelCol?: {[key in keyof typeof ScreenWidths]?: ColSpanOffset}|ColSpanOffset;
     wrapperCol?: {[key in keyof typeof ScreenWidths]?: ColSpanOffset}|ColSpanOffset;
 }
