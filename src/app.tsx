@@ -10,7 +10,7 @@ import { FormView } from "./views/FormView";
 const debug = (window && window.location.hostname.indexOf('localhost') > -1) ? true : false;
 
 enableLogging({
-    action: debug,
+    action: false,
     reaction: false,
     transaction: false,
     compute: false
