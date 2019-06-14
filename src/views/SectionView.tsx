@@ -23,9 +23,9 @@ export class SectionView extends React.Component<SectionProps, any> {
     render() {
         let {store, section} = this.props;
         const numColumns = section.columns.length;
-        let span = numColumns <= 1 ? 8 : 24 / numColumns;
+        let span = numColumns <= 1 ? 24 : 24 / numColumns;
 
-        return <div className="fl-section" data-uuid={section.uuid} id={section.id}>
+        return <div className="fl-section" data-uuid={section.uuid} id={`fl-section-${section.id}`}>
             <Card bordered={false} title={section.name} style={{padding: "1px"}} size="small">
                 <Row gutter={section.gutter || 4}>
                     {section.columns.map((column: Column, cn: number) => {
