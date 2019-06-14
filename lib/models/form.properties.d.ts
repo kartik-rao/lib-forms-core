@@ -71,10 +71,10 @@ export interface ColSpanOffset {
 export interface IFormItemLayoutOptions {
     labelCol?: {
         [key in keyof typeof ScreenWidths]?: ColSpanOffset;
-    };
+    } | ColSpanOffset;
     wrapperCol?: {
         [key in keyof typeof ScreenWidths]?: ColSpanOffset;
-    };
+    } | ColSpanOffset;
 }
 export interface IFormProps {
     id: string;
