@@ -5,6 +5,7 @@ export * from "./models/validator";
 export * from "./models/field.properties";
 export * from "./models/form.properties";
 export * from "./models/field";
+export * from "./models/layout";
 export * from "./models/column";
 export * from "./models/section";
 export * from "./models/page";
