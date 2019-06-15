@@ -13,8 +13,8 @@ export declare class LayoutOption {
     constructor(props?: {
         [key in ScreenWidth]?: ColSpanOffset;
     });
-    unused(): ScreenWidth[];
-    used(): ScreenWidth[];
+    readonly unused: ScreenWidth[];
+    readonly used: ScreenWidth[];
     add(dimension: ScreenWidth, colspan: ColSpanOffset): void;
 }
 export interface IFormLayoutOptions {
