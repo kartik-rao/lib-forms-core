@@ -92,9 +92,9 @@ export interface IItemLayoutOptions {
 }
 
 export class ItemLayoutOptions {
-    labelAlign : "left"|"right";
-    labelCol: LayoutOption;
-    wrapperCol: LayoutOption;
+    @observable labelAlign : "left"|"right";
+    @observable labelCol: LayoutOption;
+    @observable wrapperCol: LayoutOption;
 
     @action initialize(props: IItemLayoutOptions) {
         if(!props) {
