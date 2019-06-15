@@ -24,13 +24,13 @@ export class LayoutOption {
         })
     }
 
-    @computed unused() : ScreenWidth[] {
+    @computed get unused() : ScreenWidth[] {
         return AllScreenWidths.filter((d) => {
             return typeof this[d] == 'undefined' || this[d] == null
         })
     }
 
-    @computed used() : ScreenWidth[] {
+    @computed get used() : ScreenWidth[] {
         return AllScreenWidths.filter((d) => {
             return typeof this[d] != 'undefined' && this[d] != null
         })
