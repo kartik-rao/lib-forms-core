@@ -17,8 +17,8 @@ export class LayoutOption {
     @observable xl  : ColSpanOffset;
 
     constructor(props: {[key in ScreenWidth]?: ColSpanOffset}={}) {
-        Object.keys(props).map((width) => {
-            if(props[width]){
+        Object.keys(props).map((width: ScreenWidth) => {
+            if(AllScreenWidths.indexOf(width) > -1 && props[width]){
                 this[width] = props[width];
             }
         })
@@ -101,8 +101,8 @@ export class ItemLayoutOptions {
             return;
         }
         this.labelAlign = valueOrDefault(props.labelAlign, "left");
-        this.wrapperCol = valueOrDefault(props.wrapperCol, null);
-        this.labelCol = valueOrDefault(props.labelCol, null);
+        this.wrapperCol = new LayoutOption(props.wrapperCol);
+        this.labelCol = new LayoutOption(props.labelCol);
     }
 
     constructor(props: IItemLayoutOptions) {
