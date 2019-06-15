@@ -38,6 +38,9 @@ export class Section implements ISection {
     }
 
     @action addColumn(column: Column, index?: number) : void {
+        if(!column.span) {
+            column.span = 6;
+        }
         if (typeof index != 'undefined' && index != null && index > -1) {
             this.columns.splice(index, 0, column);
         } else {

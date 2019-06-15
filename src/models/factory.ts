@@ -58,6 +58,9 @@ export class Factory {
         columns.forEach((c: IColumn) => {
             this.setUUID(c);
             let fields = this.makeFields(...c.fields);
+            if (!c.span) {
+                c.span = Math.floor(24/columns.length);
+            }
             let column = new Column({...c, fields: fields}, this.store);
             response.push(column);
         })
