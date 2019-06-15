@@ -1,5 +1,5 @@
 export declare type ScreenWidth = "xs" | "sm" | "md" | "lg" | "xl";
-export declare const AllScreenWidths: string[];
+export declare const AllScreenWidths: ScreenWidth[];
 export interface ColSpanOffset {
     span: number;
     offset?: number;
@@ -10,9 +10,12 @@ export declare class LayoutOption {
     md: ColSpanOffset;
     lg: ColSpanOffset;
     xl: ColSpanOffset;
-    constructor(props: {
+    constructor(props?: {
         [key in ScreenWidth]?: ColSpanOffset;
     });
+    unused(): ScreenWidth[];
+    used(): ScreenWidth[];
+    add(dimension: ScreenWidth, colspan: ColSpanOffset): void;
 }
 export interface IFormLayoutOptions {
     showSteps?: boolean;
