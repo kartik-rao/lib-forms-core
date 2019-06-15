@@ -1,8 +1,8 @@
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import {valueOrDefault} from "./common";
 
 export type ScreenWidth = "xs"|"sm"|"md"|"lg"|"xl";
-export const AllScreenWidths: string[] = ["xs","sm","md","lg","xl"];
+export const AllScreenWidths: ScreenWidth[] = ["xs","sm","md","lg","xl"];
 
 export interface ColSpanOffset {
     span: number;
@@ -16,11 +16,30 @@ export class LayoutOption {
     @observable lg  : ColSpanOffset;
     @observable xl  : ColSpanOffset;
 
-    constructor(props: {[key in ScreenWidth]?: ColSpanOffset}) {
+    constructor(props: {[key in ScreenWidth]?: ColSpanOffset}={}) {
         Object.keys(props).map((width) => {
-            this[width] = props[width];
+            if(props[width]){
+                this[width] = props[width];
+            }
         })
     }
+
+    @computed unused() : ScreenWidth[] {
+        return AllScreenWidths.filter((d) => {
+            return typeof this[d] == 'undefined' || this[d] == null
+        })
+    }
+
+    @computed used() : ScreenWidth[] {
+        return AllScreenWidths.filter((d) => {
+            return typeof this[d] != 'undefined' && this[d] != null
+        })
+    }
+
+    add(dimension: ScreenWidth, colspan: ColSpanOffset) {
+        this[dimension] = colspan;
+    }
+
 }
 
 export interface IFormLayoutOptions {
