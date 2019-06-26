@@ -17,16 +17,20 @@ export class Factory {
         this.store = store;
     }
 
-    setUUID<T>(item: T) {
+    ensureIds<T>(item: T) {
         if (!item['uuid']) {
             item['uuid'] = uuidv1();
+        }
+
+        if(!item['id']) {
+            item['id'] = (1e6 * Math.random()).toFixed(0) + "";
         }
     }
 
     makePredicates(...predicates: IPredicate[]) : Predicate[] {
         let response: Predicate[] = [];
         predicates.forEach((predicate: IPredicate) => {
-            this.setUUID(predicate);
+            this.ensureIds(predicate);
             response.push(new Predicate(predicate, this.store));
         });
         return response;
@@ -43,7 +47,7 @@ export class Factory {
             return <Field[]>[];
         }
         return fields.reduce((r: Field[], f: IFieldProps) => {
-            this.setUUID(f);
+            this.ensureIds(f);
             r.push(new Field({...f, condition: f.condition}, this.store));
             return r;
         }, <Field[]>[]);
@@ -56,7 +60,7 @@ export class Factory {
         }
 
         columns.forEach((c: IColumn) => {
-            this.setUUID(c);
+            this.ensureIds(c);
             let fields = this.makeFields(...c.fields);
             if (!c.span) {
                 c.span = Math.floor(24/columns.length);
@@ -73,7 +77,7 @@ export class Factory {
             return <Section[]>[];
         }
         sections.forEach((s: ISection) => {
-            this.setUUID(s);
+            this.ensureIds(s);
             let columns = s.columns && s.columns.length > 0 ? this.makeColumns(...s.columns) : <Column[]>[];
             response.push(new Section({...s, columns: columns}, this.store));
         });
@@ -86,7 +90,7 @@ export class Factory {
         }
         let response: Page[] = [];
         pages.forEach((page: IPage) => {
-            this.setUUID(page);
+            this.ensureIds(page);
             let sections = this.makeSections(...page.sections);
             response.push(new Page({...page, sections: sections}, this.store));
         });
