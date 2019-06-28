@@ -38,6 +38,7 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
     render() {
         const { field, store } = this.props;
         const { layout } = store.form;
+        const { form } = store;
 
         let onChange = (e) => {
             let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
@@ -53,10 +54,12 @@ export class FieldView extends React.Component<IFieldViewProps, any> {
         // labelCol should only be passed if form is horizontal
         // otherwise the control does not go to the next line
         // Allow field item layout options to override form layout options
-        let itemLayout: IItemLayoutOptions = field.itemLayoutOptions || store.form.itemLayoutOptions || {};
+
+        let labelAlign = field.itemLayoutOptions.labelAlign || form.itemLayoutOptions.labelAlign || 'left';
+        let itemLayout: IItemLayoutOptions = field.itemLayoutOptions || form.itemLayoutOptions || {};
 
         return <div id={`fl-field-${field.id}`} data-uuid={field.uuid} className={`fl-field fl-field-${fieldClass}`}>
-            { !field.isDisabled && <Form.Item label={field.label} labelAlign={itemLayout.labelAlign}
+            { !field.isDisabled && <Form.Item label={field.label} labelAlign={labelAlign}
             hasFeedback={store.touched[id] && store.errors[id] ? true : null}
             validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
             wrapperCol={itemLayout.wrapperCol}

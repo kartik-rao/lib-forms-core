@@ -34,7 +34,6 @@ export class FormView extends React.Component<FormComponentProps, any> {
                         <Layout.Content style={{overflowY: 'scroll', height: 'calc(100% - 68px)', backgroundColor: 'white' }}>
                             <PageView page={content.pages[currentPage] as Page} store={formStore}></PageView>
                         </Layout.Content>
-                        <div>
                         <Layout.Footer style={{padding: '0px', width: '100%', marginTop:'1px'}}>
                             <div className="fl-form-actions fl-shadow-top">
                                 <Card bordered={false}>
@@ -48,7 +47,6 @@ export class FormView extends React.Component<FormComponentProps, any> {
                                 </Card>
                             </div>
                         </Layout.Footer>
-                        </div>
                     </Form>
                 </Layout>
         </Layout>
