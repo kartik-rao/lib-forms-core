@@ -13,8 +13,7 @@ const isDevelopment = env == 'development';
 module.exports = {
     mode: env,
     entry: {
-        main: path.join(__dirname, 'src/app.tsx'),
-        style: path.join(__dirname, 'src/app.css')
+        main: path.join(__dirname, 'src/app.tsx')
     },
     target: 'web',
     module: {
@@ -46,15 +45,7 @@ module.exports = {
             { test: /\.png$|\.eot$|\.woff$|\.ttf$/, loader: "url-loader?limit=100000" },
             {
                 test: /src\/app\.css$|node_modules\/antd\/*\.css$/,
-                use: [
-                    {
-                      loader: MiniCssExtractPlugin.loader,
-                      options: {
-                        hmr: process.env.NODE_ENV === 'development',
-                      }
-                    },
-                    'css-loader',
-                  ]
+                use: [{ loader: MiniCssExtractPlugin.loader}, 'css-loader']
             }
         ]
     },
@@ -71,13 +62,12 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
-        // "antd" : "antd",
+        "antd" : "antd",
         'moment': 'moment'
     },
-    serve: {
+    devServer: {
         compress: true,
         hot: true,
-        contentBase: [[path.join(__dirname, 'public'), path.join(__dirname, 'assets')]],
         port: 8080
     },
     plugins: [
@@ -86,7 +76,6 @@ module.exports = {
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
         new MiniCssExtractPlugin({
-            filename:"main.css",
             filename: '[name].css',
             chunkFilename: '[name].[id].chunk.css',
             allChunks: true
@@ -95,9 +84,10 @@ module.exports = {
             template: 'public/template.html',
             filename: "index.html"
         })
-        , new BundleAnalyzerPlugin()
+        // , new BundleAnalyzerPlugin()
     ],
     optimization: {
+        runtimeChunk: isDevelopment,
         minimize: true,
         splitChunks: {
             cacheGroups: {
@@ -108,7 +98,16 @@ module.exports = {
                     // sync + async chunks
                     chunks: 'all',
                     // import file path containing node_modules
-                    test: /node_modules/
+                    test: /node_modules/,
+                    priority: 20
+                },
+                common: {
+                    name: 'common',
+                    minChunks: 2,
+                    chunks: 'async',
+                    priority: 10,
+                    reuseExistingChunk: true,
+                    enforce: true
                 }
             }
         }
