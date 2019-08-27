@@ -1,0 +1,6 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["radiogroup"],{"./src/views/controls/RadioGroupView.tsx":
+/*!***********************************************!*\
+  !*** ./src/views/controls/RadioGroupView.tsx ***!
+  \***********************************************/
+/*! exports provided: RadioGroupView */function(e,o,r){"use strict";r.r(o),r.d(o,"RadioGroupView",function(){return d});var a=r(/*! mobx-react */"./node_modules/mobx-react/dist/mobx-react.module.js"),n=r(/*! react */"react");const t=n.lazy(()=>Promise.all(/*! import() | radiogroup */[r.e("vendor~cascader~checkbox~checkboxgroup~datepicker~daterange~input~number~radio~radiogroup~slider~sta~2281a6c0"),r.e("vendor~cascader~checkbox~checkboxgroup~datepicker~daterange~input~number~radio~radiogroup~slider~sta~3e2fb435"),r.e("vendor~radio~radiogroup"),r.e("radiogroup")]).then(r.bind(null,/*! antd/es/radio/group */"./node_modules/antd/es/radio/group.js"))),d=e=>{let o=e.field.componentProps,r=o=>{o&&o.target&&e.onChange(o.target.value)};return Object(a.useObserver)(()=>n.createElement(n.Suspense,{fallback:""},n.createElement(t,{onChange:r,defaultValue:o.defaultValue,options:o.options})))}}}]);
+//# sourceMappingURL=radiogroup.chunk.js.map
