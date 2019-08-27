@@ -21,7 +21,7 @@
   },
   "include": [
     "src/index.ts",
-    "src/**/*.ts?", "src/store/FormStoreHooks.ts"
+    "src/**/*.ts?"
 ],
 "exclude": [
     "node_modules",

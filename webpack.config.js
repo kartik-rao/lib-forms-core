@@ -2,9 +2,10 @@ var path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader')
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
 const isDevelopment = env == 'development';
@@ -44,11 +45,16 @@ module.exports = {
             },
             { test: /\.png$|\.eot$|\.woff$|\.ttf$/, loader: "url-loader?limit=100000" },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    allChunks: true, fallback: "style-loader", use: "css-loader"
-                  }),
-                include: /src\/app.css|node_modules\/antd\//
+                test: /src\/app\.css$|node_modules\/antd\/*\.css$/,
+                use: [
+                    {
+                      loader: MiniCssExtractPlugin.loader,
+                      options: {
+                        hmr: process.env.NODE_ENV === 'development',
+                      }
+                    },
+                    'css-loader',
+                  ]
             }
         ]
     },
@@ -76,9 +82,15 @@ module.exports = {
     },
     plugins: [
         // Ignore all locale files of moment.js
-        // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new CleanWebpackPlugin(),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
-        new ExtractTextPlugin({filename:"style.css", allChunks: true}),
+        new MiniCssExtractPlugin({
+            filename:"main.css",
+            filename: '[name].css',
+            chunkFilename: '[name].[id].chunk.css',
+            allChunks: true
+        }),
         new HtmlWebpackPlugin({
             template: 'public/template.html',
             filename: "index.html"
