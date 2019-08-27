@@ -75,7 +75,7 @@ export const createFormStore = function(formData: IFormProps) {
             this.errors.set(id, error)
         }
     }
-    store.form = new Factory(store).makeForm(formData);
+    new Factory(store).makeForm(formData);
     store.isReady.set(true);
     return store;
 }
