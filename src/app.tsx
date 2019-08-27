@@ -14,8 +14,6 @@ enableLogging({
 });
 
 export default async function renderForm(selector:string, initialState: any) {
-    const {Factory} = await import(/* webpackChunkName: "core" */ "./models/factory");
-    const FormStore = await import (/* webpackChunkName: "core" */ "./store/FormStore");
     const FormView = React.lazy(() => import(/* webpackChunkName: "core" */ "./views/FormView").then((module) => {return {default: module.FormView}}));
 
     render(
