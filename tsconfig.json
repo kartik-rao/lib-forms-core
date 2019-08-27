@@ -1,29 +1,31 @@
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-      "incremental" :false,
-      "module": "esnext",
-      "target": "es6",
-      "lib": ["es6", "dom"],
-      "forceConsistentCasingInFileNames": true,
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
-      "outDir": "./lib",
-      "declaration": true,
-      "experimentalDecorators": true,
-      "noImplicitReturns" : true,
-      "removeComments": true,
-      "jsx": "react",
-      "skipLibCheck": true,
-      "importHelpers": true
-    },
-    "include": [
-      "src/index.ts",
-      "src/**/*.ts?"
-  ],
-  "exclude": [
-      "node_modules",
-      "dist",
-      "lib"
-    ]
-  }
+  "compileOnSave": true,
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "incremental" :false,
+    "module": "esnext",
+    "target": "es6",
+    "lib": ["es5", "es2015", "es2016", "dom", "es2015.promise"],
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./lib",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns" : true,
+    "noImplicitThis": true,
+    "removeComments": true,
+    "jsx": "react",
+    "skipLibCheck": true,
+    "importHelpers": true
+  },
+  "include": [
+    "src/index.ts",
+    "src/**/*.ts?", "src/store/FormStoreHooks.ts"
+],
+"exclude": [
+    "node_modules",
+    "dist",
+    "lib"
+  ]
+}

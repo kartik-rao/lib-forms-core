@@ -1,5 +1,5 @@
 import { action, computed, observable } from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Column, IColumn } from "./column";
 import { valueOrDefault } from "./common";
 import { Field } from "./field";
@@ -22,7 +22,7 @@ export class Section implements ISection {
     @observable title: string;
     @observable gutter: number;
     @observable columns: Column[];
-    store: FormStore;
+    store: FormStoreType;
 
     @computed get errors() : IValidationError[] {
         return this.columns.reduce((all: any[], c: Column) => {
@@ -77,7 +77,7 @@ export class Section implements ISection {
         }, {});
     }
 
-    @action initialize(data: ISection, store: FormStore) {
+    @action initialize(data: ISection, store: FormStoreType) {
         this.id = data.id;
         this.uuid = data.uuid;
         this.name = valueOrDefault(data.name, `${this._type}-${data.id}`);
@@ -87,7 +87,7 @@ export class Section implements ISection {
         this.store = store;
     }
 
-    constructor(data: ISection, store: FormStore) {
+    constructor(data: ISection, store: FormStoreType) {
         this.initialize(data, store);
     }
 }

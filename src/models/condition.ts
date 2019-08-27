@@ -1,5 +1,5 @@
 import { action, computed, observable } from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { IPredicate, Predicate } from "./condition.predicate";
 
 export interface ICondition {
@@ -10,9 +10,9 @@ export interface ICondition {
 export class Condition {
     @observable predicates: Predicate[];
     @observable ancestors?: string[];
-    store: FormStore;
+    store: FormStoreType;
 
-    @action initialize(data: ICondition, store: FormStore) {
+    @action initialize(data: ICondition, store: FormStoreType) {
         let predicates : Predicate[] = [];
         data.predicates.forEach((p: IPredicate)=> {
             predicates.push(new Predicate(p, store));
@@ -27,7 +27,7 @@ export class Condition {
         });
     }
 
-    constructor(data: ICondition, store: FormStore) {
+    constructor(data: ICondition, store: FormStoreType) {
         this.initialize(data, store);
     }
 

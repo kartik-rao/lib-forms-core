@@ -1,5 +1,5 @@
 import {action, decorate, observable, computed, toJS} from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import moment from 'moment'
 import {Field} from "./field";
 import {ValidationRule, IValidationError, IValidationRule} from "./validation";
@@ -20,13 +20,13 @@ validate.extend(validate.validators.datetime, {
 });
 
 export interface IValidationProps {
-    store: FormStore,
+    store: FormStoreType,
     field: Field,
     rule: IValidationRule
 }
 
 export class Validator {
-    store: FormStore;
+    store: FormStoreType;
     field: Field;
     @observable rule : ValidationRule;
     @observable validationErrors: IValidationError[] = [];

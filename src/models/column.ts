@@ -1,5 +1,5 @@
 import { action, computed, observable } from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { valueOrDefault } from "./common";
 import { Field } from "./field";
 import { IFieldProps } from "./field.properties";
@@ -23,7 +23,7 @@ export class Column implements IColumn {
     @observable span: number;
     @observable title: string;
     @observable fields: Field[];
-    store: FormStore;
+    store: FormStoreType;
 
     @computed get errors() : IValidationError[] {
         return this.fields.reduce((all: any[], f: Field)=>{
@@ -77,7 +77,7 @@ export class Column implements IColumn {
         this.initialize(data, store);
     }
 
-    @action initialize(data: IColumn, store: FormStore) {
+    @action initialize(data: IColumn, store: FormStoreType) {
         this.uuid = data.uuid;
         this.store = store;
         this.id = data.id;

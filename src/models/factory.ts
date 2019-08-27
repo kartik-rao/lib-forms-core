@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Column, IColumn } from "./column";
 import { Condition, ICondition } from "./condition";
 import { IPredicate, Predicate } from "./condition.predicate";
@@ -11,9 +11,9 @@ import { ISection, Section } from "./section";
 const uuidv1 = require('uuid/v1');
 
 export class Factory {
-    store: FormStore;
+    store: FormStoreType;
 
-    constructor(store: FormStore) {
+    constructor(store: FormStoreType) {
         this.store = store;
     }
 
@@ -98,6 +98,7 @@ export class Factory {
     }
 
     makeForm(formData: IFormProps) : Form {
+        console.log(formData, this.store);
         let form: Form;
         if (formData && formData.content && formData.content.pages) {
             formData.content.pages = this.makePages(...formData.content.pages)

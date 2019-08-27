@@ -1,7 +1,7 @@
 import axios from "axios";
 import { action, computed, observable } from "mobx";
 import { FormEvent } from "react";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { valueOrDefault } from "./common";
 import { Field } from "./field";
 import { IFormContent, IFormProps, IFormStatus, IFormTenant } from "./form.properties";
@@ -11,7 +11,7 @@ import { IValidationError } from "./validation";
 
 
 export class Form implements IFormProps {
-    store: FormStore
+    store: FormStoreType
     uuid: string;
 
     @observable id: string;
@@ -30,7 +30,7 @@ export class Form implements IFormProps {
     @observable successRedirect: string;
     @observable errorRedirect: string;
 
-    @action initialize(data: IFormProps, store: FormStore) {
+    @action initialize(data: IFormProps, store: FormStoreType) {
         this.store = store;
         this.id = data.id;
         this.name = data.name;
@@ -130,7 +130,7 @@ export class Form implements IFormProps {
         this.itemLayoutOptions = new ItemLayoutOptions(data.itemLayoutOptions);
     }
 
-    constructor(data: IFormProps, store: FormStore) {
+    constructor(data: IFormProps, store: FormStoreType) {
         this.initialize(data, store);
     }
 

@@ -7,10 +7,14 @@ const tsImportPluginFactory = require('ts-import-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const env = process.env.NODE_ENV || 'development';
+const isDevelopment = env == 'development';
 
 module.exports = {
     mode: env,
-    entry: {main: path.join(__dirname, 'src/app.tsx'), style: path.join(__dirname, 'src/app.css')},
+    entry: {
+        main: path.join(__dirname, 'src/app.tsx'),
+        style: path.join(__dirname, 'src/app.css')
+    },
     target: 'web',
     module: {
         rules: [
@@ -54,10 +58,9 @@ module.exports = {
         alias: { mobx: __dirname + "/node_modules/mobx/lib/mobx.es6.js" }
     },
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: '[name].js',
-        library: 'Forms',
-        libraryTarget: 'window'
+        filename: '[name].bundle.js', /* Independent Entry Bundle */
+        chunkFilename: '[name].chunk.js', /* Code splitting generated bundles */
+        path: path.join(__dirname, 'dist')
     },
     externals: {
         "react": "React",
@@ -65,7 +68,7 @@ module.exports = {
         "antd" : "antd",
         'moment': 'moment'
     },
-    devServer: {
+    serve: {
         compress: true,
         hot: true,
         contentBase: [[path.join(__dirname, 'public'), path.join(__dirname, 'assets')]],
@@ -75,9 +78,14 @@ module.exports = {
         // Ignore all locale files of moment.js
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
-        new HtmlWebpackPlugin({template: 'public/template.html', inject: false}),
-        new ExtractTextPlugin({filename:"style.css", allChunks: true}),
-        // new BundleAnalyzerPlugin()
+        new HtmlWebpackPlugin({
+            template: 'public/template.html',
+            filename: "index.html",
+            inject: "body",
+            chunks: ['main', 'style']
+        }),
+        new ExtractTextPlugin({filename:"style.css", allChunks: true})
+        // ,new BundleAnalyzerPlugin()
     ],
     optimization: {
         minimize: true,

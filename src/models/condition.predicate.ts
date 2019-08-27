@@ -1,5 +1,5 @@
 import { action, observable } from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 
 export interface IPredicate {
     uuid?: string;
@@ -17,9 +17,9 @@ export class Predicate implements IPredicate {
     @observable condition: string;
     @observable value: any;
     @observable operator: string = "or";
-    store: FormStore;
+    store: FormStoreType;
 
-    @action initialize(data: IPredicate, store: FormStore) {
+    @action initialize(data: IPredicate, store: FormStoreType) {
         if (!data.condition || Predicate.PredicateConditions.indexOf(data.condition) == -1) {
             throw new Error(`InvalidPredicateCondition - ${data.condition}`);
         }
@@ -34,7 +34,7 @@ export class Predicate implements IPredicate {
         this.operator = data.operator;
     }
 
-    constructor(data:IPredicate, store: FormStore) {
+    constructor(data:IPredicate, store: FormStoreType) {
         this.initialize(data, store);
     }
 }

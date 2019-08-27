@@ -1,5 +1,5 @@
 import { action, computed, observable, observe, toJS } from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Condition, ICondition } from "./condition";
 import { IFieldOptions } from "./field.options";
 import { IComponentProps, IFieldProps, IFieldRuntimeProps, IFieldStorage } from "./field.properties";
@@ -25,7 +25,7 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
     children: any;
     @observable condition: Condition;
     @observable storage: IFieldStorage;
-    store: FormStore;
+    store: FormStoreType;
     @observable location: any;
     @observable conditionState: boolean;
     @observable validator : Validator;
@@ -46,7 +46,7 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
         return;
     }
 
-    @action initialize(data: IFieldProps, store: FormStore) {
+    @action initialize(data: IFieldProps, store: FormStoreType) {
         this.store = store;
         this.id = data.id;
         this.uuid = data.uuid;
@@ -175,7 +175,7 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
         return JSON.stringify(clone);
     }
 
-    constructor(data: IFieldProps, store: FormStore) {
+    constructor(data: IFieldProps, store: FormStoreType) {
         this.initialize(data, store);
     }
 }

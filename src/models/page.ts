@@ -1,5 +1,5 @@
 import { action, computed, observable } from "mobx";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Column } from "./column";
 import { valueOrDefault } from "./common";
 import { Field } from "./field";
@@ -25,7 +25,7 @@ export class Page implements IPage {
     @observable sections: Section[];
     @observable title: string;
     @observable subtitle: string;
-    store: FormStore;
+    store: FormStoreType;
 
     @computed get fieldNames() : string[] {
         let fieldNames: string[] = [];
@@ -115,7 +115,7 @@ export class Page implements IPage {
         this.sections.splice(toIndex, 0, this.sections.splice(atIndex, 1)[0]);
     }
 
-    @action private initialize(data: IPage, store: FormStore) {
+    @action private initialize(data: IPage, store: FormStoreType) {
         this.id = data.id;
         this.store = store;
         this.uuid = data.uuid;
@@ -126,7 +126,7 @@ export class Page implements IPage {
         this.subtitle = valueOrDefault(data.subtitle, "");
     }
 
-    constructor (data: IPage, store: FormStore) {
+    constructor (data: IPage, store: FormStoreType) {
         this.initialize(data, store);
     }
 }

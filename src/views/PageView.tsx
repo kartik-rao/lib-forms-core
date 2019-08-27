@@ -1,39 +1,57 @@
 import { Card } from "antd";
-import { observer } from "mobx-react";
+import { observer, useObserver } from "mobx-react";
 import * as React from "react";
 import { Page } from "../models/page";
 import { Section } from "../models/section";
-import { FormStore } from "../store/FormStore";
+// import { FormStore } from "../store/FormStore";
 import { SectionView } from "./SectionView";
+import { formStoreContext } from '../store/FormStoreProvider';
 
 
-export interface PageProps {
-    store: FormStore;
-    page: Page;
-}
+// export interface PageProps {
+//     store: FormStore;
+//     page: Page;
+// }
 
-@observer
-export class PageView extends React.Component<PageProps, any> {
-
-    state: any;
-    props: PageProps;
-
-    constructor(props: PageProps) {
-        super(props);
-        this.props = props;
-    }
-
-    render() {
-        let {store, page} = this.props;
-        let {showPageTitles} = store.form.formLayoutOptions;
+export const PageView: React.FC<{page: Page}> = (props) => {
+    const store = React.useContext(formStoreContext);
+    if(!store) throw new Error("Store is  null");
+    if(!store) throw new Error("Store is  null");
+    return useObserver(() => {
         return <div className="fl-page-wrap">
-            <Card style={{padding:"0"}} bordered={false} title={showPageTitles ? page.title : ''}>
-                <div id={`fl-page-${page.id || store.currentPage}`} className="fl-page" data-uuid={`fl-page-${page.uuid}`}>
-                    {page.sections.map((section: Section, sn: number) => {
-                        return <SectionView key={section.uuid} store={store} section={section}></SectionView>
-                    })}
-                </div>
-            </Card>
-        </div>
-    }
+        <Card style={{padding:"0"}} bordered={false} title={store.form.formLayoutOptions.showPageTitles ? props.page.title : ''}>
+            <div id={`fl-page-${props.page.id || store.currentPage}`} className="fl-page" data-uuid={`fl-page-${props.page.uuid}`}>
+                {props.page.sections.map((section: Section, sn: number) => {
+                    return <SectionView key={section.uuid} section={section}></SectionView>
+                })}
+            </div>
+        </Card>
+    </div>
+    });
 }
+
+// @observer
+// export class PageView extends React.Component<PageProps, any> {
+
+//     state: any;
+//     props: PageProps;
+
+//     constructor(props: PageProps) {
+//         super(props);
+//         this.props = props;
+//     }
+
+//     render() {
+//         let {store, page} = this.props;
+//         let {showPageTitles} = store.form.formLayoutOptions;
+        // return <div className="fl-page-wrap">
+        //     <Card style={{padding:"0"}} bordered={false} title={showPageTitles ? page.title : ''}>
+        //         <div id={`fl-page-${page.id || store.currentPage}`} className="fl-page" data-uuid={`fl-page-${page.uuid}`}>
+        //             {page.sections.map((section: Section, sn: number) => {
+        //                 return <SectionView key={section.uuid} store={store} section={section}></SectionView>
+        //             })}
+        //         </div>
+        //     </Card>
+        // </div>
+//     }
+// }
