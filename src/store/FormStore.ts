@@ -9,9 +9,9 @@ import {Factory} from "../models/factory";
 export const createFormStore = function(formData: IFormProps) {
     const store = {
         // factory: Factory,
-        errors : observable.map({}),
-        values: observable.map({}),
-        touched: observable.map({}),
+        errors : observable({}),
+        values: observable({}),
+        touched: observable({}),
         currentPage: observable.box(0),
         debug : observable.box((window && window.location.hostname.indexOf('localhost') > -1) ? true : false),
         form :<Form> null,
@@ -66,13 +66,14 @@ export const createFormStore = function(formData: IFormProps) {
             this.form = form;
         },
         setFieldValue: function (id: string, value: any) {
-            this.values.set(id, value);
+            this.values[id] = value;
+            console.log("new value for field", id, value);
         },
         setFieldTouched: function (id: string) {
-            this.touched.set(id, true);
+            this.touched[id] = true;
         },
         setFieldError: function (id: string, error: any) {
-            this.errors.set(id, error)
+            this.errors[id] = error;
         }
     }
     new Factory(store).makeForm(formData);
