@@ -1,14 +1,12 @@
-import * as React from "react";
-import { observable, toJS } from "mobx";
+import { observable } from "mobx";
+import { IFormProps } from '..';
+import { Factory } from "../models/factory";
 import { Field } from "../models/field";
 import { Form } from "../models/form";
 import { Page } from "../models/page";
-import { IFormProps } from '..';
-import {Factory} from "../models/factory";
 
 export const createFormStore = function(formData: IFormProps) {
     const store = {
-        // factory: Factory,
         errors : observable({}),
         values: observable({}),
         touched: observable({}),
