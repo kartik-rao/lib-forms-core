@@ -44,13 +44,11 @@ const TransferView = React.lazy(() => import(/* webpackChunkName: "transfer" */ 
 
 export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
     const store = React.useContext(formStoreContext);
-    if(!store) throw new Error("Store is  null");
+    if(!store) throw new Error("ERROR FieldView - store is null");
 
     let onChange = (e) => {
-
         let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
         props.field.setValue(value);
-        console.log("ON CHANGE", value);
     };
 
     let onBlur = () => props.field.setTouched();
@@ -73,7 +71,7 @@ export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
         validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
         wrapperCol={itemLayout.wrapperCol}
         labelCol={store.form.layout == "horizontal" ? itemLayout.labelCol : null}
-        extra={props.field.helpText}
+        // extra={props.field.helpText}
         help={store.touched[id] ? (store.errors[id] ? store.errors[id] : props.field.helpText): ''}
         required={props.field.isRequired}>
             {inputType == "input" && <InputView field={props.field} onChange={onChange} onBlur={onBlur}/>}
