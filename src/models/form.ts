@@ -31,6 +31,7 @@ export class Form implements IFormProps {
     @observable errorRedirect: string;
 
     @action initialize(data: IFormProps, store: FormStoreType) {
+        console.log("Init form with store", store);
         this.store = store;
         this.id = data.id;
         this.name = data.name;

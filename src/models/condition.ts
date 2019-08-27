@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, observe } from "mobx";
 import { FormStoreType } from "../store/FormStore";
 import { IPredicate, Predicate } from "./condition.predicate";
 

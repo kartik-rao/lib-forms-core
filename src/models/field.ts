@@ -1,4 +1,4 @@
-import { action, computed, observable, observe, toJS } from "mobx";
+import { action, computed, observable, observe, toJS, autorun } from "mobx";
 import { FormStoreType } from "../store/FormStore";
 import { Condition, ICondition } from "./condition";
 import { IFieldOptions } from "./field.options";
@@ -6,6 +6,7 @@ import { IComponentProps, IFieldProps, IFieldRuntimeProps, IFieldStorage } from 
 import { ItemLayoutOptions } from './layout';
 import { IValidationRule, ValidationRule } from "./validation";
 import { Validator } from "./validator";
+import { observer } from 'mobx-react-lite';
 
 
 export class Field implements IFieldProps, IFieldRuntimeProps {
@@ -128,6 +129,7 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
     @action setValue(value: any) {
         this.value = value;
         this.store.setFieldValue(this.id, value);
+        this.condition ? console.log("Condition Value",  this.condition.value) : void(0);
         this.validate();
     }
 
@@ -165,6 +167,7 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
     }
 
     @action validate() {
+
        this.validator.validate();
     }
 
