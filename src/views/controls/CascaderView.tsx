@@ -1,19 +1,15 @@
-import { Cascader } from "antd";
-import { observer } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { ICascaderProps } from "../../models/field.properties";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class CascaderView extends React.Component<IViewProps, any> {
+const Cascader = React.lazy(() => import(/* webpackChunkName: "cascader" */ "antd/es/cascader").then((module) => {return {default: module.default}}));
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as ICascaderProps;
-        return <Cascader {...component} onChange={onChange}/>;
-    }
-}
+export const CascaderView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as ICascaderProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Cascader {...component} onChange={props.onChange}/>
+    </React.Suspense>
+    });
+};

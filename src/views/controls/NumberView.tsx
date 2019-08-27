@@ -1,20 +1,16 @@
-import { InputNumber } from "antd";
-import { observer } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { INumberProps } from "../../models/field.properties";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class NumberView extends React.Component<IViewProps, any> {
+const InputNumber = React.lazy(() => import(/* webpackChunkName: "number" */ "antd/es/input-number"));
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange, onBlur} = this.props;
-        let component = field.componentProps as INumberProps;
-        let handleChange = (e) => {!!e ? onChange(parseInt(e)) : void(0)};
-        return <InputNumber {...component} onChange={handleChange} onBlur={onBlur}/>
-    }
-}
+export const NumberView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as INumberProps;
+    let handleChange = (e) => {!!e ? props.onChange(parseInt(e)) : void(0)};
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <InputNumber {...component} onChange={handleChange} onBlur={props.onBlur}/>
+    </React.Suspense>
+    });
+};

@@ -1,25 +1,15 @@
-import { Transfer } from "antd";
-import { observer } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { ITransferProps } from "../../models/field.properties";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class TransferView extends React.Component<IViewProps, any> {
+const Transfer = React.lazy(() => import(/* webpackChunkName: "transfer" */ "antd/es/transfer"));
 
-    constructor(props: any) {
-        super(props);
-    }
-
-
-    filterOption = (value, option) => {
-        return option.description.indexOf(value) > -1
-    }
-
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as ITransferProps;
-
-        return <Transfer {...component} onChange={onChange} render={(item) => item.title}/>
-    }
-}
+export const TransferView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as ITransferProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Transfer {...component} onChange={props.onChange} render={(item) => item.title}/>
+    </React.Suspense>
+    });
+};

@@ -1,19 +1,15 @@
-import { Checkbox } from "antd";
-import { observer } from "mobx-react";
 import * as React from "react";
 import { IViewProps } from "./IViewProps";
 import { ICheckboxProps} from "../../models/field.properties";
+import { useObserver } from "mobx-react";
 
-@observer
-export class CheckboxView extends React.Component<IViewProps, any> {
+const Checkbox = React.lazy(() => import(/* webpackChunkName: "checkbox" */ "antd/es/checkbox").then((module) => {return {default: module.default}}));
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as ICheckboxProps;
-        return <Checkbox {...component} onChange={onChange}/>
-    }
-}
+export const CheckboxView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as ICheckboxProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Checkbox {...component} onChange={props.onChange}/>
+    </React.Suspense>
+    });
+};

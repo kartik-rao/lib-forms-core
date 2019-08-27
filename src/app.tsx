@@ -3,8 +3,7 @@ import { enableLogging } from 'mobx-logger';
 import React from 'react';
 import { render } from 'react-dom';
 import "./app.css";
-import { resolve } from 'path';
-import {FormStoreProvider} from "./store/FormStoreProvider";
+import { FormStoreProvider } from "./store/FormStoreProvider";
 
 enableLogging({
     action: false,
@@ -20,7 +19,7 @@ export default async function renderForm(selector:string, initialState: any) {
         <Layout style={{height: '100vh', overflow: 'hidden'}}>
             <Layout.Header></Layout.Header>
             <React.Suspense fallback="Loading">
-                <FormStoreProvider>
+                <FormStoreProvider initialState={initialState}>
                     <FormView />
                 </FormStoreProvider>
             </React.Suspense>
@@ -69,24 +68,6 @@ renderForm("#root", {
                                     },
                                     componentProps: {
                                         defaultValue: 10,
-                                    }
-                                },
-                                {
-                                    id: 'f11', name: "f11", type: 'radiogroup', label: "f11 -Radiogroup ", inputType : "radiogroup",
-                                    validation: {
-                                        presence: { message: 'f11 is a required field' }
-                                    },
-                                    componentProps: {
-                                        options: [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
-                                    }
-                                },
-                                {
-                                    id: 'f12', name: "f12", type: 'checkboxgroup', label: "f12 - Checkboxgroup ", inputType : "checkboxgroup",
-                                    validation: {
-                                        presence: { message: 'f12 is a required field' }
-                                    },
-                                    componentProps: {
-                                        options : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
                                     }
                                 }
                             ]
@@ -188,6 +169,23 @@ renderForm("#root", {
                                     },
                                     componentProps: {
                                         placeholder: 'Placeholder Text F4'
+                                    }
+                                },{
+                                    id: 'f11', name: "f11", type: 'radiogroup', label: "f11 -Radiogroup ", inputType : "radiogroup",
+                                    validation: {
+                                        presence: { message: 'f11 is a required field' }
+                                    },
+                                    componentProps: {
+                                        options: [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
+                                    }
+                                },
+                                {
+                                    id: 'f12', name: "f12", type: 'checkboxgroup', label: "f12 - Checkboxgroup ", inputType : "checkboxgroup",
+                                    validation: {
+                                        presence: { message: 'f12 is a required field' }
+                                    },
+                                    componentProps: {
+                                        options : [{label: 'L1', value: 'V1'},{label: 'L2', value: 'V2'},{label: 'L3', value: 'V3'}]
                                     }
                                 }
                             ]}

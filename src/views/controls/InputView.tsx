@@ -1,20 +1,15 @@
-import { Input } from "antd";
-import {observer } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
+import { IInputProps } from "../../models/field.properties";
 import { IViewProps } from "./IViewProps";
-import {IInputProps } from "../../models/field.properties";
 
-@observer
-export class InputView extends React.Component<IViewProps, any> {
+const Input = React.lazy(() => import(/* webpackChunkName: "input" */ "antd/es/input").then((module) => {return {default: module.default}}));
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange, onBlur} = this.props;
-        let component = field.componentProps as IInputProps;
-
-        return <Input {...component} defaultValue={component.defaultValue} onChange={onChange} onBlur={onBlur} hidden={field.isHidden}/>
-    }
-}
+export const InputView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as IInputProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Input {...component} defaultValue={component.defaultValue} onChange={props.onChange} onBlur={props.onBlur} hidden={props.field.isHidden}/>
+    </React.Suspense>
+    });
+};

@@ -1,18 +1,15 @@
-import { observer } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { ITextAreaProps } from "../../models/field.properties";
-import { Input } from "antd";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class TextAreaView extends React.Component<IViewProps, any> {
-    constructor(props: any) {
-        super(props);
-    }
+const TextArea = React.lazy(() => import(/* webpackChunkName: "textarea" */ "antd/es/input/TextArea"));
 
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as ITextAreaProps;
-        return <Input.TextArea {...component} onChange={onChange}/>
-    }
-}
+export const TextAreaView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as ITextAreaProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <TextArea {...component} onChange={props.onChange}/>
+    </React.Suspense>
+    });
+};

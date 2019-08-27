@@ -1,19 +1,15 @@
-import { Rate } from "antd";
-import { observer } from "mobx-react";
 import * as React from "react";
 import { IViewProps } from "./IViewProps";
 import { IStarRatingProps } from "../../models/field.properties";
 
-@observer
-export class StarRatingView extends React.Component<IViewProps, any> {
+const Rate = React.lazy(() => import(/* webpackChunkName: "starrating" */ "antd/es/rate"));
+import { useObserver } from "mobx-react";
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as IStarRatingProps;
-        return <Rate {...component} onChange={onChange}/>
-    }
-}
+export const StarRatingView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as IStarRatingProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Rate {...component} onChange={props.onChange}/>
+    </React.Suspense>
+    });
+};

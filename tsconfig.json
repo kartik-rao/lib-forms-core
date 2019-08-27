@@ -14,7 +14,7 @@
     "experimentalDecorators": true,
     "noImplicitReturns" : true,
     "noImplicitThis": true,
-    "removeComments": true,
+    "removeComments": false,
     "jsx": "react",
     "skipLibCheck": true,
     "importHelpers": true

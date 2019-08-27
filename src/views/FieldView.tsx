@@ -3,39 +3,53 @@ import { observer, useObserver } from "mobx-react";
 import * as React from "react";
 import {Field} from "../models/field";
 import { IItemLayoutOptions } from '../models/layout';
-// import { FormStore } from "../store/FormStore";
-import { CascaderView } from "./controls/CascaderView";
-import { CheckboxGroupView } from "./controls/CheckboxGroupView";
-import { CheckboxView } from "./controls/CheckboxView";
-import { DatePickerView } from "./controls/DatePickerView";
-import { DateRangeView } from "./controls/DateRangeView";
-import { HTMLFragmentView } from './controls/HtmlFragmentView';
-import { InputView } from "./controls/InputView";
-import { NumberView } from "./controls/NumberView";
-import { RadioGroupView } from "./controls/RadioGroupView";
-import { RadioView } from './controls/RadioView';
-import { SelectView } from "./controls/SelectView";
-import { SliderView } from "./controls/SliderView";
-import { StarRatingView } from "./controls/StarRatingView";
-import { SwitchView } from "./controls/SwitchView";
-import { TextAreaView } from "./controls/TextAreaView";
-import { TextBlockView } from "./controls/TextBlockView";
-import { TransferView } from "./controls/TransferView";
+
+// import { CascaderView } from "./controls/CascaderView";
+const CascaderView = React.lazy(() => import(/* webpackChunkName: "cascader" */ './controls/CascaderView').then((module) => {return {default: module.CascaderView}}));
+// import { CheckboxGroupView } from "./controls/CheckboxGroupView";
+const CheckboxGroupView = React.lazy(() => import(/* webpackChunkName: "checkboxgroup" */ './controls/CheckboxGroupView').then((module) => {return {default: module.CheckboxGroupView}}));
+// import { CheckboxView } from "./controls/CheckboxView";
+const CheckboxView = React.lazy(() => import(/* webpackChunkName: "checkbox" */ './controls/CheckboxView').then((module) => {return {default: module.CheckboxView}}));
+// import { DatePickerView } from "./controls/DatePickerView";
+const DatePickerView = React.lazy(() => import(/* webpackChunkName: "datepicker" */ './controls/DatePickerView').then((module) => {return {default: module.DatePickerView}}));
+// import { DateRangeView } from "./controls/DateRangeView";
+const DateRangeView = React.lazy(() => import(/* webpackChunkName: "daterange" */ './controls/DateRangeView').then((module) => {return {default: module.DateRangeView}}));
+// import { HTMLFragmentView } from './controls/HtmlFragmentView';
+const HTMLFragmentView = React.lazy(() => import(/* webpackChunkName: "htmlfragment" */ './controls/HTMLFragmentView').then((module) => {return {default: module.HTMLFragmentView}}));
+// import { InputView } from "./controls/InputView";
+const InputView = React.lazy(() => import(/* webpackChunkName: "input" */ './controls/InputView').then((module) => {return {default: module.InputView}}));
+// import { NumberView } from "./controls/NumberView";
+const NumberView = React.lazy(() => import(/* webpackChunkName: "number" */ './controls/NumberView').then((module) => {return {default: module.NumberView}}));
+// import { RadioGroupView } from "./controls/RadioGroupView";
+const RadioGroupView = React.lazy(() => import(/* webpackChunkName: "radiogroup" */ './controls/RadioGroupView').then((module) => {return {default: module.RadioGroupView}}));
+// import { RadioView } from './controls/RadioView';
+const RadioView = React.lazy(() => import(/* webpackChunkName: "radio" */ './controls/RadioView').then((module) => {return {default: module.RadioView}}));
+// import { SelectView } from "./controls/SelectView";
+const SelectView = React.lazy(() => import(/* webpackChunkName: "select" */ './controls/SelectView').then((module) => {return {default: module.SelectView}}));
+// import { SliderView } from "./controls/SliderView";
+const SliderView = React.lazy(() => import(/* webpackChunkName: "slider" */ './controls/SliderView').then((module) => {return {default: module.SliderView}}));
+// import { StarRatingView } from "./controls/StarRatingView";
+const StarRatingView = React.lazy(() => import(/* webpackChunkName: "starrating" */ './controls/StarRatingView').then((module) => {return {default: module.StarRatingView}}));
+// import { SwitchView } from "./controls/SwitchView";
+const SwitchView = React.lazy(() => import(/* webpackChunkName: "switch" */ './controls/SwitchView').then((module) => {return {default: module.SwitchView}}));
+// import { TextAreaView } from "./controls/TextAreaView";
+const TextAreaView = React.lazy(() => import(/* webpackChunkName: "textarea" */ './controls/TextAreaView').then((module) => {return {default: module.TextAreaView}}));
+// import { TextBlockView } from "./controls/TextBlockView";
+const TextBlockView = React.lazy(() => import(/* webpackChunkName: "textblock" */ './controls/TextBlockView').then((module) => {return {default: module.TextBlockView}}));
+// import { TransferView } from "./controls/TransferView";
+const TransferView = React.lazy(() => import(/* webpackChunkName: "transfer" */ './controls/TransferView').then((module) => {return {default: module.TransferView}}));
+
 import { formStoreContext } from '../store/FormStoreProvider';
-
-// export interface IFieldViewProps {
-//     field: Field;
-//     store: FormStore;
-// }
-
 
 export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
     const store = React.useContext(formStoreContext);
     if(!store) throw new Error("Store is  null");
 
     let onChange = (e) => {
+
         let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
         props.field.setValue(value);
+        console.log("ON CHANGE", value);
     };
 
     let onBlur = () => props.field.setTouched();
@@ -52,7 +66,7 @@ export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
     let itemLayout: IItemLayoutOptions = props.field.itemLayoutOptions || store.form.itemLayoutOptions || {};
 
     return useObserver(() => {
-        return <div id={`fl-field-${props.field.id}`} data-uuid={props.field.uuid} className={`fl-field fl-field-${fieldClass}`}>
+        return  <React.Suspense fallback="loading..."><div id={`fl-field-${props.field.id}`} data-uuid={props.field.uuid} className={`fl-field fl-field-${fieldClass}`}>
         { !props.field.isDisabled && <Form.Item label={props.field.label} labelAlign={labelAlign}
         hasFeedback={store.touched[id] && store.errors[id] ? true : null}
         validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
@@ -82,7 +96,7 @@ export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
             {inputType == "textblock" && <TextBlockView field={props.field} onChange={onChange}/>}
             {inputType == "htmlfragment" && <HTMLFragmentView field={props.field}/>}
             </Form.Item> }
-    </div>
+    </div></React.Suspense>
     });
 }
 

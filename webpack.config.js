@@ -65,7 +65,7 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
-        "antd" : "antd",
+        // "antd" : "antd",
         'moment': 'moment'
     },
     serve: {
@@ -76,19 +76,30 @@ module.exports = {
     },
     plugins: [
         // Ignore all locale files of moment.js
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
+        new ExtractTextPlugin({filename:"style.css", allChunks: true}),
         new HtmlWebpackPlugin({
             template: 'public/template.html',
-            filename: "index.html",
-            inject: "body",
-            chunks: ['main', 'style']
-        }),
-        new ExtractTextPlugin({filename:"style.css", allChunks: true})
-        // ,new BundleAnalyzerPlugin()
+            filename: "index.html"
+        })
+        , new BundleAnalyzerPlugin()
     ],
     optimization: {
         minimize: true,
-        splitChunks: { chunks: "initial", name: "vendor" }
+        splitChunks: {
+            cacheGroups: {
+                default: false,
+                vendors: false,
+                // vendor chunk
+                vendor: {
+                    // sync + async chunks
+                    chunks: 'all',
+                    // import file path containing node_modules
+                    test: /node_modules/
+                }
+            }
+        }
     }
 };
+

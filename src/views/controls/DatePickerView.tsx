@@ -1,54 +1,49 @@
-import { DatePicker } from "antd";
-import { observer } from "mobx-react";
+import { computed } from 'mobx';
+import { useLocalStore, useObserver } from "mobx-react";
 import moment from "moment";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { IDatePickerProps } from "../../models/field.properties";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class DatePickerView extends React.Component<IViewProps, any> {
+const DatePicker = React.lazy(() => import(/* webpackChunkName: "datepicker" */ "antd/es/date-picker").then((module) => {return {default: module.default}}));
 
-    constructor(props: any) {
-        super(props);
-    }
+export const DatePickerView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as IDatePickerProps;
+    const localStore = useLocalStore(() => {
+        return {
+            defaultValue: component.defaultValue,
+            mode: component.mode,
+            get dateFormat() : string {
+                switch (localStore.mode) {
+                    case 'date' : {
+                        return moment.HTML5_FMT.DATE;
+                    }
+                    case 'month' : {
+                        return moment.HTML5_FMT.MONTH;
+                    }
+                    case 'time' : {
+                        return moment.HTML5_FMT.TIME;
+                    }
+                    case 'year' : {
+                        return moment.HTML5_FMT.TIME;
+                    }
 
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as IDatePickerProps;
-        let {dateFormat, mode} = component;
-
-        if (!mode) {
-            mode = "date";
-        }
-
-        if (!dateFormat) {
-            switch (mode) {
-                case 'date' : {
-                    dateFormat = moment.HTML5_FMT.DATE;
-                    break;
-                }
-                case 'month' : {
-                    dateFormat = moment.HTML5_FMT.MONTH;
-                    break;
-                }
-                case 'time' : {
-                    dateFormat = moment.HTML5_FMT.TIME;
-                    break;
-                }
-                case 'year' : {
-                    dateFormat = moment.HTML5_FMT.TIME;
-                    break;
+                    default : return moment.HTML5_FMT.DATE;
                 }
             }
         }
+    });
 
-        let _onChange = (e) => {
-            let v = e.target ? e.target.value : e;
-            v ? onChange(moment(v).format(dateFormat)) : onChange(null);
-        };
+    let _onChange = (e) => {
+        let v = e.target ? e.target.value : e;
+        v ? props.onChange(moment(v).format(localStore.dateFormat)) : props.onChange(null);
+    };
 
-        return <DatePicker mode={component.mode}
-                defaultValue={component.defaultValue ? moment(component.defaultValue, dateFormat): null}
-                format={component.dateFormat} onChange={_onChange}/>
-    }
-}
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <DatePicker mode={localStore.mode}
+            defaultValue={localStore.defaultValue ? moment(localStore.defaultValue, localStore.dateFormat): null}
+            format={localStore.dateFormat} onChange={_onChange}/>
+    </React.Suspense>
+    });
+};

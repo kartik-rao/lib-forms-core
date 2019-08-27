@@ -1,19 +1,14 @@
-import { Radio } from "antd";
-import {observer} from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { IRadioProps } from "../../models/field.properties";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class RadioView extends React.Component<IViewProps, any> {
-
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange} = this.props;
-        let {optionLabel, optionValue, defaultChecked, ...rest}  = field.componentProps as IRadioProps;
-        return <Radio {...rest} onChange={onChange} defaultChecked={defaultChecked} value={optionValue}>{optionLabel}</Radio>
-    }
-}
+const Radio = React.lazy(() => import(/* webpackChunkName: "radio" */ "antd/es/radio"));
+export const RadioView: React.FC<IViewProps> = (props) => {
+    let {optionLabel, optionValue, defaultChecked, ...rest}  = props.field.componentProps as IRadioProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Radio {...rest} onChange={props.onChange} defaultChecked={defaultChecked} value={optionValue}>{optionLabel}</Radio>
+    </React.Suspense>
+    });
+};

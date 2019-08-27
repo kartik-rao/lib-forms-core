@@ -1,19 +1,15 @@
-import { Switch } from "antd";
-import { observer } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
-import { IViewProps } from "./IViewProps";
 import { ISwitchProps } from "../../models/field.properties";
+import { IViewProps } from "./IViewProps";
 
-@observer
-export class SwitchView extends React.Component<IViewProps, any> {
+const Switch = React.lazy(() => import(/* webpackChunkName: "switch" */ "antd/es/switch"));
 
-    constructor(props: any) {
-        super(props);
-    }
-
-    render() {
-        let {field, onChange} = this.props;
-        let component = field.componentProps as ISwitchProps;
-        return <Switch {...component} onChange={onChange}/>
-    }
-}
+export const SwitchView: React.FC<IViewProps> = (props) => {
+    let component = props.field.componentProps as ISwitchProps;
+    return useObserver(() => {
+        return <React.Suspense fallback="">
+        <Switch {...component} onChange={props.onChange}/>
+    </React.Suspense>
+    });
+};
