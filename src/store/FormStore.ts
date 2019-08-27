@@ -65,7 +65,6 @@ export const createFormStore = function(formData: IFormProps) {
         },
         setFieldValue: function (id: string, value: any) {
             this.values[id] = value;
-            console.log("new value for field", id, value);
         },
         setFieldTouched: function (id: string) {
             this.touched[id] = true;
