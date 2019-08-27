@@ -9,7 +9,6 @@ import { PageView } from "./PageView";
 export const FormView : React.FC<any> = () => {
     const store = React.useContext(formStoreContext);
     if(!store) throw new Error("Store is  null");
-    console.log(store.form.content.pages[store.currentPage.get()]);
     return useObserver(() => {
         return <Layout style={{height: '100%', overflow: 'hidden'}} className="fl-form-container">
                 <FormHeaderView title={store.form.content.title} subtitle={store.form.content.subtitle} desc={store.form.desc}
