@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FormStoreType } from "./FormStore";
 import { IFormProps } from '../models/form.properties';
 export declare const formStoreContext: React.Context<{
     errors: import("mobx").IObservableObject;
@@ -29,6 +30,8 @@ export declare const formStoreContext: React.Context<{
     setFieldTouched: (id: string) => void;
     setFieldError: (id: string, error: any) => void;
 }>;
-export declare const FormStoreProvider: React.FC<{
-    initialState: IFormProps;
-}>;
+export interface FormStoreProviderProps {
+    initialState?: IFormProps;
+    formStore?: FormStoreType;
+}
+export declare const FormStoreProvider: React.FC<FormStoreProviderProps>;
