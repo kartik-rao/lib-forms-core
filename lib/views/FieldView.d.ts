@@ -1,12 +1,6 @@
 import * as React from "react";
 import { Field } from "../models/field";
-import { FormStore } from "../store/FormStore";
-export interface IFieldViewProps {
+export declare const FieldView: React.FC<{
     field: Field;
-    store: FormStore;
-}
-export declare class FieldView extends React.Component<IFieldViewProps, any> {
-    props: IFieldViewProps;
-    constructor(props: IFieldViewProps);
-    render(): JSX.Element;
-}
+    key: string;
+}>;

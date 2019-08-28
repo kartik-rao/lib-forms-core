@@ -1,12 +1,12 @@
 import { FormEvent } from "react";
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Field } from "./field";
 import { IFormContent, IFormProps, IFormStatus, IFormTenant } from "./form.properties";
 import { FormLayoutOptions, ItemLayoutOptions } from './layout';
 import { Page } from "./page";
 import { IValidationError } from "./validation";
 export declare class Form implements IFormProps {
-    store: FormStore;
+    store: FormStoreType;
     uuid: string;
     id: string;
     exid: string;
@@ -23,8 +23,8 @@ export declare class Form implements IFormProps {
     itemLayoutOptions: ItemLayoutOptions;
     successRedirect: string;
     errorRedirect: string;
-    initialize(data: IFormProps, store: FormStore): void;
-    constructor(data: IFormProps, store: FormStore);
+    initialize(data: IFormProps, store: FormStoreType): void;
+    constructor(data: IFormProps, store: FormStoreType);
     readonly isValid: boolean;
     readonly numPages: number;
     readonly numFields: number;

@@ -1,13 +1,7 @@
 import * as React from "react";
 import { Column } from "../models/column";
-import { FormStore } from "../store/FormStore";
-export interface ColumnProps {
+export declare const ColumnView: React.FC<{
     column: Column;
-    store: FormStore;
+    key: string;
     span: number;
-}
-export declare class ColumnView extends React.Component<ColumnProps, any> {
-    props: ColumnProps;
-    constructor(props: ColumnProps);
-    render(): JSX.Element;
-}
+}>;

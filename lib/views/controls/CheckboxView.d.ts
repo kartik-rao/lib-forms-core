@@ -1,6 +1,3 @@
 import * as React from "react";
 import { IViewProps } from "./IViewProps";
-export declare class CheckboxView extends React.Component<IViewProps, any> {
-    constructor(props: any);
-    render(): JSX.Element;
-}
+export declare const CheckboxView: React.FC<IViewProps>;

@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 export interface IPredicate {
     uuid?: string;
     field: string;
@@ -14,7 +14,7 @@ export declare class Predicate implements IPredicate {
     condition: string;
     value: any;
     operator: string;
-    store: FormStore;
-    initialize(data: IPredicate, store: FormStore): void;
-    constructor(data: IPredicate, store: FormStore);
+    store: FormStoreType;
+    initialize(data: IPredicate, store: FormStoreType): void;
+    constructor(data: IPredicate, store: FormStoreType);
 }

@@ -71,6 +71,7 @@ export interface IFieldInternalProps {
     location?: any;
 }
 export interface IFieldRuntimeProps {
+    /** The following are computed values */
     readonly isHidden: boolean;
     readonly className: string;
     readonly isTouched: boolean;

@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Column, IColumn } from "./column";
 import { Field } from "./field";
 import { IValidationError } from "./validation";
@@ -18,7 +18,7 @@ export declare class Section implements ISection {
     title: string;
     gutter: number;
     columns: Column[];
-    store: FormStore;
+    store: FormStoreType;
     readonly errors: IValidationError[];
     readonly numFields: number;
     addColumn(column: Column, index?: number): void;
@@ -30,6 +30,6 @@ export declare class Section implements ISection {
     readonly idFieldMap: {
         [key: string]: Field;
     };
-    initialize(data: ISection, store: FormStore): void;
-    constructor(data: ISection, store: FormStore);
+    initialize(data: ISection, store: FormStoreType): void;
+    constructor(data: ISection, store: FormStoreType);
 }

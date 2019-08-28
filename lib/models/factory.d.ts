@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Column, IColumn } from "./column";
 import { Condition, ICondition } from "./condition";
 import { IPredicate, Predicate } from "./condition.predicate";
@@ -9,8 +9,8 @@ import { IFormProps } from "./form.properties";
 import { IPage, Page } from "./page";
 import { ISection, Section } from "./section";
 export declare class Factory {
-    store: FormStore;
-    constructor(store: FormStore);
+    store: FormStoreType;
+    constructor(store: FormStoreType);
     ensureIds<T>(item: T): void;
     makePredicates(...predicates: IPredicate[]): Predicate[];
     makeCondition(condition: ICondition): Condition;

@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Field } from "./field";
 import { ISection, Section } from "./section";
 import { IValidationError } from "./validation";
@@ -20,7 +20,7 @@ export declare class Page implements IPage {
     sections: Section[];
     title: string;
     subtitle: string;
-    store: FormStore;
+    store: FormStoreType;
     readonly fieldNames: string[];
     readonly fieldIds: string[];
     readonly idFieldMap: {
@@ -35,5 +35,5 @@ export declare class Page implements IPage {
     swapSections(index1: number, index2: number): void;
     moveSection(atIndex: number, toIndex: number): void;
     private initialize;
-    constructor(data: IPage, store: FormStore);
+    constructor(data: IPage, store: FormStoreType);
 }

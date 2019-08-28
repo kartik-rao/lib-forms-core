@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Field } from "./field";
 import { IFieldProps } from "./field.properties";
 import { IValidationError } from "./validation";
@@ -19,7 +19,7 @@ export declare class Column implements IColumn {
     span: number;
     title: string;
     fields: Field[];
-    store: FormStore;
+    store: FormStoreType;
     readonly errors: IValidationError[];
     readonly isValid: boolean;
     readonly idFieldMap: {
@@ -32,5 +32,5 @@ export declare class Column implements IColumn {
     swapFields(index1: number, index2: number): void;
     moveField(atIndex: number, toIndex: number): void;
     constructor(data: IColumn, store: any);
-    initialize(data: IColumn, store: FormStore): void;
+    initialize(data: IColumn, store: FormStoreType): void;
 }

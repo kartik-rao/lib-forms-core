@@ -1,13 +1,13 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Field } from "./field";
 import { ValidationRule, IValidationError, IValidationRule } from "./validation";
 export interface IValidationProps {
-    store: FormStore;
+    store: FormStoreType;
     field: Field;
     rule: IValidationRule;
 }
 export declare class Validator {
-    store: FormStore;
+    store: FormStoreType;
     field: Field;
     rule: ValidationRule;
     validationErrors: IValidationError[];

@@ -1,4 +1,4 @@
-import { FormStore } from "../store/FormStore";
+import { FormStoreType } from "../store/FormStore";
 import { Condition, ICondition } from "./condition";
 import { IFieldOptions } from "./field.options";
 import { IComponentProps, IFieldProps, IFieldRuntimeProps, IFieldStorage } from "./field.properties";
@@ -21,7 +21,7 @@ export declare class Field implements IFieldProps, IFieldRuntimeProps {
     children: any;
     condition: Condition;
     storage: IFieldStorage;
-    store: FormStore;
+    store: FormStoreType;
     location: any;
     conditionState: boolean;
     validator: Validator;
@@ -30,7 +30,7 @@ export declare class Field implements IFieldProps, IFieldRuntimeProps {
     itemLayoutOptions: ItemLayoutOptions;
     _dispose: any;
     mergeUpdate(data: Partial<IFieldProps>): void;
-    initialize(data: IFieldProps, store: FormStore): void;
+    initialize(data: IFieldProps, store: FormStoreType): void;
     readonly className: string;
     readonly isTouched: boolean;
     readonly isValidateable: boolean;
@@ -45,5 +45,5 @@ export declare class Field implements IFieldProps, IFieldRuntimeProps {
     setCondition(condition: ICondition): void;
     validate(): void;
     readonly serialize: string;
-    constructor(data: IFieldProps, store: FormStore);
+    constructor(data: IFieldProps, store: FormStoreType);
 }

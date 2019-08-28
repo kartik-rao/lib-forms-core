@@ -1,2 +1,2 @@
 import "./app.css";
-export declare function renderForm(selector: string, initialState: any): void;
+export default function renderForm(selector: string, initialState: any): Promise<void>;
