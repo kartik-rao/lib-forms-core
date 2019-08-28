@@ -59,6 +59,9 @@ module.exports = {
         chunkFilename: '[name].chunk.js', /* Code splitting generated bundles */
         path: path.join(__dirname, 'dist')
     },
+    watchOptions: {
+        ignored: /node_modules/
+    },
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
