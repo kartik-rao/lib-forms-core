@@ -1,11 +1,11 @@
 import { keys, when } from "mobx";
-import { Field, FormStore } from "../../src/index";
+import { Field, FormStoreType, createFormStore } from "../../src/index";
 import { genElementId } from "../utils";
 
 describe("Field", () => {
-    let store: FormStore;
+    let store: FormStoreType;
     beforeEach(() => {
-        store = new FormStore();
+        store = createFormStore(null);
     });
 
     it("Can initialize a field and set its value", async (done: any) => {

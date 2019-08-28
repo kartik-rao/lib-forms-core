@@ -2,14 +2,14 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import { Column, ColumnView, Field, FormStore } from '../../src/index';
+import { Column, ColumnView, Field, FormStoreType, createFormStore, FormStoreProvider } from '../../src/index';
 import { genElementId } from "../utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});
 
 describe("ColumnView", () => {
-    let store: FormStore;
+    let store: FormStoreType;
     let container: HTMLElement;
 
     afterAll(() => {
@@ -18,7 +18,7 @@ describe("ColumnView", () => {
     });
 
     beforeAll(()=> {
-        store = new FormStore();
+        store = createFormStore(null);
         container = document.createElement('div');
         document.body.appendChild(container);
     });
@@ -39,7 +39,9 @@ describe("ColumnView", () => {
 
         let c: Column = new Column({id: genElementId("column")}, store);
         act(() => {
-            ReactDOM.render(<ColumnView span={4} column={c} store={store} />, container);
+            ReactDOM.render(<FormStoreProvider initialState={null}>
+                <ColumnView span={4} column={c} key={c.id} />
+            </FormStoreProvider>, container);
         });
 
         expect(container.querySelector("#"+c.id)).toBeDefined();
@@ -71,7 +73,7 @@ describe("ColumnView", () => {
 
         let c: Column = new Column({id: genElementId("column")}, store);
         act(() => {
-            ReactDOM.render(<div><ColumnView span={4} column={c} store={store} /></div>, container);
+            ReactDOM.render(<div><FormStoreProvider initialState={null}><ColumnView span={4} column={c} key={c.id} /></FormStoreProvider></div>, container);
         });
 
         let col1 = container.querySelector("#"+c.id);

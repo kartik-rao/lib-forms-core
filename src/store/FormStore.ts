@@ -5,7 +5,7 @@ import { Field } from "../models/field";
 import { Form } from "../models/form";
 import { Page } from "../models/page";
 
-export const createFormStore = function(formData: IFormProps) {
+export const createFormStore = (formData?: IFormProps) => {
     const store = {
         errors : observable({}),
         values: observable({}),
@@ -18,17 +18,23 @@ export const createFormStore = function(formData: IFormProps) {
         validationDisabled: observable.box(false),
         conditionsDisabled: observable.box(false),
         get idFieldMap() : { [key:string]:Field; } {
+            if (!this.form) {
+                return {}
+            }
             return this.form.content.pages.reduce((all: {}, p: Page) => {
                 return {...all, ...p.idFieldMap};
             }, {});
         },
         get fieldNames() : string[] {
+            if (!this.form) {
+                return []
+            }
             return this.form.content.pages.reduce((all: string[], p: Page) => {
                 return all.concat(p.fieldNames);
             }, <string[]>[])
         },
         get isValid() : boolean {
-            if (!this.form.content && this.form.content.pages && this.form.content.pages.length > 0) {
+            if (!this.form || !this.form.content && this.form.content.pages && this.form.content.pages.length > 0) {
                 return true;
             } else {
                 return this.form.content.pages.every((p: Page) => {
@@ -43,7 +49,7 @@ export const createFormStore = function(formData: IFormProps) {
             return this.submitting.get();
         },
         get numPages() : number {
-            return this.form.content.pages.length;
+            return this.form ? this.form.content.pages.length : 0;
         },
         nextPage : function () {
             let currentPage = this.form.content.pages[this.currentPage.get()] as Page;

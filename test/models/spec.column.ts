@@ -1,5 +1,5 @@
 import { when } from "mobx";
-import { Column, IColumn, Field, IFieldProps, FormStore } from "../../src/index";
+import { Column, IColumn, Field, IFieldProps, FormStoreType, createFormStore } from "../../src/index";
 
 import { genElementId } from "../utils";
 
@@ -42,9 +42,9 @@ const C1: IColumn = {
 }
 
 describe('Column', () => {
-    let store: FormStore;
+    let store: FormStoreType;
     beforeEach(() => {
-        store = new FormStore();
+        store = createFormStore();
     });
 
     it("can be initialized", () => {

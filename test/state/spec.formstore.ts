@@ -1,4 +1,5 @@
-import {Factory, IFieldProps, Form, IPage, FormStore} from "../../src/index";
+import { toJS } from "mobx";
+import { createFormStore, FormStoreType, IFieldProps, IPage } from "../../src/index";
 
 const F1: IFieldProps= {
     id:  "f1",
@@ -47,27 +48,28 @@ const P1: IPage = {
 }
 
 describe('FormStore', () => {
-    let store: FormStore;
-    let factory: Factory;
-    let form : Form;
+    let store: FormStoreType;
 
-    beforeEach(() => {
-        store = new FormStore();
-        factory = new Factory(store);
-        form = factory.makeForm({
+    beforeAll(() => {
+        store = createFormStore({
             id: "spec.formstore",
             content: {pages: [P1]}
         });
+        console.log("spec.formstore store.form", toJS(store.form));
     });
 
     it("computes fieldNames", () => {
-        let names = store.fieldNames;
+        let names: string[];
+        try {
+            names = store.fieldNames;
+        } catch (error) {
+            fail(error);
+        }
         expect(names).toBeDefined();
         expect(names.length).toBe(2);
         expect(names[0]).toBe(F1.name);
         expect(names[1]).toBe(F2.name);
     });
-
     it("computes form validity", () => {
         expect(store.isValid).toBe(false);
         store.idFieldMap[F1.id].setValue("qq");
@@ -75,5 +77,4 @@ describe('FormStore', () => {
         store.idFieldMap[F2.id].setValue("abc");
         expect(store.isValid).toBe(true);
     });
-
 });

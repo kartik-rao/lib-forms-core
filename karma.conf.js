@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Mon Feb 12 2018 13:30:49 GMT+1100 (AEDT)
 var path = require('path');
-require('jasmine').DEFAULT_TIMEOUT_INTERVAL = 2000;
+require('jasmine-core').DEFAULT_TIMEOUT_INTERVAL = 2000;
 const tsImportPluginFactory = require('ts-import-plugin');
 var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 module.exports = function (config) {
@@ -36,7 +36,7 @@ module.exports = function (config) {
     colors: true,
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_LOG,
+    logLevel: config.LOG_DEBUG,
     client: {
       captureConsole: true
     },
@@ -81,34 +81,27 @@ module.exports = function (config) {
         ],
         extensions: ['.ts', '.tsx', '.js']
       },
-      devtool: 'inline-source-map',
-
+      devtool: 'source-map',
       module: {
         rules: [
             { test: /(\.woff|\.woff2)$/, loader: 'url?name=font/[name].[ext]&limit=10240&mimetype=application/font-woff' },
-            { test: /\.ttf$/, loader: 'ignore-loader' },
-            { test: /\.eot$/, loader: 'ignore-loader' },
-            { test: /\.css$/, loader: 'ignore-loader' },
-            { test: /\.png$/, loader: 'ignore-loader' },
-            { test: /\.ico$/, loader: 'ignore-loader' },
-            { test: /\.jpg$/, loader: 'ignore-loader' },
+            { test: /\.ttf$|\.eot$|\.css$|\.png$|\.ico$|\.jpg$/, loader: 'ignore-loader' },
             {
                 test: /\.tsx?$/,
                 use: { loader: 'awesome-typescript-loader',
                 options : {
                     useCache: true,
                     transpileOnly: true,
-                    declaration: false,
+                    declaration: true,
                     reportFiles: [
-                        'src/**/*.{ts,tsx}'
+                      'src/**/*.ts?'
                     ],
                     getCustomTransformers: () => ({
                       before: [ tsImportPluginFactory( {
-                          libraryName: 'antd',
-                          libraryDirectory: 'node_modules',
-                          style: false
+                          libraryDirectory: 'es',
+                          style: 'css'
                         }) ]
-                  })
+                    }),
                 }
               },
               exclude: /node_modules/
@@ -131,7 +124,7 @@ module.exports = function (config) {
     },
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: 1,

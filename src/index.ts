@@ -15,6 +15,7 @@ export * from "./models/validation";
 export * from "./models/validation.constraints";
 export * from "./models/validator";
 export * from "./store/FormStore";
+export * from "./store/FormStoreProvider";
 export * from "./views/ColumnView";
 export * from "./views/FieldView";
 export * from "./views/FormHeaderView";

@@ -1,4 +1,4 @@
-import {FormStore, Factory, IFieldProps, IColumn, ISection, IPage, Form} from "../../src/index";
+import {FormStoreType, Factory, IFieldProps, IColumn, ISection, IPage, Form, createFormStore} from "../../src/index";
 
 const P1: IPage = {
     id: 'p1',
@@ -50,12 +50,12 @@ const F2: IFieldProps = {
 }
 
 describe('Factory', () => {
-    let store: FormStore;
+    let store: FormStoreType;
     let factory: Factory;
 
     describe(".makeFields", () => {
         beforeEach(() => {
-            store = new FormStore();
+            store = createFormStore();
             factory = new Factory(store);
         });
         it("can create fields", () => {
@@ -86,7 +86,7 @@ describe('Factory', () => {
 
     describe(".makeColumn", () => {
         beforeEach(() => {
-            store = new FormStore();
+            store = createFormStore();
             factory = new Factory(store);
         });
         it("can create columns", () => {
@@ -117,7 +117,7 @@ describe('Factory', () => {
 
     describe(".makeSection", () => {
         beforeEach(() => {
-            store = new FormStore();
+            store = createFormStore();
             factory = new Factory(store);
         });
         it("can create sections", () => {
@@ -157,7 +157,7 @@ describe('Factory', () => {
 
     describe(".makePages", () => {
         beforeEach(() => {
-            store = new FormStore();
+            store = createFormStore();
             factory = new Factory(store);
         });
         it("can create pages", () => {
@@ -203,7 +203,7 @@ describe('Factory', () => {
 
     describe(".makeForm", () => {
         beforeEach(() => {
-            store = new FormStore();
+            store = createFormStore();
             factory = new Factory(store);
         });
         it("can create a form", () => {

@@ -2,14 +2,14 @@ import { configure } from 'mobx';
 import * as React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils, { act } from 'react-dom/test-utils'; // ES6
-import { Field, FieldView, FormStore } from '../../src/index';
+import { Field, FieldView, FormStoreType, createFormStore, FormStoreProvider } from '../../src/index';
 import { genElementId } from "../utils";
 
 // Dont allow store mutations outside of actions!!
 configure({enforceActions: "always"});
 
 describe("FieldView", () => {
-    let store: FormStore;
+    let store: FormStoreType;
     let container: HTMLElement;
 
     afterEach(() => {
@@ -18,7 +18,7 @@ describe("FieldView", () => {
     });
 
     beforeEach(()=> {
-        store = new FormStore();
+        store = createFormStore(null);
         container = document.createElement('div');
         document.body.appendChild(container);
     });
@@ -38,7 +38,7 @@ describe("FieldView", () => {
         }, store);
 
         act(() => {
-            ReactDOM.render(<div><FieldView field={f} store={store} /></div>, container);
+            ReactDOM.render(<div><FormStoreProvider initialState={null}><FieldView field={f} key={f.id}/></FormStoreProvider></div>, container);
         });
         expect(container.querySelectorAll('input').length).toEqual(1);
         let input1 = container.querySelector("#"+f.id);
@@ -61,7 +61,7 @@ describe("FieldView", () => {
         }, store);
 
         act(() => {
-            ReactDOM.render(<div><FieldView field={f} store={store} /></div>, container);
+            ReactDOM.render(<div><FormStoreProvider initialState={null}><FieldView field={f} key={f.id}/></FormStoreProvider></div>, container);
         });
 
         expect(container.querySelectorAll('input').length).toEqual(1);
@@ -93,7 +93,7 @@ describe("FieldView", () => {
         }, store);
 
         act(() => {
-            ReactDOM.render(<div><FieldView field={f} store={store} /></div>, container);
+            ReactDOM.render(<div><FormStoreProvider initialState={null}><FieldView field={f} key={f.id}/></FormStoreProvider></div>, container);
         });
 
         expect(container.querySelectorAll('input').length).toEqual(1);
@@ -145,7 +145,10 @@ describe("FieldView", () => {
         }, store);
 
         act(() => {
-            ReactDOM.render(<div><FieldView field={f1} store={store} /><FieldView field={f2} store={store} /></div>, container);
+            ReactDOM.render(<div><FormStoreProvider initialState={null}>
+                <FieldView field={f1} key={f1.id} />
+                <FieldView field={f2} key={f2.id} />
+            </FormStoreProvider></div>, container);
         });
 
         // F2 is disabled as its condition value is false

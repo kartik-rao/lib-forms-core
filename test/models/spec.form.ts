@@ -1,5 +1,5 @@
 import { when } from "mobx";
-import {Column, IColumn, Field, Form, IFieldProps, Page, IPage, ISection, Section, FormStore} from "../../src/index"
+import {Column, IColumn, Field, Form, IFieldProps, Page, IPage, ISection, Section, FormStoreType, createFormStore} from "../../src/index"
 
 import { genElementId } from "../utils";
 
@@ -53,10 +53,10 @@ const P1: IPage = {
 }
 
 describe('Form', () => {
-    let store: FormStore;
+    let store: FormStoreType;
 
     beforeEach(() => {
-        store = new FormStore();
+        store = createFormStore();
     });
 
     it("can be initialised", () => {

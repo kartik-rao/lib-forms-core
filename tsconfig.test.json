@@ -1,22 +1,22 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "target": "es6",
+  "compilerOptions": {
+      "rootDir": ".",
+      "watch": false,
+      "target": "es5",
       "lib": ["es6", "dom"],
-      "forceConsistentCasingInFileNames": true,
+      "module": "commonjs",
       "moduleResolution": "node",
       "allowSyntheticDefaultImports": true,
-      "outDir": "./lib",
-      "declaration": true,
-      "experimentalDecorators": true,
       "jsx": "react",
-      "skipLibCheck": true
-    },
-    "indclude" : [
-      "src/index.ts",
-      "test/spec.*.ts?"
-    ],
-    "exclude": [
+      "skipLibCheck": true,
+      "noImplicitThis": true,
+      "allowJs": true,
+      "declaration": true
+  },
+  "include": [
+      "test/**/*.ts"
+  ],
+  "exclude": [
       "node_modules"
-    ]
-  }
+  ]
+}
