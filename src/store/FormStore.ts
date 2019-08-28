@@ -34,12 +34,12 @@ export const createFormStore = (formData?: IFormProps) => {
             }, <string[]>[])
         },
         get isValid() : boolean {
-            if (!this.form || !this.form.content && this.form.content.pages && this.form.content.pages.length > 0) {
-                return true;
-            } else {
+            if (this.form && this.form.content && this.form.content.pages && this.form.content.pages.length > 0) {
                 return this.form.content.pages.every((p: Page) => {
                     return p.isValid
                 })
+            } else {
+                return true;
             }
         },
         setSubmitting(value: boolean) {
