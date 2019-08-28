@@ -34,9 +34,9 @@
     "antd": "^3.20.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "mobx": "^5.9.4",
+    "mobx": "^5.13.0",
     "mobx-logger": "^0.7.1",
-    "mobx-react": "^6.0.2",
+    "mobx-react": "^6.1.3",
     "moment": "^2.24.0",
     "@kartikrao/lib-logging": "^1.6.0"
   },
