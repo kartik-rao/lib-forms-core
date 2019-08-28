@@ -36,6 +36,9 @@ export declare class Form implements IFormProps {
     readonly idFieldMap: {
         [key: string]: Field;
     };
+    readonly uuidFieldMap: {
+        [key: string]: Field;
+    };
     readonly errors: IValidationError[];
     readonly values: {
         [key: string]: any;

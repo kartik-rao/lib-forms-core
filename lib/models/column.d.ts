@@ -25,6 +25,9 @@ export declare class Column implements IColumn {
     readonly idFieldMap: {
         [key: string]: Field;
     };
+    readonly uuidFieldMap: {
+        [key: string]: Field;
+    };
     readonly numFields: number;
     addField(field: Field, index?: number): void;
     addFields(...fields: Field[]): void;

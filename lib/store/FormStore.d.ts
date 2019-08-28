@@ -15,6 +15,9 @@ export declare const createFormStore: (formData?: IFormProps) => {
     readonly idFieldMap: {
         [key: string]: Field;
     };
+    readonly uuidFieldMap: {
+        [key: string]: Field;
+    };
     readonly fieldNames: string[];
     readonly isValid: boolean;
     setSubmitting(value: boolean): void;

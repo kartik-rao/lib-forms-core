@@ -14,6 +14,9 @@ export declare const formStoreContext: React.Context<{
     readonly idFieldMap: {
         [key: string]: import("..").Field;
     };
+    readonly uuidFieldMap: {
+        [key: string]: import("..").Field;
+    };
     readonly fieldNames: string[];
     readonly isValid: boolean;
     setSubmitting(value: boolean): void;

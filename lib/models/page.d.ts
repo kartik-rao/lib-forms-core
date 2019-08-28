@@ -26,6 +26,9 @@ export declare class Page implements IPage {
     readonly idFieldMap: {
         [key: string]: Field;
     };
+    readonly uuidFieldMap: {
+        [key: string]: Field;
+    };
     readonly errors: IValidationError[];
     readonly isValid: boolean;
     readonly numSections: number;
