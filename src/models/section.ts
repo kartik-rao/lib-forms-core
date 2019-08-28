@@ -77,6 +77,12 @@ export class Section implements ISection {
         }, {});
     }
 
+    @computed get uuidFieldMap() : { [key:string]: Field; } {
+        return this.columns.reduce((all: {}, c: Column)=>{
+            return {...all, ...c.uuidFieldMap}
+        }, {});
+    }
+
     @action initialize(data: ISection, store: FormStoreType) {
         this.id = data.id;
         this.uuid = data.uuid;

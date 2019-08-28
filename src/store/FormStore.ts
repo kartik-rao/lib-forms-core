@@ -25,6 +25,14 @@ export const createFormStore = (formData?: IFormProps) => {
                 return {...all, ...p.idFieldMap};
             }, {});
         },
+        get uuidFieldMap() : { [key:string]:Field; } {
+            if (!this.form) {
+                return {}
+            }
+            return this.form.content.pages.reduce((all: {}, p: Page) => {
+                return {...all, ...p.uuidFieldMap};
+            }, {});
+        },
         get fieldNames() : string[] {
             if (!this.form) {
                 return []

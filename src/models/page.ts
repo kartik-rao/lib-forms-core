@@ -72,6 +72,12 @@ export class Page implements IPage {
         }, {});
     }
 
+    @computed get uuidFieldMap() : { [key:string]:Field; }  {
+        return this.sections.reduce((all: {}, s: Section)=>{
+            return {...all, ...s.uuidFieldMap}
+        }, {});
+    }
+
     @computed get errors() : IValidationError[] {
         return this.sections.reduce((all: any[], s: Section)=>{
             return all.concat(s.errors);

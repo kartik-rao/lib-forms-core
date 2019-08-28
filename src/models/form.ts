@@ -182,6 +182,12 @@ export class Form implements IFormProps {
         }, {});
     }
 
+    @computed get uuidFieldMap() : { [key:string]:Field; }  {
+        return this.content.pages.reduce((all: {}, s: Page)=>{
+            return {...all, ...s.uuidFieldMap}
+        }, {});
+    }
+
     @computed get errors() : IValidationError[] {
         return this.content.pages.reduce((all: any[], p: Page)=>{
             return all.concat(p.errors);

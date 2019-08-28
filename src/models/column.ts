@@ -44,6 +44,13 @@ export class Column implements IColumn {
         }, {});
     }
 
+    @computed get uuidFieldMap() : { [key:string]:Field; } {
+        return this.fields.reduce((all: {}, f: Field)=>{
+            all[f.uuid] = f;
+            return all;
+        }, {});
+    }
+
     @computed get numFields() : number {
         return this.fields.length;
     }
