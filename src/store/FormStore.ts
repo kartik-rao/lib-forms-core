@@ -1,21 +1,20 @@
 import { observable } from "mobx";
-import { IFormProps } from '..';
 import { Field } from "../models/field";
 import { Form } from "../models/form";
 import { Page } from "../models/page";
 
-export const createFormStore = (formData?: IFormProps) => {
+export const createFormStore = () => {
     const store = {
-        errors : observable({}),
-        values: observable({}),
-        touched: observable({}),
-        currentPage: observable.box(0),
-        debug : observable.box((window && window.location.hostname.indexOf('localhost') > -1) ? true : false),
+        errors : {},
+        values: {},
+        touched: {},
+        currentPage: 0,
+        debug : (window && window.location.hostname.indexOf('localhost') > -1) ? true : false,
         form :<Form> null,
-        isReady: observable.box(false),
-        submitting: observable.box(false),
-        validationDisabled: observable.box(false),
-        conditionsDisabled: observable.box(false),
+        isReady: false,
+        submitting: false,
+        validationDisabled: false,
+        conditionsDisabled: false,
         get idFieldMap() : { [key:string]:Field; } {
             if (!this.form) {
                 return {}
@@ -50,16 +49,19 @@ export const createFormStore = (formData?: IFormProps) => {
             }
         },
         setSubmitting(value: boolean) {
-            this.submitting.set(value)
+            this.submitting = value;
         },
         get isSubmitting() : boolean {
-            return this.submitting.get();
+            return this.submitting;
         },
         get numPages() : number {
             return this.form ? this.form.content.pages.length : 0;
         },
         nextPage : function () {
-            let currentPage = this.form.content.pages[this.currentPage.get()] as Page;
+            if(!this.form) {
+                return;
+            }
+            let currentPage = this.form.content.pages[this.currentPage] as Page;
             let errors = currentPage.errors;
             let {validationDisablesPaging} = this.form.formLayoutOptions;
             // Highlight all errors
@@ -67,11 +69,11 @@ export const createFormStore = (formData?: IFormProps) => {
                 this.touched[id] = true;
             });
             if (!errors || errors.length == 0||validationDisablesPaging == false) {
-                this.currentPage.set(this.currentPage.get() + 1);
+                this.currentPage = this.currentPage + 1;
             }
         },
         prevPage : function() {
-            this.currentPage.set(this.currentPage.get() - 1);
+            this.currentPage = this.currentPage - 1;
         },
         setForm : function (form: Form) {
             this.form = form;
@@ -86,7 +88,7 @@ export const createFormStore = (formData?: IFormProps) => {
             this.errors[id] = error;
         }
     }
-    return store;
+    return observable(store);
 }
 
 export type FormStoreType = ReturnType<typeof createFormStore>;

@@ -10,7 +10,7 @@ export const FormHeaderView : React.FC<{desc: string, title: string, subtitle: s
         return <div className="fl-shadow-bottom" style={{ marginBottom: '2px'}}>
             <PageHeader className="fl-ph" style={{'minHeight': '68px', border: 'none'}} title={props.title} subTitle={props.subtitle}
                 extra={(props.showSteps && <div>
-                <Statistic title="Page" value={store.currentPage.get() + 1} suffix={"/ " + store.numPages} />
+                <Statistic title="Page" value={store.currentPage + 1} suffix={"/ " + store.numPages} />
                 </div>)} />
             {props.title && <Row>
                 <Col span={24}>
