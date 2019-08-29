@@ -1,17 +1,12 @@
 import { Card, Col } from "antd";
-import { observer, useObserver } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
 import { Column } from "../models/column";
 import { Field } from "../models/field";
-// import { FormStore } from "../store/FormStore";
-import { FieldView } from "./FieldView";
 import { formStoreContext } from '../store/FormStoreProvider';
+import { FieldView } from "./FieldView";
 
-// export interface ColumnProps {
-//     column: Column;
-//     store: FormStore;
-//     span: number
-// }
+
 
 export const ColumnView: React.FC<{column: Column, key: string, span: number}> = (props) => {
     const store = React.useContext(formStoreContext);
@@ -28,6 +23,13 @@ export const ColumnView: React.FC<{column: Column, key: string, span: number}> =
     </div>
     });
 }
+
+// import { FormStore } from "../store/FormStore";
+// export interface ColumnProps {
+//     column: Column;
+//     store: FormStore;
+//     span: number
+// }
 
 // @observer
 // export class ColumnView extends React.Component<ColumnProps, any> {
