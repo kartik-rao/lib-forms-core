@@ -75,7 +75,7 @@ module.exports = {
     },
     plugins: [
         // Ignore all locale files of moment.js
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CheckerPlugin(),
         new MiniCssExtractPlugin({
