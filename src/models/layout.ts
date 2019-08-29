@@ -109,3 +109,5 @@ export class ItemLayoutOptions {
         this.initialize(props);
     }
 }
+
+// export type ColumnLayout = { [key in ScreenWidth]?: ColSpanOffset };
