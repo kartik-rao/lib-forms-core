@@ -1,6 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["switch"],{"./src/views/controls/SwitchView.tsx":
-/*!*******************************************!*\
-  !*** ./src/views/controls/SwitchView.tsx ***!
-  \*******************************************/
-/*! exports provided: SwitchView */function(e,r,t){"use strict";t.r(r),t.d(r,"SwitchView",function(){return s});var a=t(/*! mobx-react */"./node_modules/mobx-react/dist/mobx-react.module.js"),n=t(/*! react */"react");const c=n.lazy(()=>Promise.all(/*! import() | switch */[t.e("vendor~cascader~checkbox~checkboxgroup~datepicker~daterange~input~number~radio~radiogroup~slider~sta~2281a6c0"),t.e("vendor~cascader~checkbox~checkboxgroup~datepicker~daterange~input~number~radio~radiogroup~slider~sta~3e2fb435"),t.e("vendor~cascader~datepicker~daterange~input~number~starrating~switch~transfer"),t.e("vendor~cascader~datepicker~daterange~input~switch~textarea~transfer"),t.e("vendor~switch"),t.e("switch")]).then(t.bind(null,/*! antd/es/switch */"./node_modules/antd/es/switch/index.js"))),s=e=>{let r=e.field.componentProps;return Object(a.useObserver)(()=>n.createElement(n.Suspense,{fallback:""},n.createElement(c,Object.assign({},r,{onChange:e.onChange}))))}}}]);
-//# sourceMappingURL=switch.chunk.js.map

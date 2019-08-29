@@ -1,6 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["textarea"],{"./src/views/controls/TextAreaView.tsx":
-/*!*********************************************!*\
-  !*** ./src/views/controls/TextAreaView.tsx ***!
-  \*********************************************/
-/*! exports provided: TextAreaView */function(e,t,a){"use strict";a.r(t),a.d(t,"TextAreaView",function(){return c});var r=a(/*! mobx-react */"./node_modules/mobx-react/dist/mobx-react.module.js"),n=a(/*! react */"react");const s=n.lazy(()=>Promise.all(/*! import() | textarea */[a.e("vendor~cascader~checkbox~checkboxgroup~datepicker~daterange~input~number~radio~radiogroup~slider~sta~2281a6c0"),a.e("vendor~cascader~datepicker~daterange~input~switch~textarea~transfer"),a.e("vendor~cascader~input~textarea~transfer"),a.e("textarea")]).then(a.bind(null,/*! antd/es/input/TextArea */"./node_modules/antd/es/input/TextArea.js"))),c=e=>{let t=e.field.componentProps;return Object(r.useObserver)(()=>n.createElement(n.Suspense,{fallback:""},n.createElement(s,Object.assign({},t,{onChange:e.onChange}))))}}}]);
-//# sourceMappingURL=textarea.chunk.js.map
