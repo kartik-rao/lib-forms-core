@@ -1,6 +1,5 @@
 import { observable } from "mobx";
 import { IFormProps } from '..';
-import { Factory } from "../models/factory";
 import { Field } from "../models/field";
 import { Form } from "../models/form";
 import { Page } from "../models/page";
@@ -87,8 +86,6 @@ export const createFormStore = (formData?: IFormProps) => {
             this.errors[id] = error;
         }
     }
-    new Factory(store).makeForm(formData);
-    store.isReady.set(true);
     return store;
 }
 

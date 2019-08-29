@@ -11,13 +11,8 @@ import { ISection, Section } from "./section";
 const uuidv1 = require('uuid/v1');
 
 export class Factory {
-    store: FormStoreType;
 
-    constructor(store: FormStoreType) {
-        this.store = store;
-    }
-
-    ensureIds<T>(item: T) {
+    static ensureIds<T>(item: T) {
         if (!item['uuid']) {
             item['uuid'] = uuidv1();
         }
@@ -27,86 +22,85 @@ export class Factory {
         }
     }
 
-    makePredicates(...predicates: IPredicate[]) : Predicate[] {
+    static makePredicates(store: FormStoreType, ...predicates: IPredicate[]) : Predicate[] {
         let response: Predicate[] = [];
         predicates.forEach((predicate: IPredicate) => {
-            this.ensureIds(predicate);
-            response.push(new Predicate(predicate, this.store));
+            Factory.ensureIds(predicate);
+            response.push(new Predicate(predicate, store));
         });
         return response;
 
     }
 
-    makeCondition(condition: ICondition) : Condition {
-        let predicates = this.makePredicates(...condition.predicates);
-        return new Condition({predicates: predicates}, this.store);
+    static makeCondition(store: FormStoreType, condition: ICondition) : Condition {
+        let predicates = Factory.makePredicates(store, ...condition.predicates);
+        return new Condition({predicates: predicates}, store);
     }
 
-    makeFields(...fields: IFieldProps[]) : Field[] {
+    static makeFields(store: FormStoreType, ...fields: IFieldProps[]) : Field[] {
         if (!fields || fields.length == 0) {
             return <Field[]>[];
         }
         return fields.reduce((r: Field[], f: IFieldProps) => {
-            this.ensureIds(f);
-            r.push(new Field({...f, condition: f.condition}, this.store));
+            Factory.ensureIds(f);
+            r.push(new Field({...f, condition: f.condition}, store));
             return r;
         }, <Field[]>[]);
     }
 
-    makeColumns(...columns: IColumn[]) : Column[] {
+    static makeColumns(store: FormStoreType, ...columns: IColumn[]) : Column[] {
         let response : Column[] = [];
         if (!columns || columns.length == 0) {
             return response;
         }
 
         columns.forEach((c: IColumn) => {
-            this.ensureIds(c);
-            let fields = this.makeFields(...c.fields);
+            Factory.ensureIds(c);
+            let fields = Factory.makeFields(store, ...c.fields);
             if (!c.span) {
                 c.span = Math.floor(24/columns.length);
             }
-            let column = new Column({...c, fields: fields}, this.store);
+            let column = new Column({...c, fields: fields}, store);
             response.push(column);
         })
         return response;
     }
 
-    makeSections(...sections: ISection[]) : Section[] {
+    static makeSections(store: FormStoreType, ...sections: ISection[]) : Section[] {
         let response: Section[] = [];
         if (!sections || sections.length == 0) {
             return <Section[]>[];
         }
         sections.forEach((s: ISection) => {
-            this.ensureIds(s);
-            let columns = s.columns && s.columns.length > 0 ? this.makeColumns(...s.columns) : <Column[]>[];
-            response.push(new Section({...s, columns: columns}, this.store));
+            Factory.ensureIds(s);
+            let columns = s.columns && s.columns.length > 0 ? Factory.makeColumns(store, ...s.columns) : <Column[]>[];
+            response.push(new Section({...s, columns: columns}, store));
         });
         return response;
     }
 
-    makePages(...pages: IPage[]) : Page[] {
+    static makePages(store: FormStoreType, ...pages: IPage[]) : Page[] {
         if (!pages || pages.length == 0) {
             return <Page[]>[];
         }
         let response: Page[] = [];
         pages.forEach((page: IPage) => {
-            this.ensureIds(page);
-            let sections = this.makeSections(...page.sections);
-            response.push(new Page({...page, sections: sections}, this.store));
+            Factory.ensureIds(page);
+            let sections = Factory.makeSections(store, ...page.sections);
+            response.push(new Page({...page, sections: sections}, store));
         });
         return response;
     }
 
-    makeForm(formData: IFormProps) : Form {
+    static makeForm(store: FormStoreType, formData: IFormProps) : Form {
         let form: Form;
         if (formData && formData.content && formData.content.pages) {
-            formData.content.pages = this.makePages(...formData.content.pages)
-            form = new Form(formData, this.store);
+            formData.content.pages = Factory.makePages(store, ...formData.content.pages)
+            form = new Form(formData, store);
         } else {
             let _formData = formData ? formData : {id: null, content: {pages: []}}
-            form = new Form(_formData, this.store);
+            form = new Form(_formData, store);
         }
-        this.store.setForm(form);
         return form;
     }
 }

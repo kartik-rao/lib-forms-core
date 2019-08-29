@@ -12,9 +12,8 @@ enableLogging({
     compute: false
 });
 
-export default async function renderForm(selector:string, initialState: any) {
+export default function renderForm(selector:string, initialState: any) {
     const FormView = React.lazy(() => import(/* webpackChunkName: "core" */ "./views/FormView").then((module) => {return {default: module.FormView}}));
-
     render(
         <Layout style={{height: '100vh', overflow: 'hidden'}}>
             <Layout.Header></Layout.Header>

@@ -16,8 +16,7 @@ export const FormStoreProvider: React.FC<FormStoreProviderProps> = (props) => {
         store = props.formStore;
     } else if (props.initialState) {
         store = useLocalStore(createFormStore);
-        let factory = new Factory(store);
-        store.setForm(factory.makeForm(props.initialState));
+        store.setForm(Factory.makeForm(store, props.initialState));
     } else {
       throw new Error("FormStoreProvider - Pass initialState or formStore")
     }
