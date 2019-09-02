@@ -6,8 +6,6 @@ import { Field } from "../models/field";
 import { formStoreContext } from '../store/FormStoreProvider';
 import { FieldView } from "./FieldView";
 
-
-
 export const ColumnView: React.FC<{column: Column, key: string, span: number}> = (props) => {
     const store = React.useContext(formStoreContext);
     if(!store) throw new Error("Store is  null");
@@ -23,34 +21,3 @@ export const ColumnView: React.FC<{column: Column, key: string, span: number}> =
     </div>
     });
 }
-
-// import { FormStore } from "../store/FormStore";
-// export interface ColumnProps {
-//     column: Column;
-//     store: FormStore;
-//     span: number
-// }
-
-// @observer
-// export class ColumnView extends React.Component<ColumnProps, any> {
-//     props: ColumnProps;
-
-//     constructor(props: ColumnProps) {
-//         super(props);
-//         this.props = props;
-//     }
-
-//     render() {
-//         let {store, column} = this.props;
-//         const { fields } = column;
-//         return <div className="fl-col" data-uuid={column.uuid} id={`fl-col-${column.id}`}>
-//             <Col span={column.span ? column.span : this.props.span}>
-//                 <Card bordered={false}>
-//                     {fields.map((field: Field) => {
-//                         return <FieldView field={field} store={store} key={field.uuid}></FieldView>
-//                     })}
-//                 </Card>
-//             </Col>
-//         </div>;
-//     }
-// }

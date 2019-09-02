@@ -17,7 +17,7 @@ export const FormView : React.FC<any> = () => {
                 <Layout style={{overflow: 'hidden', border: '1px solid #ededed'}}>
                     <Form onSubmit={(e) => store.form.handleSubmit(e)} layout={store.form.layout} style={{height: '100%'}} wrapperCol={store.form.formLayoutOptions.wrapperCol} labelCol={store.form.formLayoutOptions.labelCol} labelAlign={store.form.formLayoutOptions.labelAlign}>
                         <Layout.Content style={{overflowY: 'scroll', height: 'calc(100% - 68px)', backgroundColor: 'white' }}>
-                            <PageView page={store.form.content.pages[store.currentPage] as Page}></PageView>
+                            {store.numPages > 0 && <PageView page={store.form.content.pages[store.currentPage] as Page}></PageView>}
                         </Layout.Content>
                         <Layout.Footer style={{padding: '0px', width: '100%', marginTop:'1px'}}>
                             <div className="fl-form-actions fl-shadow-top">

@@ -1,16 +1,10 @@
 import { Card, Row } from "antd";
-import { observer, useObserver } from "mobx-react";
+import { useObserver } from "mobx-react";
 import * as React from "react";
 import { Column } from "../models/column";
 import { Section } from "../models/section";
-// import { FormStore } from "../store/FormStore";
-import { ColumnView } from "./ColumnView";
 import { formStoreContext } from '../store/FormStoreProvider';
-
-// export interface SectionProps {
-//     section: Section;
-//     store: FormStore;
-// }
+import { ColumnView } from "./ColumnView";
 
 export const SectionView: React.FC<{section: Section, key: string}> = (props) => {
     const store = React.useContext(formStoreContext);
@@ -29,29 +23,3 @@ export const SectionView: React.FC<{section: Section, key: string}> = (props) =>
     </div>
     });
 }
-
-// @observer
-// export class SectionView extends React.Component<SectionProps, any> {
-
-//     props: SectionProps;
-//     constructor(props: SectionProps) {
-//         super(props);
-//         this.props = props;
-//     }
-
-//     render() {
-//         let {store, section} = this.props;
-//         const numColumns = section.columns.length;
-//         let span = numColumns <= 1 ? 24 : 24 / numColumns;
-
-//         return <div className="fl-section" data-uuid={section.uuid} id={`fl-section-${section.id}`}>
-//             <Card bordered={store.form.formLayoutOptions.showSectionBorders} title={store.form.formLayoutOptions.showSectionTitles ? section.title : ""} style={{padding: "1px"}} size="small">
-//                 <Row gutter={section.gutter}>
-//                     {section.columns.map((column: Column) => {
-//                         return <ColumnView store={store} key={column.uuid} column={column} span={span}/>
-//                     })}
-//                 </Row>
-//             </Card>
-//         </div>
-//     }
-// }
