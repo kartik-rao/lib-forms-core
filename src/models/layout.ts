@@ -9,7 +9,14 @@ export interface ColSpanOffset {
     offset?: number;
 }
 
-export class LayoutOption {
+export interface ILayoutOption {
+    xs?  : ColSpanOffset;
+    sm?  : ColSpanOffset;
+    md?  : ColSpanOffset;
+    lg?  : ColSpanOffset;
+    xl?  : ColSpanOffset;
+}
+export class LayoutOption implements ILayoutOption {
     @observable xs  : ColSpanOffset;
     @observable sm  : ColSpanOffset;
     @observable md  : ColSpanOffset;
@@ -87,14 +94,14 @@ export class FormLayoutOptions implements IFormLayoutOptions {
 
 export interface IItemLayoutOptions {
     labelAlign? : "left"|"right";
-    labelCol?: LayoutOption;
-    wrapperCol?: LayoutOption;
+    labelCol?: ILayoutOption;
+    wrapperCol?: ILayoutOption;
 }
 
-export class ItemLayoutOptions {
+export class ItemLayoutOptions implements IItemLayoutOptions {
     @observable labelAlign : "left"|"right";
-    @observable labelCol: LayoutOption;
-    @observable wrapperCol: LayoutOption;
+    @observable labelCol: ILayoutOption;
+    @observable wrapperCol: ILayoutOption;
 
     @action initialize(props: IItemLayoutOptions) {
         if(!props) {
