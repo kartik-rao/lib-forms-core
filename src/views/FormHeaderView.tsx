@@ -9,12 +9,11 @@ export const FormHeaderView : React.FC<{desc: string, title: string, subtitle: s
 
     return useObserver(() => {
         return <div className="fl-shadow-bottom" style={{ marginBottom: '2px'}}>
-            <PageHeader className="fl-ph" title={props.title} subTitle={props.subtitle}
-                extra={(props.showSteps && store.numPages > 0 && <div>
+            <PageHeader className="fl-ph" title={props.title} subTitle={props.subtitle} extra={(props.showSteps && store.numPages > 0 && <div>
                 <Statistic title="Page" value={store.currentPage + 1} suffix={"/ " + store.numPages} />
-                </div>)} />
+            </div>)} />
             {props.title && <Row>
-                <Col span={24}>
+                <Col span={20}>
                     <div className="fl-ph-wrap">
                         <div className="fl-ph-content fl-ph-padding">{props.desc}</div>
                     </div>
