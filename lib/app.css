@@ -13,6 +13,9 @@ html body {
 .ant-page-header {
     padding-bottom: 16px;
 }
+.fl-ph {
+    border: none;
+}
 .fl-ph-wrap {
     background-color: white;
     display: flex;
