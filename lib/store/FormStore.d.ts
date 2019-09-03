@@ -22,6 +22,9 @@ export declare const createFormStore: () => {
     setSubmitting(value: boolean): void;
     readonly isSubmitting: boolean;
     readonly numPages: number;
+    readonly hasNextPage: boolean;
+    readonly hasPrevPage: boolean;
+    readonly isSubmittable: boolean;
     nextPage: () => void;
     prevPage: () => void;
     setForm: (form: Form) => void;
