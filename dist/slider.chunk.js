@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{432:function(e,n,t){"use strict";t.r(n),t.d(n,"SliderView",function(){return l});var o=t(2),a=t(60);const c=o.lazy(()=>Promise.all([t.e(27),t.e(16)]).then(t.bind(null,411))),l=e=>{let n=e.field.componentProps;return Object(a.b)(()=>o.createElement(o.Suspense,{fallback:""},o.createElement(c,Object.assign({},n,{onChange:e.onChange}))))}}}]);
+//# sourceMappingURL=slider.chunk.js.map

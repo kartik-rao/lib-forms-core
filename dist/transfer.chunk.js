@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{437:function(e,n,t){"use strict";t.r(n),t.d(n,"TransferView",function(){return s});var r=t(60),a=t(2);const o=a.lazy(()=>Promise.all([t.e(0),t.e(28),t.e(21)]).then(t.bind(null,412))),s=e=>{let n=e.field.componentProps;return Object(r.b)(()=>a.createElement(a.Suspense,{fallback:""},a.createElement(o,Object.assign({},n,{onChange:e.onChange,render:e=>e.title}))))}}}]);
+//# sourceMappingURL=transfer.chunk.js.map

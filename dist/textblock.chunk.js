@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{436:function(e,t,n){"use strict";n.r(t),n.d(t,"TextBlockView",function(){return u});var i=n(60),d=n(2);const u=e=>{let{field:t}=e,{defaultValue:n}=t.componentProps;return Object(i.b)(()=>d.createElement("p",{id:e.field.id,"data-uuid":e.field.uuid},n))}}}]);
+//# sourceMappingURL=textblock.chunk.js.map

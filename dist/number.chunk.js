@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{428:function(e,n,t){"use strict";t.r(n),t.d(n,"NumberView",function(){return l});var o=t(60),r=t(2);const a=r.lazy(()=>Promise.all([t.e(25),t.e(12)]).then(t.bind(null,414))),l=e=>{let n=e.field.componentProps,t=n=>{n&&e.onChange(parseInt(n))};return Object(o.b)(()=>r.createElement(r.Suspense,{fallback:""},r.createElement(a,Object.assign({},n,{onChange:t,onBlur:e.onBlur}))))}}}]);
+//# sourceMappingURL=number.chunk.js.map
