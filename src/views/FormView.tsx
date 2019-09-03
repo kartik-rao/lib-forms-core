@@ -5,6 +5,7 @@ import { Page } from "../models/page";
 import { formStoreContext } from '../store/FormStoreProvider';
 import { FormHeaderView } from './FormHeaderView';
 import { PageView } from "./PageView";
+import "../app.css";
 
 export const FormView : React.FC<any> = () => {
     const store = React.useContext(formStoreContext);
