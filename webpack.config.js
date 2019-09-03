@@ -45,8 +45,13 @@ module.exports = {
             { test: /\.png$|\.eot$|\.woff$|\.ttf$/, loader: "url-loader?limit=100000" },
             {
                 test: /\.css$/,
-                include: /src\/app.css|node_modules\/antd\/|node_modules\/@kartikrao\//,
-                use: [{ loader: MiniCssExtractPlugin.loader}, 'css-loader']
+                include: [
+                    path.resolve(__dirname, 'src'),
+                    path.resolve(__dirname, 'node_modules/antd/dist/antd.css')
+                ],
+                use: [{loader: MiniCssExtractPlugin.loader},
+                    'css-loader'
+                ]
             }
         ]
     },
@@ -61,8 +66,9 @@ module.exports = {
         path: path.join(__dirname, 'dist')
     },
     watchOptions: {
-        ignored: /node_modules/
+        ignored: ['node_modules', 'dist', 'lib']
     },
+    watch: true,
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
