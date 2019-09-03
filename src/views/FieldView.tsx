@@ -5,24 +5,6 @@ import { Field } from "../models/field";
 import { IItemLayoutOptions } from '../models/layout';
 import { formStoreContext } from '../store/FormStoreProvider';
 
-// import { CascaderView } from "./controls/CascaderView";
-// import { CheckboxGroupView } from "./controls/CheckboxGroupView";
-// import { CheckboxView } from "./controls/CheckboxView";
-// import { DatePickerView } from "./controls/DatePickerView";
-// import { DateRangeView } from "./controls/DateRangeView";
-// import { HtmlFragmentView } from './controls/HtmlFragmentView';
-// import { InputView } from "./controls/InputView";
-// import { NumberView } from "./controls/NumberView";
-// import { RadioGroupView } from "./controls/RadioGroupView";
-// import { RadioView } from './controls/RadioView';
-// import { SelectView } from "./controls/SelectView";
-// import { SliderView } from "./controls/SliderView";
-// import { StarRatingView } from "./controls/StarRatingView";
-// import { SwitchView } from "./controls/SwitchView";
-// import { TextAreaView } from "./controls/TextAreaView";
-// import { TextBlockView } from "./controls/TextBlockView";
-// import { TransferView } from "./controls/TransferView";
-
 const CascaderView = React.lazy(() => import(/* webpackChunkName: "cascader" */ './controls/CascaderView').then((module) => {return {default: module.CascaderView}}));
 const CheckboxGroupView = React.lazy(() => import(/* webpackChunkName: "checkboxgroup" */ './controls/CheckboxGroupView').then((module) => {return {default: module.CheckboxGroupView}}));
 const CheckboxView = React.lazy(() => import(/* webpackChunkName: "checkbox" */ './controls/CheckboxView').then((module) => {return {default: module.CheckboxView}}));
@@ -43,8 +25,8 @@ const TransferView = React.lazy(() => import(/* webpackChunkName: "transfer" */ 
 
 
 export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
-    const store = React.useContext(formStoreContext);
-    if(!store) throw new Error("ERROR FieldView - store is null");
+    const fStore = React.useContext(formStoreContext);
+    if(!fStore) throw new Error("ERROR FieldView - store is null");
 
     let onChange = (e) => {
         let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
@@ -61,18 +43,18 @@ export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
     // otherwise the control does not go to the next line
     // Allow field item layout options to override form layout options
 
-    let labelAlign = props.field.itemLayoutOptions.labelAlign || store.form.itemLayoutOptions.labelAlign || 'left';
-    let itemLayout: IItemLayoutOptions = props.field.itemLayoutOptions || store.form.itemLayoutOptions || {};
+    let labelAlign = props.field.itemLayoutOptions.labelAlign || fStore.form.itemLayoutOptions.labelAlign || 'left';
+    let itemLayout: IItemLayoutOptions = props.field.itemLayoutOptions || fStore.form.itemLayoutOptions || {};
 
     return useObserver(() => {
         return  <React.Suspense fallback="loading..."><div id={`fl-field-${props.field.id}`} data-uuid={props.field.uuid} className={`fl-field fl-field-${fieldClass}`}>
         { !props.field.isDisabled && <Form.Item label={props.field.label} labelAlign={labelAlign}
-        hasFeedback={store.touched[id] && store.errors[id] ? true : null}
-        validateStatus={store.touched[id] && store.errors[id] ?  "error" : "validating"}
+        hasFeedback={fStore.touched[id] && fStore.errors[id] ? true : null}
+        validateStatus={fStore.touched[id] && fStore.errors[id] ?  "error" : "validating"}
         wrapperCol={itemLayout.wrapperCol}
-        labelCol={store.form.layout == "horizontal" ? itemLayout.labelCol : null}
+        labelCol={fStore.form.layout == "horizontal" ? itemLayout.labelCol : null}
         // extra={props.field.helpText}
-        help={store.touched[id] ? (store.errors[id] ? store.errors[id] : props.field.helpText): ''}
+        help={fStore.touched[id] ? (fStore.errors[id] ? fStore.errors[id] : props.field.helpText): ''}
         required={props.field.isRequired}>
             {inputType == "input" && <InputView field={props.field} onChange={onChange} onBlur={onBlur}/>}
             {inputType == "radio" && <RadioView field={props.field} onChange={onChange} />}

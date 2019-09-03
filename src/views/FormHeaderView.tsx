@@ -15,7 +15,7 @@ export const FormHeaderView : React.FC<{desc: string, title: string, subtitle: s
             {props.title && <Row>
                 <Col span={20}>
                     <div className="fl-ph-wrap">
-                        <div className="fl-ph-content fl-ph-padding">{props.desc}</div>
+                        <div className="fl-ph-content fl-ph-padding">{props.desc || " "}</div>
                     </div>
                 </Col>
             </Row>

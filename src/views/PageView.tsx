@@ -7,13 +7,12 @@ import { formStoreContext } from '../store/FormStoreProvider';
 import { SectionView } from "./SectionView";
 
 export const PageView: React.FC<{page: Page}> = (props) => {
-    const store = React.useContext(formStoreContext);
-    if(!store) throw new Error("Store is  null");
-    if(!store) throw new Error("Store is  null");
+    const fStore = React.useContext(formStoreContext);
+    if(!fStore) throw new Error("Store is  null");
     return useObserver(() => {
         return <div className="fl-page-wrap">
-        <Card style={{padding:"0"}} bordered={false} title={store.form.formLayoutOptions.showPageTitles ? props.page.title : ''}>
-            <div id={`fl-page-${props.page.id || store.currentPage}`} className="fl-page" data-uuid={`fl-page-${props.page.uuid}`}>
+        <Card style={{padding:"0"}} bordered={false} title={fStore.form.formLayoutOptions.showPageTitles ? props.page.title : ''}>
+            <div id={`fl-page-${props.page.id || fStore.currentPage}`} className="fl-page" data-uuid={`fl-page-${props.page.uuid}`}>
                 {props.page.sections.map((section: Section, sn: number) => {
                     return <SectionView key={section.uuid} section={section}></SectionView>
                 })}
