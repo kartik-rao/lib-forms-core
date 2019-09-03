@@ -13,7 +13,7 @@ const uuidv1 = require('uuid/v1');
 export const EmptyForm : IFormProps = {
     id: null,
     name: "Untitled Form",
-    description: "Untitled Form",
+    description: "Form description",
     formLayoutOptions : {
         showPageTitles : true,
         showSteps: true,
@@ -27,6 +27,10 @@ export const EmptyForm : IFormProps = {
         labelAlign : "left",
         labelCol : {"xl" : {offset:0, span: 8}},
         wrapperCol : {"xl" : {offset:0, span: 16}}
+    },
+    content: {
+        title: "Form title",
+        subtitle: "Form subtitle"
     }
 }
 

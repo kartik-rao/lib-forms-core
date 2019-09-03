@@ -4,6 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import "./app.css";
 import { FormStoreProvider } from "./store/FormStoreProvider";
+import { EmptyForm } from './models/factory';
 
 enableLogging({
     action: false,
@@ -16,7 +17,6 @@ export default function renderForm(selector:string, initialState: any) {
     const FormView = React.lazy(() => import(/* webpackChunkName: "core" */ "./views/FormView").then((module) => {return {default: module.FormView}}));
     render(
         <Layout style={{height: '100vh', overflow: 'hidden'}}>
-            <Layout.Header></Layout.Header>
             <React.Suspense fallback="Loading">
                 <FormStoreProvider initialState={initialState}>
                     <FormView />
@@ -26,9 +26,4 @@ export default function renderForm(selector:string, initialState: any) {
     )
 };
 
-renderForm("#root", {
-    id: "foo",
-    name: "A sample form",
-    desc: "A simple form to demonstrate Forms.li",
-    layout: 'vertical'
-});
+renderForm("#root", {...EmptyForm});
