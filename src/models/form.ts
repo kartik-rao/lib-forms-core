@@ -16,7 +16,7 @@ export class Form implements IFormProps {
 
     @observable id: string;
     @observable exid: string;
-    @observable desc: string;
+    @observable description: string;
     @observable name: string;
     @observable tenant: IFormTenant;
     @observable status: IFormStatus;
@@ -36,31 +36,7 @@ export class Form implements IFormProps {
         this.name = data.name;
         this.uuid = data.uuid;
         this.exid = valueOrDefault(data.exid, null);
-        this.desc = valueOrDefault(data.desc, null);
-        if (data.tenant) {
-            this.tenant = {
-                eid: valueOrDefault(data.tenant.eid, null),
-                mid: valueOrDefault(data.tenant.mid, null),
-                context: valueOrDefault(data.tenant.context, null),
-                stack: valueOrDefault(data.tenant.stack, null)
-            }
-        } else {
-            this.tenant = {eid:null, mid:null, context:null, stack: null}
-        }
-
-        if (data.status) {
-            this.status = {
-                timezone: valueOrDefault(data.status.timezone, null),
-                paused: valueOrDefault(data.status.paused, null),
-                active: valueOrDefault(data.status.active, null),
-                created: valueOrDefault(data.status.created, null),
-                edited: valueOrDefault(data.status.edited, null),
-                starts: valueOrDefault(data.status.starts, null),
-                ends: valueOrDefault(data.status.ends, null)
-            }
-        } else {
-            this.status = {timezone: null, paused: false, active: false, created: null, edited: null, starts: null, ends: null}
-        }
+        this.description = valueOrDefault(data.description, null);
 
         if (data.content) {
             this.content = {
