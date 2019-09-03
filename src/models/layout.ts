@@ -100,8 +100,8 @@ export interface IItemLayoutOptions {
 
 export class ItemLayoutOptions implements IItemLayoutOptions {
     @observable labelAlign : "left"|"right";
-    @observable labelCol: ILayoutOption;
-    @observable wrapperCol: ILayoutOption;
+    @observable labelCol: LayoutOption;
+    @observable wrapperCol: LayoutOption;
 
     @action initialize(props: IItemLayoutOptions) {
         if(!props) {
@@ -116,6 +116,5 @@ export class ItemLayoutOptions implements IItemLayoutOptions {
         this.initialize(props);
     }
 }
-
 
 // export type ColumnLayout = { [key in ScreenWidth]?: ColSpanOffset };
