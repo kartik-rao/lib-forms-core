@@ -55,8 +55,8 @@ export interface IItemLayoutOptions {
 }
 export declare class ItemLayoutOptions implements IItemLayoutOptions {
     labelAlign: "left" | "right";
-    labelCol: ILayoutOption;
-    wrapperCol: ILayoutOption;
+    labelCol: LayoutOption;
+    wrapperCol: LayoutOption;
     initialize(props: IItemLayoutOptions): void;
     constructor(props: IItemLayoutOptions);
 }

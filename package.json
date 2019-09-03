@@ -1,6 +1,6 @@
 {
   "name": "@kartikrao/lib-forms-core",
-  "version": "6.4.0",
+  "version": "6.4.1",
   "description": "Core interfaces for forms",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
