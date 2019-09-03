@@ -10,8 +10,27 @@ import { IPage, Page } from "./page";
 import { ISection, Section } from "./section";
 const uuidv1 = require('uuid/v1');
 
-export class Factory {
+export const EmptyForm : IFormProps = {
+    id: null,
+    name: "Untitled Form",
+    description: "Untitled Form",
+    formLayoutOptions : {
+        showPageTitles : true,
+        showSteps: true,
+        showSectionBorders: false,
+        showPageBorders: false,
+        showSectionTitles: false,
+        validationDisablesPaging: true
+    },
+    layout : "vertical",
+    itemLayoutOptions : {
+        labelAlign : "left",
+        labelCol : {"xl" : {offset:0, span: 8}},
+        wrapperCol : {"xl" : {offset:0, span: 16}}
+    }
+}
 
+export class Factory {
     static ensureIds<T>(item: T) {
         if (!item['uuid']) {
             item['uuid'] = uuidv1();
