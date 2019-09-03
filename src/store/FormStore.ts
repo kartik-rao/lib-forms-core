@@ -57,6 +57,15 @@ export const createFormStore = () => {
         get numPages() : number {
             return this.form ? this.form.content.pages.length : 0;
         },
+        get hasNextPage() : boolean {
+            return this.currentPage < this.numPages -1;
+        },
+        get hasPrevPage() : boolean {
+            return this.currentPage > 0 && this.numPages > 1
+        },
+        get isSubmittable() : boolean {
+            return !(Object.keys(this.touched).length == 0 || !this.isValid|| this.isSubmitting);
+        },
         nextPage : function () {
             if(!this.form) {
                 return;
