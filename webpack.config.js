@@ -44,7 +44,8 @@ module.exports = {
             },
             { test: /\.png$|\.eot$|\.woff$|\.ttf$/, loader: "url-loader?limit=100000" },
             {
-                test: /src\/app\.css$|node_modules\/antd\/*\.css$/,
+                test: /\.css$/,
+                include: /src\/app.css|node_modules\/antd\/|node_modules\/@kartikrao\//,
                 use: [{ loader: MiniCssExtractPlugin.loader}, 'css-loader']
             }
         ]
