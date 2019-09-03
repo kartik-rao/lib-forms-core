@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import { enableLogging } from 'mobx-logger';
 import React from 'react';
 import { render } from 'react-dom';
-
+import "./app.css";
 import { FormStoreProvider } from "./store/FormStoreProvider";
 
 enableLogging({
