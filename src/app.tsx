@@ -2,12 +2,14 @@ import { Layout } from "antd";
 import { enableLogging } from 'mobx-logger';
 import React from 'react';
 import { render } from 'react-dom';
-import "./app.css";
 import { FormStoreProvider } from "./store/FormStoreProvider";
 import { EmptyForm } from './models/factory';
+import TestForm from "./test-form";
+
+import "../forms.core.m.css";
 
 enableLogging({
-    action: false,
+    action: true,
     reaction: false,
     transaction: false,
     compute: false
@@ -26,4 +28,4 @@ export default function renderForm(selector:string, initialState: any) {
     )
 };
 
-renderForm("#root", {...EmptyForm});
+renderForm("#root", TestForm);
