@@ -8,6 +8,7 @@ import { Form } from "./form";
 import { IFormProps } from "./form.properties";
 import { IPage, Page } from "./page";
 import { ISection, Section } from "./section";
+export declare const EmptyForm: IFormProps;
 export declare class Factory {
     static ensureIds<T>(item: T): void;
     static makePredicates(store: FormStoreType, ...predicates: IPredicate[]): Predicate[];

@@ -10,7 +10,7 @@ export declare class Form implements IFormProps {
     uuid: string;
     id: string;
     exid: string;
-    desc: string;
+    description: string;
     name: string;
     tenant: IFormTenant;
     status: IFormStatus;

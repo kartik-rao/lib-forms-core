@@ -1,5 +1,5 @@
 import { IPage } from "./page";
-import { FormLayoutOptions, ItemLayoutOptions } from "./layout";
+import { IFormLayoutOptions, IItemLayoutOptions } from "./layout";
 export interface IFormTenant {
     eid: number;
     mid: number;
@@ -54,15 +54,13 @@ export interface IFormProps {
     id: string;
     uuid?: string;
     exid?: string;
-    desc?: string;
+    description?: string;
     name?: string;
-    tenant?: IFormTenant;
-    status?: IFormStatus;
     content?: IFormContent;
     values?: any;
     layout?: "vertical" | "horizontal" | "inline";
-    formLayoutOptions?: FormLayoutOptions;
-    itemLayoutOptions?: ItemLayoutOptions;
+    formLayoutOptions?: IFormLayoutOptions;
+    itemLayoutOptions?: IItemLayoutOptions;
     stopSubmit?: boolean;
     submitTarget?: string;
     successRedirect?: string;

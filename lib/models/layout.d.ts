@@ -4,7 +4,14 @@ export interface ColSpanOffset {
     span: number;
     offset?: number;
 }
-export declare class LayoutOption {
+export interface ILayoutOption {
+    xs?: ColSpanOffset;
+    sm?: ColSpanOffset;
+    md?: ColSpanOffset;
+    lg?: ColSpanOffset;
+    xl?: ColSpanOffset;
+}
+export declare class LayoutOption implements ILayoutOption {
     xs: ColSpanOffset;
     sm: ColSpanOffset;
     md: ColSpanOffset;
@@ -43,13 +50,13 @@ export declare class FormLayoutOptions implements IFormLayoutOptions {
 }
 export interface IItemLayoutOptions {
     labelAlign?: "left" | "right";
-    labelCol?: LayoutOption;
-    wrapperCol?: LayoutOption;
+    labelCol?: ILayoutOption;
+    wrapperCol?: ILayoutOption;
 }
-export declare class ItemLayoutOptions {
+export declare class ItemLayoutOptions implements IItemLayoutOptions {
     labelAlign: "left" | "right";
-    labelCol: LayoutOption;
-    wrapperCol: LayoutOption;
+    labelCol: ILayoutOption;
+    wrapperCol: ILayoutOption;
     initialize(props: IItemLayoutOptions): void;
     constructor(props: IItemLayoutOptions);
 }
