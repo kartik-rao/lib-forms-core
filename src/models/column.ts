@@ -84,6 +84,19 @@ export class Column implements IColumn {
         this.initialize(data, store);
     }
 
+    @computed get asPlainObject() : IColumn {
+        return {
+            id: this.id,
+            uuid: this.uuid,
+            span: this.span,
+            name: this.name,
+            title: this.title,
+            fields: this.fields.map((f) => {
+                return f.asPlainObject
+            })
+        }
+    }
+
     @action initialize(data: IColumn, store: FormStoreType) {
         this.uuid = data.uuid;
         this.store = store;

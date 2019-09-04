@@ -83,6 +83,19 @@ export class Section implements ISection {
         }, {});
     }
 
+    @computed get asPlainObject() : ISection {
+        return {
+            id: this.id,
+            uuid: this.uuid,
+            name: this.name,
+            title: this.title,
+            gutter: this.gutter,
+            columns: this.columns.map((c) => {
+                return c.asPlainObject
+            })
+        }
+    }
+
     @action initialize(data: ISection, store: FormStoreType) {
         this.id = data.id;
         this.uuid = data.uuid;

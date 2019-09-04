@@ -121,6 +121,18 @@ export class Page implements IPage {
         this.sections.splice(toIndex, 0, this.sections.splice(atIndex, 1)[0]);
     }
 
+    @computed get asPlainObject() : IPage {
+        return {
+            id : this.id,
+            uuid : this.uuid,
+            name : this.name,
+            title : this.title,
+            subtitle : this.subtitle,
+            icon : this.icon,
+            sections : this.sections.map((s) => {return s.asPlainObject})
+        }
+    }
+
     @action private initialize(data: IPage, store: FormStoreType) {
         this.id = data.id;
         this.store = store;

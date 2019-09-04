@@ -171,10 +171,17 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
        this.validator.validate();
     }
 
-    @computed get serialize(): string  {
-        let clone = toJS(this);
+    @computed get asPlainObject() : IFieldProps {
+        let clone = toJS(this)
         delete clone.store;
-        delete clone.validator;;
+        delete clone.validator;
+        clone.value = null;
+        clone.conditionState = false;
+        return clone;
+    }
+
+    @computed get serialize(): string  {
+        let clone = this.asPlainObject;
         return JSON.stringify(clone);
     }
 

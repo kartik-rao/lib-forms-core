@@ -1,5 +1,5 @@
 import axios from "axios";
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
 import { FormEvent } from "react";
 import { FormStoreType } from "../store/FormStore";
 import { valueOrDefault } from "./common";
@@ -179,6 +179,40 @@ export class Form implements IFormProps {
             }
             return {...all, [f.id]: f.value}
         }, {});
+    }
+
+    @computed get asPlainObject() {
+        let clone : IFormProps = {
+            id: this.id,
+            name: this.name,
+            uuid: this.uuid,
+            exid: this.exid,
+            description: this.description,
+        }
+
+        if (this.content) {
+            clone.content = {
+                title : this.content.title,
+                subtitle : this.content.subtitle,
+                labels : this.content.labels,
+                offset : this.content.offset,
+                width : this.content.width,
+                sidebar : this.content.sidebar,
+                scripts : this.content.scripts,
+                styles : this.content.styles,
+                datasets : this.content.datasets,
+                paginate : this.content.paginate,
+                pages : this.content.pages ? (this.content.pages as Page[]).map((p) => {return p.asPlainObject}) : []
+            }
+        }
+
+        clone.layout = this.layout;
+        clone.formLayoutOptions = this.formLayoutOptions;
+        clone.itemLayoutOptions = this.itemLayoutOptions;
+        clone.submitTarget = this.submitTarget;
+        clone.errorRedirect = this.errorRedirect;
+        clone.successRedirect = this.successRedirect;
+        return clone;
     }
 
     @action.bound handleSubmit(e: FormEvent) {
