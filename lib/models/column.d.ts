@@ -35,5 +35,6 @@ export declare class Column implements IColumn {
     swapFields(index1: number, index2: number): void;
     moveField(atIndex: number, toIndex: number): void;
     constructor(data: IColumn, store: any);
+    readonly asPlainObject: IColumn;
     initialize(data: IColumn, store: FormStoreType): void;
 }

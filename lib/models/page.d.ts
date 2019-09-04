@@ -37,6 +37,7 @@ export declare class Page implements IPage {
     removeSection(index: number): void;
     swapSections(index1: number, index2: number): void;
     moveSection(atIndex: number, toIndex: number): void;
+    readonly asPlainObject: IPage;
     private initialize;
     constructor(data: IPage, store: FormStoreType);
 }

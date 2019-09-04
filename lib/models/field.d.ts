@@ -44,6 +44,7 @@ export declare class Field implements IFieldProps, IFieldRuntimeProps {
     setConditionState(value: boolean): void;
     setCondition(condition: ICondition): void;
     validate(): void;
+    readonly asPlainObject: IFieldProps;
     readonly serialize: string;
     constructor(data: IFieldProps, store: FormStoreType);
 }

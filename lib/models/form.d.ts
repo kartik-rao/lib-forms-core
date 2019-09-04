@@ -43,5 +43,6 @@ export declare class Form implements IFormProps {
     readonly values: {
         [key: string]: any;
     };
+    readonly asPlainObject: IFormProps;
     handleSubmit(e: FormEvent): void;
 }

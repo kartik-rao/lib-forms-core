@@ -33,6 +33,7 @@ export declare class Section implements ISection {
     readonly uuidFieldMap: {
         [key: string]: Field;
     };
+    readonly asPlainObject: ISection;
     initialize(data: ISection, store: FormStoreType): void;
     constructor(data: ISection, store: FormStoreType);
 }
