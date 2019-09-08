@@ -176,7 +176,7 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
         delete clone.validator;
         clone.value = null;
         clone.conditionState = false;
-        return toJS(clone);
+        return toJS(clone, {recurseEverything: true, detectCycles: true});
     }
 
     @computed get serialize(): string  {

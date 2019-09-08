@@ -168,5 +168,6 @@ describe('Form', () => {
         expect(json.content.pages[0].sections[0].columns.length).toEqual(1)
         expect(json.content.pages[0].sections[0].columns[0].fields).toBeDefined();
         expect(json.content.pages[0].sections[0].columns[0].fields.length).toEqual(2);
+        console.log("Form.asPlainObject", json);
     })
 });
