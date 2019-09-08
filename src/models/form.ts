@@ -182,36 +182,38 @@ export class Form implements IFormProps {
     }
 
     @computed get asPlainObject() {
-        let clone : IFormProps = {
+        let clone : IFormProps = toJS({
             id: this.id,
             name: this.name,
             uuid: this.uuid,
             exid: this.exid,
             description: this.description,
-        }
+            layout : this.layout,
+            formLayoutOptions : this.formLayoutOptions,
+            itemLayoutOptions : this.itemLayoutOptions,
+            submitTarget : this.submitTarget,
+            errorRedirect : this.errorRedirect,
+            successRedirect : this.successRedirect
+        }, {detectCycles : true, recurseEverything: true})
 
         if (this.content) {
             clone.content = {
-                title : this.content.title,
-                subtitle : this.content.subtitle,
-                labels : this.content.labels,
-                offset : this.content.offset,
-                width : this.content.width,
-                sidebar : this.content.sidebar,
-                scripts : this.content.scripts,
-                styles : this.content.styles,
-                datasets : this.content.datasets,
-                paginate : this.content.paginate,
+                ...toJS({
+                    title : this.content.title,
+                    subtitle : this.content.subtitle,
+                    labels : this.content.labels,
+                    offset : this.content.offset,
+                    width : this.content.width,
+                    sidebar : this.content.sidebar,
+                    scripts : this.content.scripts,
+                    styles : this.content.styles,
+                    datasets : this.content.datasets,
+                    paginate : this.content.paginate
+                }, {detectCycles : true, recurseEverything: true}),
                 pages : this.content.pages ? (this.content.pages as Page[]).map((p) => {return p.asPlainObject}) : []
             }
         }
 
-        clone.layout = this.layout;
-        clone.formLayoutOptions = this.formLayoutOptions;
-        clone.itemLayoutOptions = this.itemLayoutOptions;
-        clone.submitTarget = this.submitTarget;
-        clone.errorRedirect = this.errorRedirect;
-        clone.successRedirect = this.successRedirect;
         return clone;
     }
 

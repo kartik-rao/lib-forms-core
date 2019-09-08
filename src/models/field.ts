@@ -129,7 +129,6 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
     @action setValue(value: any) {
         this.value = value;
         this.store.setFieldValue(this.id, value);
-        this.condition ? console.log("Condition Value",  this.condition.value) : void(0);
         this.validate();
     }
 
@@ -172,12 +171,12 @@ export class Field implements IFieldProps, IFieldRuntimeProps {
     }
 
     @computed get asPlainObject() : IFieldProps {
-        let clone = toJS(this)
+        let clone = {...this};
         delete clone.store;
         delete clone.validator;
         clone.value = null;
         clone.conditionState = false;
-        return clone;
+        return toJS(clone);
     }
 
     @computed get serialize(): string  {

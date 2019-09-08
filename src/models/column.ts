@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
 import { FormStoreType } from "../store/FormStore";
 import { valueOrDefault } from "./common";
 import { Field } from "./field";
@@ -85,16 +85,13 @@ export class Column implements IColumn {
     }
 
     @computed get asPlainObject() : IColumn {
+        let fields = this.fields ?  this.fields.map((f) => {
+            return f.asPlainObject
+        }) : [];
         return {
-            id: this.id,
-            uuid: this.uuid,
-            span: this.span,
-            name: this.name,
-            title: this.title,
-            fields: this.fields.map((f) => {
-                return f.asPlainObject
-            })
-        }
+            ...toJS({id: this.id,uuid: this.uuid,span: this.span,name: this.name,title: this.title}),
+            fields: fields
+        };
     }
 
     @action initialize(data: IColumn, store: FormStoreType) {

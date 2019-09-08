@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
 import { FormStoreType } from "../store/FormStore";
 import { Column, IColumn } from "./column";
 import { valueOrDefault } from "./common";
@@ -84,16 +84,19 @@ export class Section implements ISection {
     }
 
     @computed get asPlainObject() : ISection {
+        let columns = this.columns ? this.columns.map((c) => {
+            return c.asPlainObject
+        }) : [];
         return {
-            id: this.id,
-            uuid: this.uuid,
-            name: this.name,
-            title: this.title,
-            gutter: this.gutter,
-            columns: this.columns.map((c) => {
-                return c.asPlainObject
+            ...toJS({id: this.
+                id,uuid:
+                this.uuid,
+                name: this.name,
+                title: this.title,
+                gutter: this.gutter
             })
-        }
+            , columns: columns
+        };
     }
 
     @action initialize(data: ISection, store: FormStoreType) {

@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, computed, observable, toJS } from "mobx";
 import { FormStoreType } from "../store/FormStore";
 import { Column } from "./column";
 import { valueOrDefault } from "./common";
@@ -122,14 +122,17 @@ export class Page implements IPage {
     }
 
     @computed get asPlainObject() : IPage {
+        let sections = this.sections ? this.sections.map((s) => {return s.asPlainObject}) : [];
+
         return {
-            id : this.id,
-            uuid : this.uuid,
-            name : this.name,
-            title : this.title,
-            subtitle : this.subtitle,
-            icon : this.icon,
-            sections : this.sections.map((s) => {return s.asPlainObject})
+            ...toJS({id : this.id,
+                uuid : this.uuid,
+                name : this.name,
+                title : this.title,
+                subtitle : this.subtitle,
+                icon : this.icon
+            }),
+            sections: sections
         }
     }
 
