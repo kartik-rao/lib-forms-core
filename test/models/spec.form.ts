@@ -143,4 +143,30 @@ describe('Form', () => {
         c.fields[1].setValue('abcd');
         expect(f.errors.length).toBe(0);
     });
+    it("computes form json", () => {
+        let f = new Form({id: genElementId("form")}, store);
+        let p = new Page(P1, store);
+        let s = new Section(S1, store);
+        let c = new Column(C1, store);
+        s.addColumn(c);
+        let f1 = new Field(F1, store);
+        let f2 = new Field(F2, store);
+        c.addField(f1);
+        c.addField(f2);
+        p.addSection(s);
+        f.addPage(p);
+        let json = f.asPlainObject;
+        expect(json).toBeDefined();
+        expect(json.id).toEqual(f.id);
+        expect(json.content).toBeDefined();
+        expect(json.content.pages).toBeDefined();
+        expect(json.content.pages.length).toEqual(1);
+        expect(json.content.pages[0].sections).toBeDefined();
+        expect(json.content.pages[0].sections.length).toEqual(1);
+        expect(json.content.pages[0].sections[0]).toBeDefined();
+        expect(json.content.pages[0].sections[0].columns).toBeDefined();
+        expect(json.content.pages[0].sections[0].columns.length).toEqual(1)
+        expect(json.content.pages[0].sections[0].columns[0].fields).toBeDefined();
+        expect(json.content.pages[0].sections[0].columns[0].fields.length).toEqual(2);
+    })
 });
