@@ -6,7 +6,7 @@ import { FormStoreProvider } from "./store/FormStoreProvider";
 import { EmptyForm } from './models/factory';
 import TestForm from "./test-form";
 
-import "../forms.core.m.css";
+import "./forms.core.m.css";
 
 enableLogging({
     action: true,
