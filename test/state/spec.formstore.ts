@@ -1,5 +1,5 @@
 import { toJS } from "mobx";
-import { createFormStore, FormStoreType, IFieldProps, IPage } from "../../src/index";
+import { createFormStore, FormStoreType, IFieldProps, IPage, Factory } from "../../src/index";
 
 const F1: IFieldProps= {
     id:  "f1",
@@ -51,14 +51,17 @@ describe('FormStore', () => {
     let store: FormStoreType;
 
     beforeAll(() => {
-        store = createFormStore({
+        store = createFormStore();
+        let form = Factory.makeForm(store,{
             id: "spec.formstore",
             content: {pages: [P1]}
-        });
+        })
+        store.setForm(form);
         console.log("spec.formstore store.form", toJS(store.form));
     });
 
-    it("computes fieldNames", () => {
+    it("fieldNames", () => {
+
         let names: string[];
         try {
             names = store.fieldNames;
@@ -70,7 +73,7 @@ describe('FormStore', () => {
         expect(names[0]).toBe(F1.name);
         expect(names[1]).toBe(F2.name);
     });
-    it("computes form validity", () => {
+    it("isValid", () => {
         expect(store.isValid).toBe(false);
         store.idFieldMap[F1.id].setValue("qq");
         expect(store.isValid).toBe(false);
