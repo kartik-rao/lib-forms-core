@@ -54,7 +54,7 @@ export class Validator {
 
     @computed get isValidateable() {
         let {field} = this;
-        return !field.isHidden && field.conditionState && !!this.rule && Object.keys(this.rule).length > 0;
+        return !this.store.validationDisabled && !field.isHidden && field.conditionState && !!this.rule && Object.keys(this.rule).length > 0;
     }
 
     @action validate() {

@@ -50,7 +50,7 @@ export class Condition {
         var state: boolean;
         let self = this;
 
-        if (!this.predicates || this.predicates.length == 0){
+        if (self.store.conditionsDisabled || !this.predicates || this.predicates.length == 0){
             return true;
         }
 
