@@ -1,9 +1,10 @@
 import { Form } from "antd";
-import { useObserver } from "mobx-react";
+import { useObserver, useLocalStore } from "mobx-react";
 import * as React from "react";
 import { Field } from "../models/field";
 import { IItemLayoutOptions } from '../models/layout';
 import { formStoreContext } from '../store/FormStoreProvider';
+import { observable } from 'mobx';
 
 const CascaderView = React.lazy(() => import(/* webpackChunkName: "cascader" */ './controls/CascaderView').then((module) => {return {default: module.CascaderView}}));
 const CheckboxGroupView = React.lazy(() => import(/* webpackChunkName: "checkboxgroup" */ './controls/CheckboxGroupView').then((module) => {return {default: module.CheckboxGroupView}}));
@@ -23,10 +24,45 @@ const TextAreaView = React.lazy(() => import(/* webpackChunkName: "textarea" */ 
 const TextBlockView = React.lazy(() => import(/* webpackChunkName: "textblock" */ './controls/TextBlockView').then((module) => {return {default: module.TextBlockView}}));
 const TransferView = React.lazy(() => import(/* webpackChunkName: "transfer" */ './controls/TransferView').then((module) => {return {default: module.TransferView}}));
 
+export type ValidateStatus = "success"|"warning"|"error"|"validating"|"";
 
 export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
     const fStore = React.useContext(formStoreContext);
     if(!fStore) throw new Error("ERROR FieldView - store is null");
+
+    let localStore = observable(useLocalStore(() => ({
+        get fieldClass() : string {
+            return "fl-field fl-field-" + (inputType == type ? inputType : (type ? `${inputType}-${type}` : `${inputType}`))
+        },
+        get labelAlign() : "left"|"right" {
+            return props.field.itemLayoutOptions.labelAlign || fStore.form.itemLayoutOptions.labelAlign || 'left';
+        },
+        get itemLayout() : IItemLayoutOptions {
+            return props.field.itemLayoutOptions || fStore.form.itemLayoutOptions || {};
+        },
+        get hasFeedback() : boolean {
+            return fStore.touched[id] && fStore.errors[id] ? true : null;
+        },
+        get isDateControl() : boolean {
+            return props.field.inputType.indexOf('picker') > -1 || props.field.inputType.indexOf('date') > -1;
+        },
+        get validateStatus() : ValidateStatus {
+            let defaultStatus: ValidateStatus = this.isDateControl ? "" : "validating";
+            return !fStore.validationDisabled && fStore.touched[id] && fStore.errors[id] ? "error" : defaultStatus;
+        },
+        // labelCol should only be passed if form is horizontal
+        // otherwise the control does not go to the next line
+        // Allow field item layout options to override form layout options
+        get labelColLayout() : any {
+            return fStore.form.layout == "horizontal" ? this.itemLayout.labelCol : null
+        },
+        get wrapperColLayout() : any {
+            return this.itemLayout.wrapperCol;
+        },
+        get helpText() : string {
+            return !fStore.validationDisabled && fStore.touched[id] ? (fStore.errors[id] ? fStore.errors[id] : props.field.helpText): '';
+        }
+    })));
 
     let onChange = (e) => {
         let value = e && typeof(e) == 'object' && e.target ? e.target.value: e;
@@ -36,25 +72,15 @@ export const FieldView: React.FC<{field: Field, key: string}> = (props) => {
     let onBlur = () => props.field.setTouched();
     let {id, inputType, type } = props.field;
 
-    // Some fields only have inputtype
-    let fieldClass = inputType == type ? inputType : (type ? `${inputType}-${type}` : `${inputType}`);
-
-    // labelCol should only be passed if form is horizontal
-    // otherwise the control does not go to the next line
-    // Allow field item layout options to override form layout options
-
-    let labelAlign = props.field.itemLayoutOptions.labelAlign || fStore.form.itemLayoutOptions.labelAlign || 'left';
-    let itemLayout: IItemLayoutOptions = props.field.itemLayoutOptions || fStore.form.itemLayoutOptions || {};
-
     return useObserver(() => {
-        return  <React.Suspense fallback="loading..."><div id={`fl-field-${props.field.id}`} data-uuid={props.field.uuid} className={`fl-field fl-field-${fieldClass}`}>
-        { !props.field.isDisabled && <Form.Item label={props.field.label} labelAlign={labelAlign}
-        hasFeedback={fStore.touched[id] && fStore.errors[id] ? true : null}
-        validateStatus={fStore.touched[id] && fStore.errors[id] ?  "error" : "validating"}
-        wrapperCol={itemLayout.wrapperCol}
-        labelCol={fStore.form.layout == "horizontal" ? itemLayout.labelCol : null}
+        return  <React.Suspense fallback="loading..."><div id={`fl-field-${props.field.id}`} data-uuid={props.field.uuid} className={localStore.fieldClass}>
+        { !props.field.isDisabled && <Form.Item label={props.field.label} labelAlign={localStore.labelAlign}
+        hasFeedback={localStore.hasFeedback}
+        validateStatus={localStore.validateStatus}
+        wrapperCol={localStore.wrapperColLayout}
+        labelCol={localStore.labelColLayout}
         // extra={props.field.helpText}
-        help={fStore.touched[id] ? (fStore.errors[id] ? fStore.errors[id] : props.field.helpText): ''}
+        help={localStore.helpText}
         required={props.field.isRequired}>
             {inputType == "input" && <InputView field={props.field} onChange={onChange} onBlur={onBlur}/>}
             {inputType == "radio" && <RadioView field={props.field} onChange={onChange} />}
