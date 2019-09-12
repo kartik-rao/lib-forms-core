@@ -1,2 +1,6 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{436:function(e,t,n){"use strict";n.r(t),n.d(t,"TextBlockView",function(){return u});var i=n(60),d=n(2);const u=e=>{let{field:t}=e,{defaultValue:n}=t.componentProps;return Object(i.b)(()=>d.createElement("p",{id:e.field.id,"data-uuid":e.field.uuid},n))}}}]);
+(window.webpackJsonpForms=window.webpackJsonpForms||[]).push([["textblock"],{"./src/views/controls/TextBlockView.tsx":
+/*!**********************************************!*\
+  !*** ./src/views/controls/TextBlockView.tsx ***!
+  \**********************************************/
+/*! exports provided: TextBlockView */function(e,t,o){"use strict";o.r(t),o.d(t,"TextBlockView",function(){return c});var r=o(/*! mobx-react */"./node_modules/mobx-react/dist/mobx-react.module.js"),s=o(/*! react */"react");const c=e=>{let{field:t}=e,{defaultValue:o}=t.componentProps;return Object(r.useObserver)(()=>s.createElement("p",{id:e.field.id,"data-uuid":e.field.uuid},o))}}}]);
 //# sourceMappingURL=textblock.chunk.js.map
