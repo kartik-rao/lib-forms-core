@@ -87,6 +87,7 @@ module.exports = {
     plugins: [
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new webpack.DefinePlugin({
+            __API_HOST__  : JSON.stringify(env == 'development' ? 'dev-api.forms.li' : env == 'staging' ? 'dev-api.forms.li' : 'api.forms.li'),
             __ASSET_PATH__: JSON.stringify(ASSET_PATH),
             __ENV__       : JSON.stringify(env),
             __DEBUG__     : JSON.stringify(isDevelopment ? true : false),

@@ -3,5 +3,8 @@ declare const _default: {
     debug: boolean;
     version: string;
     hostname: string;
+    assetPath: string;
+    apiHost: string;
+    autoRender: string;
 };
 export default _default;
