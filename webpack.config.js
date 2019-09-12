@@ -9,11 +9,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
 const isDevelopment = env == 'development';
+const isLocalServer = process.argv[1].indexOf('dev-server');
 
 module.exports = {
     mode: env,
     entry: {
-        main: path.join(__dirname, 'src/app.tsx')
+        main: path.join(__dirname, isLocalServer ? 'src/app-local.tsx' :'src/app.tsx')
     },
     target: 'web',
     module: {
@@ -63,12 +64,12 @@ module.exports = {
     output: {
         filename: '[name].bundle.js', /* Independent Entry Bundle */
         chunkFilename: '[name].chunk.js', /* Code splitting generated bundles */
-        path: path.join(__dirname, 'dist')
+        path: path.join(__dirname, 'dist'),
+        library: 'Forms'
     },
     watchOptions: {
         ignored: ['node_modules', 'dist', 'lib']
     },
-    watch: true,
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
@@ -76,14 +77,19 @@ module.exports = {
         'moment': 'moment'
     },
     devServer: {
+        watch: true,
         compress: true,
         hot: true,
         port: 8080
     },
     plugins: [
-        // Ignore all locale files of moment.js
-        // new CleanWebpackPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new webpack.DefinePlugin({
+            __ENV__     : JSON.stringify(env),
+            __DEBUG__   : JSON.stringify(isDevelopment ? true : false),
+            __VERSION__ : JSON.stringify(require("./package.json").version),
+            __HOSTNAME__: JSON.stringify(process.env.APP_HOST ? process.env.APP_HOST : "localhost")
+        }),
         new CheckerPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
