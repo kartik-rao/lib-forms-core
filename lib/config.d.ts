@@ -5,6 +5,5 @@ declare const _default: {
     hostname: string;
     assetPath: string;
     apiHost: string;
-    autoRender: string;
 };
 export default _default;
