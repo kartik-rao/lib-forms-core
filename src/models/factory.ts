@@ -79,7 +79,7 @@ export class Factory {
 
         columns.forEach((c: IColumn) => {
             Factory.ensureIds(c);
-            let fields = Factory.makeFields(store, ...c.fields);
+            let fields = c.fields && c.fields.length > 0 ? Factory.makeFields(store, ...c.fields) : <Field[]>[];
             if (!c.span) {
                 c.span = Math.floor(24/columns.length);
             }
@@ -109,7 +109,7 @@ export class Factory {
         let response: Page[] = [];
         pages.forEach((page: IPage) => {
             Factory.ensureIds(page);
-            let sections = Factory.makeSections(store, ...page.sections);
+            let sections = page.sections && page.sections.length > 0 ? Factory.makeSections(store, ...page.sections) : <Section[]>[];
             response.push(new Page({...page, sections: sections}, store));
         });
         return response;
