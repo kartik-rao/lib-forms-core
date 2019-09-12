@@ -9,7 +9,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const env = process.env.NODE_ENV || 'development';
 const isDevelopment = env == 'development';
-const isLocalServer = process.argv[1].indexOf('dev-server');
+const isLocalServer = process.argv[1].indexOf('dev-server') > -1;
+const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 module.exports = {
     mode: env,
@@ -48,7 +49,7 @@ module.exports = {
                 test: /\.css$/,
                 include: [
                     path.resolve(__dirname, 'src'),
-                    path.resolve(__dirname, 'node_modules/antd/dist/antd.css')
+                    path.resolve(__dirname, 'node_modules/antd')
                 ],
                 use: [{loader: MiniCssExtractPlugin.loader},
                     'css-loader'
@@ -65,7 +66,8 @@ module.exports = {
         filename: '[name].bundle.js', /* Independent Entry Bundle */
         chunkFilename: '[name].chunk.js', /* Code splitting generated bundles */
         path: path.join(__dirname, 'dist'),
-        library: 'Forms'
+        library: 'Forms',
+        publicPath: isLocalServer ? '/' : ASSET_PATH
     },
     watchOptions: {
         ignored: ['node_modules', 'dist', 'lib']
@@ -85,10 +87,11 @@ module.exports = {
     plugins: [
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new webpack.DefinePlugin({
-            __ENV__     : JSON.stringify(env),
-            __DEBUG__   : JSON.stringify(isDevelopment ? true : false),
-            __VERSION__ : JSON.stringify(require("./package.json").version),
-            __HOSTNAME__: JSON.stringify(process.env.APP_HOST ? process.env.APP_HOST : "localhost")
+            __ASSET_PATH__: JSON.stringify(ASSET_PATH),
+            __ENV__       : JSON.stringify(env),
+            __DEBUG__     : JSON.stringify(isDevelopment ? true : false),
+            __VERSION__   : JSON.stringify(require("./package.json").version),
+            __HOSTNAME__  : JSON.stringify(process.env.APP_HOST ? process.env.APP_HOST : "localhost")
         }),
         new CheckerPlugin(),
         new MiniCssExtractPlugin({
