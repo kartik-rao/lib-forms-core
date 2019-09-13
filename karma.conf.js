@@ -4,6 +4,8 @@ var path = require('path');
 require('jasmine-core').DEFAULT_TIMEOUT_INTERVAL = 2000;
 const tsImportPluginFactory = require('ts-import-plugin');
 var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+var webpack = require('webpack');
+
 module.exports = function (config) {
   config.set({    // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -117,7 +119,15 @@ module.exports = function (config) {
             }
         ]
       },
-      plugins: [new HardSourceWebpackPlugin()]
+      plugins: [new HardSourceWebpackPlugin(),
+        new webpack.DefinePlugin({
+        __API_HOST__  : JSON.stringify('dev-api.forms.li'),
+        __ASSET_PATH__: JSON.stringify("/"),
+        __ENV__       : JSON.stringify("development"),
+        __DEBUG__     : JSON.stringify(true),
+        __VERSION__   : JSON.stringify(require("./package.json").version),
+        __HOSTNAME__  : JSON.stringify("localhost")
+    }),]
     },
     webpackServer: {
       noInfo: true //please don't spam the console when running in karma!
