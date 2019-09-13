@@ -79,7 +79,6 @@ module.exports = {
         'moment': 'moment'
     },
     devServer: {
-        watch: true,
         compress: true,
         hot: true,
         port: 8080
