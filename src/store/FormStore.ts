@@ -2,6 +2,7 @@ import { observable } from "mobx";
 import { Field } from "../models/field";
 import { Form } from "../models/form";
 import { Page } from "../models/page";
+import config from '../config';
 
 export const createFormStore = () => {
     const store = {
@@ -9,12 +10,18 @@ export const createFormStore = () => {
         values: {},
         touched: {},
         currentPage: 0,
-        debug : (window && window.location.hostname.indexOf('localhost') > -1) ? true : false,
+        debug : config.debug,
+        showDebug: false,
         form :<Form> null,
         isReady: false,
         submitting: false,
         validationDisabled: false,
         conditionsDisabled: false,
+        preventRedirects : false,
+        preventSubmit : false,
+        toggleShowDebug: function () {
+            this.showDebug = !this.showDebug;
+        },
         get idFieldMap() : { [key:string]:Field; } {
             if (!this.form) {
                 return {}
@@ -64,7 +71,7 @@ export const createFormStore = () => {
             return this.currentPage > 0 && this.numPages > 1
         },
         get isSubmittable() : boolean {
-            return !(Object.keys(this.touched).length == 0 || !this.isValid|| this.isSubmitting);
+            return this.form ? this.form.isSubmittable : false;
         },
         nextPage : function () {
             if(!this.form) {
