@@ -6,9 +6,25 @@ import { valueOrDefault } from "./common";
 import { Field } from "./field";
 import { IFormContent, IFormProps, IFormStatus, IFormTenant } from "./form.properties";
 import { FormLayoutOptions, ItemLayoutOptions } from './layout';
-import {Page} from "./page";
+import { Page } from "./page";
 import { IValidationError } from "./validation";
 
+export enum SubmitState {
+    NOT_SUBMITTED = "Not Submitted",
+    SUBMITTING = "Submitting",
+    SUCCESS = "Success",
+    ERROR = "Error"
+}
+
+export enum SubmitResultType {
+    AWAITING_SUBMIT = "Awaiting Submit",
+    SUCCESS_REDIRECT = "Success Redirect",
+    ERROR_REDIRECT = "Error Redirect",
+    DEFAULT_SUCCESS_MESSAGE = "Default Success Message",
+    DEFAULT_ERROR_MESSAGE = "Default Error Message",
+    USER_SUCCESS_MESSAGE = "User Success Message",
+    USER_ERROR_MESSAGE = "User Error Message"
+}
 
 export class Form implements IFormProps {
     store: FormStoreType
@@ -22,13 +38,15 @@ export class Form implements IFormProps {
     @observable status: IFormStatus;
     @observable content: IFormContent;
     @observable layout: any;
-    @observable stopSubmit: boolean;
     @observable submitTarget: string;
     @observable submitError: string;
     @observable formLayoutOptions: FormLayoutOptions;
     @observable itemLayoutOptions: ItemLayoutOptions;
     @observable successRedirect: string;
     @observable errorRedirect: string;
+    @observable submitSuccessMessage?: string;
+    @observable submitErrorMessage?: string;
+    @observable submitState: SubmitState = SubmitState.NOT_SUBMITTED;
 
     @action initialize(data: IFormProps, store: FormStoreType) {
         this.store = store;
@@ -37,7 +55,11 @@ export class Form implements IFormProps {
         this.uuid = data.uuid;
         this.exid = valueOrDefault(data.exid, null);
         this.description = valueOrDefault(data.description, null);
-
+        this.submitTarget = data.submitTarget;
+        this.successRedirect = data.successRedirect;
+        this.errorRedirect = data.errorRedirect;
+        this.submitErrorMessage = data.submitErrorMessage;
+        this.submitSuccessMessage = data.submitErrorMessage;
         if (data.content) {
             this.content = {
                 title: valueOrDefault(data.content.title, null),
@@ -148,8 +170,11 @@ export class Form implements IFormProps {
     }
 
     @computed get isSubmittable() : boolean {
-        let validTarget =  !!this.stopSubmit ?  !this.stopSubmit : true
-        return this.errors.length == 0 && validTarget;
+        if(this.store.preventSubmit) {
+            return false;
+        }
+        let validSubmitState = this.submitState == SubmitState.ERROR || this.submitState == SubmitState.NOT_SUBMITTED;
+        return validSubmitState && !!this.submitTarget && this.errors.length == 0;
     }
 
     @computed get idFieldMap() : { [key:string]:Field; }  {
@@ -193,7 +218,9 @@ export class Form implements IFormProps {
             itemLayoutOptions : this.itemLayoutOptions,
             submitTarget : this.submitTarget,
             errorRedirect : this.errorRedirect,
-            successRedirect : this.successRedirect
+            successRedirect : this.successRedirect,
+            submitErrorMessage : this.submitErrorMessage,
+            submitSuccessMessage : this.submitErrorMessage
         }, {detectCycles : true, recurseEverything: true})
 
         if (this.content) {
@@ -213,11 +240,21 @@ export class Form implements IFormProps {
                 pages : this.content.pages ? (this.content.pages as Page[]).map((p) => {return p.asPlainObject}) : []
             }
         }
-
         return clone;
     }
 
-    @action.bound handleSubmit(e: FormEvent) {
+    @computed get submitResultType() : SubmitResultType {
+        if (this.submitState == SubmitState.NOT_SUBMITTED || this.submitState == SubmitState.SUBMITTING) {
+            return SubmitResultType.AWAITING_SUBMIT;
+        }
+        if(this.submitState == SubmitState.SUCCESS) {
+            return this.submitSuccessMessage ? SubmitResultType.USER_SUCCESS_MESSAGE : SubmitResultType.DEFAULT_SUCCESS_MESSAGE;
+        } else {
+            return this.submitErrorMessage ? SubmitResultType.USER_ERROR_MESSAGE : SubmitResultType.DEFAULT_ERROR_MESSAGE;
+        }
+    }
+
+    @action.bound async handleSubmit(e: FormEvent) {
         e.preventDefault();
         e.stopPropagation();
         this.store.setSubmitting(true);
@@ -228,26 +265,25 @@ export class Form implements IFormProps {
             let key = meta[id].fieldOptions.valuePropName || meta[id].name;
             payload[key] = values[id];
         });
-
+        let self = this;
         if(this.isSubmittable && !!this.submitTarget) {
-            axios.post(this.submitTarget, payload).catch((reason:any) => {
-                console.log('Submit Error', reason);
-                this.submitError = "There was an error submitting this form";
-                if (this.successRedirect) {
-                    setTimeout(()=> {
-                        window.location.href = this.successRedirect;
-                    }, 5000);
+            self.submitState = SubmitState.SUBMITTING;
+            try {
+                await axios.post(self.submitTarget, payload);
+                if(!self.store.preventRedirects && self.successRedirect) {
+                    window.location.href = self.successRedirect;
+                } else {
+                    self.submitState = SubmitState.SUCCESS;
+                    self.submitError = null;
                 }
-            }).then(() => {
-                this.store.setSubmitting(false);
-                if (this.successRedirect) {
-                    setTimeout(()=> {
-                        window.location.href = this.errorRedirect;
-                    }, 5000);
+            } catch (error) {
+                if (!self.store.preventRedirects && self.errorRedirect) {
+                    window.location.href = self.errorRedirect;
+                } else {
+                    self.submitState = SubmitState.ERROR;
+                    self.submitError = error;
                 }
-            })
-        } else {
-            console.dir(values);
+            }
         }
     }
 }
