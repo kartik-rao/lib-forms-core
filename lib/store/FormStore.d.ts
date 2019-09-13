@@ -6,11 +6,15 @@ export declare const createFormStore: () => {
     touched: {};
     currentPage: number;
     debug: boolean;
+    showDebug: boolean;
     form: Form;
     isReady: boolean;
     submitting: boolean;
     validationDisabled: boolean;
     conditionsDisabled: boolean;
+    preventRedirects: boolean;
+    preventSubmit: boolean;
+    toggleShowDebug: () => void;
     readonly idFieldMap: {
         [key: string]: Field;
     };

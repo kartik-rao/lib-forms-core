@@ -63,6 +63,8 @@ export interface IFormProps {
     itemLayoutOptions?: IItemLayoutOptions;
     stopSubmit?: boolean;
     submitTarget?: string;
+    submitSuccessMessage?: string;
+    submitErrorMessage?: string;
     successRedirect?: string;
     errorRedirect?: string;
 }

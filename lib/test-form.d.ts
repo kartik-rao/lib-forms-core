@@ -3,6 +3,7 @@ declare const _default: {
     name: string;
     description: string;
     layout: string;
+    submitTarget: string;
     content: {
         title: string;
         subtitle: string;

@@ -5,6 +5,21 @@ import { IFormContent, IFormProps, IFormStatus, IFormTenant } from "./form.prope
 import { FormLayoutOptions, ItemLayoutOptions } from './layout';
 import { Page } from "./page";
 import { IValidationError } from "./validation";
+export declare enum SubmitState {
+    NOT_SUBMITTED = "Not Submitted",
+    SUBMITTING = "Submitting",
+    SUCCESS = "Success",
+    ERROR = "Error"
+}
+export declare enum SubmitResultType {
+    AWAITING_SUBMIT = "Awaiting Submit",
+    SUCCESS_REDIRECT = "Success Redirect",
+    ERROR_REDIRECT = "Error Redirect",
+    DEFAULT_SUCCESS_MESSAGE = "Default Success Message",
+    DEFAULT_ERROR_MESSAGE = "Default Error Message",
+    USER_SUCCESS_MESSAGE = "User Success Message",
+    USER_ERROR_MESSAGE = "User Error Message"
+}
 export declare class Form implements IFormProps {
     store: FormStoreType;
     uuid: string;
@@ -16,13 +31,15 @@ export declare class Form implements IFormProps {
     status: IFormStatus;
     content: IFormContent;
     layout: any;
-    stopSubmit: boolean;
     submitTarget: string;
     submitError: string;
     formLayoutOptions: FormLayoutOptions;
     itemLayoutOptions: ItemLayoutOptions;
     successRedirect: string;
     errorRedirect: string;
+    submitSuccessMessage?: string;
+    submitErrorMessage?: string;
+    submitState: SubmitState;
     initialize(data: IFormProps, store: FormStoreType): void;
     constructor(data: IFormProps, store: FormStoreType);
     readonly isValid: boolean;
@@ -44,5 +61,6 @@ export declare class Form implements IFormProps {
         [key: string]: any;
     };
     readonly asPlainObject: IFormProps;
-    handleSubmit(e: FormEvent): void;
+    readonly submitResultType: SubmitResultType;
+    handleSubmit(e: FormEvent): Promise<void>;
 }

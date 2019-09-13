@@ -7,11 +7,15 @@ export declare const formStoreContext: React.Context<{
     touched: {};
     currentPage: number;
     debug: boolean;
+    showDebug: boolean;
     form: import("..").Form;
     isReady: boolean;
     submitting: boolean;
     validationDisabled: boolean;
     conditionsDisabled: boolean;
+    preventRedirects: boolean;
+    preventSubmit: boolean;
+    toggleShowDebug: () => void;
     readonly idFieldMap: {
         [key: string]: import("..").Field;
     };
