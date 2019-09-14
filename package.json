@@ -6,9 +6,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --hot --config webpack.config.js --mode development",
-    "test": "ts-node --ignore \"/node_modules/\" -T --project ./tsconfig.test.json node_modules/jasmine/bin/jasmine --config=./jasmine.json",
+    "test": "npm run karma",
     "karma": "cross-env NODE_ENV=development ./node_modules/.bin/karma start",
-    "build": "cross-env NODE_ENV=development tsc && cp src/*.css lib/",
+    "build": "cross-env NODE_ENV=development tsc && cp src/*.css lib/ && webpack --config webpack.module.config.js",
     "pack:dev": "cross-env NODE_ENV=development ASSET_PATH=https://dev-static.forms.li/lib/lib-forms-core/ node_modules/.bin/webpack",
     "pack": "cross-env NODE_ENV=production ASSET_PATH=https://static.forms.li/lib/lib-forms-core/ node_modules/.bin/webpack",
     "sync:dev": "aws s3 sync dist/ s3://fl-dev-webapp/lib/lib-forms-core/ --acl public-read --profile fl-infrastructure && aws s3 sync public/ s3://fl-dev-webapp/lib/lib-forms-core/public --acl public-read --profile fl-infrastructure",
