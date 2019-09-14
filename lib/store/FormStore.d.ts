@@ -1,11 +1,14 @@
 import { Field } from "../models/field";
 import { Form } from "../models/form";
 export declare const createFormStore: () => {
+    env: string;
+    debug: number | true;
+    version: string;
+    apiHost: string;
     errors: {};
     values: {};
     touched: {};
     currentPage: number;
-    debug: boolean;
     showDebug: boolean;
     form: Form;
     isReady: boolean;

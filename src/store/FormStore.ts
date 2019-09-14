@@ -2,15 +2,18 @@ import { observable } from "mobx";
 import { Field } from "../models/field";
 import { Form } from "../models/form";
 import { Page } from "../models/page";
-import config from '../config';
+import config from "../config";
 
 export const createFormStore = () => {
     const store = {
+        env : config.env,
+        debug : config.debug,
+        version: config.version,
+        apiHost: config.apiHost,
         errors : {},
         values: {},
         touched: {},
         currentPage: 0,
-        debug : config.debug,
         showDebug: false,
         form :<Form> null,
         isReady: false,
@@ -93,6 +96,7 @@ export const createFormStore = () => {
         },
         setForm : function (form: Form) {
             this.form = form;
+
         },
         setFieldValue: function (id: string, value: any) {
             this.values[id] = value;

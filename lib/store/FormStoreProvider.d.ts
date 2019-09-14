@@ -2,11 +2,14 @@ import * as React from "react";
 import { FormStoreType } from "./FormStore";
 import { IFormProps } from '../models/form.properties';
 export declare const formStoreContext: React.Context<{
+    env: string;
+    debug: number | true;
+    version: string;
+    apiHost: string;
     errors: {};
     values: {};
     touched: {};
     currentPage: number;
-    debug: boolean;
     showDebug: boolean;
     form: import("..").Form;
     isReady: boolean;

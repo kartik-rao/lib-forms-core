@@ -1,9 +1,7 @@
 declare const _default: {
     env: string;
-    debug: boolean;
+    debug: number | true;
     version: string;
-    hostname: string;
-    assetPath: string;
     apiHost: string;
 };
 export default _default;
