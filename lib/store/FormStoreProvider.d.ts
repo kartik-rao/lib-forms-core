@@ -3,7 +3,7 @@ import { FormStoreType } from "./FormStore";
 import { IFormProps } from '../models/form.properties';
 export declare const formStoreContext: React.Context<{
     env: string;
-    debug: number | true;
+    debug: number | boolean;
     version: string;
     apiHost: string;
     errors: {};

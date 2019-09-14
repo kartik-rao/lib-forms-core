@@ -2,7 +2,7 @@ import { Field } from "../models/field";
 import { Form } from "../models/form";
 export declare const createFormStore: () => {
     env: string;
-    debug: number | true;
+    debug: number | boolean;
     version: string;
     apiHost: string;
     errors: {};

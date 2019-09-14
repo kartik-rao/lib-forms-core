@@ -1,6 +1,6 @@
 declare const _default: {
     env: string;
-    debug: number | true;
+    debug: number | boolean;
     version: string;
     apiHost: string;
 };
