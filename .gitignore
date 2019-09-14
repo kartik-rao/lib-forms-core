@@ -1,3 +1,4 @@
 node_modules
 coverage
 .awcache
+lib/runtime~config.js
