@@ -154,7 +154,7 @@ export interface ITextAreaProps extends TextAreaProps {
 }
 export interface ITextBlockProps {
 }
-export declare type IComponentProps = IRangePickerProps | ICheckboxProps | ICheckboxGroupProps | IDatePickerProps | IDateRangeProps | INumberProps | IRadioGroupProps | ISelectProps | IInputProps | ICascaderProps | IStarRatingProps | ISwitchProps | ITransferProps | ISliderProps | ITextAreaProps | ITextBlockProps | IRadioProps;
+export declare type IComponentProps = IRangePickerProps | ICheckboxProps | ICheckboxGroupProps | IDatePickerProps | IDateRangeProps | INumberProps | IRadioGroupProps | ISelectProps | IInputProps | ICascaderProps | IStarRatingProps | ISwitchProps | ITransferProps | ISliderProps | ITextAreaProps | ITextBlockProps | IRadioProps | IHTMLFragmentProps;
 export interface IFieldStorage {
     unique: boolean;
     name: string;
