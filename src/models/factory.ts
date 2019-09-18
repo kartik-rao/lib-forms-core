@@ -3,7 +3,7 @@ import { Column, IColumn } from "./column";
 import { Condition, ICondition } from "./condition";
 import { IPredicate, Predicate } from "./condition.predicate";
 import { Field } from "./field";
-import { IFieldProps } from "./field.properties";
+import { IFieldProps, FieldTypes } from "./field.properties";
 import { Form } from "./form";
 import { IFormProps } from "./form.properties";
 import { IPage, Page } from "./page";
@@ -66,6 +66,12 @@ export class Factory {
         }
         return fields.reduce((r: Field[], f: IFieldProps) => {
             Factory.ensureIds(f);
+            if(f.inputType == FieldTypes.radiogroup || f.inputType == FieldTypes.checkboxgroup || f.inputType == FieldTypes.select) {
+                if (!f.componentProps) {
+                    f.componentProps = {};
+                }
+                f.componentProps["options"] = f.componentProps["options"] || [];
+            }
             r.push(new Field({...f, condition: f.condition}, store));
             return r;
         }, <Field[]>[]);

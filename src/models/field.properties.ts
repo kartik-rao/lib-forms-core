@@ -45,10 +45,12 @@ export interface IDateDurationConstraint {
     months?: number;
     days?: number;
 }
+
 export interface IDateRangeConstraint {
     from?: "now"|"start"|"end";
     relative: IDateDurationConstraint;
 }
+
 export interface ChoiceOption {
     label : string;
     value: any;
@@ -187,7 +189,7 @@ export interface ITextBlockProps {
 export type IComponentProps = IRangePickerProps | ICheckboxProps|ICheckboxGroupProps|IDatePickerProps|IDateRangeProps|
                             INumberProps|IRadioGroupProps|ISelectProps|IInputProps|ICascaderProps|
                             IStarRatingProps|ISwitchProps|ITransferProps|ISliderProps|ITextAreaProps|
-                            ITextBlockProps | IRadioProps;
+                            ITextBlockProps | IRadioProps | IHTMLFragmentProps;
 
 export interface IFieldStorage {
     unique: boolean;
