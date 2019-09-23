@@ -4,6 +4,7 @@
   "description": "Core interfaces for forms",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": ["lib/**/*"],
   "scripts": {
     "start": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --hot --config webpack.config.js --mode development",
     "test": "npm run karma",
