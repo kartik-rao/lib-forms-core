@@ -12,5 +12,5 @@ export declare class Condition {
     constructor(data: ICondition, store: FormStoreType);
     addPredicates(...p: IPredicate[]): void;
     reduce(lhs: any, rhs: any, op: string): boolean;
-    readonly value: boolean;
+    get value(): boolean;
 }

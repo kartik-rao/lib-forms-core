@@ -20,21 +20,21 @@ export declare class Column implements IColumn {
     title: string;
     fields: Field[];
     store: FormStoreType;
-    readonly errors: IValidationError[];
-    readonly isValid: boolean;
-    readonly idFieldMap: {
+    get errors(): IValidationError[];
+    get isValid(): boolean;
+    get idFieldMap(): {
         [key: string]: Field;
     };
-    readonly uuidFieldMap: {
+    get uuidFieldMap(): {
         [key: string]: Field;
     };
-    readonly numFields: number;
+    get numFields(): number;
     addField(field: Field, index?: number): void;
     addFields(...fields: Field[]): void;
     removeField(index: number): void;
     swapFields(index1: number, index2: number): void;
     moveField(atIndex: number, toIndex: number): void;
     constructor(data: IColumn, store: any);
-    readonly asPlainObject: IColumn;
+    get asPlainObject(): IColumn;
     initialize(data: IColumn, store: FormStoreType): void;
 }

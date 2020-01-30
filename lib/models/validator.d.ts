@@ -11,12 +11,12 @@ export declare class Validator {
     field: Field;
     rule: ValidationRule;
     validationErrors: IValidationError[];
-    readonly isValid: boolean;
-    readonly errors: IValidationError[];
+    get isValid(): boolean;
+    get errors(): IValidationError[];
     formatError(errors: any): IValidationError;
-    readonly isValidateable: boolean;
+    get isValidateable(): boolean;
     validate(): void;
-    readonly isRequired: boolean;
+    get isRequired(): boolean;
     initialize(data: IValidationProps): void;
     constructor(data: IValidationProps);
 }

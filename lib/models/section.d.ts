@@ -19,21 +19,21 @@ export declare class Section implements ISection {
     gutter: number;
     columns: Column[];
     store: FormStoreType;
-    readonly errors: IValidationError[];
-    readonly numFields: number;
+    get errors(): IValidationError[];
+    get numFields(): number;
     addColumn(column: Column, index?: number): void;
     removeColumn(index: number): void;
     swapColumns(index1: number, index2: number): void;
     moveColumn(atIndex: number, toIndex: number): void;
-    readonly numColumns: number;
-    readonly isValid: boolean;
-    readonly idFieldMap: {
+    get numColumns(): number;
+    get isValid(): boolean;
+    get idFieldMap(): {
         [key: string]: Field;
     };
-    readonly uuidFieldMap: {
+    get uuidFieldMap(): {
         [key: string]: Field;
     };
-    readonly asPlainObject: ISection;
+    get asPlainObject(): ISection;
     initialize(data: ISection, store: FormStoreType): void;
     constructor(data: ISection, store: FormStoreType);
 }

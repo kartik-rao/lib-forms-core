@@ -42,25 +42,25 @@ export declare class Form implements IFormProps {
     submitState: SubmitState;
     initialize(data: IFormProps, store: FormStoreType): void;
     constructor(data: IFormProps, store: FormStoreType);
-    readonly isValid: boolean;
-    readonly numPages: number;
-    readonly numFields: number;
+    get isValid(): boolean;
+    get numPages(): number;
+    get numFields(): number;
     addPage(p: Page, index?: number): void;
     removePage(index: number): void;
     swapPages(index1: number, index2: number): void;
     movePage(atIndex: number, toIndex: number): void;
-    readonly isSubmittable: boolean;
-    readonly idFieldMap: {
+    get isSubmittable(): boolean;
+    get idFieldMap(): {
         [key: string]: Field;
     };
-    readonly uuidFieldMap: {
+    get uuidFieldMap(): {
         [key: string]: Field;
     };
-    readonly errors: IValidationError[];
-    readonly values: {
+    get errors(): IValidationError[];
+    get values(): {
         [key: string]: any;
     };
-    readonly asPlainObject: IFormProps;
-    readonly submitResultType: SubmitResultType;
+    get asPlainObject(): IFormProps;
+    get submitResultType(): SubmitResultType;
     handleSubmit(e: FormEvent): Promise<void>;
 }

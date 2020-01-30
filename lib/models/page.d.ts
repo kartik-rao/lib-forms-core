@@ -21,23 +21,23 @@ export declare class Page implements IPage {
     title: string;
     subtitle: string;
     store: FormStoreType;
-    readonly fieldNames: string[];
-    readonly fieldIds: string[];
-    readonly idFieldMap: {
+    get fieldNames(): string[];
+    get fieldIds(): string[];
+    get idFieldMap(): {
         [key: string]: Field;
     };
-    readonly uuidFieldMap: {
+    get uuidFieldMap(): {
         [key: string]: Field;
     };
-    readonly errors: IValidationError[];
-    readonly isValid: boolean;
-    readonly numSections: number;
-    readonly numFields: number;
+    get errors(): IValidationError[];
+    get isValid(): boolean;
+    get numSections(): number;
+    get numFields(): number;
     addSection(section: Section, index?: number): void;
     removeSection(index: number): void;
     swapSections(index1: number, index2: number): void;
     moveSection(atIndex: number, toIndex: number): void;
-    readonly asPlainObject: IPage;
+    get asPlainObject(): IPage;
     private initialize;
     constructor(data: IPage, store: FormStoreType);
 }

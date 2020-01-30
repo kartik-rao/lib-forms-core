@@ -73,7 +73,7 @@ export declare class ValidationRule implements IValidationRule {
     url: URLConstraint;
     constructor(rule: IValidationRule);
     initialize(rule?: IValidationRule): void;
-    readonly constraints: IValidationRule;
+    get constraints(): IValidationRule;
     addConstraint(key: string, settings: GenericConstraint): void;
     updateConstraint(key: string, settings: GenericConstraint): void;
     removeConstraint(key: string): void;
