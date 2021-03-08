@@ -28,7 +28,7 @@
   "author": "Kartik Rao",
   "license": "UNLICENSED",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "lodash": "^4.17.19",
     "react-drag-listview": "^0.1.4",
     "react-highlight-words": "^0.16.0",
