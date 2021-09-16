@@ -32,7 +32,7 @@
     "lodash": "^4.17.19",
     "react-drag-listview": "^0.1.4",
     "react-highlight-words": "^0.16.0",
-    "set-value": "^3.0.1",
+    "set-value": "^4.0.1",
     "tslib": "^1.9.3",
     "uuid": "^3.3.2",
     "validate.js": "^0.12.0"
